@@ -1,4 +1,4 @@
-package hu.wurfel.refference.school.view;
+package hu.wurfel.refference.school.controll;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,6 @@
-package hu.wurfel.refference.school.controll;
+package hu.wurfel.refference.school.controll.services;
 
-import hu.wurfel.refference.school.daos.Student;
+import hu.wurfel.refference.school.model.daos.Student;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

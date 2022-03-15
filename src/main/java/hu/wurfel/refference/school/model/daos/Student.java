@@ -1,4 +1,6 @@
-package hu.wurfel.refference.school.daos;
+package hu.wurfel.refference.school.model.daos;
+
+import hu.wurfel.refference.school.model.daos.DAO;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
