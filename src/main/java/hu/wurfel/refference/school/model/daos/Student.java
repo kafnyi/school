@@ -1,17 +1,15 @@
 package hu.wurfel.refference.school.model.daos;
 
-import hu.wurfel.refference.school.model.daos.DAO;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-public class Student implements DAO {
+public class Student{
 	@Id
 	@Column(name = "SCID", nullable = false, length = 11,table = "student")
-	private int ID;
+	private Long ID;
 	@Column(name = "SName", nullable = false, table = "student")
 	private String Name;
 	@Column(name = "SBirth", nullable = false, table = "student")
@@ -20,17 +18,17 @@ public class Student implements DAO {
 	private int Diary;
 
 	public Student() {}
-	public Student (int Id, String Nm, Date BD, int Dr){
+	public Student (Long Id, String Nm, Date BD, int Dr){
 		this.ID=Id;
 		this.Name= Nm;
 		this.Birthdate=BD;
 		this.Diary=Dr;
 	}
 
-	public int getID() {
+	public Long getID() {
 		return ID;
 	}
-	public void setID(int SCNumber) {
+	public void setID(Long SCNumber) {
 		this.ID = SCNumber;
 	}
 

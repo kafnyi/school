@@ -1,4 +1,4 @@
-package hu.wurfel.refference.school.controll.services;
+package hu.wurfel.refference.school.services;
 
 import hu.wurfel.refference.school.model.daos.Student;
 import org.springframework.stereotype.Repository;
