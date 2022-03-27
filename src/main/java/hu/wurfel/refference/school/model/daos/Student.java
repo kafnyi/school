@@ -18,6 +18,7 @@ public class Student{
 	private int Diary;
 
 	public Student() {}
+
 	public Student (Long Id, String Nm, Date BD, int Dr){
 		this.ID=Id;
 		this.Name= Nm;

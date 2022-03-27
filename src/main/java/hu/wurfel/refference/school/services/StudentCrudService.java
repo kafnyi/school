@@ -5,15 +5,13 @@ import hu.wurfel.refference.school.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class StudentCrudService {
 
 	@Autowired
 	private StudentRepository studentRepository;
 
-	public List<Student> getStudentList() {
+	public Iterable<Student> getAllStudent() {
 		return studentRepository.FindAll();
 	}
 

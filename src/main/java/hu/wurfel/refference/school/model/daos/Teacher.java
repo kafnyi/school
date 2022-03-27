@@ -15,11 +15,22 @@ public class Teacher {
 	@Column(name = "TBirth", nullable = false, table = "teacher")
 	private Date Birthdate;
 	@Column(name = "TDiaryID", nullable = false, table = "teacher")
-	private  int DiaryID;
+	private int DiaryID;
+
+	public Teacher() {
+	}
+
+	public Teacher(Long ID, String name, Date birthdate, int diaryID) {
+		this.ID = ID;
+		Name = name;
+		Birthdate = birthdate;
+		DiaryID = diaryID;
+	}
 
 	public Long getID() {
 		return ID;
 	}
+
 	public void setID(Long ID) {
 		this.ID = ID;
 	}
