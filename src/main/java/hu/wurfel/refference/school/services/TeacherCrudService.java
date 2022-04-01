@@ -5,6 +5,8 @@ import hu.wurfel.refference.school.repositories.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class TeacherCrudService {
 
@@ -12,24 +14,28 @@ public class TeacherCrudService {
 	private TeacherRepository teacherRepository;
 
 	public Iterable<Teacher> getAllTeacher() {
-		return teacherRepository.FindAll();
+		return teacherRepository.findAll();
 	}
 
 	public Teacher getTeacherById(Long Id) {
-		return teacherRepository.FindById(Id);
+		return teacherRepository.findByID(Id);
 	}
 
-	public Teacher getTeacherByName(String Name) {
-		return teacherRepository.FindByName(Name);
+	public Teacher getTeacherByName(String name) {
+		return teacherRepository.findByTName(name);
 	}
 
-	public Teacher getTeacherByDiary(int Diary) {
-		return teacherRepository.FindByDiary(Diary);
+	public Teacher getTeacherByDiary(int diary) {
+		return teacherRepository.findByTDiaryID(diary);
+	}
+
+	public Teacher getTeacherByBirth(Date date) {
+		return teacherRepository.findByTBirth(date);
 	}
 
 	public Teacher addTeacher(Teacher teacher) {
 		teacherRepository.save(teacher);
-		return teacherRepository.FindById(teacher.getID());
+		return teacherRepository.findByID(teacher.getID());
 	}
 
 	public void deleteTeacher(Teacher teacher) {

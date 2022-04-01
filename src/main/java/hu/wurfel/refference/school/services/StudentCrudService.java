@@ -5,6 +5,8 @@ import hu.wurfel.refference.school.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class StudentCrudService {
 
@@ -12,24 +14,28 @@ public class StudentCrudService {
 	private StudentRepository studentRepository;
 
 	public Iterable<Student> getAllStudent() {
-		return studentRepository.FindAll();
+		return studentRepository.findAll();
 	}
 
 	public Student getStudentById(Long Id) {
-		return studentRepository.FindById(Id);
+		return studentRepository.findByID(Id);
 	}
 
-	public Student getStudentByName(String Name) {
-		return studentRepository.FindByName(Name);
+	public Student getStudentByName(String name) {
+		return studentRepository.findBySName(name);
 	}
 
-	public Student getStudentByDiary(int Diary) {
-		return studentRepository.FindByDiary(Diary);
+	public Student getStudentBySBirth(Date date) {
+		return studentRepository.findBySBirth(date);
+	}
+
+	public Student getStudentByDiary(int diary) {
+		return studentRepository.findBySDiaryID(diary);
 	}
 
 	public Student addStudent(Student student) {
 		studentRepository.save(student);
-		return studentRepository.FindById(student.getID());
+		return studentRepository.findByID(student.getID());
 	}
 
 	public void deleteStudent(Student student) {

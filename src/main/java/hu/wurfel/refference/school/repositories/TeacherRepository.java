@@ -4,16 +4,20 @@ import hu.wurfel.refference.school.model.daos.Teacher;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+
 @Repository
 public interface TeacherRepository extends CrudRepository<Teacher, Long> {
 
-	Iterable<Teacher> FindAll();
+	Iterable<Teacher> findAll();
 
-	Teacher FindById(Long Id);
+	Teacher findByID(Long Id);
 
-	Teacher FindByName(String Name);
+	Teacher findByTName(String Name);
 
-	Teacher FindByDiary(int Diary);
+	Teacher findByTBirth(Date Birth);
+
+	Teacher findByTDiaryID(int Diary);
 
 
 }

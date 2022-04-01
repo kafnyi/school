@@ -1,4 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
       xmlns:o="urn:schemas-microsoft-com:office:office">
 
@@ -10,129 +11,68 @@
         }
     </style>
     <meta name="description" content="Home page"/>
-    <script type="text/javascript">
-        <!--
-        function FP_swapImg() {//v1.0
-            var doc = document, args = arguments, elm, n;
-            doc.$imgSwaps = new Array();
-            for (n = 2; n < args.length;
-                 n += 2) {
-                elm = FP_getObjectByID(args[n]);
-                if (elm) {
-                    doc.$imgSwaps[doc.$imgSwaps.length] = elm;
-                    elm.$src = elm.src;
-                    elm.src = args[n + 1];
-                }
-            }
-        }
-
-        function FP_preloadImgs() {//v1.0
-            var d = document, a = arguments;
-            if (!d.FP_imgs) d.FP_imgs = new Array();
-            for (var i = 0; i < a.length; i++) {
-                d.FP_imgs[i] = new Image;
-                d.FP_imgs[i].src = a[i];
-            }
-        }
-
-        function FP_getObjectByID(id, o) {//v1.0
-            var c, el, els, f, m, n;
-            if (!o) o = document;
-            if (o.getElementById) el = o.getElementById(id);
-            else if (o.layers) c = o.layers; else if (o.all) el = o.all[id];
-            if (el) return el;
-            if (o.id == id || o.name == id) return o;
-            if (o.childNodes) c = o.childNodes;
-            if (c)
-                for (n = 0; n < c.length; n++) {
-                    el = FP_getObjectByID(id, c[n]);
-                    if (el) return el;
-                }
-            f = o.forms;
-            if (f) for (n = 0; n < f.length; n++) {
-                els = f[n].elements;
-                for (m = 0; m < els.length; m++) {
-                    el = FP_getObjectByID(id, els[n]);
-                    if (el) return el;
-                }
-            }
-            return null;
-        }
-
-        // -->
-    </script>
+    <script type="text/javascript" src="/static/main.js"></script>
     <title>Home</title>
 </head>
 
-<body onload="FP_preloadImgs(/*url*/'static/button16.jpg',/*url*/'static/button17.jpg',/*url*/'static/button19.jpg',/*url*/'static/button1A.jpg',/*url*/'static/button1C.jpg',/*url*/'static/button1D.jpg',/*url*/'static/button1F.jpg',/*url*/'static/button20.jpg',/*url*/'static/button22.jpg',/*url*/'static/button23.jpg')"
+<body onload="FP_preloadImgs(/*url*/'/static/button16.jpg',/*url*/'/static/button17.jpg',/*url*/'/static/button19.jpg',/*url*/'/static/button1A.jpg',/*url*/'/static/button1C.jpg',/*url*/'/static/button1D.jpg',/*url*/'/static/button1F.jpg',/*url*/'/static/button20.jpg',/*url*/'/static/button22.jpg',/*url*/'/static/button23.jpg',/*url*/'/static/button8.jpg',/*url*/'/static/button9.jpg',/*url*/'/static/buttonB.jpg',/*url*/'/static/buttonC.jpg',/*url*/'/static/buttonE.jpg',/*url*/'/static/buttonF.jpg',/*url*/'/static/button11.jpg',/*url*/'/static/button12.jpg')"
       style="background-color: #CCFFFF">
 
 <table style="width: 100%">
     <tr>
         <th class="style1" style="height: 10px">
-            <a href="/">
-                <img style="border: 0" id="img1" src="/static/button15.jpg" height="20" width="100" alt="Home"
-                     onmouseover="FP_swapImg(1,0,/*id*/'img1',/*url*/'/static/button16.jpg')"
-                     onmouseout="FP_swapImg(0,0,/*id*/'img1',/*url*/'/static/button15.jpg')"
-                     onmousedown="FP_swapImg(1,0,/*id*/'img1',/*url*/'/static/button17.jpg')"
-                     onmouseup="FP_swapImg(0,0,/*id*/'img1',/*url*/'/static/button16.jpg')"/>
+            <a href="/home">
+                <img alt="Home" height="20" id="img1"
+                     onmousedown="FP_swapImg(1,0,/*id*/'img1',/*url*/'/static/button9.jpg')"
+                     onmouseout="FP_swapImg(0,0,/*id*/'img1',/*url*/'/static/button7.jpg')"
+                     onmouseover="FP_swapImg(1,0,/*id*/'img1',/*url*/'/static/button8.jpg')"
+                     onmouseup="FP_swapImg(0,0,/*id*/'img1',/*url*/'/static/button8.jpg')"
+                     src="/static/button7.jpg"
+                     style="border: 0"
+                     width="100"/>
                 <!-- MSComment="ibutton" fp-style="fp-btn: Embossed Capsule 5" fp-title="Home" --></a><br/>
-            <a href="/gallery">
-                <img style="border: 0" id="img2" src="/static/button18.jpg" height="20" width="100" alt="Gallery"
-                     onmouseover="FP_swapImg(1,0,/*id*/'img2',/*url*/'/static/button19.jpg')"
-                     onmouseout="FP_swapImg(0,0,/*id*/'img2',/*url*/'/static/button18.jpg')"
-                     onmousedown="FP_swapImg(1,0,/*id*/'img2',/*url*/'/static/button1A.jpg')"
-                     onmouseup="FP_swapImg(0,0,/*id*/'img2',/*url*/'/static/button19.jpg')"/>
-                <!-- MSComment="ibutton" fp-style="fp-btn: Embossed Capsule 5" fp-title="Gallery" --></a><br/>
             <a href="/about">
-                <img style="border: 0" id="img3" src="/static/button1B.jpg" height="20" width="100" alt="About"
-                     onmouseover="FP_swapImg(1,0,/*id*/'img3',/*url*/'/static/button1C.jpg')"
-                     onmouseout="FP_swapImg(0,0,/*id*/'img3',/*url*/'/static/button1B.jpg')"
-                     onmousedown="FP_swapImg(1,0,/*id*/'img3',/*url*/'/static/button1D.jpg')"
-                     onmouseup="FP_swapImg(0,0,/*id*/'img3',/*url*/'/static/button1C.jpg')"/>
-                <!-- MSComment="ibutton" fp-style="fp-btn: Embossed Capsule 5" fp-title="About" --></a><br/>
+                <img alt="About" height="20" id="img2"
+                     onmousedown="FP_swapImg(1,0,/*id*/'img2',/*url*/'/static/buttonC.jpg')"
+                     onmouseout="FP_swapImg(0,0,/*id*/'img2',/*url*/'/static/buttonA.jpg')"
+                     onmouseover="FP_swapImg(1,0,/*id*/'img2',/*url*/'/static/buttonB.jpg')"
+                     onmouseup="FP_swapImg(0,0,/*id*/'img2',/*url*/'/static/buttonB.jpg')"
+                     src="/static/buttonA.jpg"
+                     style="border: 0"
+                     width="100"/>
+                <!-- MSComment="ibutton" fp-style="fp-btn: Embossed Capsule 5" fp-title="About" --></a><a
+                href="/contact">
+            <!-- MSComment="ibutton" fp-style="fp-btn: Embossed Capsule 5" fp-title="Contact" --></a>
+            <br/>
             <a href="/contact">
-                <img style="border: 0" id="img4" src="/static/button1E.jpg" height="20" width="100" alt="Contact"
-                     onmouseover="FP_swapImg(1,0,/*id*/'img4',/*url*/'/static/button1F.jpg')"
-                     onmouseout="FP_swapImg(0,0,/*id*/'img4',/*url*/'/static/button1E.jpg')"
-                     onmousedown="FP_swapImg(1,0,/*id*/'img4',/*url*/'/static/button20.jpg')"
-                     onmouseup="FP_swapImg(0,0,/*id*/'img4',/*url*/'/static/button1F.jpg')"/>
+                <img alt="Contact" height="20" id="img3"
+                     onmousedown="FP_swapImg(1,0,/*id*/'img3',/*url*/'/static/buttonF.jpg')"
+                     onmouseout="FP_swapImg(0,0,/*id*/'img3',/*url*/'/static/buttonD.jpg')"
+                     onmouseover="FP_swapImg(1,0,/*id*/'img3',/*url*/'/static/buttonE.jpg')"
+                     onmouseup="FP_swapImg(0,0,/*id*/'img3',/*url*/'/static/buttonE.jpg')"
+                     src="/static/buttonD.jpg"
+                     style="border: 0"
+                     width="100"/>
                 <!-- MSComment="ibutton" fp-style="fp-btn: Embossed Capsule 5" fp-title="Contact" --></a></th>
         <th class="style1" style="height: 10%">
-            <a href="/">
-                <img alt="Home" src="/static/schoolimg.jpg" width="900" height="300" longdesc="Home"/></a></th>
+            <img alt="Home" height="425" longdesc="Home" src="/static/schoolimg.jpg" width="850"/></th>
         <th class="style1" style="height: 10px">
             <a href="/login">
-                <img style="border: 0" id="img5" src="/static/button21.jpg" height="20" width="100" alt="Log in"
-                     onmouseover="FP_swapImg(1,0,/*id*/'img5',/*url*/'/static/button22.jpg')"
-                     onmouseout="FP_swapImg(0,0,/*id*/'img5',/*url*/'/static/button21.jpg')"
-                     onmousedown="FP_swapImg(1,0,/*id*/'img5',/*url*/'/static/button23.jpg')"
-                     onmouseup="FP_swapImg(0,0,/*id*/'img5',/*url*/'/static/button22.jpg')"/>
-                <!-- MSComment="ibutton" fp-style="fp-btn: Embossed Capsule 5" fp-title="Log in" --></a></th>
+                <img alt="Log In" height="20" id="img4"
+                     onmousedown="FP_swapImg(1,0,/*id*/'img4',/*url*/'/static/button12.jpg')"
+                     onmouseout="FP_swapImg(0,0,/*id*/'img4',/*url*/'/static/button10.jpg')"
+                     onmouseover="FP_swapImg(1,0,/*id*/'img4',/*url*/'/static/button11.jpg')"
+                     onmouseup="FP_swapImg(0,0,/*id*/'img4',/*url*/'/static/button11.jpg')"
+                     src="/static/button10.jpg"
+                     style="border: 0"
+                     width="100"/>
+                <!-- MSComment="ibutton" fp-style="fp-btn: Embossed Capsule 5" fp-title="Log In" --></a><a
+                href="/login">
+            <!-- MSComment="ibutton" fp-style="fp-btn: Embossed Capsule 5" fp-title="Log in" --></a></th>
     </tr>
     <tr>
         <td colspan="3" style="height: 80%">
-            <hr/>
-            <p class="style6"
-               style="text-decoration: underline; text-align: center; font-size: x-large; color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
-                <strong>Welcome to the W.School project!</strong></p>
-            <p style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
-                &nbsp;</p>
-            <p style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
-                This is a small and minimalistic design for the
-                project. This HTML codemass target only the
-                presentation of the backend.</p>
-            <p style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
-                The&nbsp; right menu-bar is highly undeveloped,
-                and its remain this form, cause in my perception,
-                no need for any design in a presentation, but
-                substence. But without the need of perfection,
-                its usable.</p>
-            <p style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
-                &nbsp;</p>
-            <p style="color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
-                If its enough for the introduction, then please
-                click on the &quot;Log in&quot; button!</p>
+            This will be the resoult of request
         </td>
     </tr>
     <tr>
