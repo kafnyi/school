@@ -35,28 +35,28 @@ public class Teacher {
 		this.ID = ID;
 	}
 
-	public String getTName() {
+	public String getName() {
 		return TName;
 	}
 
-	public void setTName(String TName) {
+	public void setName(String TName) {
 		this.TName = TName;
 	}
 
-	public Date getTBirth() {
+	public Date getBirth() {
 		return TBirth;
 	}
 
-	public void setTBirth(Date TBirth) {
+	public void setBirth(Date TBirth) {
 		this.TBirth = TBirth;
 	}
 
-	public int getTDiaryID() {
+	public int getDiaryID() {
 		return TDiaryID;
 	}
 
-	public void setTDiaryID(int TDiaryID) {
-		this.TDiaryID = TDiaryID;
+	public void setDiaryID(int TDiaryID) {
+	this.TDiaryID = TDiaryID;
 	}
 
 	@Override

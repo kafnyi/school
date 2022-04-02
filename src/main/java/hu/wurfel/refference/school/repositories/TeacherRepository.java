@@ -19,5 +19,4 @@ public interface TeacherRepository extends CrudRepository<Teacher, Long> {
 
 	Teacher findByTDiaryID(int Diary);
 
-
 }

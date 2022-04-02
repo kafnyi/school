@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-public class Student{
+public class Student {
 	@Id
 	@Column(name = "SCID", nullable = false, length = 11, table = "student")
 	private Long ID;
@@ -17,7 +17,8 @@ public class Student{
 	@Column(name = "SDiaryID", nullable = false, table = "student")
 	private int SDiaryID;
 
-	public Student() {}
+	public Student() {
+	}
 
 	public Student(Long Id, String Nm, Date BD, Integer Dr) {
 		this.ID = Id;
@@ -29,6 +30,7 @@ public class Student{
 	public Long getID() {
 		return ID;
 	}
+
 	public void setID(Long SCNumber) {
 		this.ID = SCNumber;
 	}

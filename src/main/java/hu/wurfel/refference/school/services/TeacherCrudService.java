@@ -38,6 +38,36 @@ public class TeacherCrudService {
 		return teacherRepository.findByID(teacher.getID());
 	}
 
+	public Teacher addTeacher(Long id, String name, Date birth, int diary) {
+		Teacher teacher = new Teacher(id, name, birth, diary);
+		teacherRepository.save(teacher);
+		return teacherRepository.findByID(teacher.getID());
+	}
+
+	public Teacher setTeacherID(Teacher teacher, Long id) {
+		teacher.setID(id);
+		teacherRepository.save(teacher);
+		return teacherRepository.findByID(teacher.getID());
+	}
+
+	public Teacher setTeacherName(Teacher teacher, String name) {
+		teacher.setName(name);
+		teacherRepository.save(teacher);
+		return teacherRepository.findByID(teacher.getID());
+	}
+
+	public Teacher setTeacherBirth(Teacher teacher, Date date) {
+		teacher.setBirth(date);
+		teacherRepository.save(teacher);
+		return teacherRepository.findByID(teacher.getID());
+	}
+
+	public Teacher setTeacherDiaryID(Teacher teacher, int id) {
+		teacher.setDiaryID(id);
+		teacherRepository.save(teacher);
+		return teacherRepository.findByID(teacher.getID());
+	}
+
 	public void deleteTeacher(Teacher teacher) {
 		teacherRepository.delete(teacher);
 	}
