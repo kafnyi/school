@@ -6,60 +6,62 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-public class Student{
+public class Student {
 	@Id
-	@Column(name = "SCID", nullable = false, length = 11,table = "student")
+	@Column(name = "SCID", nullable = false, length = 11, table = "student")
 	private Long ID;
 	@Column(name = "SName", nullable = false, table = "student")
-	private String Name;
+	private String SName;
 	@Column(name = "SBirth", nullable = false, table = "student")
-	private Date Birthdate;
+	private Date SBirth;
 	@Column(name = "SDiaryID", nullable = false, table = "student")
-	private int Diary;
+	private int SDiaryID;
 
-	public Student() {}
-	public Student (Long Id, String Nm, Date BD, int Dr){
-		this.ID=Id;
-		this.Name= Nm;
-		this.Birthdate=BD;
-		this.Diary=Dr;
+	public Student() {
+	}
+
+	public Student(Long Id, String Nm, Date BD, Integer Dr) {
+		this.ID = Id;
+		this.SName = Nm;
+		this.SBirth = BD;
+		this.SDiaryID = Dr;
 	}
 
 	public Long getID() {
 		return ID;
 	}
+
 	public void setID(Long SCNumber) {
 		this.ID = SCNumber;
 	}
 
 	public String getName() {
-		return Name;
+		return SName;
 	}
+
 	public void setName(String name) {
-		this.Name = name;
+		this.SName = name;
 	}
 
-	public Date getBirthdate() {
-		return Birthdate;
-	}
-	public void setBirthdate(Date SBirthdate) {
-		this.Birthdate = SBirthdate;
+	public Date getSBirth() {
+		return SBirth;
 	}
 
-	public int getDiary() {
-		return Diary;
+	public void setSBirth(Date SBirthdate) {
+		this.SBirth = SBirthdate;
 	}
-	public void setDiary(int SDiary) {
-		this.Diary = SDiary;
+
+	public int getSDiaryID() {
+		return SDiaryID;
+	}
+
+	public void setSDiaryID(int SDiary) {
+		this.SDiaryID = SDiary;
 	}
 
 	@Override
 	public String toString() {
-		return "Student{" +
-				"Card Number=" + ID +
-				", Name='" + Name + '\'' +
-				", Birthdate=" + Birthdate +
-				", Diary=" + Diary +
-				'}';
+		return "Student{" + "Card Number=" + ID + ", Name='" + SName + '\'' + ", Birthdate=" + SBirth + ", Diary="
+				+ SDiaryID + '}';
 	}
 }

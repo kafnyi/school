@@ -11,47 +11,57 @@ public class Teacher {
 	@Column(name = "TID", nullable = false, table = "teacher", length = 6)
 	private Long ID;
 	@Column(name = "TName", nullable = false, table = "teacher")
-	private String Name;
+	private String TName;
 	@Column(name = "TBirth", nullable = false, table = "teacher")
-	private Date Birthdate;
+	private Date TBirth;
 	@Column(name = "TDiaryID", nullable = false, table = "teacher")
-	private  int DiaryID;
+	private int TDiaryID;
+
+	public Teacher() {
+	}
+
+	public Teacher(Long ID, String name, Date birthdate, int diaryID) {
+		this.ID = ID;
+		TName = name;
+		TBirth = birthdate;
+		TDiaryID = diaryID;
+	}
 
 	public Long getID() {
 		return ID;
 	}
+
 	public void setID(Long ID) {
 		this.ID = ID;
 	}
 
 	public String getName() {
-		return Name;
-	}
-	public void setName(String name) {
-		Name = name;
+		return TName;
 	}
 
-	public Date getBirthdate() {
-		return Birthdate;
+	public void setName(String TName) {
+		this.TName = TName;
 	}
-	public void setBirthdate(Date birthdate) {
-		Birthdate = birthdate;
+
+	public Date getBirth() {
+		return TBirth;
+	}
+
+	public void setBirth(Date TBirth) {
+		this.TBirth = TBirth;
 	}
 
 	public int getDiaryID() {
-		return DiaryID;
+		return TDiaryID;
 	}
-	public void setDiaryID(int diaryID) {
-		DiaryID = diaryID;
+
+	public void setDiaryID(int TDiaryID) {
+		this.TDiaryID = TDiaryID;
 	}
 
 	@Override
 	public String toString() {
-		return "Teacher{" +
-				"ID=" + ID +
-				", Name='" + Name + '\'' +
-				", Birthdate=" + Birthdate +
-				", DiaryID=" + DiaryID +
-				'}';
+		return "Teacher{" + "ID=" + ID + ", Name='" + TName + '\'' + ", Birthdate=" + TBirth + ", DiaryID=" + TDiaryID
+				+ '}';
 	}
 }
