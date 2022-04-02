@@ -61,7 +61,11 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student{" + "Card Number=" + ID + ", Name='" + SName + '\'' + ", Birthdate=" + SBirth + ", Diary="
-				+ SDiaryID + '}';
+		return "Student{" +
+				"Card Number=" + ID +
+				", Name='" + SName + '\'' +
+				", Birthdate=" + SBirth +
+				", Diary=" + SDiaryID +
+				'}';
 	}
 }

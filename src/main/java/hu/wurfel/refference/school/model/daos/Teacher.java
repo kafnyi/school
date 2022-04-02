@@ -56,12 +56,16 @@ public class Teacher {
 	}
 
 	public void setDiaryID(int TDiaryID) {
-		this.TDiaryID = TDiaryID;
+	this.TDiaryID = TDiaryID;
 	}
 
 	@Override
 	public String toString() {
-		return "Teacher{" + "ID=" + ID + ", Name='" + TName + '\'' + ", Birthdate=" + TBirth + ", DiaryID=" + TDiaryID
-				+ '}';
+		return "Teacher{" +
+				"ID=" + ID +
+				", Name='" + TName + '\'' +
+				", Birthdate=" + TBirth +
+				", DiaryID=" + TDiaryID +
+				'}';
 	}
 }
