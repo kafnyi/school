@@ -2,6 +2,7 @@ package hu.wurfel.refference.school.services;
 
 import hu.wurfel.refference.school.model.daos.Student;
 import hu.wurfel.refference.school.repositories.StudentRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class StudentCrudService {
 		return studentRepository.findBySDiaryID(diary);
 	}
 
-	public Student addStudent(Student student) {
+	public Student addStudent(@NotNull Student student) {
 		studentRepository.save(student);
 		return studentRepository.findByID(student.getID());
 	}
@@ -44,25 +45,25 @@ public class StudentCrudService {
 		return studentRepository.findByID(student.getID());
 	}
 
-	public Student setStudentID(Student student, Long id) {
+	public Student setStudentID(@NotNull Student student, Long id) {
 		student.setID(id);
 		studentRepository.save(student);
 		return studentRepository.findByID(student.getID());
 	}
 
-	public Student setStudentName(Student student, String name) {
+	public Student setStudentName(@NotNull Student student, String name) {
 		student.setName(name);
 		studentRepository.save(student);
 		return studentRepository.findByID(student.getID());
 	}
 
-	public Student setStudentBirth(Student student, Date date) {
+	public Student setStudentBirth(@NotNull Student student, Date date) {
 		student.setSBirth(date);
 		studentRepository.save(student);
 		return studentRepository.findByID(student.getID());
 	}
 
-	public Student setStudentDiaryID(Student student, int id) {
+	public Student setStudentDiaryID(@NotNull Student student, int id) {
 		student.setSDiaryID(id);
 		studentRepository.save(student);
 		return studentRepository.findByID(student.getID());
@@ -71,5 +72,4 @@ public class StudentCrudService {
 	public void deleteStudent(Student student) {
 		studentRepository.delete(student);
 	}
-
 }

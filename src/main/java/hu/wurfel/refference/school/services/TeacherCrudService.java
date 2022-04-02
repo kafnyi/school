@@ -2,6 +2,7 @@ package hu.wurfel.refference.school.services;
 
 import hu.wurfel.refference.school.model.daos.Teacher;
 import hu.wurfel.refference.school.repositories.TeacherRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class TeacherCrudService {
 		return teacherRepository.findByTBirth(date);
 	}
 
-	public Teacher addTeacher(Teacher teacher) {
+	public Teacher addTeacher(@NotNull Teacher teacher) {
 		teacherRepository.save(teacher);
 		return teacherRepository.findByID(teacher.getID());
 	}
@@ -44,25 +45,25 @@ public class TeacherCrudService {
 		return teacherRepository.findByID(teacher.getID());
 	}
 
-	public Teacher setTeacherID(Teacher teacher, Long id) {
+	public Teacher setTeacherID(@NotNull Teacher teacher, Long id) {
 		teacher.setID(id);
 		teacherRepository.save(teacher);
 		return teacherRepository.findByID(teacher.getID());
 	}
 
-	public Teacher setTeacherName(Teacher teacher, String name) {
+	public Teacher setTeacherName(@NotNull Teacher teacher, String name) {
 		teacher.setName(name);
 		teacherRepository.save(teacher);
 		return teacherRepository.findByID(teacher.getID());
 	}
 
-	public Teacher setTeacherBirth(Teacher teacher, Date date) {
+	public Teacher setTeacherBirth(@NotNull Teacher teacher, Date date) {
 		teacher.setBirth(date);
 		teacherRepository.save(teacher);
 		return teacherRepository.findByID(teacher.getID());
 	}
 
-	public Teacher setTeacherDiaryID(Teacher teacher, int id) {
+	public Teacher setTeacherDiaryID(@NotNull Teacher teacher, int id) {
 		teacher.setDiaryID(id);
 		teacherRepository.save(teacher);
 		return teacherRepository.findByID(teacher.getID());
@@ -71,5 +72,4 @@ public class TeacherCrudService {
 	public void deleteTeacher(Teacher teacher) {
 		teacherRepository.delete(teacher);
 	}
-
 }

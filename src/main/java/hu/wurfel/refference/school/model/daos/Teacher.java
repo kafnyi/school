@@ -56,7 +56,7 @@ public class Teacher {
 	}
 
 	public void setDiaryID(int TDiaryID) {
-	this.TDiaryID = TDiaryID;
+		this.TDiaryID = TDiaryID;
 	}
 
 	@Override
