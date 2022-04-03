@@ -4,8 +4,6 @@ import hu.wurfel.refference.school.model.daos.Student;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-
 @Repository
 public interface StudentRepository extends CrudRepository<Student, Long> {
 
@@ -15,7 +13,7 @@ public interface StudentRepository extends CrudRepository<Student, Long> {
 
 	Student findBySName(String Name);
 
-	Student findBySBirth(Date Birth);
+	Student findBySBirth(String Birth);
 
 	Student findBySDiaryID(int Diary);
 

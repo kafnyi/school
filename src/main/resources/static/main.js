@@ -46,21 +46,14 @@ function FP_getObjectByID(id, o) {//v1.0
 }
 
 function searchForStudent(id, name, birth, diary) {
-    let URL: "/api/v1/searchStudent"
-    $.post(URL)
-
     let xhr = new XMLHttpRequest();
     let url = "/api/v1/searchStudent";
     xhr.open("POST", url, true);
-    xhr.setRequestHeader("search", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-
-        }
-    };
-    const search = {"id=": id, "name=": name, "birth=": birth, "diary=": diary};
-    const data = JSON.stringify(search);
-    xhr.send(data);
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        const search = {ID: id, Name: name, Birth: birth, Diary: diary};
+        const data = JSON.stringify(search);
+        xhr.send(data);
+    }
 
 }
 

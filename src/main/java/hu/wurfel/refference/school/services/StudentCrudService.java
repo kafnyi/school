@@ -6,8 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
 public class StudentCrudService {
 
@@ -26,7 +24,7 @@ public class StudentCrudService {
 		return studentRepository.findBySName(name);
 	}
 
-	public Student getStudentByBirth(Date date) {
+	public Student getStudentByBirth(String date) {
 		return studentRepository.findBySBirth(date);
 	}
 
@@ -39,7 +37,7 @@ public class StudentCrudService {
 		return studentRepository.findByID(student.getID());
 	}
 
-	public Student addStudent(long id, String name, Date birth, int diary) {
+	public Student addStudent(long id, String name, String birth, int diary) {
 		Student student = new Student(id, name, birth, diary);
 		studentRepository.save(student);
 		return studentRepository.findByID(student.getID());
@@ -57,7 +55,7 @@ public class StudentCrudService {
 		return studentRepository.findByID(student.getID());
 	}
 
-	public Student setStudentBirth(@NotNull Student student, Date date) {
+	public Student setStudentBirth(@NotNull Student student, String date) {
 		student.setSBirth(date);
 		studentRepository.save(student);
 		return studentRepository.findByID(student.getID());

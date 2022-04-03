@@ -3,7 +3,6 @@ package hu.wurfel.refference.school.model.daos;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Date;
 
 @Entity
 public class Student {
@@ -13,14 +12,14 @@ public class Student {
 	@Column(name = "SName", nullable = false, table = "student")
 	private String SName;
 	@Column(name = "SBirth", nullable = false, table = "student")
-	private Date SBirth;
+	private String SBirth;
 	@Column(name = "SDiaryID", nullable = false, table = "student")
 	private int SDiaryID;
 
 	public Student() {
 	}
 
-	public Student(long Id, String Nm, Date BD, Integer Dr) {
+	public Student(long Id, String Nm, String BD, Integer Dr) {
 		this.ID = Id;
 		this.SName = Nm;
 		this.SBirth = BD;
@@ -43,11 +42,11 @@ public class Student {
 		this.SName = name;
 	}
 
-	public Date getSBirth() {
+	public String getSBirth() {
 		return SBirth;
 	}
 
-	public void setSBirth(Date SBirthdate) {
+	public void setSBirth(String SBirthdate) {
 		this.SBirth = SBirthdate;
 	}
 
