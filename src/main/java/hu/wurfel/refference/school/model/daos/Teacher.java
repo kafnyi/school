@@ -20,18 +20,18 @@ public class Teacher {
 	public Teacher() {
 	}
 
-	public Teacher(Long ID, String name, Date birthdate, int diaryID) {
+	public Teacher(long ID, String name, Date birthdate, int diaryID) {
 		this.ID = ID;
 		TName = name;
 		TBirth = birthdate;
 		TDiaryID = diaryID;
 	}
 
-	public Long getID() {
+	public long getID() {
 		return ID;
 	}
 
-	public void setID(Long ID) {
+	public void setID(long ID) {
 		this.ID = ID;
 	}
 
@@ -39,8 +39,8 @@ public class Teacher {
 		return TName;
 	}
 
-	public void setName(String TName) {
-		this.TName = TName;
+	public void setName(String Name) {
+		this.TName = Name;
 	}
 
 	public Date getBirth() {

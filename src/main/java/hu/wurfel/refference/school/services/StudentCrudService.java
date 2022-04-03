@@ -18,7 +18,7 @@ public class StudentCrudService {
 		return studentRepository.findAll();
 	}
 
-	public Student getStudentById(Long Id) {
+	public Student getStudentById(long Id) {
 		return studentRepository.findByID(Id);
 	}
 
@@ -26,7 +26,7 @@ public class StudentCrudService {
 		return studentRepository.findBySName(name);
 	}
 
-	public Student getStudentBySBirth(Date date) {
+	public Student getStudentByBirth(Date date) {
 		return studentRepository.findBySBirth(date);
 	}
 
@@ -39,13 +39,13 @@ public class StudentCrudService {
 		return studentRepository.findByID(student.getID());
 	}
 
-	public Student addStudent(Long id, String name, Date birth, int diary) {
+	public Student addStudent(long id, String name, Date birth, int diary) {
 		Student student = new Student(id, name, birth, diary);
 		studentRepository.save(student);
 		return studentRepository.findByID(student.getID());
 	}
 
-	public Student setStudentID(@NotNull Student student, Long id) {
+	public Student setStudentID(@NotNull Student student, long id) {
 		student.setID(id);
 		studentRepository.save(student);
 		return studentRepository.findByID(student.getID());

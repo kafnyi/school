@@ -18,7 +18,7 @@ public class TeacherCrudService {
 		return teacherRepository.findAll();
 	}
 
-	public Teacher getTeacherById(Long Id) {
+	public Teacher getTeacherById(long Id) {
 		return teacherRepository.findByID(Id);
 	}
 
@@ -39,13 +39,13 @@ public class TeacherCrudService {
 		return teacherRepository.findByID(teacher.getID());
 	}
 
-	public Teacher addTeacher(Long id, String name, Date birth, int diary) {
+	public Teacher addTeacher(long id, String name, Date birth, int diary) {
 		Teacher teacher = new Teacher(id, name, birth, diary);
 		teacherRepository.save(teacher);
 		return teacherRepository.findByID(teacher.getID());
 	}
 
-	public Teacher setTeacherID(@NotNull Teacher teacher, Long id) {
+	public Teacher setTeacherID(@NotNull Teacher teacher, long id) {
 		teacher.setID(id);
 		teacherRepository.save(teacher);
 		return teacherRepository.findByID(teacher.getID());

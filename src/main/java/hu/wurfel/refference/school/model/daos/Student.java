@@ -9,7 +9,7 @@ import java.util.Date;
 public class Student {
 	@Id
 	@Column(name = "SCID", nullable = false, length = 11, table = "student")
-	private Long ID;
+	private long ID;
 	@Column(name = "SName", nullable = false, table = "student")
 	private String SName;
 	@Column(name = "SBirth", nullable = false, table = "student")
@@ -20,18 +20,18 @@ public class Student {
 	public Student() {
 	}
 
-	public Student(Long Id, String Nm, Date BD, Integer Dr) {
+	public Student(long Id, String Nm, Date BD, Integer Dr) {
 		this.ID = Id;
 		this.SName = Nm;
 		this.SBirth = BD;
 		this.SDiaryID = Dr;
 	}
 
-	public Long getID() {
+	public long getID() {
 		return ID;
 	}
 
-	public void setID(Long SCNumber) {
+	public void setID(long SCNumber) {
 		this.ID = SCNumber;
 	}
 
