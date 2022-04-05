@@ -53,7 +53,23 @@ function searchForStudent(id, name, birth, diary) {
         const search = {ID: id, Name: name, Birth: birth, Diary: diary};
         const data = JSON.stringify(search);
         xhr.send(data);
+        let response = xhr.responseText;
+        let jsonResp = JSON.parse(response);
+        return jsonResp;
     }
 
 }
 
+function createResponseTable(json) {
+    var i;
+    var response = json.response;
+    var table = "<tr><th>Card Number</th><th>Name</th></tr>";
+    var x = response.getElementsByTagName("CD");
+    for (i = 0; i < x.length; i++) {
+        table += "<tr><td>" +
+            x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue +
+            "</td><td>" +
+            x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
+            "</td></tr>";
+    }
+}

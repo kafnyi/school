@@ -4,7 +4,7 @@ import hu.wurfel.refference.school.model.Naming;
 import hu.wurfel.refference.school.model.StudentSearchDto;
 
 public class Validate {
-	public static Naming entity(StudentSearchDto S) {
+	public static Naming StudentSearchDTO(StudentSearchDto S) {
 		if (S.getID() == 0) {
 			if (S.getName().trim().equals("")) {
 				if (S.getDate().trim().equals("")) {

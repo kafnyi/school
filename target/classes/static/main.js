@@ -49,10 +49,10 @@ function searchForStudent(id, name, birth, diary) {
     let xhr = new XMLHttpRequest();
     let url = "/api/v1/searchStudent";
     xhr.open("POST", url, true);
-    if (xhr.readyState === 4 && xhr.status === 200){
-    const search = {ID: id, Name: name, Birth: birth, Diary: diary};
-    const data = JSON.stringify(search);
-    xhr.send(data);
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        const search = {ID: id, Name: name, Birth: birth, Diary: diary};
+        const data = JSON.stringify(search);
+        xhr.send(data);
     }
 
 }

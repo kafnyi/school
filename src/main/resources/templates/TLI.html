@@ -21,36 +21,18 @@
 <table style="width: 100%">
     <tr>
         <th class="style1" style="height: 10px">
-            <a href="/profile">
-                <img alt="Profile" height="20" id="img5"
-                     onmousedown="FP_swapImg(1,0,/*id*/'img5',/*url*/'/static/button15.jpg')"
-                     onmouseout="FP_swapImg(0,0,/*id*/'img5',/*url*/'/static/button13.jpg')"
-                     onmouseover="FP_swapImg(1,0,/*id*/'img5',/*url*/'/static/button14.jpg')"
-                     onmouseup="FP_swapImg(0,0,/*id*/'img5',/*url*/'/static/button14.jpg')"
-                     src="/static/button13.jpg"
-                     style="border: 0"
-                     width="100"/>
-                <!-- MSComment="ibutton" fp-style="fp-btn: Embossed Capsule 5" fp-title="Profile" --></a><br/>
-            <a href="/diary">
-                <img alt="Diary" height="20" id="img6"
-                     onmousedown="FP_swapImg(1,0,/*id*/'img6',/*url*/'/static/button18.jpg')"
-                     onmouseout="FP_swapImg(0,0,/*id*/'img6',/*url*/'/static/button16.jpg')"
-                     onmouseover="FP_swapImg(1,0,/*id*/'img6',/*url*/'/static/button17.jpg')"
-                     onmouseup="FP_swapImg(0,0,/*id*/'img6',/*url*/'/static/button17.jpg')"
-                     src="/static/button16.jpg"
-                     style="border: 0"
-                     width="100"/>
-                <!-- MSComment="ibutton" fp-style="fp-btn: Embossed Capsule 5" fp-title="Diary" --></a><br/>
-            <a href="/search">
-                <img alt="Search" height="20" id="img7"
-                     onmousedown="FP_swapImg(1,0,/*id*/'img7',/*url*/'/static/button1E.jpg')"
-                     onmouseout="FP_swapImg(0,0,/*id*/'img7',/*url*/'/static/button1C.jpg')"
-                     onmouseover="FP_swapImg(1,0,/*id*/'img7',/*url*/'/static/button1D.jpg')"
-                     onmouseup="FP_swapImg(0,0,/*id*/'img7',/*url*/'/static/button1D.jpg')"
-                     src="/static/button1C.jpg"
-                     style="border: 0"
-                     width="100"/>
-                <!-- MSComment="ibutton" fp-style="fp-btn: Embossed Capsule 5" fp-title="Search" --></a></th>
+            <form action="/profile" method="post">
+                <button type="submit" style="width: 100px">Profile</button>
+            </form>
+            <br/>
+            <form action="/diary" method="post">
+                <button type="submit" style="width: 100px">Diary</button>
+            </form>
+            <br/>
+            <form action="/Search" method="post">
+                <button type="submit" style="width: 100px">Search</button>
+            </form>
+        </th>
         <th class="style1" style="height: 10%">
             <a href="/profile">
                 <img alt="Home" height="350" longdesc="Home" src="/static/schoolimg.jpg" width="950"/></a></th>
@@ -62,26 +44,25 @@
         </th>
     </tr>
     <tr>
-        <form action="/login/search" method="post">
+
             <td style="width: 10%">
                 <!--webbot bot="Validation" s-display-name="Card Number" s-data-type="Number" s-number-separators="x," b-value-required="TRUE" i-minimum-length="11" i-maximum-length="11" s-validation-constraint="Greater than or equal to" s-validation-value="11111111111" s-validation-constraint="Less than or equal to" s-validation-value="99999999999" -->
                 <input maxlength="11" name="CNt" placeholder="Card Number" type="text"/>
-        </form>
         </td>
         <td class="style1" style="width: 25%">
-            <input name="Nt" placeholder="Name" style="width: 330px" type="text"/></form>
+            <input name="Nt" placeholder="Name" style="width: 330px" type="text"/>
         </td>
         <td class="style1" style="width: 25%">
             <!--webbot bot="Validation" s-data-type="String" s-allow-other-chars="dddd.dd.dd" b-value-required="TRUE" i-minimum-length="10" i-maximum-length="10" -->
-            <input maxlength="10" name="BDt" placeholder="Birthday" style="width: 130px" type="text"/></form>
+            <input maxlength="10" name="BDt" placeholder="Birthday" style="width: 130px" type="text"/>
         </td>
         <td class="style1" style="width: 25%">
             <!--webbot bot="Validation" s-display-name="Diary ID" s-data-type="Number" s-number-separators="x," b-value-required="TRUE" i-minimum-length="1" i-maximum-length="8" s-validation-constraint="Greater than" s-validation-value="0" s-validation-constraint="Less than" s-validation-value="100000000" -->
-            <input maxlength="8" name="Dt" placeholder="diarz ID" type="text"/></form>
+            <input maxlength="8" name="Dt" placeholder="diary ID" type="text"/>
         </td>
         <td class="style1" rowspan="2" style="width: 15%">
-            <button type="button" style="width: 100px">Search</button>
-            </form></td>
+            <button type="submit" onclick="" style="width: 100px">Search</button>
+        </td>
     </tr>
     <tr>
 
@@ -98,5 +79,15 @@
 </table>
 
 </body>
+<script>
+    function submitSearch() {
+        let CNTtd = document.getElementsByName('CNt');
+        let Ntd = document.getElementsByName('Nt');
+        let BDtd = document.getElementsByName('BDtd');
+        let Dtd = document.getElementsByName('Dt');
+        let json = searchForStudent(CNTtd, Ntd, BDtd, Dtd);
+        createResponseTable()
+    }
+</script>
 
 </html>
