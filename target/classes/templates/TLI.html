@@ -23,13 +23,16 @@
         <th class="style1" style="height: 10px">
             <form action="/profile" method="post">
                 <button type="submit" style="width: 100px">Profile</button>
-            </form> <br/>
+            </form>
+            <br/>
             <form action="/diary" method="post">
                 <button type="submit" style="width: 100px">Diary</button>
-            </form> <br/>
+            </form>
+            <br/>
             <form action="/Search" method="post">
                 <button type="submit" style="width: 100px">Search</button>
-            </form> </th>
+            </form>
+        </th>
         <th class="style1" style="height: 10%">
             <a href="/profile">
                 <img alt="Home" height="350" longdesc="Home" src="/static/schoolimg.jpg" width="950"/></a></th>
@@ -41,7 +44,7 @@
         </th>
     </tr>
     <tr>
-        <form>
+
             <td style="width: 10%">
                 <!--webbot bot="Validation" s-display-name="Card Number" s-data-type="Number" s-number-separators="x," b-value-required="TRUE" i-minimum-length="11" i-maximum-length="11" s-validation-constraint="Greater than or equal to" s-validation-value="11111111111" s-validation-constraint="Less than or equal to" s-validation-value="99999999999" -->
                 <input maxlength="11" name="CNt" placeholder="Card Number" type="text"/>
@@ -58,12 +61,10 @@
             <input maxlength="8" name="Dt" placeholder="diary ID" type="text"/>
         </td>
         <td class="style1" rowspan="2" style="width: 15%">
-            <button type="submit" onclick="searchForStudent(document.getElementsByName(`CNt`),document.getElementsByName(`Nt`),document.getElementsByName(`BDt`),document.getElementsByName(`Dt`))" style="width: 100px">Search</button>
-            </form></td>
+            <button type="submit" onclick="applySearch()" style="width: 100px">Search</button>
+        </td>
     </tr>
-    <tr>
-
-    </tr>
+    <span id="tableGenerated"></span>
 
     <tr>
         <td class="style1" colspan="3" style="height: 5%">
@@ -76,5 +77,22 @@
 </table>
 
 </body>
+<script>
+        function applySearch() {
+        let resultTable = submitSearch();
+        document.getElementsByName(resultTable).innerHTML = tableGenerated
+    }
+
+    function submitSearch() {
+        let CNTtd = document.getElementsByName('CNt');
+        let Ntd = document.getElementsByName('Nt');
+        let BDtd = document.getElementsByName('BDtd');
+        let Dtd = document.getElementsByName('Dt');
+        let json = searchForStudent(CNTtd, Ntd, BDtd, Dtd);
+       let table = createResponseTable(json);
+       window.alert("generate success")
+        document.getElementsByName(table).innerHTML = tableGenerated;
+    }
+</script>
 
 </html>

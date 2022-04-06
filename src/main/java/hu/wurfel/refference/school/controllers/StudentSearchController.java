@@ -32,6 +32,7 @@ public class StudentSearchController {
 			case Diary -> result.add(scs.getStudentByDiary(searchDto.getDiary()));
 			case Empty -> result = (ArrayList<Student>) scs.getAllStudent();
 		}
+		System.out.println("response sending");
 		return ResponseEntity.ok(result);
 
 	}

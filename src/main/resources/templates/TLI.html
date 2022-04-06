@@ -61,12 +61,10 @@
             <input maxlength="8" name="Dt" placeholder="diary ID" type="text"/>
         </td>
         <td class="style1" rowspan="2" style="width: 15%">
-            <button type="submit" onclick="" style="width: 100px">Search</button>
+            <button type="submit" onclick="applySearch()" style="width: 100px">Search</button>
         </td>
     </tr>
-    <tr>
-
-    </tr>
+    <span id="tableGenerated"></span>
 
     <tr>
         <td class="style1" colspan="3" style="height: 5%">
@@ -80,13 +78,20 @@
 
 </body>
 <script>
+    function applySearch() {
+        let resultTable = submitSearch();
+        document.getElementsByName(resultTable).innerHTML = tableGenerated
+    }
+
     function submitSearch() {
         let CNTtd = document.getElementsByName('CNt');
         let Ntd = document.getElementsByName('Nt');
         let BDtd = document.getElementsByName('BDtd');
         let Dtd = document.getElementsByName('Dt');
         let json = searchForStudent(CNTtd, Ntd, BDtd, Dtd);
-        createResponseTable()
+        let table = createResponseTable(json);
+        window.alert("generate success")
+        document.getElementsByName(table).innerHTML = tableGenerated;
     }
 </script>
 
