@@ -47,17 +47,18 @@ function FP_getObjectByID(id, o) {//v1.0
 
 function searchForStudent(id, name, birth, diary) {
     let xhr = new XMLHttpRequest();
-    let url = "/api/v1/searchStudent";
+    let url = "/api/v1/studentSearch";
     xhr.open("POST", url, true);
-    xhr.onreadystatechange= function (){
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        let response = xhr.responseText;
-        let jsonResp = JSON.parse(response);
-        return jsonResp;
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let response = xhr.responseText;
+            let jsonResp = JSON.parse(response);
+            return jsonResp;
+        }
     }
         const search = {ID: id, Name: name, Birth: birth, Diary: diary};
-        const data = JSON.stringify(search);}
-        xhr.send(data);
+        const data = JSON.stringify(search);
+    xhr.send(data);
 }
 
 function createResponseTable(json) {

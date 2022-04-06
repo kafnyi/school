@@ -78,7 +78,7 @@
 
 </body>
 <script>
-        function applySearch() {
+    function applySearch() {
         let resultTable = submitSearch();
         document.getElementsByName(resultTable).innerHTML = tableGenerated
     }
@@ -89,10 +89,11 @@
         let BDtd = document.getElementsByName('BDtd');
         let Dtd = document.getElementsByName('Dt');
         let json = searchForStudent(CNTtd, Ntd, BDtd, Dtd);
-       let table = createResponseTable(json);
-       window.alert("generate success")
+        let table = createResponseTable(json);
+        window.alert("generate success")
         document.getElementsByName(table).innerHTML = tableGenerated;
     }
+
 </script>
 
 </html>
