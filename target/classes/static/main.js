@@ -45,37 +45,4 @@ function FP_getObjectByID(id, o) {//v1.0
     return null;
 }
 
-function searchForStudent(id, name, birth, diary) {
-    let xhr = new XMLHttpRequest();
-    let url = "/api/v1/studentSearch";
-    xhr.open("POST", url, true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = xhr.responseText;
-            let jsonResp = JSON.parse(response);
-            return jsonResp;
-        }
-    }
-        const search = {ID: id, Name: name, Birth: birth, Diary: diary};
-        const data = JSON.stringify(search);
-    xhr.send(data);
-}
 
-function createResponseTable(json) {
-    var i;
-    var response = json.response;
-    var table = "<tr><th>Card Number</th><th>Name</th><th>Birth date</th><th>Diary ID</th></tr>";
-    var x = response.getElementsByTagName("ID");
-    for (i = 0; i < x.length; i++) {
-        table += "<tr><td>" +
-            x[i].getElementsByTagName("ID")[0].childNodes[0].nodeValue +
-            "</td><td>" +
-            x[i].getElementsByTagName("SName")[0].childNodes[0].nodeValue +
-            "</td><td>" +
-            x[i].getElementsByTagName("SBirth")[0].childNodes[0].nodeValue +
-            "</td><td>" +
-            x[i].getElementsByTagName("SDiary")[0].childNodes[0].nodeValue +
-            "</td></tr>";
-    }
-    return table;
-}

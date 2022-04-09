@@ -6,6 +6,6 @@ import lombok.Data;
 public class StudentSearchRequestDto {
 	private String ID;
 	private String Name;
-	private String Date;
+	private String Birth;
 	private String Diary;
 }

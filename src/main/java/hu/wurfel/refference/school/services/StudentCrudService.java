@@ -6,13 +6,15 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class StudentCrudService {
 
 	@Autowired
 	private StudentRepository studentRepository;
 
-	public Iterable<Student> getAllStudent() {
+	public ArrayList<Student> getAllStudent() {
 		return studentRepository.findAll();
 	}
 

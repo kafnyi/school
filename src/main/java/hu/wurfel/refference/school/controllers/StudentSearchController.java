@@ -20,20 +20,24 @@ public class StudentSearchController {
 	@Autowired
 	private StudentCrudService scs;
 
-	@PostMapping("/api/v1/studentSearch")
-	public ResponseEntity<Iterable<Student>> findStudent(@RequestBody StudentSearchRequestDto requestDto) {
-		System.out.println(requestDto);
-		ArrayList<Student> result = new ArrayList<Student>();
-		StudentSearchDto searchDto = StudentSearchTranslate.translate(requestDto);
-		switch (Validate.StudentSearchDTO(searchDto)) {
-			case ID -> result.add(scs.getStudentById(searchDto.getID()));
-			case Name -> result.add(scs.getStudentByName(searchDto.getName()));
-			case Birth -> result.add(scs.getStudentByBirth(searchDto.getDate()));
-			case Diary -> result.add(scs.getStudentByDiary(searchDto.getDiary()));
-			case Empty -> result = (ArrayList<Student>) scs.getAllStudent();
-		}
-		System.out.println("response sending");
-		return ResponseEntity.ok(result);
+//	@RequestMapping(value = "/login/searchForStudent", method = RequestMethod.POST,
+//	                consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+//	                produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+@PostMapping(value = "/login/searchForStudent", produces = "application/json", consumes = "application/json")
+public ResponseEntity<Iterable<Student>> findStudent(@RequestBody StudentSearchRequestDto requestDto) {
+	System.out.println(requestDto);
+	ArrayList<Student> result = new ArrayList<Student>();
+	StudentSearchDto searchDto = StudentSearchTranslate.translate(Validate.requestContent(requestDto));
+	switch (Validate.searchFor(searchDto)) {
+		case ID -> result.add(scs.getStudentById(searchDto.getID()));
+		case Name -> result.add(scs.getStudentByName(searchDto.getName()));
+		case Birth -> result.add(scs.getStudentByBirth(searchDto.getDate()));
+		case Diary -> result.add(scs.getStudentByDiary(searchDto.getDiary()));
+		case Empty -> result = scs.getAllStudent();
+	}
+	System.out.println(result);
+	System.out.println("response sending");
+	return ResponseEntity.ok(result);
 
 	}
 
