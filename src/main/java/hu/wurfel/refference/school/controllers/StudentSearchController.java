@@ -23,8 +23,8 @@ public class StudentSearchController {
 @PostMapping(value = "/login/searchForStudent")
 public ResponseEntity<ArrayList<Student>> findStudent(@RequestBody StudentSearchRequestDto requestDto) {
 	StudentSearchRequestDto ssrd = requestDto;
-	System.out.println(requestDto.getId());
-	System.out.println(ssrd.getId());
+	System.out.println(requestDto.getID());
+	System.out.println(ssrd.getID());
 	ArrayList<Student> result = new ArrayList<Student>();
 	StudentSearchDto searchDto = StudentSearchTranslate.translate(Validate.requestContent(ssrd));
 	switch (Validate.searchFor(searchDto)) {

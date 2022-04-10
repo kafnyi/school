@@ -2,50 +2,50 @@ package hu.wurfel.refference.school.model;
 
 
 public class StudentSearchRequestDto {
-	private String id;
-	private String name;
-	private String birth;
-	private String diary;
+	private String ID;
+	private String Name;
+	private String Birth;
+	private String Diary;
 
 	public StudentSearchRequestDto(String ID, String name, String birth, String diary) {
-		this.id = ID;
-		this.name = name;
-		this.birth = birth;
-		this.diary = diary;
+		this.ID = ID;
+		this.Name = name;
+		this.Birth = birth;
+		this.Diary = diary;
 	}
 
 	public StudentSearchRequestDto() {
 	}
 
-	public String getId() {
-		return id;
+	public String getID() {
+		return ID;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setID(String ID) {
+		this.ID = ID;
 	}
 
 	public String getName() {
-		return name;
+		return Name;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.Name = name;
 	}
 
 	public String getBirth() {
-		return birth;
+		return Birth;
 	}
 
 	public void setBirth(String birth) {
-		this.birth = birth;
+		this.Birth = birth;
 	}
 
 	public String getDiary() {
-		return diary;
+		return Diary;
 	}
 
 	public void setDiary(String diary) {
-		this.diary = diary;
+		this.Diary = diary;
 	}
 }
