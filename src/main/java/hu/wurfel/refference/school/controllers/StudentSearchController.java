@@ -20,14 +20,13 @@ public class StudentSearchController {
 	@Autowired
 	private StudentCrudService scs;
 
-//	@RequestMapping(value = "/login/searchForStudent", method = RequestMethod.POST,
-//	                consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-//	                produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
-@PostMapping(value = "/login/searchForStudent", produces = "application/json", consumes = "application/json")
-public ResponseEntity<Iterable<Student>> findStudent(@RequestBody StudentSearchRequestDto requestDto) {
-	System.out.println(requestDto);
+@PostMapping(value = "/login/searchForStudent")
+public ResponseEntity<ArrayList<Student>> findStudent(@RequestBody StudentSearchRequestDto requestDto) {
+	StudentSearchRequestDto ssrd = requestDto;
+	System.out.println(requestDto.getId());
+	System.out.println(ssrd.getId());
 	ArrayList<Student> result = new ArrayList<Student>();
-	StudentSearchDto searchDto = StudentSearchTranslate.translate(Validate.requestContent(requestDto));
+	StudentSearchDto searchDto = StudentSearchTranslate.translate(Validate.requestContent(ssrd));
 	switch (Validate.searchFor(searchDto)) {
 		case ID -> result.add(scs.getStudentById(searchDto.getID()));
 		case Name -> result.add(scs.getStudentByName(searchDto.getName()));

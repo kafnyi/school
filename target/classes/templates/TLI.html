@@ -9,8 +9,10 @@
         .style1 {
             text-align: center;
         }
+
         textarea {
-            resize:none;}
+            resize: none;
+        }
     </style>
     <meta content="Home page" name="description"/>
     <script src="/static/main.js" type="text/javascript"></script>
@@ -55,17 +57,23 @@
             <textarea ID="Nsi" placeholder="Name" style="width: 230px" type="text" rows="1"></textarea>
         </td>
         <td class="style1" style="width: 25%">
-            <textarea maxlength="10" ID="BDsi" placeholder="Birthday" style="width: 130px" type="text" rows="1"/></textarea>
+            <textarea maxlength="10" ID="BDsi" placeholder="Birthday" style="width: 130px" type="text"
+                      rows="1"/></textarea>
         </td>
         <td class="style1" style="width: 25%">
-            <textarea maxlength="8" ID="Dsi" placeholder="diary ID" type="text" rows="1"  /></textarea>
+            <textarea maxlength="8" ID="Dsi" placeholder="diary ID" type="text" rows="1"/></textarea>
         </td>
 
         <td class="style1" rowspan="2" style="width: 15%">
-            <button  onclick="applySearch(document.getElementById('CNsi'), document.getElementById('Nsi'), document.getElementById('BDsi'), document.getElementById('Dsi'))" style="width: 100px">Search</button>
+            <button onclick="applySearch(document.getElementById('CNsi'), document.getElementById('Nsi'), document.getElementById('BDsi'), document.getElementById('Dsi'))"
+                    style="width: 100px">Search
+            </button>
         </td>
     </tr>
-    <tr name="tableGenerated"></tr>
+</table>
+<table id="resultTable" class="style1" border="1" style="width: 100%"></table>
+<table style="width: 100%">
+    <tr id="tableGenerated"></tr>
     <tr>
         <td class="style1" colspan="3" style="height: 5%">
             <hr/>
@@ -87,8 +95,8 @@
         let json = searchForStudent(CNTtd, Ntd, BDtd, Dtd);
         let table = createResponseTable(json);
         window.alert("generate success")
-        document.getElementsByName(table).innerHTML == "tableGenerated"
     }
+
     function searchForStudent(id, name, birth, diary) {
         let xhr = new XMLHttpRequest();
         let url = "/login/searchForStudent";
@@ -96,34 +104,36 @@
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                window.alert("response getted")
-                let response = xhr.responseXML;
+                window.alert("response getted"+ xhr.responseText)
+                let response = xhr.responseText;
                 let jsonResp = JSON.parse(response);
-                return jsonResp;
+                window.alert(jsonResp)
+                createResponseTable(jsonResp);
             }
         }
-        const search = {ID: id, Name: name, Birth: birth, Diary: diary};
+        const search = {id : id, name : name, birth : birth, diary : diary};
         const data = JSON.stringify(search);
         xhr.send(data);
     }
 
     function createResponseTable(json) {
         var i;
-        var response = json.response;
+        var response = json;
+        window.alert(response.toString())
         var table = "<tr><th>Card Number</th><th>Name</th><th>Birth date</th><th>Diary ID</th></tr>";
-        var x = response.getElementsByTagName("ID");
+        var x = response;
         for (i = 0; i < x.length; i++) {
-            table += "<tr><td>" +
-                x[i].getElementsByTagName("ID").value +
+            table += "<tr><td> " +
+                x[i].id +
                 "</td><td>" +
-                x[i].getElementsByTagName("SName").value +
+                x[i].name +
                 "</td><td>" +
-                x[i].getElementsByTagName("SBirth").value +
+                x[i].sbirth +
                 "</td><td>" +
-                x[i].getElementsByTagName("SDiary").value +
+                x[i].sdiaryID +
                 "</td></tr>";
         }
-        return table;
+        document.getElementById("resultTable").innerHTML =table
     }
 </script>
 </html>

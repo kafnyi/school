@@ -10,7 +10,7 @@ public class StudentSearchTranslate {
 
 
 	public static StudentSearchDto translate(StudentSearchRequestDto requestDto) {
-		return new StudentSearchDto(Long.parseLong(requestDto.getID()), requestDto.getName(), requestDto.getBirth(), Integer.parseInt(requestDto.getDiary()));
+		return new StudentSearchDto(Long.parseLong(requestDto.getId()), requestDto.getName(), requestDto.getBirth(), Integer.parseInt(requestDto.getDiary()));
 	}
 
 	;

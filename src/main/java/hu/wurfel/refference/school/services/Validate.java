@@ -18,10 +18,10 @@ public class Validate {
 	}
 
 	public static StudentSearchRequestDto requestContent(StudentSearchRequestDto ssrd) {
-		if (ssrd.getID() == null) ssrd.setID("0");
+		if (ssrd.getId() == null) ssrd.setId(String.valueOf(0));
 		if (ssrd.getName() == null) ssrd.setName("");
 		if (ssrd.getBirth() == (null)) ssrd.setBirth("");
-		if (ssrd.getDiary() == (null)) ssrd.setDiary("0");
+		if (ssrd.getDiary() == (null)) ssrd.setDiary(String.valueOf(0));
 		return ssrd;
 	}
 }
