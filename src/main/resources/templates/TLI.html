@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:text-align="http://www.w3.org/1999/xhtml"
 >
 
 <head>
@@ -15,61 +15,42 @@
         }
     </style>
     <meta content="Home page" name="description"/>
-    <script src="static/main.js" type="text/javascript"></script>
+    <script src="/main.js" type="text/javascript"></script>
 
     <title>Home</title>
 </head>
 
 <body style="background-color: #CCFFFF">
 
-<table style="width: 100%">
+<table style="width: 100%" text-align:center>
     <tr>
         <th class="style1" style="height: 10%">
             <button onclick=""
-                    style="width: 100px">Profile
+                    style="width: 150px">Profile
             </button>
-            <br/>
+
+            <br/><br/>
+
             <button onclick=""
-                    style="width: 100px">Diary
+                    style="width: 150px">Diary
             </button>
-            <br/>
-            <button onclick=""
-                    style="width: 100px">Search
+
+            <br/><br/>
+
+            <button onclick="getSearchField(1)"
+                    style="width: 150px">Search Student
             </button>
+
         </th>
         <th class="style1" style="height: 10%">
             <a href="/profile">
-                <img alt="Home" height="350" longdesc="Home" src="/static/schoolimg.jpg" width="950"/></a></th>
+                <img alt="Home" height="350" longdesc="Home" src="/schoolimg.jpg" width="950"/></a></th>
         <th class="style1" style="height: 10px">
+            <button>naeymiey</button>
         </th>
-    </tr>
-    <tr>
-        <th>
-        </th>
-    </tr>
-    <tr>
-
-        <td style="width: 10%">
-            <textarea maxlength="11" id="CNsi" name="CNt" placeholder="Card Number" type="text" rows="1"/></textarea>
-        </td>
-        <td class="style1" style="width: 25%">
-            <textarea ID="Nsi" placeholder="Name" style="width: 230px" type="text" rows="1"></textarea>
-        </td>
-        <td class="style1" style="width: 25%">
-            <textarea maxlength="10" ID="BDsi" placeholder="Birthday" style="width: 130px" type="text"
-                      rows="1"/></textarea>
-        </td>
-        <td class="style1" style="width: 25%">
-            <textarea maxlength="8" ID="Dsi" placeholder="Diary ID" type="text" rows="1"/></textarea>
-        </td>
-
-        <td class="style1" rowspan="2" style="width: 15%">
-            <button onclick="applyStudentSearch(document.getElementById('CNsi'), document.getElementById('Nsi'), document.getElementById('BDsi'), document.getElementById('Dsi'))"
-                    style="width: 100px">Search
-            </button>
-        </td>
     </tr>
 </table>
+<table id="searchTable" class="style1" border="1" style="width: 100%"></table>
 <table id="resultTable" class="style1" border="1" style="width: 100%"></table>
 <table style="width: 100%">
     <tr id="tableGenerated"></tr>
@@ -82,65 +63,5 @@
         </td>
     </tr>
 </table>
-
 </body>
-<script>
-
-
-    function applyStudentSearch(Cn, N, Bd, D) {
-        let CNTtd = Cn.value;
-        let Ntd = N.value;
-        let BDtd = Bd.value;
-        let Dtd = D.value;
-        studentSearch(CNTtd, Ntd, BDtd, Dtd,);
-    }
-
-    function studentSearch(id, name, birth, diary) {
-        let xhr = new XMLHttpRequest();
-        let url = "/api/v1/searchForStudent";
-        xhr.open("POST", url, false);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                let response = xhr.responseText;
-                let jsonResp = JSON.parse(response);
-                createStudentSearchResponseTable(jsonResp);
-            }
-        }
-        const search = {id: id, name: name, birth: birth, diary: diary};
-        const data = JSON.stringify(search);
-        xhr.send(data);
-    }
-
-    function createStudentSearchResponseTable(json) {
-        let i;
-        let response = json;
-        let table = "<tr><th>Card Number</th><th>Name</th><th>Birth date</th><th>Diary ID</th></tr>";
-        let x = response;
-        for (i = 0; i < x.length; i++) {
-            table += "<tr><td> " +
-                x[i].id +
-                "</td><td>" +
-                x[i].name +
-                "</td><td>" +
-                x[i].sbirth +
-                "</td><td>" +
-                x[i].sdiaryID +
-                "</td></tr>";
-        }
-        document.getElementById("resultTable").innerHTML = table
-    }
-
-    //    function modifyStudentDatasTable(jsonToModify){
-    //        let student = jsonToModify;
-    //        let tableForModify = "<tr><th> Name </th><th><textarea ID=\"SMNt\" placeholder=\"+"student[0].name+"\"   type=\"text\" rows=\"1\"/></textarea></th></tr>" +
-    //        "<tr><th>Card Number</th><th><textarea ID=\"SMIDt\" placeholder=\""+student[0].id+"\"   type=\"text\" rows=\"1\"/></textarea></th></tr>" +
-    //        "<tr><th>Birth Date</th><th><textarea ID=\"SMBt\" placeholder=\""+student[0].sbirth+"\"   type=\"text\" rows=\"1\"/></textarea></th></tr>" +
-    //        "<tr><th>Diary ID</th><th><textarea ID=\"SMDIDt\" placeholder=\""+student[0].sdiaryID+"\"   type=\"text\" rows=\"1\"/></textarea></th></tr>" +
-    //        "<tr><button>Refresh</button></tr>" +
-    //        "<tr><button>Modify</button></tr>" +
-    //        "<tr><button>Delete</button></tr>" ;
-    //        document.getElementById("resultTable").innerHTML = tableForModify
-    //    }
-</script>
 </html>
