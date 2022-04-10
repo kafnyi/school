@@ -20,11 +20,9 @@ public class StudentSearchController {
 	@Autowired
 	private StudentCrudService scs;
 
-@PostMapping(value = "/login/searchForStudent")
+@PostMapping(value = "/api/v1/searchForStudent")
 public ResponseEntity<ArrayList<Student>> findStudent(@RequestBody StudentSearchRequestDto requestDto) {
 	StudentSearchRequestDto ssrd = requestDto;
-	System.out.println(requestDto.getID());
-	System.out.println(ssrd.getID());
 	ArrayList<Student> result = new ArrayList<Student>();
 	StudentSearchDto searchDto = StudentSearchTranslate.translate(Validate.requestContent(ssrd));
 	switch (Validate.searchFor(searchDto)) {
@@ -34,10 +32,7 @@ public ResponseEntity<ArrayList<Student>> findStudent(@RequestBody StudentSearch
 		case Diary -> result.add(scs.getStudentByDiary(searchDto.getDiary()));
 		case Empty -> result = scs.getAllStudent();
 	}
-	System.out.println(result);
-	System.out.println("response sending");
 	return ResponseEntity.ok(result);
-
 	}
 
 	;
