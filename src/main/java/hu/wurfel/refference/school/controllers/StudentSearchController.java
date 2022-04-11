@@ -4,7 +4,7 @@ import hu.wurfel.refference.school.model.StudentSearchDto;
 import hu.wurfel.refference.school.model.StudentSearchRequestDto;
 import hu.wurfel.refference.school.model.daos.Student;
 import hu.wurfel.refference.school.services.StudentCrudService;
-import hu.wurfel.refference.school.services.StudentSearchTranslate;
+import hu.wurfel.refference.school.services.StudentTranslate;
 import hu.wurfel.refference.school.services.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class StudentSearchController {
 public ResponseEntity<ArrayList<Student>> findStudent(@RequestBody StudentSearchRequestDto requestDto) {
 	StudentSearchRequestDto ssrd = requestDto;
 	ArrayList<Student> result = new ArrayList<Student>();
-	StudentSearchDto searchDto = StudentSearchTranslate.translate(Validate.requestContent(ssrd));
+	StudentSearchDto searchDto = StudentTranslate.translateToSSDTO(Validate.requestContent(ssrd));
 	switch (Validate.searchFor(searchDto)) {
 		case ID -> result.add(scs.getStudentById(searchDto.getID()));
 		case Name -> result.add(scs.getStudentByName(searchDto.getName()));
@@ -33,7 +33,12 @@ public ResponseEntity<ArrayList<Student>> findStudent(@RequestBody StudentSearch
 		case Empty -> result = scs.getAllStudent();
 	}
 	return ResponseEntity.ok(result);
-	}
+}
 
-	;
+	@PostMapping(value = "/api/v1/addNewStudent")
+	public void addStudent(@RequestBody StudentSearchRequestDto requestDto) {
+		StudentSearchRequestDto ssrd = requestDto;
+		Student studentToAdd = StudentTranslate.translateToStudent(requestDto);
+		scs.addStudent(studentToAdd);
+	}
 }

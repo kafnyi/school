@@ -19,7 +19,7 @@ public class Student {
 	public Student() {
 	}
 
-	public Student(long Id, String Nm, String BD, Integer Dr) {
+	public Student(long Id, String Nm, String BD, int Dr) {
 		this.ID = Id;
 		this.SName = Nm;
 		this.SBirth = BD;

@@ -19,7 +19,10 @@
 
     <title>Home</title>
 </head>
-
+<script>
+    let searchText=1
+    let addText=3
+</script>
 <body style="background-color: #CCFFFF">
 
 <table style="width: 100%" text-align:center>
@@ -37,8 +40,12 @@
 
             <br/><br/>
 
-            <button onclick="getSearchField(1)"
+            <button onclick="getSearchField()"
                     style="width: 150px">Search Student
+            </button>
+            <br/>
+            <button onclick="applyAddingStudent()"
+                    style="width: 150px">Add Student
             </button>
 
         </th>
