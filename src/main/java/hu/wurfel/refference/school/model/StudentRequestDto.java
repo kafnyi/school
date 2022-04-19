@@ -1,20 +1,20 @@
 package hu.wurfel.refference.school.model;
 
 
-public class StudentSearchRequestDto {
+public class StudentRequestDto {
 	private String ID;
 	private String Name;
 	private String Birth;
 	private String Diary;
 
-	public StudentSearchRequestDto(String ID, String name, String birth, String diary) {
+	public StudentRequestDto(String ID, String name, String birth, String diary) {
 		this.ID = ID;
 		this.Name = name;
 		this.Birth = birth;
 		this.Diary = diary;
 	}
 
-	public StudentSearchRequestDto() {
+	public StudentRequestDto() {
 	}
 
 	public String getID() {

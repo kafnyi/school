@@ -1,8 +1,8 @@
 package hu.wurfel.refference.school.services;
 
 import hu.wurfel.refference.school.model.Naming;
+import hu.wurfel.refference.school.model.StudentRequestDto;
 import hu.wurfel.refference.school.model.StudentSearchDto;
-import hu.wurfel.refference.school.model.StudentSearchRequestDto;
 
 public class Validate {
 	public static Naming searchFor(StudentSearchDto S) {
@@ -17,7 +17,7 @@ public class Validate {
 		} else return Naming.ID;
 	}
 
-	public static StudentSearchRequestDto requestContent(StudentSearchRequestDto ssrd) {
+	public static StudentRequestDto requestContent(StudentRequestDto ssrd) {
 		if (ssrd.getID() == null || ssrd.getID().equals("")) ssrd.setID(String.valueOf(0));
 		if (ssrd.getName() == null) ssrd.setName("");
 		if (ssrd.getBirth() == (null)) ssrd.setBirth("");
