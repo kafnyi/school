@@ -36,37 +36,31 @@ public class TeacherCrudService {
 
 	public Teacher addTeacher(@NotNull Teacher teacher) {
 		teacherRepository.save(teacher);
-		return teacherRepository.findByID(teacher.getID());
+		return teacherRepository.findByID(teacher.getId());
 	}
 
-	public Teacher addTeacher(long id, String name, Date birth, int diary) {
-		Teacher teacher = new Teacher(id, name, birth, diary);
+	public Teacher addTeacher(long id, String name, Date birth) {
+		Teacher teacher = new Teacher(id, name, birth);
 		teacherRepository.save(teacher);
-		return teacherRepository.findByID(teacher.getID());
+		return teacherRepository.findByID(teacher.getId());
 	}
 
 	public Teacher setTeacherID(@NotNull Teacher teacher, long id) {
-		teacher.setID(id);
+		teacher.setId(id);
 		teacherRepository.save(teacher);
-		return teacherRepository.findByID(teacher.getID());
+		return teacherRepository.findByID(teacher.getId());
 	}
 
 	public Teacher setTeacherName(@NotNull Teacher teacher, String name) {
 		teacher.setName(name);
 		teacherRepository.save(teacher);
-		return teacherRepository.findByID(teacher.getID());
+		return teacherRepository.findByID(teacher.getId());
 	}
 
 	public Teacher setTeacherBirth(@NotNull Teacher teacher, Date date) {
-		teacher.setBirth(date);
+		teacher.setBirthDate(date);
 		teacherRepository.save(teacher);
-		return teacherRepository.findByID(teacher.getID());
-	}
-
-	public Teacher setTeacherDiaryID(@NotNull Teacher teacher, int id) {
-		teacher.setDiaryID(id);
-		teacherRepository.save(teacher);
-		return teacherRepository.findByID(teacher.getID());
+		return teacherRepository.findByID(teacher.getId());
 	}
 
 	public void deleteTeacher(Teacher teacher) {

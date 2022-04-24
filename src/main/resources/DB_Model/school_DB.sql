@@ -1,13 +1,13 @@
-CREATE TABLE `student`
+CREATE TABLE `Student`
 (
-    `SCID`      bigint(11) NOT NULL,
+    `SID`       bigint(11) NOT NULL,
     `Name`      varchar(54) NOT NULL,
     `BirthDate` DATE        NOT NULL,
     `Password`  varchar(16) NOT NULL,
-    PRIMARY KEY (`SCID`)
+    PRIMARY KEY (`SID`)
 );
 
-CREATE TABLE `diary`
+CREATE TABLE `Diary`
 (
     `DiaryID` int    NOT NULL,
     `SCID`    bigint NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE `diary`
     PRIMARY KEY (`DiaryID`)
 );
 
-CREATE TABLE `mark`
+CREATE TABLE `Mark`
 (
     `MarkID`    bigint  NOT NULL AUTO_INCREMENT,
     `DiaryID`   int     NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE `mark`
     PRIMARY KEY (`MarkID`)
 );
 
-CREATE TABLE `subject`
+CREATE TABLE `Subject`
 (
     `SubjectID`   int         NOT NULL,
     `SubjectName` varchar(32) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE `subject`
     PRIMARY KEY (`SubjectID`)
 );
 
-CREATE TABLE `teacher`
+CREATE TABLE `Teacher`
 (
     `TID`       bigint      NOT NULL,
     `Name`      varchar(54) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `teacher`
     PRIMARY KEY (`TID`)
 );
 
-CREATE TABLE `class`
+CREATE TABLE `Class`
 (
     `ClassID` int      NOT NULL,
     `Grade`   smallint NOT NULL,
@@ -52,23 +52,23 @@ CREATE TABLE `class`
     PRIMARY KEY (`ClassID`)
 );
 
-ALTER TABLE `diary`
-    ADD CONSTRAINT `Diary_fk0` FOREIGN KEY (`SCID`) REFERENCES `student` (`SCID`);
+ALTER TABLE `Diary`
+    ADD CONSTRAINT `Diary_fk0` FOREIGN KEY (`SCID`) REFERENCES `Student` (`SID`);
 
-ALTER TABLE `diary`
-    ADD CONSTRAINT `Diary_fk1` FOREIGN KEY (`ClassID`) REFERENCES `class` (`ClassID`);
+ALTER TABLE `Diary`
+    ADD CONSTRAINT `Diary_fk1` FOREIGN KEY (`ClassID`) REFERENCES `Class` (`ClassID`);
 
-ALTER TABLE `mark`
-    ADD CONSTRAINT `Mark_fk0` FOREIGN KEY (`DiaryID`) REFERENCES `diary` (`DiaryID`);
+ALTER TABLE `Mark`
+    ADD CONSTRAINT `Mark_fk0` FOREIGN KEY (`DiaryID`) REFERENCES `Diary` (`DiaryID`);
 
-ALTER TABLE `mark`
-    ADD CONSTRAINT `Mark_fk1` FOREIGN KEY (`SubjectID`) REFERENCES `subject` (`SubjectID`);
+ALTER TABLE `Mark`
+    ADD CONSTRAINT `Mark_fk1` FOREIGN KEY (`SubjectID`) REFERENCES `Subject` (`SubjectID`);
 
-ALTER TABLE `subject`
-    ADD CONSTRAINT `Subject_fk0` FOREIGN KEY (`TID`) REFERENCES `teacher` (`TID`);
+ALTER TABLE `Subject`
+    ADD CONSTRAINT `Subject_fk0` FOREIGN KEY (`TID`) REFERENCES `Teacher` (`TID`);
 
-ALTER TABLE `class`
-    ADD CONSTRAINT `Class_fk0` FOREIGN KEY (`TID`) REFERENCES `teacher` (`TID`);
+ALTER TABLE `Class`
+    ADD CONSTRAINT `Class_fk0` FOREIGN KEY (`TID`) REFERENCES `Teacher` (`TID`);
 
 
 

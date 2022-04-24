@@ -1,70 +1,38 @@
 package hu.wurfel.refference.school.model.daos;
 
+import lombok.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Date;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
+@Table(name = "student")
 public class Student {
 	@Id
-	@Column(name = "SCID", nullable = false, length = 11, table = "student")
-	private long ID;
-	@Column(name = "SName", nullable = false, table = "student")
-	private String SName;
-	@Column(name = "SBirth", nullable = false, table = "student")
-	private String SBirth;
-	@Column(name = "SDiaryID", nullable = false, table = "student")
-	private int SDiaryID;
+	@Column(name = "SID", nullable = false)
+	private Long id;
 
-	public Student() {
-	}
+	@Column(name = "Name", nullable = false, length = 54)
+	private String name;
 
-	public Student(long Id, String Nm, String BD, int Dr) {
-		this.ID = Id;
-		this.SName = Nm;
-		this.SBirth = BD;
-		this.SDiaryID = Dr;
-	}
-
-	public long getID() {
-		return ID;
-	}
-
-	public void setID(long SCNumber) {
-		this.ID = SCNumber;
-	}
-
-	public String getName() {
-		return SName;
-	}
-
-	public void setName(String name) {
-		this.SName = name;
-	}
-
-	public String getSBirth() {
-		return SBirth;
-	}
-
-	public void setSBirth(String SBirthdate) {
-		this.SBirth = SBirthdate;
-	}
-
-	public int getSDiaryID() {
-		return SDiaryID;
-	}
-
-	public void setSDiaryID(int SDiary) {
-		this.SDiaryID = SDiary;
-	}
+	@Column(name = "BirthDate", nullable = false)
+	private Date birthDate;
 
 	@Override
 	public String toString() {
 		return "Student{" +
-				"Card Number=" + ID +
-				", Name='" + SName + '\'' +
-				", Birthdate=" + SBirth +
-				", Diary=" + SDiaryID +
+				"ID=" + id +
+				", Name='" + name + '\'' +
+				", Birthdate=" + birthDate +
 				'}';
 	}
 }

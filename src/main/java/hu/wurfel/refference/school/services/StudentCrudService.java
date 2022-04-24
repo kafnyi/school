@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class StudentCrudService {
@@ -30,43 +31,33 @@ public class StudentCrudService {
 		return studentRepository.findBySBirth(date);
 	}
 
-	public Student getStudentByDiary(int diary) {
-		return studentRepository.findBySDiaryID(diary);
-	}
-
 	public Student addStudent(@NotNull Student student) {
 		studentRepository.save(student);
-		return studentRepository.findByID(student.getID());
+		return studentRepository.findByID(student.getId());
 	}
 
-	public Student addStudent(long id, String name, String birth, int diary) {
-		Student student = new Student(id, name, birth, diary);
+	public Student addStudent(long id, String name, Date birth) {
+		Student student = new Student(id, name, birth);
 		studentRepository.save(student);
-		return studentRepository.findByID(student.getID());
+		return studentRepository.findByID(student.getId());
 	}
 
 	public Student setStudentID(@NotNull Student student, long id) {
-		student.setID(id);
+		student.setId(id);
 		studentRepository.save(student);
-		return studentRepository.findByID(student.getID());
+		return studentRepository.findByID(student.getId());
 	}
 
 	public Student setStudentName(@NotNull Student student, String name) {
 		student.setName(name);
 		studentRepository.save(student);
-		return studentRepository.findByID(student.getID());
+		return studentRepository.findByID(student.getId());
 	}
 
-	public Student setStudentBirth(@NotNull Student student, String date) {
-		student.setSBirth(date);
+	public Student setStudentBirth(@NotNull Student student, Date date) {
+		student.setBirthDate(date);
 		studentRepository.save(student);
-		return studentRepository.findByID(student.getID());
-	}
-
-	public Student setStudentDiaryID(@NotNull Student student, int id) {
-		student.setSDiaryID(id);
-		studentRepository.save(student);
-		return studentRepository.findByID(student.getID());
+		return studentRepository.findByID(student.getId());
 	}
 
 	public void deleteStudent(Student student) {
