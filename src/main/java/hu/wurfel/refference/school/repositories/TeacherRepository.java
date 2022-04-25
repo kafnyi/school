@@ -11,12 +11,10 @@ public interface TeacherRepository extends CrudRepository<Teacher, Long> {
 
 	Iterable<Teacher> findAll();
 
-	Teacher findByID(long Id);
+	Teacher findByTID(long Id);
 
-	Teacher findByTName(String Name);
+	Teacher findByName(String Name);
 
-	Teacher findByTBirth(Date Birth);
-
-	Teacher findByTDiaryID(int Diary);
+	Teacher findByBirthDate(Date Birth);
 
 }

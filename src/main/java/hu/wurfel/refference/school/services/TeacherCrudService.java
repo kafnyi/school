@@ -19,51 +19,47 @@ public class TeacherCrudService {
 	}
 
 	public Teacher getTeacherById(long Id) {
-		return teacherRepository.findByID(Id);
+		return teacherRepository.findByTID(Id);
 	}
 
 	public Teacher getTeacherByName(String name) {
-		return teacherRepository.findByTName(name);
-	}
-
-	public Teacher getTeacherByDiary(int diary) {
-		return teacherRepository.findByTDiaryID(diary);
+		return teacherRepository.findByName(name);
 	}
 
 	public Teacher getTeacherByBirth(Date date) {
-		return teacherRepository.findByTBirth(date);
+		return teacherRepository.findByBirthDate(date);
 	}
 
 	public Teacher addTeacher(@NotNull Teacher teacher) {
 		teacherRepository.save(teacher);
-		return teacherRepository.findByID(teacher.getId());
+		return teacherRepository.findByTID(teacher.getId());
 	}
 
 	public Teacher addTeacher(long id, String name, Date birth) {
 		Teacher teacher = new Teacher(id, name, birth);
 		teacherRepository.save(teacher);
-		return teacherRepository.findByID(teacher.getId());
+		return teacherRepository.findByTID(teacher.getId());
 	}
 
 	public Teacher setTeacherID(@NotNull Teacher teacher, long id) {
 		teacher.setId(id);
 		teacherRepository.save(teacher);
-		return teacherRepository.findByID(teacher.getId());
+		return teacherRepository.findByTID(teacher.getId());
 	}
 
 	public Teacher setTeacherName(@NotNull Teacher teacher, String name) {
 		teacher.setName(name);
 		teacherRepository.save(teacher);
-		return teacherRepository.findByID(teacher.getId());
+		return teacherRepository.findByTID(teacher.getId());
 	}
 
 	public Teacher setTeacherBirth(@NotNull Teacher teacher, Date date) {
 		teacher.setBirthDate(date);
 		teacherRepository.save(teacher);
-		return teacherRepository.findByID(teacher.getId());
+		return teacherRepository.findByTID(teacher.getId());
 	}
 
-	public void deleteTeacher(Teacher teacher) {
+	public void deleteTeacher(@NotNull Teacher teacher) {
 		teacherRepository.delete(teacher);
 	}
 }
