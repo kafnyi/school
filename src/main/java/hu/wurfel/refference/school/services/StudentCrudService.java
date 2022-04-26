@@ -20,44 +20,44 @@ public class StudentCrudService {
 	}
 
 	public Student getStudentById(long Id) {
-		return studentRepository.findBySID(Id);
+		return studentRepository.findBySID(Id).get();
 	}
 
-	public Student getStudentByName(String name) {
+	public ArrayList<Student> getStudentsByName(String name) {
 		return studentRepository.findByName(name);
 	}
 
-	public Student getStudentByBirth(String date) {
+	public ArrayList<Student> getStudentByBirth(Date date) {
 		return studentRepository.findByBirthDate(date);
 	}
 
 	public Student addStudent(@NotNull Student student) {
 		studentRepository.save(student);
-		return studentRepository.findBySID(student.getId());
+		return studentRepository.findBySID(student.getId()).get();
 	}
 
 	public Student addStudent(long id, String name, Date birth) {
 		Student student = new Student(id, name, birth);
 		studentRepository.save(student);
-		return studentRepository.findBySID(student.getId());
+		return studentRepository.findBySID(student.getId()).get();
 	}
 
 	public Student setStudentID(@NotNull Student student, long id) {
 		student.setId(id);
 		studentRepository.save(student);
-		return studentRepository.findBySID(student.getId());
+		return studentRepository.findBySID(student.getId()).get();
 	}
 
 	public Student setStudentName(@NotNull Student student, String name) {
 		student.setName(name);
 		studentRepository.save(student);
-		return studentRepository.findBySID(student.getId());
+		return studentRepository.findBySID(student.getId()).get();
 	}
 
 	public Student setStudentBirth(@NotNull Student student, Date date) {
 		student.setBirthDate(date);
 		studentRepository.save(student);
-		return studentRepository.findBySID(student.getId());
+		return studentRepository.findBySID(student.getId()).get();
 	}
 
 	public void deleteStudent(Student student) {
