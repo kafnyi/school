@@ -2,15 +2,17 @@ package hu.wurfel.refference.school.repositories;
 
 import hu.wurfel.refference.school.model.daos.Mark;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
+@Repository
 public interface MarkRepository extends CrudRepository<Mark, Long> {
 	ArrayList<Mark> findAll();
 
-	Optional<Mark> findById(Long markId);
+	Optional<Mark> findByMarkID(Long markId);
 
 	ArrayList<Mark> findAllByDiaryID(Integer diaryId);
 

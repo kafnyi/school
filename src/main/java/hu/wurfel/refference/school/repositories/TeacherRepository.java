@@ -15,9 +15,9 @@ public interface TeacherRepository extends CrudRepository<Teacher, Long> {
 
 	Optional<Teacher> findByTID(Long id);
 
-	ArrayList<Teacher> findByName(String name);
+	ArrayList<Teacher> findAllByName(String name);
 
-	ArrayList<Teacher> findByBirthDate(Date birthDate);
+	ArrayList<Teacher> findAllByBirthDate(Date birthDate);
 
 	Optional<Teacher> findByNameAndBirthDate(String name, Date birthDate);
 }

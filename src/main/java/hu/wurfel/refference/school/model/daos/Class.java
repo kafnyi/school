@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.Year;
 
 @Data
 @Builder
@@ -22,13 +23,13 @@ public class Class {
 	private Integer id;
 
 	@Column(name = "Grade", nullable = false)
-	private Integer grade;
+	private short grade;
 
 	@Column(name = "Sign", nullable = false)
-	private Character sign;
+	private char sign;
 
 	@Column(name = "Year", nullable = false)
-	private Integer year;
+	private Year year;
 
 	@Column(name = "TID", nullable = false)
 	private Long tid;

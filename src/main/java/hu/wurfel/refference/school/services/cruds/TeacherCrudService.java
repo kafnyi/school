@@ -1,4 +1,4 @@
-package hu.wurfel.refference.school.services;
+package hu.wurfel.refference.school.services.cruds;
 
 import hu.wurfel.refference.school.model.daos.Teacher;
 import hu.wurfel.refference.school.repositories.TeacherRepository;
@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @Service
@@ -18,45 +19,40 @@ public class TeacherCrudService {
 		return teacherRepository.findAll();
 	}
 
-	public Teacher getTeacherById(long Id) {
-		return teacherRepository.findByTID(Id);
+	public Teacher getTeacherByTeacherId(Long Id) {
+		return teacherRepository.findByTID(Id).get();
 	}
 
-	public Teacher getTeacherByName(String name) {
-		return teacherRepository.findByName(name);
+	public ArrayList<Teacher> getTeacherByName(String name) {
+		return teacherRepository.findAllByName(name);
 	}
 
-	public Teacher getTeacherByBirth(Date date) {
-		return teacherRepository.findByBirthDate(date);
+	public ArrayList<Teacher> getTeacherByBirth(Date date) {
+		return teacherRepository.findAllByBirthDate(date);
 	}
 
-	public Teacher addTeacher(@NotNull Teacher teacher) {
+	public Teacher saveTeacher(@NotNull Teacher teacher) {
 		teacherRepository.save(teacher);
-		return teacherRepository.findByTID(teacher.getId());
+		return getTeacherByTeacherId(teacher.getId());
 	}
 
-	public Teacher addTeacher(long id, String name, Date birth) {
-		Teacher teacher = new Teacher(id, name, birth);
-		teacherRepository.save(teacher);
-		return teacherRepository.findByTID(teacher.getId());
+	public Teacher saveTeacher(Long id, String name, Date birth) {
+		return saveTeacher(new Teacher(id, name, birth));
 	}
 
 	public Teacher setTeacherID(@NotNull Teacher teacher, long id) {
 		teacher.setId(id);
-		teacherRepository.save(teacher);
-		return teacherRepository.findByTID(teacher.getId());
+		return saveTeacher(teacher);
 	}
 
 	public Teacher setTeacherName(@NotNull Teacher teacher, String name) {
 		teacher.setName(name);
-		teacherRepository.save(teacher);
-		return teacherRepository.findByTID(teacher.getId());
+		return saveTeacher(teacher);
 	}
 
 	public Teacher setTeacherBirth(@NotNull Teacher teacher, Date date) {
 		teacher.setBirthDate(date);
-		teacherRepository.save(teacher);
-		return teacherRepository.findByTID(teacher.getId());
+		return saveTeacher(teacher);
 	}
 
 	public void deleteTeacher(@NotNull Teacher teacher) {

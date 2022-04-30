@@ -3,7 +3,7 @@ package hu.wurfel.refference.school.model.daos;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @Builder
@@ -24,12 +24,12 @@ public class Mark {
 	private Integer diaryID;
 
 	@Column(name = "Date", nullable = false)
-	private LocalDate date;
+	private Date date;
 
 	@Column(name = "SubjectID", nullable = false)
 	private Integer subjectID;
 
 	@Column(name = "Mark", nullable = false)
-	private Integer mark;
+	private byte mark;
 
 }
