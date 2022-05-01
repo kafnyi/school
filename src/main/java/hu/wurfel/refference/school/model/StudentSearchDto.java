@@ -1,12 +1,14 @@
 package hu.wurfel.refference.school.model;
 
+import java.util.Date;
+
 public class StudentSearchDto {
 	private long ID;
 	private String Name;
-	private String Date;
+	private Date Date;
 	private int Diary;
 
-	public StudentSearchDto(long ID, String name, String date, int diary) {
+	public StudentSearchDto(long ID, String name, Date date, int diary) {
 		this.ID = ID;
 		Name = name;
 		Date = date;
@@ -29,11 +31,11 @@ public class StudentSearchDto {
 		Name = name;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return Date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		Date = date;
 	}
 

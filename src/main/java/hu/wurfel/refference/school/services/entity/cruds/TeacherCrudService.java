@@ -1,4 +1,4 @@
-package hu.wurfel.refference.school.services.cruds;
+package hu.wurfel.refference.school.services.entity.cruds;
 
 import hu.wurfel.refference.school.model.daos.Teacher;
 import hu.wurfel.refference.school.repositories.TeacherRepository;

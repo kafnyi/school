@@ -6,7 +6,7 @@ import hu.wurfel.refference.school.model.daos.Student;
 import hu.wurfel.refference.school.model.dtos.StudentDto;
 import hu.wurfel.refference.school.services.StudentTranslate;
 import hu.wurfel.refference.school.services.Validate;
-import hu.wurfel.refference.school.services.cruds.StudentCrudService;
+import hu.wurfel.refference.school.services.entity.cruds.StudentCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +28,9 @@ public class StudentSearchController {
 		StudentSearchDto searchDto = StudentTranslate.translateToSSDTO(Validate.requestContent(ssrd));
 		switch (Validate.searchFor(searchDto)) {
 			case ID -> result.add(scs.getStudentByStudentId(searchDto.getID()));
-			case Name -> result.add(scs.getStudentByName(searchDto.getName()));
-			case Birth -> result.add(scs.getStudentByBirth(searchDto.getDate()));
-			case Empty -> result = scs.getAllStudent();
+			case Name -> result.addAll(scs.getStudentsByName(searchDto.getName()));
+			case Birth -> result.addAll(scs.getStudentsByBirth(searchDto.getDate()));
+			case Empty -> result = scs.getAllStudents();
 		}
 		return ResponseEntity.ok(result);
 	}
@@ -39,7 +39,7 @@ public class StudentSearchController {
 	public void addStudent(@RequestBody StudentDto requestDto) {
 		System.out.println(requestDto);
 		Student studentToAdd = StudentTranslate.translateToStudent(requestDto);
-		scs.addStudent(studentToAdd);
+		scs.saveStudent(studentToAdd);
 	}
 
 	@PostMapping(value = "/api/v1/deleteStudent")
