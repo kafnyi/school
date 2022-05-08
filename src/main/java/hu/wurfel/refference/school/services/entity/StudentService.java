@@ -3,6 +3,7 @@ package hu.wurfel.refference.school.services.entity;
 import hu.wurfel.refference.school.model.daos.Class;
 import hu.wurfel.refference.school.model.daos.*;
 import hu.wurfel.refference.school.services.entity.cruds.StudentCrudService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,41 +17,35 @@ public class StudentService extends StudentCrudService {
 	private DiaryService ds;
 	@Autowired
 	private MarkService ms;
-	@Autowired
-	private SubjectService sjs;
-	@Autowired
-	private TeacherService ts;
 
-	public Student getStudentByDiary(Diary diary) {
+	public Student getStudentByDiary(@NotNull Diary diary) {
 		return getStudentByStudentId(diary.getScid());
 	}
 
-	public Student getStudentByMark(Mark mark) {
+	public Student getStudentByMark(@NotNull Mark mark) {
 		return getStudentByStudentId(ds.getDiaryByDiaryid(mark.getDiaryID()).getId());
 	}
 
-	public ArrayList<Student> getStudentsByClass(Class division) {
+	public ArrayList<Student> getStudentsByClass(@NotNull Class division) {
 		ArrayList<Student> result = new ArrayList<>();
 		for (Diary diary : new ArrayList<Diary>(ds.getDiariesByClassid(division.getId()))) {
-			result.add(getStudentByStudentId(diary.getScid()));
+			result.add(getStudentByDiary(diary));
 		}
 		return result;
 	}
 
-	public ArrayList<Student> getStudentsBySubject(Subject subject) {
+	public ArrayList<Student> getStudentsBySubject(@NotNull Subject subject) {
 		ArrayList<Student> result = new ArrayList<>();
 		for (Mark mark : new ArrayList<Mark>(ms.getMarksBySubjectid(subject.getId()))) {
-			result.add(getStudentByStudentId(ds.getDiaryByDiaryid(mark.getDiaryID()).getScid()));
+			result.add(getStudentByMark(mark));
 		}
 		return result;
 	}
 
-	public ArrayList<Student> getStudentsByTeacher(Teacher teacher) {
+	public ArrayList<Student> getStudentsByTeacher(@NotNull Teacher teacher) {
 		ArrayList<Student> result = new ArrayList<>();
 		for (Class division : new ArrayList<Class>(cs.getClassesByTid(teacher.getId()))) {
-			for (Diary diary : new ArrayList<Diary>(ds.getDiariesByClassid(division.getId()))) {
-				result.add(getStudentByStudentId(diary.getScid()));
-			}
+			result.addAll(getStudentsByClass(division));
 		}
 		return result;
 	}

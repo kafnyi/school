@@ -3,6 +3,7 @@ package hu.wurfel.refference.school.services.entity;
 import hu.wurfel.refference.school.model.daos.Class;
 import hu.wurfel.refference.school.model.daos.*;
 import hu.wurfel.refference.school.services.entity.cruds.SubjectCrudService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,50 +12,38 @@ import java.util.ArrayList;
 @Service
 public class SubjectService extends SubjectCrudService {
 	@Autowired
-	private ClassService cs;
-	@Autowired
 	private DiaryService ds;
 	@Autowired
 	private MarkService ms;
-	@Autowired
-	private StudentService ss;
-	@Autowired
-	private TeacherService ts;
 
-	public Subject getSubjectByMark(Mark mark) {
+	public Subject getSubjectByMark(@NotNull Mark mark) {
 		return getSubjectBySubjectId(mark.getSubjectID());
 	}
 
-	public ArrayList<Subject> getSubjectsByTeacher(Teacher teacher) {
+	public ArrayList<Subject> getSubjectsByTeacher(@NotNull Teacher teacher) {
 		return getSubjectsByTid(teacher.getId());
 	}
 
-	public ArrayList<Subject> getSubjectsByDiary(Diary diary) {
+	public ArrayList<Subject> getSubjectsByDiary(@NotNull Diary diary) {
 		ArrayList<Subject> result = new ArrayList<>();
 		for (Mark mark : new ArrayList<Mark>(ms.getMarksByDiaryid(diary.getId()))) {
-			result.add(getSubjectBySubjectId(mark.getSubjectID()));
+			result.add(getSubjectByMark(mark));
 		}
 		return result;
 	}
 
-	public ArrayList<Subject> getSubjectsByStudent(Student student) {
+	public ArrayList<Subject> getSubjectsByStudent(@NotNull Student student) {
 		ArrayList<Subject> result = new ArrayList<>();
-		{
-			for (Diary diary : new ArrayList<Diary>(ds.getDiariesByScid(student.getId())))
-				for (Mark mark : new ArrayList<Mark>(ms.getMarksByDiaryid(diary.getId()))) {
-					result.add(getSubjectBySubjectId(mark.getSubjectID()));
-				}
+		for (Diary diary : new ArrayList<Diary>(ds.getDiariesByScid(student.getId()))) {
+			result.addAll(getSubjectsByDiary(diary));
 		}
 		return result;
 	}
 
-	public ArrayList<Subject> getSubjectsByClass(Class division) {
+	public ArrayList<Subject> getSubjectsByClass(@NotNull Class division) {
 		ArrayList<Subject> result = new ArrayList<>();
-		{
-			for (Diary diary : new ArrayList<Diary>(ds.getDiariesByClassid(division.getId())))
-				for (Mark mark : new ArrayList<Mark>(ms.getMarksByDiaryid(diary.getId()))) {
-					result.add(getSubjectBySubjectId(mark.getSubjectID()));
-				}
+		for (Diary diary : new ArrayList<Diary>(ds.getDiariesByClassid(division.getId()))) {
+			result.addAll(getSubjectsByDiary(diary));
 		}
 		return result;
 	}
