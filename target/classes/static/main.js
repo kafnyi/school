@@ -1,5 +1,11 @@
 //Requests
 //request, what gives a List<> as response
+function moveToPage(url){
+    let xhr=new XMLHttpRequest();
+    xhr.open("GET", url)
+    xhr.send();
+}
+
 function studentSearchRequest(id, name, birth, fun) {
     let xhr = new XMLHttpRequest();
     let url = "/api/v1/searchForStudent";
