@@ -27,37 +27,24 @@
 
 <table style="width: 100%" text-align:center>
     <tr>
-        <th class="style1" style="height: 10%">
-            <button onclick=""
-                    style="width: 150px">Profile
-            </button>
-
+        <th class="style1" style="height: 10%; width:15%">
+            <input onclick="/tli/profile" style="width: 150px" type="button" value="Profile"/>
             <br/><br/>
-
-            <button onclick=""
-                    style="width: 150px">Diary
-            </button>
-
+            <input onclick="/tli/search" style="width: 150px" type="button" value="Search"/>
             <br/><br/>
-
-            <button onclick="getSearchField()"
-                    style="width: 150px">Search Student
-            </button>
-            <br/>
-            <button onclick="applyAddingStudent()"
-                    style="width: 150px">Add Student
-            </button>
-
-
+            <input onclick="/tli/mycls" style="width: 150px" type="button" value="My Class"/>
+            <br/><br/>
+            <input onclick="/tli/mysts" style="width: 150px" type="button" value="My Students"/>
         </th>
-        <th class="style1" style="height: 10%">
-            <a href="/profile">
-                <img alt="Home" height="350" longdesc="Home" src="/schoolimg.jpg" width="950"/></a></th>
-        <th class="style1" style="height: 10px">
-            <button>naeymiey</button>
+        <th class="style1" style="height: 10%; width:70%">
+            <a href="/tli">
+                <img alt="Home" height="275" longdesc="Home" src="/school_new.jpg" width="100%"/></a></th>
+        <th class="style1" style="height: 10%; width:15%">
+            <input onclick="location.href='/'" style="width:150px" type="button" value="Log out"/>
         </th>
     </tr>
 </table>
+<hr/>
 <table id="searchTable" class="style1" border="1" style="width: 100%"></table>
 <table id="resultTable" class="style1" border="1" style="width: 100%"></table>
 <table style="width: 100%">
@@ -66,7 +53,7 @@
         <td class="style1" colspan="3" style="height: 5%">
             <hr/>
             <br/>
-            Created by Péter Würfel<br/>
+            Created by Peter Würfel<br/>
             No rights reserved.
         </td>
     </tr>

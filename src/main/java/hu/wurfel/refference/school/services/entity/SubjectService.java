@@ -2,6 +2,8 @@ package hu.wurfel.refference.school.services.entity;
 
 import hu.wurfel.refference.school.model.daos.Class;
 import hu.wurfel.refference.school.model.daos.*;
+import hu.wurfel.refference.school.services.entity.cruds.DiaryCrudService;
+import hu.wurfel.refference.school.services.entity.cruds.MarkCrudService;
 import hu.wurfel.refference.school.services.entity.cruds.SubjectCrudService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,9 @@ import java.util.ArrayList;
 @Service
 public class SubjectService extends SubjectCrudService {
 	@Autowired
-	private DiaryService ds;
+	private DiaryCrudService diaryCrudService;
 	@Autowired
-	private MarkService ms;
+	private MarkCrudService markCrudService;
 
 	public Subject getSubjectByMark(@NotNull Mark mark) {
 		return getSubjectBySubjectId(mark.getSubjectID());
@@ -26,7 +28,7 @@ public class SubjectService extends SubjectCrudService {
 
 	public ArrayList<Subject> getSubjectsByDiary(@NotNull Diary diary) {
 		ArrayList<Subject> result = new ArrayList<>();
-		for (Mark mark : new ArrayList<Mark>(ms.getMarksByDiaryid(diary.getId()))) {
+		for (Mark mark : new ArrayList<Mark>(markCrudService.getMarksByDiaryid(diary.getId()))) {
 			result.add(getSubjectByMark(mark));
 		}
 		return result;
@@ -34,7 +36,7 @@ public class SubjectService extends SubjectCrudService {
 
 	public ArrayList<Subject> getSubjectsByStudent(@NotNull Student student) {
 		ArrayList<Subject> result = new ArrayList<>();
-		for (Diary diary : new ArrayList<Diary>(ds.getDiariesByScid(student.getId()))) {
+		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getId()))) {
 			result.addAll(getSubjectsByDiary(diary));
 		}
 		return result;
@@ -42,7 +44,7 @@ public class SubjectService extends SubjectCrudService {
 
 	public ArrayList<Subject> getSubjectsByClass(@NotNull Class division) {
 		ArrayList<Subject> result = new ArrayList<>();
-		for (Diary diary : new ArrayList<Diary>(ds.getDiariesByClassid(division.getId()))) {
+		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByClassid(division.getId()))) {
 			result.addAll(getSubjectsByDiary(diary));
 		}
 		return result;

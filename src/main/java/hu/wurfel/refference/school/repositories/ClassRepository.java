@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ClassRepository extends CrudRepository<Class, Integer> {
 	ArrayList<Class> findAll();
 
-	Optional<Class> findByClassID(Integer classId);
+	Optional<Class> findById(Integer classId);
 
 	ArrayList<Class> findAllByGrade(short grade);
 

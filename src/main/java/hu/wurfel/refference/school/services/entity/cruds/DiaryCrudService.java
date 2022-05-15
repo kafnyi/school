@@ -18,7 +18,7 @@ public class DiaryCrudService {
 	}
 
 	public Diary getDiaryByDiaryid(Integer Id) {
-		return diaryRepository.findByDiaryID(Id).get();
+		return diaryRepository.findById(Id).get();
 	}
 
 	public ArrayList<Diary> getDiariesByScid(Long scid) {

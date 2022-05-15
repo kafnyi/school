@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface DiaryRepository extends CrudRepository<Diary, Integer> {
 	ArrayList<Diary> findAll();
 
-	Optional<Diary> findByDiaryID(Integer id);
+	Optional<Diary> findById(Integer id);
 
 	ArrayList<Diary> findAllByScid(Long scid);
 

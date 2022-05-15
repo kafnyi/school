@@ -13,7 +13,7 @@ public interface TeacherRepository extends CrudRepository<Teacher, Long> {
 
 	ArrayList<Teacher> findAll();
 
-	Optional<Teacher> findByTID(Long id);
+	Optional<Teacher> findByid(Long id);
 
 	ArrayList<Teacher> findAllByName(String name);
 

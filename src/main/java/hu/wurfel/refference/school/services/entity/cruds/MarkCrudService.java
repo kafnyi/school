@@ -19,7 +19,7 @@ public class MarkCrudService {
 	}
 
 	public Mark getMarkByMarkid(Long mid) {
-		return markRepository.findByMarkID(mid).get();
+		return markRepository.findById(mid).get();
 	}
 
 	public ArrayList<Mark> getMarksByDiaryid(Integer did) {

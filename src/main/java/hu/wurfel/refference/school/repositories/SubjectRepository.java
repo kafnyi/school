@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface SubjectRepository extends CrudRepository<Subject, Integer> {
 	ArrayList<Subject> findAll();
 
-	Optional<Subject> findBySubjectId(Integer subjectId);
+	Optional<Subject> findById(Integer subjectId);
 
 	ArrayList<Subject> findAllBySubjectName(String subjectName);
 

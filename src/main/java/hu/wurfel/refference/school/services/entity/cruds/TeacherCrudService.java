@@ -20,7 +20,7 @@ public class TeacherCrudService {
 	}
 
 	public Teacher getTeacherByTeacherId(Long Id) {
-		return teacherRepository.findByTID(Id).get();
+		return teacherRepository.findByid(Id).get();
 	}
 
 	public ArrayList<Teacher> getTeacherByName(String name) {

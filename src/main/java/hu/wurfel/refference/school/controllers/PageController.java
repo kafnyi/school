@@ -11,9 +11,14 @@ public class PageController {
 		return "home";
 	}
 
-	@RequestMapping("/login")
+	@RequestMapping("/tli")
 	public String TLI() {
 		return "TLI";
+	}
+
+	@RequestMapping("/sli")
+	public String SLI() {
+		return "SLI";
 	}
 
 

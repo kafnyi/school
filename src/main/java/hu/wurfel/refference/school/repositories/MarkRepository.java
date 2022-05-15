@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface MarkRepository extends CrudRepository<Mark, Long> {
 	ArrayList<Mark> findAll();
 
-	Optional<Mark> findByMarkID(Long markId);
+	Optional<Mark> findById(Long markId);
 
 	ArrayList<Mark> findAllByDiaryID(Integer diaryId);
 

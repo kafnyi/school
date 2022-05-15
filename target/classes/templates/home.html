@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:text-align="http://www.w3.org/1999/xhtml"
 >
 
 <head>
@@ -15,56 +15,48 @@
     <title>Home</title>
 </head>
 
-<body onload=""
-      style="background-color: #CCFFFF">
+<body style="background-color: #CCFFFF">
 
-<table style="width: 100%">
+<table style="width: 100%" text-align:center>
     <tr>
-        <th class="style1" style="height: 10px">
-            <a href="/home">
-                <img alt="Home" height="20" id="img1"
-                     onmousedown="FP_swapImg(1,0,/*id*/'img1',/*url*/'/static/button9.jpg')"
-                     onmouseout="FP_swapImg(0,0,/*id*/'img1',/*url*/'/static/button7.jpg')"
-                     onmouseover="FP_swapImg(1,0,/*id*/'img1',/*url*/'/static/button8.jpg')"
-                     onmouseup="FP_swapImg(0,0,/*id*/'img1',/*url*/'/static/button8.jpg')"
-                     src="/static/button7.jpg"
-                     style="border: 0"
-                     width="100"/>
-            </a><br/>
-            <button>About
+        <th class="style1" style="height: 10%; width:15%">
+            <input type="button" onclick="" value="Home" style="width: 150px"/>
 
-            </button>
-            <a
-                    href="/contact">
+            <br/><br/>
+
+            <input type="button" onclick="" value="About" style="width: 150px"/>
+
+            <br/><br/>
+
+            <input type="button" onclick="" value="Contact" style="width: 150px"/>
+
+        </th>
+        <th class="style1" style="height: 10%; width:70%">
+            <a href="/">
+                <img alt="Home" height="275" longdesc="Home" src="/school_new.jpg" width="100%"/>
             </a>
-            <br/>
-            <button>
-                Contact
-            </button>
         </th>
-        <th class="style1" style="height: 10%">
-            <img alt="Home" height="425" longdesc="Home" src="/static/schoolimg.jpg" width="850"/></th>
-        <th class="style1" style="height: 10px">
-            <form method="post" action="/login">
-                <button type="submit">Log in</button>
-            </form>
+        <th class="style1" style="height: 10%; width:15%">
+            <input type="button" onclick="location.href='/tli';" value="Teacher Log in" style="width:150px"/>
+            <br/><br/>
+            <input type="button" onclick="location.href='/sli'" value="Student Log in" style="width:150px"/>
         </th>
     </tr>
+</table>
+<hr/>
+<table id="searchTable" class="style1" border="1" style="width: 100%"></table>
+<table id="resultTable" class="style1" border="1" style="width: 100%"></table>
+<table style="width: 100%">
+    <tr id="tableGenerated"></tr>
     <tr>
-        <td colspan="3" style="height: 80%">
-            This will be the resoult of request
-        </td>
-    </tr>
-    <tr>
-        <td colspan="3" style="height: 5%" class="style1">
+        <td class="style1" colspan="3" style="height: 5%">
             <hr/>
             <br/>
-            Created by Péter Würfel<br/>
+            Created by Peter Würfel<br/>
             No rights reserved.
         </td>
     </tr>
 </table>
-
 </body>
 
 </html>

@@ -19,7 +19,7 @@ public class ClassCrudService {
 	}
 
 	public Class getClassByClassId(Integer cid) {
-		return classRepository.findByClassID(cid).get();
+		return classRepository.findById(cid).get();
 	}
 
 	public ArrayList<Class> getClassesByGrade(short grade) {

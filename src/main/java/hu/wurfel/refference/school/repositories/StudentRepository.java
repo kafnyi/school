@@ -13,7 +13,7 @@ public interface StudentRepository extends CrudRepository<Student, Long> {
 
 	ArrayList<Student> findAll();
 
-	Optional<Student> findByScid(Long SID);
+	Optional<Student> findByid(Long SID);
 
 	ArrayList<Student> findAllByName(String Name);
 

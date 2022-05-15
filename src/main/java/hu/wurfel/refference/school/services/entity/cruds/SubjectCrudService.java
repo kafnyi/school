@@ -18,7 +18,7 @@ public class SubjectCrudService {
 	}
 
 	public Subject getSubjectBySubjectId(Integer id) {
-		return subjectRepository.findBySubjectId(id).get();
+		return subjectRepository.findById(id).get();
 	}
 
 	public ArrayList<Subject> getSubjectsByName(String name) {
