@@ -15,6 +15,7 @@
         }
     </style>
     <meta content="Home page" name="description"/>
+    <script src="/main_old.js" type="text/javascript"></script>
     <script src="/main.js" type="text/javascript"></script>
 
     <title>Home</title>
@@ -30,7 +31,7 @@
         <th class="style1" style="height: 10%; width:15%">
             <input onclick="/tli/profile" style="width: 150px" type="button" value="Profile"/>
             <br/><br/>
-            <input onclick="/tli/search" style="width: 150px" type="button" value="Search"/>
+            <input onclick="searchMenuButton()" style="width: 150px" type="button" value="Search"/>
             <br/><br/>
             <input onclick="/tli/mycls" style="width: 150px" type="button" value="My Class"/>
             <br/><br/>
@@ -46,7 +47,7 @@
 </table>
 <hr/>
 <table id="searchTable" class="style1" border="1" style="width: 100%"></table>
-<table id="resultTable" class="style1" border="1" style="width: 100%"></table>
+<table id="searchTable2" class="style1" border="1" style="width: 100%"></table>
 <table style="width: 100%">
     <tr id="tableGenerated"></tr>
     <tr>
