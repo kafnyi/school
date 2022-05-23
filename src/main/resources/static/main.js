@@ -1,11 +1,10 @@
-
 function profileButton() {
 
 }
 
 function searchMenuButton() {
     let searchField = "<tr>" +
-        "    <td>Searching for :\n" +
+        "    <td style='width: 20%'>Searching for :\n" +
         "        <select id=\"SFS\">\n" +
         "            <option value=\"Student\">Student</option>\n" +
         "            <option value=\"Diary\">Diary</option>\n" +
@@ -14,82 +13,84 @@ function searchMenuButton() {
         "            <option value=\"Mark\">Mark</option>\n" +
         "        </select>\n" +
         "    </td>" +
-        "    <td>Search with :\n" +
-        "        <select id=\"SWS\">\n" +
-        "            <option value=\"Student\" onselect='selectSClarifiedInnerRow(\"Student\")'>Student</option>\n" +
-        "            <option value=\"Diary\" onselect='selectSClarifiedInnerRow(\"Diary\")'>Diary</option>\n" +
-        "            <option value=\"Class\" onselect='selectSClarifiedInnerRow(\"Class\")'>Class</option>\n" +
-        "            <option value=\"Subject\" onselect='selectSClarifiedInnerRow(\"Subject\")'>Subject</option>\n" +
-        "            <option value=\"Mark\" onselect='selectSClarifiedInnerRow(\"Mark\")'>Mark</option>\n" +
+        "    <td style='width: 20%'>Search with :\n" +
+        "        <select id=\"SWS\" onchange='selectSClarifiedInnerRow(document.getElementById(\"SWS\").value); getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"Student\" >Student</option>\n" +
+        "            <option value=\"Diary\" >Diary</option>\n" +
+        "            <option value=\"Class\" >Class</option>\n" +
+        "            <option value=\"Subject\" >Subject</option>\n" +
+        "            <option value=\"Mark\" >Mark</option>\n" +
         "        </select>\n" +
         "    </td>\n" +
-        "    <td id=\"sClarifiedInnerRow\" name='sClarifiedInnerRow'>" +
-        "<input type='button' value='Submit' onclick='selectSClarifiedInnerRow(document.getElementById(\"SWS\").value)'>" +
-        "    </td>" +
+        "    <td id=\"SCIR\" style='width: 20%'></td>" +
+        "<td id='VSI' style='width: 20%'></td>" +
+        "<td id='SMBC' style='width: 20%'></td> " +
         "</tr>"
     document.getElementById("searchTable").innerHTML = searchField
+    selectSClarifiedInnerRow(document.getElementById("SWS").value)
+    getSpecificInputField(document.getElementById("SBS").value)
 }
 
 function selectSClarifiedInnerRow(selected) {
-    let rValueStart = "<tr><td>"
     let rValueSB = "Search By :"
     let rValueSI
-    let rValueStd = "        <select name=\"SBS\">\n" +
-        "            <option value=\"studentId\" onselect='rValueSI=getSpecificInputField(1)'>Student ID</option>\n" +
-        "            <option value=\"Name\" onselect='rValueSI=getSpecificInputField(0)'>Name</option>\n" +
-        "            <option value=\"BirtheDate\" onselect='rValueSI=getSpecificInputField(4)'>Birth Date</option>\n" +
+    let rValueStd = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"SIdI\" >Student ID</option>\n" +
+        "            <option value=\"TxtI\" >Name</option>\n" +
+        "            <option value=\"DtI\"  >Birth Date</option>\n" +
         "        </select>\n"
-    let rValueDry = "        <select name=\"SBD\">\n" +
-        "            <option value=\"diaryId\" onselect='rValueSI=getSpecificInputField(2)'>Diary ID</option>\n" +
-        "            <option value=\"studentId\" onselect='rValueSI=getSpecificInputField(1)'>Student ID</option>\n" +
-        "            <option value=\"classId\"onselect='rValueSI=getSpecificInputField(2)'>Class ID</option>\n" +
+    let rValueDry = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"NmbI\" >Diary ID</option>\n" +
+        "            <option value=\"SIdI\" >Student ID</option>\n" +
+        "            <option value=\"NmbI\" >Class ID</option>\n" +
         "        </select>\n"
-    let rValueCls = "        <select name=\"SBC\">\n" +
-        "            <option value=\"classId\" onselect='rValueSI=getSpecificInputField(2)'>Class ID</option>\n" +
-        "            <option value=\"grade\" onselect='rValueSI=getSpecificInputField(3)'>Grade</option>\n" +
-        "            <option value=\"sign\" onselect='rValueSI=getSpecificInputField(6)'>Sign</option>\n" +
-        "            <option value=\"year\" onselect='rValueSI=getSpecificInputField(5)'>Year</option>\n" +
-        "            <option value=\"teacherId\" onselect='rValueSI=getSpecificInputField(2)'>Teacher ID</option>\n" +
+    let rValueCls = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"NmbI\" >Class ID</option>\n" +
+        "            <option value=\"GrdI\" >Grade</option>\n" +
+        "            <option value=\"SgnI\" >Sign</option>\n" +
+        "            <option value=\"NYrI\" >Year</option>\n" +
+        "            <option value=\"NmbI\" >Teacher ID</option>\n" +
         "        </select>\n"
-    let rValueSbj = "        <select name=\"SBSj\">\n" +
-        "            <option value=\"subjectId\" onselect='rValueSI=getSpecificInputField(2)'>Subject ID</option>\n" +
-        "            <option value=\"subjectName\" onselect='rValueSI=getSpecificInputField(0)'>Subject Name</option>\n" +
-        "            <option value=\"teacherId\" onselect='rValueSI=getSpecificInputField(2)'>Teacher ID</option>\n" +
+    let rValueSbj = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"NmbI\" >Subject ID</option>\n" +
+        "            <option value=\"TxtI\" >Subject Name</option>\n" +
+        "            <option value=\"NmbI\" >Teacher ID</option>\n" +
         "        </select>\n"
-    let rValueMrk = "        <select name=\"SBS\">\n" +
-        "            <option value=\"markId\" onselect='rValueSI=getSpecificInputField(2)'>Mark ID</option>\n" +
-        "            <option value=\"diaryId\" onselect='rValueSI=getSpecificInputField(2)'>Diary ID</option>\n" +
-        "            <option value=\"date\" onselect='rValueSI=getSpecificInputField(4)'>Date</option>\n" +
-        "            <option value=\"subjectId\"onselect='rValueSI=getSpecificInputField(2)'>Subject ID</option>\n" +
-        "            <option value=\"Mark\" onselect='rValueSI=getSpecificInputField(7)'>Mark</option>\n" +
+    let rValueMrk = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"NmbI\" >Mark ID</option>\n" +
+        "            <option value=\"NmbI\" >Diary ID</option>\n" +
+        "            <option value=\"DtI\" >Date</option>\n" +
+        "            <option value=\"NmbI\" >Subject ID</option>\n" +
+        "            <option value=\"MrkI\" >Mark</option>\n" +
         "        </select>\n"
-    let rValueStop = "</td></tr>"
+    let resValue;
 
-    let resValue = "";
-    if (selected != Student) {
-        if (selected != Diary) {
-            if (selected != Class) {
-                if (selected != Subject) {
-                    if (selected != Mark) {
-                        resValue = "<td> please select what you want to search by </td> "
-                        document.getElementById("searchTable2").innerHTML = resValue
-                        return document.getElementById("searchTable2").innerHTML = resValue;
-                    }
-                    resValue += rValueStart + rValueMrk + rValueStop
-                    return document.getElementById("searchTable2").innerHTML = resValue;
-                }
-                resValue += rValueStart + rValueSbj + rValueStop
-                return document.getElementById("searchTable2").innerHTML = resValue;
-            }
-            resValue += rValueStart + rValueCls + rValueStop
-            return document.getElementById("searchTable2").innerHTML = resValue;
-        }
-        resValue += rValueStart + rValueDry + rValueStop
-        return document.getElementById("searchTable2").innerHTML = resValue;
+    switch (selected) {
+        case "Student" :
+            resValue = rValueSB + rValueStd
+            document.getElementById("SCIR").innerHTML = resValue;
+            break
+        case "Diary":
+            resValue = rValueSB + rValueDry
+            document.getElementById("SCIR").innerHTML = resValue;
+            break
+        case "Class":
+            resValue = rValueSB + rValueCls
+            document.getElementById("SCIR").innerHTML = resValue;
+            break
+        case "Subject":
+            resValue = rValueSB + rValueSbj
+            document.getElementById("SCIR").innerHTML = resValue;
+            break
+        case "Mark":
+            resValue = rValueSB + rValueMrk
+            document.getElementById("SCIR").innerHTML = resValue;
+            break
+        default:
+            resValue = "please select what you want to search by "
+            document.getElementById("SCIR").innerHTML = resValue;
+            break
     }
-    resValue += rValueStart + rValueStd + rValueStop
-    return document.getElementById("searchTable2").innerHTML = resValue;
-
 }
 
 function getSpecificInputField(spec) {
@@ -105,34 +106,34 @@ function getSpecificInputField(spec) {
      * 7- Mark input
      */
     switch (spec) {
-        case 0:
+        case "TxtI":
             document.getElementById("VSI").innerHTML = "<input type=\"text\" />"
             break;
-        case 1:
+        case "SIdI":
             document.getElementById("VSI").innerHTML =
                 "<input type=\"number\" min=\"10000000000\" max=\"99999999999\" step=\"1\" />";
             break;
-        case 2:
+        case "NmbI":
             document.getElementById("VSI").innerHTML =
                 "<input type=\"number\" min=\"0\"/>";
             break;
-        case 3:
+        case "GrdI":
             document.getElementById("VSI").innerHTML =
                 "<input type=\"number\" min=\"0\" max=\"14\" step=\"1\" />";
             break;
-        case 4:
+        case "DtI":
             document.getElementById("VSI").innerHTML =
                 "<input type=\"date\"/>"
             break;
-        case 5:
+        case "NYrI":
             document.getElementById("VSI").innerHTML =
                 "<input type=\"number\" min=\"1900\" max=\"2099\" step=\"1\" value=\"2022\" />";
             break;
-        case 6:
+        case "SgnI":
             document.getElementById("VSI").innerHTML =
                 "<input type=\"text\" maxlength='1' pattern='[A-Z]'/>";
             break;
-        case 7:
+        case "MrkI":
             document.getElementById("VSI").innerHTML =
                 "<input type=\"number\" min=\"1\" max=\"5\" step=\"1\" value=\"5\" />";
             return;

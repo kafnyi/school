@@ -11,7 +11,7 @@
         }
     </style>
     <meta name="description" content="Home page"/>
-    <script type="text/javascript" src="/static/main.js"></script>
+    <script type="text/javascript" src="/main_old.js"></script>
     <title>Home</title>
 </head>
 
@@ -20,15 +20,15 @@
 <table style="width: 100%" text-align:center>
     <tr>
         <th class="style1" style="height: 10%; width:15%">
-            <input type="button" onclick="" value="Home" style="width: 150px"/>
+            <input onclick="" style="width: 150px" type="button" value="Home"/>
 
             <br/><br/>
 
-            <input type="button" onclick="" value="About" style="width: 150px"/>
+            <input onclick="" style="width: 150px" type="button" value="About"/>
 
             <br/><br/>
 
-            <input type="button" onclick="" value="Contact" style="width: 150px"/>
+            <input onclick="" style="width: 150px" type="button" value="Contact"/>
 
         </th>
         <th class="style1" style="height: 10%; width:70%">
@@ -37,15 +37,15 @@
             </a>
         </th>
         <th class="style1" style="height: 10%; width:15%">
-            <input type="button" onclick="location.href='/tli';" value="Teacher Log in" style="width:150px"/>
+            <input onclick="location.href='/tli';" style="width:150px" type="button" value="Teacher Log in"/>
             <br/><br/>
-            <input type="button" onclick="location.href='/sli'" value="Student Log in" style="width:150px"/>
+            <input onclick="location.href='/sli'" style="width:150px" type="button" value="Student Log in"/>
         </th>
     </tr>
 </table>
 <hr/>
-<table id="searchTable" class="style1" border="1" style="width: 100%"></table>
-<table id="resultTable" class="style1" border="1" style="width: 100%"></table>
+<table border="1" class="style1" id="searchTable" style="width: 100%"></table>
+<table border="1" class="style1" id="resultTable" style="width: 100%"></table>
 <table style="width: 100%">
     <tr id="tableGenerated"></tr>
     <tr>
@@ -58,5 +58,6 @@
     </tr>
 </table>
 </body>
+
 
 </html>

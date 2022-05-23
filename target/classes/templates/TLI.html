@@ -15,6 +15,7 @@
         }
     </style>
     <meta content="Home page" name="description"/>
+    <script src="/main_old.js" type="text/javascript"></script>
     <script src="/main.js" type="text/javascript"></script>
 
     <title>Home</title>
@@ -28,25 +29,25 @@
 <table style="width: 100%" text-align:center>
     <tr>
         <th class="style1" style="height: 10%; width:15%">
-            <input type="button" onclick="/tli/profile" value="Profile" style="width: 150px"/>
+            <input onclick="/tli/profile" style="width: 150px" type="button" value="Profile"/>
             <br/><br/>
-            <input type="button" onclick="/tli/search" value="Search" style="width: 150px"/>
+            <input onclick="searchMenuButton()" style="width: 150px" type="button" value="Search"/>
             <br/><br/>
-            <input type="button" onclick="/tli/mycls" value="My Class" style="width: 150px"/>
+            <input onclick="/tli/mycls" style="width: 150px" type="button" value="My Class"/>
             <br/><br/>
-            <input type="button" onclick="/tli/mysts" value="My Students" style="width: 150px"/>
+            <input onclick="/tli/mysts" style="width: 150px" type="button" value="My Students"/>
         </th>
         <th class="style1" style="height: 10%; width:70%">
             <a href="/tli">
                 <img alt="Home" height="275" longdesc="Home" src="/school_new.jpg" width="100%"/></a></th>
         <th class="style1" style="height: 10%; width:15%">
-            <input type="button" onclick="location.href='/'" value="Log out" style="width:150px"/>
+            <input onclick="location.href='/'" style="width:150px" type="button" value="Log out"/>
         </th>
     </tr>
 </table>
 <hr/>
 <table id="searchTable" class="style1" border="1" style="width: 100%"></table>
-<table id="resultTable" class="style1" border="1" style="width: 100%"></table>
+<table id="searchTable2" class="style1" border="1" style="width: 100%"></table>
 <table style="width: 100%">
     <tr id="tableGenerated"></tr>
     <tr>

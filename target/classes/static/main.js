@@ -1,164 +1,144 @@
-//Requests
-//request, what gives a List<> as response
-function moveToPage(url){
-    let xhr=new XMLHttpRequest();
-    xhr.open("GET", url)
-    xhr.send();
+function profileButton() {
+
 }
 
-function studentSearchRequest(id, name, birth, fun) {
-    let xhr = new XMLHttpRequest();
-    let url = "/api/v1/searchForStudent";
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let response = xhr.responseText;
-            let jsonResp = JSON.parse(response);
-            if (fun === 1) {
-                createStudentSearchResponseTable(jsonResp)
-            } else if (fun === 2 || fun === 3) {
-                createStudentPersonalDatasTable(jsonResp, fun)
-            }
-        }
-    }
-    const search = {id: id, name: name, birth: birth};
-    const data = JSON.stringify(search);
-    xhr.send(data);
+function searchMenuButton() {
+    let searchField = "<tr>" +
+        "    <td style='width: 20%'>Searching for :\n" +
+        "        <select id=\"SFS\">\n" +
+        "            <option value=\"Student\">Student</option>\n" +
+        "            <option value=\"Diary\">Diary</option>\n" +
+        "            <option value=\"Class\">Class</option>\n" +
+        "            <option value=\"Subject\">Subject</option>\n" +
+        "            <option value=\"Mark\">Mark</option>\n" +
+        "        </select>\n" +
+        "    </td>" +
+        "    <td style='width: 20%'>Search with :\n" +
+        "        <select id=\"SWS\" onchange='selectSClarifiedInnerRow(document.getElementById(\"SWS\").value); getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"Student\" >Student</option>\n" +
+        "            <option value=\"Diary\" >Diary</option>\n" +
+        "            <option value=\"Class\" >Class</option>\n" +
+        "            <option value=\"Subject\" >Subject</option>\n" +
+        "            <option value=\"Mark\" >Mark</option>\n" +
+        "        </select>\n" +
+        "    </td>\n" +
+        "    <td id=\"SCIR\" style='width: 20%'></td>" +
+        "<td id='VSI' style='width: 20%'></td>" +
+        "<td id='SMBC' style='width: 20%'></td> " +
+        "</tr>"
+    document.getElementById("searchTable").innerHTML = searchField
+    selectSClarifiedInnerRow(document.getElementById("SWS").value)
+    getSpecificInputField(document.getElementById("SBS").value)
 }
 
-function addNewStudentRequest(id, name, birth) {
-    window.alert(id, name, birth)
-    let xhr = new XMLHttpRequest();
-    let url = "/api/v1/addNewStudent";
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            studentSearchRequest(id, name, birth, 2)
-        }
-    }
-    const adding = {id: id, name: name, birth: birth};
-    const data = JSON.stringify(adding);
-    xhr.send(data);
-}
+function selectSClarifiedInnerRow(selected) {
+    let rValueSB = "Search By :"
+    let rValueSI
+    let rValueStd = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"SIdI\" >Student ID</option>\n" +
+        "            <option value=\"TxtI\" >Name</option>\n" +
+        "            <option value=\"DtI\"  >Birth Date</option>\n" +
+        "        </select>\n"
+    let rValueDry = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"NmbI\" >Diary ID</option>\n" +
+        "            <option value=\"SIdI\" >Student ID</option>\n" +
+        "            <option value=\"NmbI\" >Class ID</option>\n" +
+        "        </select>\n"
+    let rValueCls = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"NmbI\" >Class ID</option>\n" +
+        "            <option value=\"GrdI\" >Grade</option>\n" +
+        "            <option value=\"SgnI\" >Sign</option>\n" +
+        "            <option value=\"NYrI\" >Year</option>\n" +
+        "            <option value=\"NmbI\" >Teacher ID</option>\n" +
+        "        </select>\n"
+    let rValueSbj = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"NmbI\" >Subject ID</option>\n" +
+        "            <option value=\"TxtI\" >Subject Name</option>\n" +
+        "            <option value=\"NmbI\" >Teacher ID</option>\n" +
+        "        </select>\n"
+    let rValueMrk = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"NmbI\" >Mark ID</option>\n" +
+        "            <option value=\"NmbI\" >Diary ID</option>\n" +
+        "            <option value=\"DtI\" >Date</option>\n" +
+        "            <option value=\"NmbI\" >Subject ID</option>\n" +
+        "            <option value=\"MrkI\" >Mark</option>\n" +
+        "        </select>\n"
+    let resValue;
 
-function deleteStudentRequest(Id) {
-    let xhr = new XMLHttpRequest();
-    let url = "/api/v1/deleteStudent";
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            window.alert("Student Deleted")
-        }
-    }
-    const deleting = {id: Id, name: "", birth: ""};
-    const data = JSON.stringify(deleting);
-    xhr.send(data);
-}
-
-function getSearchField() {
-    let tableForSearch = "<td style=\"width: 10%\">\n" +
-        "            <textarea maxlength=\"11\" id=\"CNsi\" name=\"CNt\" placeholder=\"Card Number\" type=\"text\" rows=\"1\"/></textarea>\n" +
-        "        </td>\n" +
-        "        <td class=\"style1\" style=\"width: 25%\">\n" +
-        "            <textarea ID=\"Nsi\" placeholder=\"Name\" style=\"width: 230px\" type=\"text\" rows=\"1\"></textarea>\n" +
-        "        </td>\n" +
-        "        <td class=\"style1\" style=\"width: 25%\">\n" +
-        "            <textarea maxlength=\"10\" ID=\"BDsi\" placeholder=\"Birthday\" style=\"width: 130px\" type=\"text\"\n" +
-        "                      rows=\"1\"/></textarea>\n" +
-        "        </td>\n" +
-        "\n" +
-        "        <td class=\"style1\" rowspan=\"2\" style=\"width: 15%\">\n" +
-        "            <button onclick=\"applyStudentSearch(document.getElementById('CNsi'), document.getElementById('Nsi'), document.getElementById('BDsi'), " + 1 + ")\"\n" +
-        "                    style=\"width: 100px\">Search\n" +
-        "            </button>\n" +
-        "        </td>";
-    document.getElementById("searchTable").innerHTML = tableForSearch;
-}
-
-function applyStudentSearch(Cn, N, Bd, fun) {
-    let CNTtd = Cn.value;
-    let Ntd = N.value;
-    let BDtd = Bd.value;
-    studentSearchRequest(CNTtd, Ntd, BDtd, fun);
-}
-
-function applyAddingStudent() {
-    let jsonTemp = {"name": "Student Name", "id": "Card Number", "sbirth": "YYYY-MM-DD"}
-    let jsonToCreate = JSON.stringify(jsonTemp)
-    createStudentPersonalDatasTable(jsonToCreate, 3)
-}
-
-function applyStudentRefresh(Cn) {
-    studentSearchRequest(Cn, "", "", "", 2)
-}
-
-function applyStudentDelete(Cn, Nm) {
-    let Id = Cn;
-    let name = Nm
-    let proceedText = "Are You sure to DELETE the student, named : " + name + "?"
-    if (confirm(proceedText) == true) {
-        deleteStudentRequest(Id);
-
-    } else {
-        window.alert("The student Delete session cancelled")
+    switch (selected) {
+        case "Student" :
+            resValue= rValueSB + rValueStd
+            document.getElementById("SCIR").innerHTML = resValue;
+            break
+        case "Diary":
+            resValue= rValueSB + rValueDry
+            document.getElementById("SCIR").innerHTML = resValue;
+            break
+        case "Class":
+            resValue= rValueSB + rValueCls
+            document.getElementById("SCIR").innerHTML = resValue;
+            break
+        case "Subject":
+            resValue= rValueSB + rValueSbj
+            document.getElementById("SCIR").innerHTML = resValue;
+            break
+        case "Mark":
+            resValue= rValueSB + rValueMrk
+            document.getElementById("SCIR").innerHTML = resValue;
+            break
+        default:
+            resValue= "please select what you want to search by "
+            document.getElementById("SCIR").innerHTML = resValue;
+            break
     }
 }
 
-function createStudentSearchResponseTable(json) {
-    let i;
-    let response = json;
-    let table = "<tr><th>Card Number</th><th>Name</th><th>Birth date</th></tr>";
-    let x = response;
-    for (i = 0; i < x.length; i++) {
-        table += "<tr><td onclick=\"studentSearchRequest(" + x[i].id + ",null,null,2)\"> " +
-            x[i].id +
-            "</td><td onclick=\"studentSearchRequest(" + x[i].id + ",null,null,2)\">" +
-            x[i].name +
-            "</td><td>" +
-            x[i].sbirth +
-            "</td></tr>";
+function getSpecificInputField(spec) {
+    /**
+     * Spec:[0-7]
+     * 0- simple text input
+     * 1- Student ID input
+     * 2- simple number input
+     * 3- Grade input
+     * 4- Date input
+     * 5- numeric Year input
+     * 6- Sign input
+     * 7- Mark input
+     */
+    switch (spec) {
+        case "TxtI":
+            document.getElementById("VSI").innerHTML = "<input type=\"text\" />"
+            break;
+        case "SIdI":
+            document.getElementById("VSI").innerHTML =
+                "<input type=\"number\" min=\"10000000000\" max=\"99999999999\" step=\"1\" />";
+            break;
+        case "NmbI":
+            document.getElementById("VSI").innerHTML =
+                "<input type=\"number\" min=\"0\"/>";
+            break;
+        case "GrdI":
+            document.getElementById("VSI").innerHTML =
+                "<input type=\"number\" min=\"0\" max=\"14\" step=\"1\" />";
+            break;
+        case "DtI":
+            document.getElementById("VSI").innerHTML =
+                "<input type=\"date\"/>"
+            break;
+        case "NYrI":
+            document.getElementById("VSI").innerHTML =
+                "<input type=\"number\" min=\"1900\" max=\"2099\" step=\"1\" value=\"2022\" />";
+            break;
+        case "SgnI":
+            document.getElementById("VSI").innerHTML =
+                "<input type=\"text\" maxlength='1' pattern='[A-Z]'/>";
+            break;
+        case "MrkI":
+            document.getElementById("VSI").innerHTML =
+                "<input type=\"number\" min=\"1\" max=\"5\" step=\"1\" value=\"5\" />";
+            return;
+        default:
+            window.alert("Error! Missing SearchInputSpecification!")
+            return
     }
-    document.getElementById("resultTable").innerHTML = table
 }
-
-function createStudentPersonalDatasTable(jsonToModify, command) {
-    let student = jsonToModify
-    let tId
-    let tName
-    let tBirth
-    let tDiary
-    let bottomButtons
-    let tableForModify
-    if (command === 2) {
-        tId = student[0].id
-        tName = student[0].name
-        tBirth = student[0].sbirth
-        let refreshContent = "(" + tId + ")"
-        let deleteContent = "( " + tId + " , \"" + tName + "\") \' "
-        tableForModify = "<tr><th> Name   :<textarea  ID=\"SMNt\" placeholder=\"" + tName + "\"   type=\"text\" rows=\"1\" cols='50'/></textarea></th></tr>" +
-            "<tr><th>Card Number   :<textarea maxlength=\"11\" ID=\"SMIDt\" placeholder=\"" + tId + "\"   type=\"text\" rows=\"1\" cols='11'/></textarea></th></tr>" +
-            "<tr><th>Birth Date   :<input type='date' ID=\"SMBt\" placeholder=\"" + tBirth + "\"   type=\"text\" rows=\"1\" cols='10'/></textarea></th></tr>" +
-            "<tr><th><button onclick=\"applyStudentRefresh " + refreshContent + " \" >Refresh</button></th></tr>" +
-            "<tr><th><button>Modify</button></th></tr>" +
-            "<tr><th><button onclick=\'applyStudentDelete " + deleteContent + ">Delete</button></th></tr>"
-    } else if (command === 3) {
-        tId = "Card Number"
-        tName = "Student Name"
-        tBirth = "2000-01-01"
-        tableForModify = "<tr><th> Name   :<textarea  ID=\"SMNt\" placeholder=\"" + tName + "\"   type=\"text\" rows=\"1\" cols='50'/></textarea></th></tr>" +
-            "<tr><th>Card Number   :<textarea maxlength=\"11\" ID=\"SMIDt\" placeholder=\"" + tId + "\"   type=\"text\" rows=\"1\" cols='11'/></textarea></th></tr>" +
-            "<tr><th>Birth Date   :<input type = 'date'  ID=\"SMBt\" placeholder=\"" + tBirth + "\"   type=\"text\" rows=\"1\" cols='10'/></textarea></th></tr>" +
-            "<tr><th><button onclick=\"window.alert(document.getElementById('SMIDt').value, document.getElementById('SMNt').value, document.getElementById('SMBt').value);" +
-            "addNewStudentRequest(document.getElementById('SMIDt').value, document.getElementById('SMNt').value, document.getElementById('SMBt').value)\">Add</button></th></tr>"
-    }
-
-
-    document.getElementById("searchTable").innerHTML = ""
-    document.getElementById("resultTable").innerHTML = tableForModify
-}
-
-
-
