@@ -1,5 +1,5 @@
 package hu.wurfel.refference.school.model;
 
 public enum Naming {
-	ID, Name, Birth, Diary, Empty
+	Student, Diary, Class, Subject, Mark, Teacher
 }

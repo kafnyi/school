@@ -67,27 +67,27 @@ function selectSClarifiedInnerRow(selected) {
 
     switch (selected) {
         case "Student" :
-            resValue= rValueSB + rValueStd
+            resValue = rValueSB + rValueStd
             document.getElementById("SCIR").innerHTML = resValue;
             break
         case "Diary":
-            resValue= rValueSB + rValueDry
+            resValue = rValueSB + rValueDry
             document.getElementById("SCIR").innerHTML = resValue;
             break
         case "Class":
-            resValue= rValueSB + rValueCls
+            resValue = rValueSB + rValueCls
             document.getElementById("SCIR").innerHTML = resValue;
             break
         case "Subject":
-            resValue= rValueSB + rValueSbj
+            resValue = rValueSB + rValueSbj
             document.getElementById("SCIR").innerHTML = resValue;
             break
         case "Mark":
-            resValue= rValueSB + rValueMrk
+            resValue = rValueSB + rValueMrk
             document.getElementById("SCIR").innerHTML = resValue;
             break
         default:
-            resValue= "please select what you want to search by "
+            resValue = "please select what you want to search by "
             document.getElementById("SCIR").innerHTML = resValue;
             break
     }
@@ -107,38 +107,49 @@ function getSpecificInputField(spec) {
      */
     switch (spec) {
         case "TxtI":
-            document.getElementById("VSI").innerHTML = "<input type=\"text\" />"
+            document.getElementById("VSI").innerHTML =
+                "<input id='SVF' type=\"text\" />"
             break;
         case "SIdI":
             document.getElementById("VSI").innerHTML =
-                "<input type=\"number\" min=\"10000000000\" max=\"99999999999\" step=\"1\" />";
+                "<input id='SVF' type=\"number\" min=\"10000000000\" max=\"99999999999\" step=\"1\" />";
             break;
         case "NmbI":
             document.getElementById("VSI").innerHTML =
-                "<input type=\"number\" min=\"0\"/>";
+                "<input id='SVF' type=\"number\" min=\"0\"/>";
             break;
         case "GrdI":
             document.getElementById("VSI").innerHTML =
-                "<input type=\"number\" min=\"0\" max=\"14\" step=\"1\" />";
+                "<input id='SVF' type=\"number\" min=\"0\" max=\"14\" step=\"1\" />";
             break;
         case "DtI":
             document.getElementById("VSI").innerHTML =
-                "<input type=\"date\"/>"
+                "<input id='SVF' type=\"date\"/>"
             break;
         case "NYrI":
             document.getElementById("VSI").innerHTML =
-                "<input type=\"number\" min=\"1900\" max=\"2099\" step=\"1\" value=\"2022\" />";
+                "<input id='SVF' type=\"number\" min=\"1900\" max=\"2099\" step=\"1\" value=\"2022\" />";
             break;
         case "SgnI":
             document.getElementById("VSI").innerHTML =
-                "<input type=\"text\" maxlength='1' pattern='[A-Z]'/>";
+                "<input id='SVF' type=\"text\" maxlength='1' pattern='[A-Z]'/>";
             break;
         case "MrkI":
             document.getElementById("VSI").innerHTML =
-                "<input type=\"number\" min=\"1\" max=\"5\" step=\"1\" value=\"5\" />";
-            return;
+                "<input id='SVF' type=\"number\" min=\"1\" max=\"5\" step=\"1\" value=\"5\" />";
+            break;
         default:
             window.alert("Error! Missing SearchInputSpecification!")
-            return
+            break;
     }
+    document.getElementById("SMBC").innerHTML=
+        "<input type='button' style='width: 150px' value='Search' onclick='confirmSearch()'>"
+}
+
+function confirmSearch(){
+   let sFor= document.getElementById("SFS").value
+   let sWith= document.getElementById("SWS").value
+   let sBy= document.getElementById("SBS").value
+   let sVal= document.getElementById("SVF").value.toString()
+    window.alert("the confirmed search is :"+sFor + ";" + sWith + ";" + sBy + ";" + sVal);
 }
