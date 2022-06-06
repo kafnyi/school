@@ -22,31 +22,63 @@ public class MarkService extends MarkCrudService {
 		return getMarksByDiaryid(diary.getId());
 	}
 
-	public ArrayList<Mark> getMarksByStudent(@NotNull Student student) {
-		ArrayList<Mark> result = new ArrayList<>();
-		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getId()))) {
-			result.addAll(getMarksByDiary(diary));
+	public ArrayList<Mark> getMarksByDiaries(@NotNull ArrayList<Diary> diaries) {
+		ArrayList<Mark> marks = new ArrayList<>();
+		for (Diary diary : diaries) {
+			marks.addAll(getMarksByDiary(diary));
 		}
-		return result;
+		return marks;
+	}
+
+	public ArrayList<Mark> getMarksByStudent(@NotNull Student student) {
+		ArrayList<Mark> marks = new ArrayList<>();
+		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getId()))) {
+			marks.addAll(getMarksByDiary(diary));
+		}
+		return marks;
+	}
+
+	public ArrayList<Mark> getMarksByStudents(@NotNull ArrayList<Student> students) {
+		ArrayList<Mark> marks = new ArrayList<>();
+		for (Student student : students) {
+			marks.addAll(getMarksByStudent(student));
+		}
+		return marks;
 	}
 
 	public ArrayList<Mark> getMarksByClass(@NotNull Class division) {
-		ArrayList<Mark> result = new ArrayList<>();
+		ArrayList<Mark> marks = new ArrayList<>();
 		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByClassid(division.getId()))) {
-			result.addAll(getMarksByDiary(diary));
+			marks.addAll(getMarksByDiary(diary));
 		}
-		return result;
+		return marks;
+	}
+
+	public ArrayList<Mark> getMarksByClasses(@NotNull ArrayList<Class> classes) {
+		ArrayList<Mark> marks = new ArrayList<>();
+		for (Class division : classes) {
+			marks.addAll(getMarksByClass(division));
+		}
+		return marks;
 	}
 
 	public ArrayList<Mark> getMarksBySubject(@NotNull Subject subject) {
 		return getMarksBySubjectid(subject.getId());
 	}
 
-	public ArrayList<Mark> getMarksByTeacher(@NotNull Teacher teacher) {
-		ArrayList<Mark> result = new ArrayList<>();
-		for (Subject subject : new ArrayList<Subject>(subjectCrudService.getSubjectsByTid(teacher.getId()))) {
-			result.addAll(getMarksBySubject(subject));
+	public ArrayList<Mark> getMarksBySubjects(@NotNull ArrayList<Subject> subjects) {
+		ArrayList<Mark> marks = new ArrayList<>();
+		for (Subject subject : subjects) {
+			marks.addAll(getMarksBySubject(subject));
 		}
-		return result;
+		return marks;
+	}
+
+	public ArrayList<Mark> getMarksByTeacher(@NotNull Teacher teacher) {
+		ArrayList<Mark> marks = new ArrayList<>();
+		for (Subject subject : new ArrayList<Subject>(subjectCrudService.getSubjectsByTid(teacher.getId()))) {
+			marks.addAll(getMarksBySubject(subject));
+		}
+		return marks;
 	}
 }

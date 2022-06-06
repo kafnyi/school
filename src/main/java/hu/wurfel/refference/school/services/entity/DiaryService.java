@@ -22,12 +22,36 @@ public class DiaryService extends DiaryCrudService {
 		return getDiariesByScid(student.getId());
 	}
 
+	public ArrayList<Diary> getDiariesByStudents(@NotNull ArrayList<Student> students) {
+		ArrayList<Diary> diaries = new ArrayList<>();
+		for (Student student : students) {
+			diaries.addAll(getDiariesByStudents(students));
+		}
+		return diaries;
+	}
+
 	public ArrayList<Diary> getDiariesByClass(@NotNull Class division) {
 		return getDiariesByClassid(division.getId());
 	}
 
+	public ArrayList<Diary> getDiariesByClasses(@NotNull ArrayList<Class> classes) {
+		ArrayList<Diary> diaries = new ArrayList<>();
+		for (Class division : classes) {
+			diaries.addAll(getDiariesByClass(division));
+		}
+		return diaries;
+	}
+
 	public Diary getDiaryByMark(@NotNull Mark mark) {
 		return getDiaryByDiaryid(mark.getDiaryID());
+	}
+
+	public ArrayList<Diary> getDiariesByMarks(@NotNull ArrayList<Mark> marks) {
+		ArrayList<Diary> diaries = new ArrayList<>();
+		for (Mark mark : marks) {
+			diaries.add(getDiaryByMark(mark));
+		}
+		return diaries;
 	}
 
 	public ArrayList<Diary> getDiariesBySubject(@NotNull Subject subject) {
@@ -36,6 +60,14 @@ public class DiaryService extends DiaryCrudService {
 			result.add(getDiaryByMark(mark));
 		}
 		return result;
+	}
+
+	public ArrayList<Diary> getDiariesBySubjects(@NotNull ArrayList<Subject> subjects) {
+		ArrayList<Diary> diaries = new ArrayList<>();
+		for (Subject subject : subjects) {
+			diaries.addAll(getDiariesBySubject(subject));
+		}
+		return diaries;
 	}
 
 	public ArrayList<Diary> getDiariesByTeacher(@NotNull Teacher teacher) {

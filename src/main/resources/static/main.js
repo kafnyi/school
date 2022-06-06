@@ -34,34 +34,34 @@ function searchMenuButton() {
 function selectSClarifiedInnerRow(selected) {
     let rValueSB = "Search By :"
     let rValueSI
-    let rValueStd = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
-        "            <option value=\"SIdI\" >Student ID</option>\n" +
-        "            <option value=\"TxtI\" >Name</option>\n" +
-        "            <option value=\"DtI\"  >Birth Date</option>\n" +
+    let rValueStd = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").getAttribute('name'))'>\n" +
+        "            <option value=\"StudentId\" name='SIdI'>Student ID</option>\n" +
+        "            <option value=\"Name\" name='TextI'>Name</option>\n" +
+        "            <option value=\"Date\"  name='DateI'>Birth Date</option>\n" +
         "        </select>\n"
-    let rValueDry = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
-        "            <option value=\"NmbI\" >Diary ID</option>\n" +
-        "            <option value=\"SIdI\" >Student ID</option>\n" +
-        "            <option value=\"NmbI\" >Class ID</option>\n" +
+    let rValueDry = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").getAttribute('name'))'>\n" +
+        "            <option value=\"DiaryId\" name='IdI'>Diary ID</option>\n" +
+        "            <option value=\"StudentId\" name='SIdI'>Student ID</option>\n" +
+        "            <option value=\"ClassId\" name='IdI'>Class ID</option>\n" +
         "        </select>\n"
-    let rValueCls = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
-        "            <option value=\"NmbI\" >Class ID</option>\n" +
-        "            <option value=\"GrdI\" >Grade</option>\n" +
-        "            <option value=\"SgnI\" >Sign</option>\n" +
-        "            <option value=\"NYrI\" >Year</option>\n" +
-        "            <option value=\"NmbI\" >Teacher ID</option>\n" +
+    let rValueCls = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").getAttribute('name'))'>\n" +
+        "            <option value=\"ClassId\" name='IdI'>Class ID</option>\n" +
+        "            <option value=\"Grade\" name='GradeI'>Grade</option>\n" +
+        "            <option value=\"Sign\" name='SignI'>Sign</option>\n" +
+        "            <option value=\"Year\" name='YearI'>Year</option>\n" +
+        "            <option value=\"TeacherId\" name='IdI'>Teacher ID</option>\n" +
         "        </select>\n"
-    let rValueSbj = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
-        "            <option value=\"NmbI\" >Subject ID</option>\n" +
-        "            <option value=\"TxtI\" >Subject Name</option>\n" +
-        "            <option value=\"NmbI\" >Teacher ID</option>\n" +
+    let rValueSbj = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").getAttribute('name'))'>\n" +
+        "            <option value=\"SubjectId\" name='IdI'>Subject ID</option>\n" +
+        "            <option value=\"Name\" name='TextI'>Subject Name</option>\n" +
+        "            <option value=\"TeacherId\" name='IdI'>Teacher ID</option>\n" +
         "        </select>\n"
-    let rValueMrk = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
-        "            <option value=\"NmbI\" >Mark ID</option>\n" +
-        "            <option value=\"NmbI\" >Diary ID</option>\n" +
-        "            <option value=\"DtI\" >Date</option>\n" +
-        "            <option value=\"NmbI\" >Subject ID</option>\n" +
-        "            <option value=\"MrkI\" >Mark</option>\n" +
+    let rValueMrk = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").getAttribute('name'))'>\n" +
+        "            <option value=\"MarkId\" name='IdI'>Mark ID</option>\n" +
+        "            <option value=\"DiaryId\" name='IdI'>Diary ID</option>\n" +
+        "            <option value=\"Date\" name='DateI'>Date</option>\n" +
+        "            <option value=\"SubjectId\" name='IdI'>Subject ID</option>\n" +
+        "            <option value=\"Mark\" name='MarkI'>Mark</option>\n" +
         "        </select>\n"
     let resValue;
 
@@ -106,7 +106,7 @@ function getSpecificInputField(spec) {
      * 7- Mark input
      */
     switch (spec) {
-        case "TxtI":
+        case "TextI":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"text\" />"
             break;
@@ -114,27 +114,27 @@ function getSpecificInputField(spec) {
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"number\" min=\"10000000000\" max=\"99999999999\" step=\"1\" />";
             break;
-        case "NmbI":
+        case "IdI":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"number\" min=\"0\"/>";
             break;
-        case "GrdI":
+        case "GradeI":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"number\" min=\"0\" max=\"14\" step=\"1\" />";
             break;
-        case "DtI":
+        case "DateI":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"date\"/>"
             break;
-        case "NYrI":
+        case "YearI":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"number\" min=\"1900\" max=\"2099\" step=\"1\" value=\"2022\" />";
             break;
-        case "SgnI":
+        case "SignI":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"text\" maxlength='1' pattern='[A-Z]'/>";
             break;
-        case "MrkI":
+        case "MarkI":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"number\" min=\"1\" max=\"5\" step=\"1\" value=\"5\" />";
             break;
@@ -150,6 +150,10 @@ function confirmSearch() {
     let sFor = document.getElementById("SFS").value
     let sWith = document.getElementById("SWS").value
     let sBy = document.getElementById("SBS").value
+    let sValDate;
+    if (document.getElementById("SBS").type == "date") {
+        sValDate = document.getElementById("SVF").value;
+    }
     let sVal = document.getElementById("SVF").value
-    window.alert("the confirmed search is :" + sFor + ";" + sWith + ";" + sBy + ";" + sVal);
+    window.alert("the confirmed search is :" + sFor + ";" + sWith + ";" + sBy + ";" + sVal + ";" + sValDate);
 }
