@@ -142,14 +142,18 @@ function getSpecificInputField(spec) {
             window.alert("Error! Missing SearchInputSpecification!")
             break;
     }
-    document.getElementById("SMBC").innerHTML=
+    document.getElementById("SMBC").innerHTML =
         "<input type='button' style='width: 150px' value='Search' onclick='confirmSearch()'>"
 }
 
-function confirmSearch(){
-   let sFor= document.getElementById("SFS").value
-   let sWith= document.getElementById("SWS").value
-   let sBy= document.getElementById("SBS").value
-   let sVal= document.getElementById("SVF").value
-    window.alert("the confirmed search is :"+sFor + ";" + sWith + ";" + sBy + ";" + sVal);
+function confirmSearch() {
+    let sFor = document.getElementById("SFS").value
+    let sWith = document.getElementById("SWS").value
+    let sBy = document.getElementById("SBS").value
+    let sValDate;
+    if (document.getElementById("SBS").type == "date") {
+        sValDate = document.getElementById("SVF").value;
+    }
+    let sVal = document.getElementById("SVF").value
+    window.alert("the confirmed search is :" + sFor + ";" + sWith + ";" + sBy + ";" + sVal + ";" + sValDate);
 }

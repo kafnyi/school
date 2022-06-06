@@ -33,11 +33,12 @@ public class ResponseCreator {
 				rContent.addAll(ResponseCreationClarificationMark.create(request));
 			}
 			case Teacher -> {
+				rContent.addAll(ResponseCreationClarificationTeacher.create(request));
 			}
 			default -> {
 			}
 
 		}
-		return rContent;
+		return ResultValidator.validate(rContent);
 	}
 }
