@@ -47,6 +47,14 @@ public class ClassService extends ClassCrudService {
 		return getClassesByTid(teacher.getId());
 	}
 
+	public ArrayList<Class> getClassesByTeachers(@NotNull ArrayList<Teacher> teachers) {
+		ArrayList<Class> classes = new ArrayList<>();
+		for (Teacher teacher : teachers) {
+			classes.addAll(getClassesByTeacher(teacher));
+		}
+		return classes;
+	}
+
 	public ArrayList<Class> getClassesByStudent(@NotNull Student student) {
 		ArrayList<Class> classes = new ArrayList<>();
 		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getId()))) {

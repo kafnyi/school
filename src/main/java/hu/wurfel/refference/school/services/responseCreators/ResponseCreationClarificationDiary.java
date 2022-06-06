@@ -23,6 +23,9 @@ public class ResponseCreationClarificationDiary extends responseCreationTemplate
 			case Mark -> {
 				dWMark(request);
 			}
+			case Teacher -> {
+				dWTeacher(request);
+			}
 			default -> {
 			}
 		}
@@ -115,6 +118,22 @@ public class ResponseCreationClarificationDiary extends responseCreationTemplate
 			}
 			case Mark -> {
 				rContent = diaryService.getDiariesByMarks(markService.getMarksByMark(Byte.parseByte(request.getRValue())));
+			}
+			default -> {
+			}
+		}
+	}
+
+	private static void dWTeacher(Request request) {
+		switch (request.getRBy()) {
+			case TeacherId -> {
+				rContent = diaryService.getDiariesByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(request.getRValue())));
+			}
+			case Name -> {
+				rContent = diaryService.getDiariesByTeachers(teacherService.getTeacherByName(request.getRValue()));
+			}
+			case Date -> {
+				rContent = diaryService.getDiariesByTeachers(teacherService.getTeacherByBirth(request.getRValDate()));
 			}
 			default -> {
 			}

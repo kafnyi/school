@@ -77,4 +77,12 @@ public class DiaryService extends DiaryCrudService {
 		}
 		return result;
 	}
+
+	public ArrayList<Diary> getDiariesByTeachers(@NotNull ArrayList<Teacher> teachers) {
+		ArrayList<Diary> diaries = new ArrayList<>();
+		for (Teacher teacher : teachers) {
+			diaries.addAll(getDiariesByTeacher(teacher));
+		}
+		return diaries;
+	}
 }

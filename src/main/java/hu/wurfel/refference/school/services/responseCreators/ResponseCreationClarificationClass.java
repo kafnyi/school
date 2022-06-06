@@ -23,6 +23,9 @@ public class ResponseCreationClarificationClass extends responseCreationTemplate
 			case Mark -> {
 				cWMark(request);
 			}
+			case Teacher -> {
+				cWTeacher(request);
+			}
 			default -> {
 			}
 		}
@@ -116,6 +119,22 @@ public class ResponseCreationClarificationClass extends responseCreationTemplate
 			}
 			case Mark -> {
 				rContent = classService.getClassesByMarks(markService.getMarksByMark(Byte.parseByte(request.getRValue())));
+			}
+			default -> {
+			}
+		}
+	}
+
+	private static void cWTeacher(Request request) {
+		switch (request.getRBy()) {
+			case TeacherId -> {
+				rContent = classService.getClassesByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(request.getRValue())));
+			}
+			case Name -> {
+				rContent = classService.getClassesByTeachers(teacherService.getTeacherByName(request.getRValue()));
+			}
+			case Date -> {
+				rContent = classService.getClassesByTeachers(teacherService.getTeacherByBirth(request.getRValDate()));
 			}
 			default -> {
 			}

@@ -81,4 +81,12 @@ public class MarkService extends MarkCrudService {
 		}
 		return marks;
 	}
+
+	public ArrayList<Mark> getMarksByTeachers(@NotNull ArrayList<Teacher> teachers) {
+		ArrayList<Mark> marks = new ArrayList<>();
+		for (Teacher teacher : teachers) {
+			marks.addAll(getMarksByTeacher(teacher));
+		}
+		return marks;
+	}
 }

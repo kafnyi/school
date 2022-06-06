@@ -34,6 +34,14 @@ public class SubjectService extends SubjectCrudService {
 		return getSubjectsByTid(teacher.getId());
 	}
 
+	public ArrayList<Subject> getSubjectsByTeachers(@NotNull ArrayList<Teacher> teachers) {
+		ArrayList<Subject> subjects = new ArrayList<>();
+		for (Teacher teacher : teachers) {
+			subjects.addAll(getSubjectsByTeacher(teacher));
+		}
+		return subjects;
+	}
+
 	public ArrayList<Subject> getSubjectsByDiary(@NotNull Diary diary) {
 		ArrayList<Subject> subjects = new ArrayList<>();
 		for (Mark mark : new ArrayList<Mark>(markCrudService.getMarksByDiaryid(diary.getId()))) {

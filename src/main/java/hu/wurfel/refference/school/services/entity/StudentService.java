@@ -85,5 +85,11 @@ public class StudentService extends StudentCrudService {
 		return students;
 	}
 
-
+	public ArrayList<Student> getStudentsByTeachers(@NotNull ArrayList<Teacher> teachers) {
+		ArrayList<Student> students = new ArrayList<>();
+		for (Teacher teacher : teachers) {
+			students.addAll(getStudentsByTeacher(teacher));
+		}
+		return students;
+	}
 }

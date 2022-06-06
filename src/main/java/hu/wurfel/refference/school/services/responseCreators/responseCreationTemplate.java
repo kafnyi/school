@@ -21,6 +21,9 @@ public class responseCreationTemplate {
 	@Autowired
 	static
 	MarkService markService;
+	@Autowired
+	static
+	TeacherService teacherService;
 
 	static ArrayList rContent;
 
