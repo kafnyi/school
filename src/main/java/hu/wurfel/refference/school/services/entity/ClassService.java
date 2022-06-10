@@ -6,7 +6,6 @@ import hu.wurfel.refference.school.services.entity.cruds.ClassCrudService;
 import hu.wurfel.refference.school.services.entity.cruds.DiaryCrudService;
 import hu.wurfel.refference.school.services.entity.cruds.MarkCrudService;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,9 +13,7 @@ import java.util.ArrayList;
 @Service
 public class ClassService extends ClassCrudService {
 
-	@Autowired
 	private MarkCrudService markCrudService;
-	@Autowired
 	private DiaryCrudService diaryCrudService;
 
 	public Class getClassByDiary(@NotNull Diary diary) {
@@ -57,7 +54,7 @@ public class ClassService extends ClassCrudService {
 
 	public ArrayList<Class> getClassesByStudent(@NotNull Student student) {
 		ArrayList<Class> classes = new ArrayList<>();
-		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getId()))) {
+		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getSID()))) {
 			classes.add(getClassByDiary(diary));
 		}
 		return classes;

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 @Service
 public class ClassCrudService {
+
 	@Autowired
 	private ClassRepository classRepository;
 

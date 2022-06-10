@@ -32,7 +32,7 @@ public class MarkService extends MarkCrudService {
 
 	public ArrayList<Mark> getMarksByStudent(@NotNull Student student) {
 		ArrayList<Mark> marks = new ArrayList<>();
-		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getId()))) {
+		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getSID()))) {
 			marks.addAll(getMarksByDiary(diary));
 		}
 		return marks;

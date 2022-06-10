@@ -19,18 +19,18 @@ import java.util.Date;
 public class Student {
 	@Id
 	@Column(name = "SID", nullable = false)
-	private Long id;
+	private Long SID;
 
 	@Column(name = "Name", nullable = false, length = 54)
 	private String name;
 
-	@Column(name = "BirthDate", nullable = false)
+	@Column(name = "Birthdate", nullable = false)
 	private Date birthDate;
 
 	@Override
 	public String toString() {
 		return "Student{" +
-				"ID=" + id +
+				"ID=" + SID +
 				", Name='" + name + '\'' +
 				", Birthdate=" + birthDate +
 				'}';

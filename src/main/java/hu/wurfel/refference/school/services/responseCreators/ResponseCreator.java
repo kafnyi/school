@@ -3,16 +3,23 @@ package hu.wurfel.refference.school.services.responseCreators;
 import hu.wurfel.refference.school.model.Request;
 import hu.wurfel.refference.school.model.Response;
 import hu.wurfel.refference.school.model.enums.EntityNaming;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
+@Component
 public class ResponseCreator {
-
-	Response response = new Response();
+	Response response;
 	EntityNaming rType;
 	ArrayList rContent;
 
-	public ArrayList ResponseCreator(Request request) {
+	public ResponseCreator() {
+		this.response = new Response();
+		this.rContent = new ArrayList<>();
+	}
+
+
+	public ArrayList create(Request request) {
 		rType = request.getRFor();
 		rContent = new ArrayList();
 		rContent.add(rType);

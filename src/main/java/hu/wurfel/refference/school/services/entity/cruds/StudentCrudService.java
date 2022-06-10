@@ -13,14 +13,14 @@ import java.util.Date;
 public class StudentCrudService {
 
 	@Autowired
-	private StudentRepository studentRepository;
+	public StudentRepository studentRepository;
 
 	public ArrayList<Student> getAllStudents() {
 		return studentRepository.findAll();
 	}
 
 	public Student getStudentByStudentId(long id) {
-		return studentRepository.findById(id).get();
+		return studentRepository.findBySID(id);
 	}
 
 	public ArrayList<Student> getStudentsByName(String name) {
@@ -37,7 +37,7 @@ public class StudentCrudService {
 
 	public Student saveStudent(@NotNull Student student) {
 		studentRepository.save(student);
-		return getStudentByStudentId(student.getId());
+		return getStudentByStudentId(student.getSID());
 	}
 
 	public Student saveStudent(long id, String name, Date birth) {
@@ -45,7 +45,7 @@ public class StudentCrudService {
 	}
 
 	public Student setStudentID(@NotNull Student student, long id) {
-		student.setId(id);
+		student.setSID(id);
 		return saveStudent(student);
 	}
 

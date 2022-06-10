@@ -83,7 +83,7 @@ public class TeacherService extends TeacherCrudService {
 
 	public ArrayList<Teacher> getTeachersByStudent(@NotNull Student student) {
 		ArrayList<Teacher> result = new ArrayList<>();
-		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getId()))) {
+		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getSID()))) {
 			result.addAll(getTeachersByDiary(diary));
 		}
 		return result;

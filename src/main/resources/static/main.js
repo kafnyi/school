@@ -34,29 +34,29 @@ function searchMenuButton() {
 function selectSClarifiedInnerRow(selected) {
     let rValueSB = "Search By :"
     let rValueSI
-    let rValueStd = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").getAttribute('name'))'>\n" +
+    let rValueStd = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"StudentId\" name='SIdI'>Student ID</option>\n" +
         "            <option value=\"Name\" name='TextI'>Name</option>\n" +
         "            <option value=\"Date\"  name='DateI'>Birth Date</option>\n" +
         "        </select>\n"
-    let rValueDry = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").getAttribute('name'))'>\n" +
+    let rValueDry = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"DiaryId\" name='IdI'>Diary ID</option>\n" +
         "            <option value=\"StudentId\" name='SIdI'>Student ID</option>\n" +
         "            <option value=\"ClassId\" name='IdI'>Class ID</option>\n" +
         "        </select>\n"
-    let rValueCls = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").getAttribute('name'))'>\n" +
+    let rValueCls = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"ClassId\" name='IdI'>Class ID</option>\n" +
         "            <option value=\"Grade\" name='GradeI'>Grade</option>\n" +
         "            <option value=\"Sign\" name='SignI'>Sign</option>\n" +
         "            <option value=\"Year\" name='YearI'>Year</option>\n" +
         "            <option value=\"TeacherId\" name='IdI'>Teacher ID</option>\n" +
         "        </select>\n"
-    let rValueSbj = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").getAttribute('name'))'>\n" +
+    let rValueSbj = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"SubjectId\" name='IdI'>Subject ID</option>\n" +
         "            <option value=\"Name\" name='TextI'>Subject Name</option>\n" +
         "            <option value=\"TeacherId\" name='IdI'>Teacher ID</option>\n" +
         "        </select>\n"
-    let rValueMrk = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").getAttribute('name'))'>\n" +
+    let rValueMrk = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"MarkId\" name='IdI'>Mark ID</option>\n" +
         "            <option value=\"DiaryId\" name='IdI'>Diary ID</option>\n" +
         "            <option value=\"Date\" name='DateI'>Date</option>\n" +
@@ -106,35 +106,51 @@ function getSpecificInputField(spec) {
      * 7- Mark input
      */
     switch (spec) {
-        case "TextI":
+        case "Name":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"text\" />"
             break;
-        case "SIdI":
+        case "StudentId":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"number\" min=\"10000000000\" max=\"99999999999\" step=\"1\" />";
             break;
-        case "IdI":
+        case "TeacherId":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"number\" min=\"0\"/>";
             break;
-        case "GradeI":
+        case "SubjectId":
+            document.getElementById("VSI").innerHTML =
+                "<input id='SVF' type=\"number\" min=\"0\"/>";
+            break;
+        case "MarkId":
+            document.getElementById("VSI").innerHTML =
+                "<input id='SVF' type=\"number\" min=\"0\"/>";
+            break;
+        case "DiaryId":
+            document.getElementById("VSI").innerHTML =
+                "<input id='SVF' type=\"number\" min=\"0\"/>";
+            break;
+        case "ClassId":
+            document.getElementById("VSI").innerHTML =
+                "<input id='SVF' type=\"number\" min=\"0\"/>";
+            break;
+        case "Grade":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"number\" min=\"0\" max=\"14\" step=\"1\" />";
             break;
-        case "DateI":
+        case "Date":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"date\"/>"
             break;
-        case "YearI":
+        case "Year":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"number\" min=\"1900\" max=\"2099\" step=\"1\" value=\"2022\" />";
             break;
-        case "SignI":
+        case "Sign":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"text\" maxlength='1' pattern='[A-Z]'/>";
             break;
-        case "MarkI":
+        case "Mark":
             document.getElementById("VSI").innerHTML =
                 "<input id='SVF' type=\"number\" min=\"1\" max=\"5\" step=\"1\" value=\"5\" />";
             break;
@@ -150,10 +166,23 @@ function confirmSearch() {
     let sFor = document.getElementById("SFS").value
     let sWith = document.getElementById("SWS").value
     let sBy = document.getElementById("SBS").value
-    let sValDate;
+    let sValDate = "2000-01-01";
     if (document.getElementById("SBS").type == "date") {
         sValDate = document.getElementById("SVF").value;
     }
     let sVal = document.getElementById("SVF").value
-    window.alert("the confirmed search is :" + sFor + ";" + sWith + ";" + sBy + ";" + sVal + ";" + sValDate);
+
+    let xhr = new XMLHttpRequest();
+    let url = "/tli/search/Student";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.alert("response arrive")
+        }
+    }
+    const search = {rFor: sFor, rWith: sWith, rBy: sBy, rValue: sVal, rValDate: sValDate};
+    const data = JSON.stringify(search);
+    xhr.send(data);
+    window.alert(search);
 }

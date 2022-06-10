@@ -1,11 +1,33 @@
 package hu.wurfel.refference.school.services.responseCreators;
 
 import hu.wurfel.refference.school.model.Request;
+import hu.wurfel.refference.school.services.entity.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Year;
 import java.util.ArrayList;
 
 public class ResponseCreationClarificationTeacher extends responseCreationTemplate {
+
+	@Autowired
+	static
+	StudentService studentService;
+	@Autowired
+	static
+	DiaryService diaryService;
+	@Autowired
+	static
+	ClassService classService;
+	@Autowired
+	static
+	SubjectService subjectService;
+	@Autowired
+	static
+	MarkService markService;
+	@Autowired
+	static
+	TeacherService teacherService;
+
 	public static ArrayList create(Request request) {
 		switch (request.getRWith()) {
 			case Student -> {

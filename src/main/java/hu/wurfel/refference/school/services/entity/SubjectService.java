@@ -60,7 +60,7 @@ public class SubjectService extends SubjectCrudService {
 
 	public ArrayList<Subject> getSubjectsByStudent(@NotNull Student student) {
 		ArrayList<Subject> subjects = new ArrayList<>();
-		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getId()))) {
+		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getSID()))) {
 			subjects.addAll(getSubjectsByDiary(diary));
 		}
 		return subjects;
