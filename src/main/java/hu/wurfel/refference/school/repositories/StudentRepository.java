@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Optional;
 
 @Repository
@@ -13,12 +12,11 @@ public interface StudentRepository extends CrudRepository<Student, Long> {
 
 	ArrayList<Student> findAll();
 
-	Student findBySID(Long SID);
-
+	Optional<Student> findById(Long SID);
 
 	ArrayList<Student> findAllByName(String Name);
 
-	ArrayList<Student> findAllByBirthDate(Date birthDate);
+	ArrayList<Student> findAllByBirthDate(String birthDate);
 
-	Optional<Student> findByNameAndBirthDate(String name, Date birthDate);
+	Optional<Student> findByNameAndBirthDate(String name, String birthDate);
 }

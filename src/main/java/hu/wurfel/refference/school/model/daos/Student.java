@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
 
 @Data
 @Builder
@@ -19,18 +18,18 @@ import java.util.Date;
 public class Student {
 	@Id
 	@Column(name = "SID", nullable = false)
-	private Long SID;
+	private Long id;
 
 	@Column(name = "Name", nullable = false, length = 54)
 	private String name;
 
 	@Column(name = "Birthdate", nullable = false)
-	private Date birthDate;
+	private String birthDate;
 
 	@Override
 	public String toString() {
 		return "Student{" +
-				"ID=" + SID +
+				"ID=" + id +
 				", Name='" + name + '\'' +
 				", Birthdate=" + birthDate +
 				'}';

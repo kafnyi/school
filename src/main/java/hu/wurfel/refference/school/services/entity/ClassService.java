@@ -54,7 +54,7 @@ public class ClassService extends ClassCrudService {
 
 	public ArrayList<Class> getClassesByStudent(@NotNull Student student) {
 		ArrayList<Class> classes = new ArrayList<>();
-		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getSID()))) {
+		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByScid(student.getId()))) {
 			classes.add(getClassByDiary(diary));
 		}
 		return classes;

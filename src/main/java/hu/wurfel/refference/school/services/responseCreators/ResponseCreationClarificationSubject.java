@@ -1,34 +1,16 @@
 package hu.wurfel.refference.school.services.responseCreators;
 
 import hu.wurfel.refference.school.model.Request;
-import hu.wurfel.refference.school.services.entity.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.Year;
 import java.util.ArrayList;
 
-public class ResponseCreationClarificationSubject extends responseCreationTemplate {
+@Service
+public class ResponseCreationClarificationSubject extends ResponseCreationClarificationTemplate {
 
-	@Autowired
-	static
-	StudentService studentService;
-	@Autowired
-	static
-	DiaryService diaryService;
-	@Autowired
-	static
-	ClassService classService;
-	@Autowired
-	static
-	SubjectService subjectService;
-	@Autowired
-	static
-	MarkService markService;
-	@Autowired
-	static
-	TeacherService teacherService;
-
-	public static ArrayList create(Request request) {
+	public ArrayList create(Request request) {
+		rContent = new ArrayList<>();
 		switch (request.getRWith()) {
 			case Student -> {
 				sjWStudent(request);
@@ -54,7 +36,7 @@ public class ResponseCreationClarificationSubject extends responseCreationTempla
 		return rContent;
 	}
 
-	private static void sjWStudent(Request request) {
+	private void sjWStudent(Request request) {
 		switch (request.getRBy()) {
 			case StudentId -> {
 				rContent = subjectService.getSubjectsByStudent(studentService.getStudentByStudentId(Long.parseLong(request.getRValue())));
@@ -63,14 +45,14 @@ public class ResponseCreationClarificationSubject extends responseCreationTempla
 				rContent = subjectService.getSubjectsByStudents(studentService.getStudentsByName(request.getRValue()));
 			}
 			case Date -> {
-				rContent = subjectService.getSubjectsByStudents(studentService.getStudentsByBirth(request.getRValDate()));
+				rContent = subjectService.getSubjectsByStudents(studentService.getStudentsByBirth(request.getRValue()));
 			}
 			default -> {
 			}
 		}
 	}
 
-	private static void sjWDiary(Request request) {
+	private void sjWDiary(Request request) {
 		switch (request.getRBy()) {
 			case DiaryId -> {
 				rContent = subjectService.getSubjectsByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(request.getRValue())));
@@ -87,7 +69,7 @@ public class ResponseCreationClarificationSubject extends responseCreationTempla
 		}
 	}
 
-	private static void sjWClass(Request request) {
+	private void sjWClass(Request request) {
 		switch (request.getRBy()) {
 			case ClassId -> {
 				rContent = subjectService.getSubjectsByClass(classService.getClassByClassId(Integer.parseInt(request.getRValue())));
@@ -109,7 +91,7 @@ public class ResponseCreationClarificationSubject extends responseCreationTempla
 		}
 	}
 
-	private static void sjWSubject(Request request) {
+	private void sjWSubject(Request request) {
 		switch (request.getRBy()) {
 			case SubjectId -> {
 				rContent.add(subjectService.getSubjectBySubjectId(Integer.parseInt(request.getRValue())));
@@ -125,7 +107,7 @@ public class ResponseCreationClarificationSubject extends responseCreationTempla
 		}
 	}
 
-	private static void sjWMark(Request request) {
+	private void sjWMark(Request request) {
 		switch (request.getRBy()) {
 			case MarkId -> {
 				rContent.add(subjectService.getSubjectByMark(markService.getMarkByMarkid(Long.parseLong(request.getRValue()))));
@@ -134,7 +116,7 @@ public class ResponseCreationClarificationSubject extends responseCreationTempla
 				rContent = subjectService.getSubjectsByMarks(markService.getMarksByDiaryid(Integer.parseInt(request.getRValue())));
 			}
 			case Date -> {
-				rContent = subjectService.getSubjectsByMarks(markService.getMarksByDate(request.getRValDate()));
+				rContent = subjectService.getSubjectsByMarks(markService.getMarksByDate(request.getRValue()));
 			}
 			case SubjectId -> {
 				rContent.add(subjectService.getSubjectBySubjectId(Integer.parseInt(request.getRValue())));
@@ -147,7 +129,7 @@ public class ResponseCreationClarificationSubject extends responseCreationTempla
 		}
 	}
 
-	private static void sjWTeacher(Request request) {
+	private void sjWTeacher(Request request) {
 		switch (request.getRBy()) {
 			case TeacherId -> {
 				rContent = subjectService.getSubjectsByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(request.getRValue())));
@@ -156,7 +138,7 @@ public class ResponseCreationClarificationSubject extends responseCreationTempla
 				rContent = subjectService.getSubjectsByTeachers(teacherService.getTeacherByName(request.getRValue()));
 			}
 			case Date -> {
-				rContent = subjectService.getSubjectsByTeachers(teacherService.getTeacherByBirth(request.getRValDate()));
+				rContent = subjectService.getSubjectsByTeachers(teacherService.getTeacherByBirth(request.getRValue()));
 			}
 			default -> {
 			}

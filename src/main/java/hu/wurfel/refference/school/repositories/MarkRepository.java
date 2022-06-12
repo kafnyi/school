@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Optional;
 
 @Repository
@@ -16,7 +15,7 @@ public interface MarkRepository extends CrudRepository<Mark, Long> {
 
 	ArrayList<Mark> findAllByDiaryID(Integer diaryId);
 
-	ArrayList<Mark> findAllByDate(Date date);
+	ArrayList<Mark> findAllByDate(String date);
 
 	ArrayList<Mark> findAllBySubjectID(Integer subjectId);
 
@@ -24,7 +23,7 @@ public interface MarkRepository extends CrudRepository<Mark, Long> {
 
 	ArrayList<Mark> findAllByDiaryIDAndSubjectID(Integer diaryId, Integer subjectId);
 
-	ArrayList<Mark> findAllByDiaryIDAndDate(Integer diaryId, Date date);
+	ArrayList<Mark> findAllByDiaryIDAndDate(Integer diaryId, String date);
 
-	Optional<Mark> findByDiaryIDAndDateAndSubjectID(Integer diaryId, Date date, Integer subjectId);
+	Optional<Mark> findByDiaryIDAndDateAndSubjectID(Integer diaryId, String date, Integer subjectId);
 }

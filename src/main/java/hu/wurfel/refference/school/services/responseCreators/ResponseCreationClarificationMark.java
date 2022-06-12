@@ -1,34 +1,16 @@
 package hu.wurfel.refference.school.services.responseCreators;
 
 import hu.wurfel.refference.school.model.Request;
-import hu.wurfel.refference.school.services.entity.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.Year;
 import java.util.ArrayList;
 
-public class ResponseCreationClarificationMark extends responseCreationTemplate {
+@Service
+public class ResponseCreationClarificationMark extends ResponseCreationClarificationTemplate {
 
-	@Autowired
-	static
-	StudentService studentService;
-	@Autowired
-	static
-	DiaryService diaryService;
-	@Autowired
-	static
-	ClassService classService;
-	@Autowired
-	static
-	SubjectService subjectService;
-	@Autowired
-	static
-	MarkService markService;
-	@Autowired
-	static
-	TeacherService teacherService;
-
-	public static ArrayList create(Request request) {
+	public ArrayList create(Request request) {
+		rContent = new ArrayList<>();
 		switch (request.getRWith()) {
 			case Student -> {
 				mWStudent(request);
@@ -54,7 +36,7 @@ public class ResponseCreationClarificationMark extends responseCreationTemplate 
 		return rContent;
 	}
 
-	private static void mWStudent(Request request) {
+	private void mWStudent(Request request) {
 		switch (request.getRBy()) {
 			case StudentId -> {
 				rContent = markService.getMarksByStudent(studentService.getStudentByStudentId(Long.parseLong(request.getRValue())));
@@ -63,14 +45,14 @@ public class ResponseCreationClarificationMark extends responseCreationTemplate 
 				rContent = markService.getMarksByStudents(studentService.getStudentsByName(request.getRValue()));
 			}
 			case Date -> {
-				rContent = markService.getMarksByStudents(studentService.getStudentsByBirth(request.getRValDate()));
+				rContent = markService.getMarksByStudents(studentService.getStudentsByBirth(request.getRValue()));
 			}
 			default -> {
 			}
 		}
 	}
 
-	private static void mWDiary(Request request) {
+	private void mWDiary(Request request) {
 		switch (request.getRBy()) {
 			case DiaryId -> {
 				rContent = markService.getMarksByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(request.getRValue())));
@@ -86,7 +68,7 @@ public class ResponseCreationClarificationMark extends responseCreationTemplate 
 		}
 	}
 
-	private static void mWClass(Request request) {
+	private void mWClass(Request request) {
 		switch (request.getRBy()) {
 			case ClassId -> {
 				rContent = markService.getMarksByClass(classService.getClassByClassId(Integer.parseInt(request.getRValue())));
@@ -108,7 +90,7 @@ public class ResponseCreationClarificationMark extends responseCreationTemplate 
 		}
 	}
 
-	private static void mWSubject(Request request) {
+	private void mWSubject(Request request) {
 		switch (request.getRBy()) {
 			case SubjectId -> {
 				rContent = markService.getMarksBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(request.getRValue())));
@@ -124,7 +106,7 @@ public class ResponseCreationClarificationMark extends responseCreationTemplate 
 		}
 	}
 
-	private static void mWMark(Request request) {
+	private void mWMark(Request request) {
 		switch (request.getRBy()) {
 			case MarkId -> {
 				rContent.add(markService.getMarkByMarkid(Long.parseLong(request.getRValue())));
@@ -133,7 +115,7 @@ public class ResponseCreationClarificationMark extends responseCreationTemplate 
 				rContent = markService.getMarksByDiaryid(Integer.parseInt(request.getRValue()));
 			}
 			case Date -> {
-				rContent = markService.getMarksByDate(request.getRValDate());
+				rContent = markService.getMarksByDate(request.getRValue());
 			}
 			case SubjectId -> {
 				rContent = markService.getMarksBySubjectid(Integer.parseInt(request.getRValue()));
@@ -146,7 +128,7 @@ public class ResponseCreationClarificationMark extends responseCreationTemplate 
 		}
 	}
 
-	private static void mWTeacher(Request request) {
+	private void mWTeacher(Request request) {
 		switch (request.getRBy()) {
 			case TeacherId -> {
 				rContent = markService.getMarksByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(request.getRValue())));
@@ -155,7 +137,7 @@ public class ResponseCreationClarificationMark extends responseCreationTemplate 
 				rContent = markService.getMarksByTeachers(teacherService.getTeacherByName(request.getRValue()));
 			}
 			case Date -> {
-				rContent = markService.getMarksByTeachers(teacherService.getTeacherByBirth(request.getRValDate()));
+				rContent = markService.getMarksByTeachers(teacherService.getTeacherByBirth(request.getRValue()));
 			}
 			default -> {
 			}

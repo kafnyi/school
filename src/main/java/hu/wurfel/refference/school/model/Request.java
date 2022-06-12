@@ -5,7 +5,6 @@ import hu.wurfel.refference.school.model.enums.SearchByFields;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 public class Request implements Serializable {
@@ -13,5 +12,4 @@ public class Request implements Serializable {
 	private final EntityNaming rWith;
 	private final SearchByFields rBy;
 	private final String rValue;
-	private final Date rValDate;
 }
