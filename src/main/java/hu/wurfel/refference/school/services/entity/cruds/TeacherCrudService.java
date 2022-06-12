@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 @Service
 public class TeacherCrudService {
@@ -20,14 +19,14 @@ public class TeacherCrudService {
 	}
 
 	public Teacher getTeacherByTeacherId(Long Id) {
-		return teacherRepository.findByid(Id).get();
+		return teacherRepository.findById(Id).get();
 	}
 
 	public ArrayList<Teacher> getTeacherByName(String name) {
 		return teacherRepository.findAllByName(name);
 	}
 
-	public ArrayList<Teacher> getTeacherByBirth(Date date) {
+	public ArrayList<Teacher> getTeacherByBirth(String date) {
 		return teacherRepository.findAllByBirthDate(date);
 	}
 
@@ -36,7 +35,7 @@ public class TeacherCrudService {
 		return getTeacherByTeacherId(teacher.getId());
 	}
 
-	public Teacher saveTeacher(Long id, String name, Date birth) {
+	public Teacher saveTeacher(Long id, String name, String birth) {
 		return saveTeacher(new Teacher(id, name, birth));
 	}
 
@@ -50,7 +49,7 @@ public class TeacherCrudService {
 		return saveTeacher(teacher);
 	}
 
-	public Teacher setTeacherBirth(@NotNull Teacher teacher, Date date) {
+	public Teacher setTeacherBirth(@NotNull Teacher teacher, String date) {
 		teacher.setBirthDate(date);
 		return saveTeacher(teacher);
 	}

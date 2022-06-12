@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 @Service
 public class StudentCrudService {
@@ -20,32 +19,32 @@ public class StudentCrudService {
 	}
 
 	public Student getStudentByStudentId(long id) {
-		return studentRepository.findBySID(id);
+		return studentRepository.findById(id).get();
 	}
 
 	public ArrayList<Student> getStudentsByName(String name) {
 		return studentRepository.findAllByName(name);
 	}
 
-	public ArrayList<Student> getStudentsByBirth(Date date) {
+	public ArrayList<Student> getStudentsByBirth(String date) {
 		return studentRepository.findAllByBirthDate(date);
 	}
 
-	public Student getStudentByNameAndBirth(String name, Date birth) {
+	public Student getStudentByNameAndBirth(String name, String birth) {
 		return studentRepository.findByNameAndBirthDate(name, birth).get();
 	}
 
 	public Student saveStudent(@NotNull Student student) {
 		studentRepository.save(student);
-		return getStudentByStudentId(student.getSID());
+		return getStudentByStudentId(student.getId());
 	}
 
-	public Student saveStudent(long id, String name, Date birth) {
+	public Student saveStudent(long id, String name, String birth) {
 		return saveStudent(new Student(id, name, birth));
 	}
 
 	public Student setStudentID(@NotNull Student student, long id) {
-		student.setSID(id);
+		student.setId(id);
 		return saveStudent(student);
 	}
 
@@ -54,7 +53,7 @@ public class StudentCrudService {
 		return saveStudent(student);
 	}
 
-	public Student setStudentBirth(@NotNull Student student, Date date) {
+	public Student setStudentBirth(@NotNull Student student, String date) {
 		student.setBirthDate(date);
 		return saveStudent(student);
 	}

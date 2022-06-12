@@ -1,34 +1,16 @@
 package hu.wurfel.refference.school.services.responseCreators;
 
 import hu.wurfel.refference.school.model.Request;
-import hu.wurfel.refference.school.services.entity.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.Year;
 import java.util.ArrayList;
 
-public class ResponseCreationClarificationDiary extends responseCreationTemplate {
+@Service
+public class ResponseCreationClarificationDiary extends ResponseCreationClarificationTemplate {
 
-	@Autowired
-	static
-	StudentService studentService;
-	@Autowired
-	static
-	DiaryService diaryService;
-	@Autowired
-	static
-	ClassService classService;
-	@Autowired
-	static
-	SubjectService subjectService;
-	@Autowired
-	static
-	MarkService markService;
-	@Autowired
-	static
-	TeacherService teacherService;
-
-	public static ArrayList create(Request request) {
+	public ArrayList create(Request request) {
+		rContent = new ArrayList<>();
 		switch (request.getRWith()) {
 			case Student -> {
 				dWStudent(request);
@@ -54,7 +36,7 @@ public class ResponseCreationClarificationDiary extends responseCreationTemplate
 		return rContent;
 	}
 
-	private static void dWStudent(Request request) {
+	private void dWStudent(Request request) {
 		switch (request.getRBy()) {
 			case StudentId -> {
 				rContent = diaryService.getDiariesByStudent(studentService.getStudentByStudentId(Long.parseLong(request.getRValue())));
@@ -63,14 +45,14 @@ public class ResponseCreationClarificationDiary extends responseCreationTemplate
 				rContent = diaryService.getDiariesByStudents(studentService.getStudentsByName(request.getRValue()));
 			}
 			case Date -> {
-				rContent = diaryService.getDiariesByStudents(studentService.getStudentsByBirth(request.getRValDate()));
+				rContent = diaryService.getDiariesByStudents(studentService.getStudentsByBirth(request.getRValue()));
 			}
 			default -> {
 			}
 		}
 	}
 
-	private static void dWDiary(Request request) {
+	private void dWDiary(Request request) {
 		switch (request.getRBy()) {
 			case DiaryId -> {
 				rContent.add(diaryService.getDiaryByDiaryid(Integer.parseInt(request.getRValue())));
@@ -86,7 +68,7 @@ public class ResponseCreationClarificationDiary extends responseCreationTemplate
 		}
 	}
 
-	private static void dWClass(Request request) {
+	private void dWClass(Request request) {
 		switch (request.getRBy()) {
 			case ClassId -> {
 				rContent = diaryService.getDiariesByClassid(Integer.parseInt(request.getRValue()));
@@ -108,7 +90,7 @@ public class ResponseCreationClarificationDiary extends responseCreationTemplate
 		}
 	}
 
-	private static void dWSubject(Request request) {
+	private void dWSubject(Request request) {
 		switch (request.getRBy()) {
 			case SubjectId -> {
 				rContent = diaryService.getDiariesBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(request.getRValue())));
@@ -124,7 +106,7 @@ public class ResponseCreationClarificationDiary extends responseCreationTemplate
 		}
 	}
 
-	private static void dWMark(Request request) {
+	private void dWMark(Request request) {
 		switch (request.getRBy()) {
 			case MarkId -> {
 				rContent.add(diaryService.getDiaryByMark(markService.getMarkByMarkid(Long.parseLong(request.getRValue()))));
@@ -133,7 +115,7 @@ public class ResponseCreationClarificationDiary extends responseCreationTemplate
 				rContent.add(diaryService.getDiaryByDiaryid(Integer.parseInt(request.getRValue())));
 			}
 			case Date -> {
-				rContent = diaryService.getDiariesByMarks(markService.getMarksByDate(request.getRValDate()));
+				rContent = diaryService.getDiariesByMarks(markService.getMarksByDate(request.getRValue()));
 			}
 			case SubjectId -> {
 				rContent = diaryService.getDiariesByMarks(markService.getMarksBySubjectid(Integer.parseInt(request.getRValue())));
@@ -146,7 +128,7 @@ public class ResponseCreationClarificationDiary extends responseCreationTemplate
 		}
 	}
 
-	private static void dWTeacher(Request request) {
+	private void dWTeacher(Request request) {
 		switch (request.getRBy()) {
 			case TeacherId -> {
 				rContent = diaryService.getDiariesByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(request.getRValue())));
@@ -155,7 +137,7 @@ public class ResponseCreationClarificationDiary extends responseCreationTemplate
 				rContent = diaryService.getDiariesByTeachers(teacherService.getTeacherByName(request.getRValue()));
 			}
 			case Date -> {
-				rContent = diaryService.getDiariesByTeachers(teacherService.getTeacherByBirth(request.getRValDate()));
+				rContent = diaryService.getDiariesByTeachers(teacherService.getTeacherByBirth(request.getRValue()));
 			}
 			default -> {
 			}

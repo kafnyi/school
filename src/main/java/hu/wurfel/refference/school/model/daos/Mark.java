@@ -3,7 +3,6 @@ package hu.wurfel.refference.school.model.daos;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @Builder
@@ -24,7 +23,7 @@ public class Mark {
 	private Integer diaryID;
 
 	@Column(name = "Date", nullable = false)
-	private Date date;
+	private String date;
 
 	@Column(name = "SubjectID", nullable = false)
 	private Integer subjectID;

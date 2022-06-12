@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
 
 
 @Data
@@ -26,7 +25,7 @@ public class Teacher {
 	private String name;
 
 	@Column(name = "BirthDate", nullable = false)
-	private Date birthDate;
+	private String birthDate;
 
 	@Override
 	public String toString() {

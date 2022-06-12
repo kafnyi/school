@@ -2,17 +2,20 @@ package hu.wurfel.refference.school.services.entity.cruds;
 
 import hu.wurfel.refference.school.model.daos.Mark;
 import hu.wurfel.refference.school.repositories.MarkRepository;
+import hu.wurfel.refference.school.services.JavaToMysqlDate;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 @Service
 public class MarkCrudService {
 	@Autowired
 	private MarkRepository markRepository;
+
+	@Autowired
+	private JavaToMysqlDate javaToMysqlDate;
 
 	public ArrayList<Mark> getAllMarks() {
 		return markRepository.findAll();
@@ -26,7 +29,7 @@ public class MarkCrudService {
 		return markRepository.findAllByDiaryID(did);
 	}
 
-	public ArrayList<Mark> getMarksByDate(Date date) {
+	public ArrayList<Mark> getMarksByDate(String date) {
 		return markRepository.findAllByDate(date);
 	}
 
@@ -38,7 +41,7 @@ public class MarkCrudService {
 		return markRepository.findAllByMark(mark);
 	}
 
-	public ArrayList<Mark> getMarksByDiaryidAndDate(Integer did, Date date) {
+	public ArrayList<Mark> getMarksByDiaryidAndDate(Integer did, String date) {
 		return markRepository.findAllByDiaryIDAndDate(did, date);
 	}
 
@@ -46,7 +49,7 @@ public class MarkCrudService {
 		return markRepository.findAllByDiaryIDAndSubjectID(did, sid);
 	}
 
-	public Mark getMarkByDiaryidAndDateAndSubjectid(Integer did, Date date, Integer sid) {
+	public Mark getMarkByDiaryidAndDateAndSubjectid(Integer did, String date, Integer sid) {
 		return markRepository.findByDiaryIDAndDateAndSubjectID(did, date, sid).get();
 	}
 
@@ -55,7 +58,7 @@ public class MarkCrudService {
 		return getMarkByMarkid(mark.getId());
 	}
 
-	public Mark saveMark(Long mid, Integer did, Date date, Integer sid, byte mark) {
+	public Mark saveMark(Long mid, Integer did, String date, Integer sid, byte mark) {
 		return saveMark(new Mark(mid, did, date, sid, mark));
 	}
 
@@ -69,7 +72,7 @@ public class MarkCrudService {
 		return saveMark(mark);
 	}
 
-	public Mark setDate(@NotNull Mark mark, Date date) {
+	public Mark setDate(@NotNull Mark mark, String date) {
 		mark.setDate(date);
 		return saveMark(mark);
 	}
