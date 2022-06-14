@@ -2,6 +2,9 @@ function profileButton() {
 
 }
 
+let classVar = 13;
+
+
 function searchMenuButton() {
     let searchField = "<tr>" +
         "    <td style='width: 20%'>Searching for :\n" +
@@ -27,36 +30,42 @@ function searchMenuButton() {
         "<td id='SMBC' style='width: 20%'></td> " +
         "</tr>"
     document.getElementById("searchTable").innerHTML = searchField
+    document.getElementById("searchTable2").innerHTML = ""
     selectSClarifiedInnerRow(document.getElementById("SWS").value)
-    getSpecificInputField(document.getElementById("SBS").value, "VSI", "SVF")
+    getSpecificInputField(document.getElementById("SBS").value)
 }
 
 function selectSClarifiedInnerRow(selected) {
     let rValueSB = "Search By :"
     let rValueSI
-    let rValueStd = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value,\"VSI\",\"SVF\")'>\n" +
+    let rValueStd = "        <select id=\"SBS\" " +
+        "onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"StudentId\" name='SIdI'>Student ID</option>\n" +
         "            <option value=\"Name\" name='TextI'>Name</option>\n" +
         "            <option value=\"Date\"  name='DateI'>Birth Date</option>\n" +
         "        </select>\n"
-    let rValueDry = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value,\"VSI\",\"SVF\")'>\n" +
+    let rValueDry = "        <select id=\"SBS\" " +
+        "onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"DiaryId\" name='IdI'>Diary ID</option>\n" +
         "            <option value=\"StudentId\" name='SIdI'>Student ID</option>\n" +
         "            <option value=\"ClassId\" name='IdI'>Class ID</option>\n" +
         "        </select>\n"
-    let rValueCls = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value,\"VSI\",\"SVF\")'>\n" +
+    let rValueCls = "        <select id=\"SBS\" " +
+        "onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"ClassId\" name='IdI'>Class ID</option>\n" +
         "            <option value=\"Grade\" name='GradeI'>Grade</option>\n" +
         "            <option value=\"Sign\" name='SignI'>Sign</option>\n" +
         "            <option value=\"Year\" name='YearI'>Year</option>\n" +
         "            <option value=\"TeacherId\" name='IdI'>Teacher ID</option>\n" +
         "        </select>\n"
-    let rValueSbj = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value,\"VSI\",\"SVF\")'>\n" +
+    let rValueSbj = "        <select id=\"SBS\" " +
+        "onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"SubjectId\" name='IdI'>Subject ID</option>\n" +
         "            <option value=\"Name\" name='TextI'>Subject Name</option>\n" +
         "            <option value=\"TeacherId\" name='IdI'>Teacher ID</option>\n" +
         "        </select>\n"
-    let rValueMrk = "        <select id=\"SBS\" onchange='getSpecificInputField(document.getElementById(\"SBS\").value,\"VSI\",\"SVF\")'>\n" +
+    let rValueMrk = "        <select id=\"SBS\" " +
+        "onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"MarkId\" name='IdI'>Mark ID</option>\n" +
         "            <option value=\"DiaryId\" name='IdI'>Diary ID</option>\n" +
         "            <option value=\"Date\" name='DateI'>Date</option>\n" +
@@ -93,7 +102,7 @@ function selectSClarifiedInnerRow(selected) {
     }
 }
 
-function getSpecificInputField(spec, place, ID) {
+function getSpecificInputField(spec) {
     /**
      * Spec:[0-7]
      * 0- simple text input
@@ -107,52 +116,52 @@ function getSpecificInputField(spec, place, ID) {
      */
     switch (spec) {
         case "Name":
-            document.getElementById(place).innerHTML =
-                "<input id=\"" + ID + "\" type=\"text\" />"
+            document.getElementById("VSI").innerHTML =
+                "<input id=\"SVF\" type=\"text\" placeholder=\"Name\"/>"
             break;
         case "StudentId":
-            document.getElementById(place).innerHTML =
-                "<input id=\"" + ID + "\" type=\"number\" min=\"10000000000\" max=\"99999999999\" step=\"1\" />";
+            document.getElementById("VSI").innerHTML =
+                "<input id=\"SVF\" type=\"number\" min=\"10000000000\" max=\"99999999999\" step=\"1\" placeholder=\"Student ID\"/>";
             break;
         case "TeacherId":
-            document.getElementById(place).innerHTML =
-                "<input id=\"" + ID + "\" type=\"number\" min=\"0\"/>";
+            document.getElementById("VSI").innerHTML =
+                "<input id=\"SVF\" type=\"number\" min=\"0\" placeholder=\"Teacher ID\"/>";
             break;
         case "SubjectId":
-            document.getElementById(place).innerHTML =
-                "<input id=\"" + ID + "\" type=\"number\" min=\"0\"/>";
+            document.getElementById("VSI").innerHTML =
+                "<input id=\"SVF\" type=\"number\" min=\"0\" placeholder=\"Subject ID\"/>";
             break;
         case "MarkId":
-            document.getElementById(place).innerHTML =
-                "<input id=\"" + ID + "\" type=\"number\" min=\"0\"/>";
+            document.getElementById("VSI").innerHTML =
+                "<input id=\"SVF\" type=\"number\" min=\"0\" placeholder=\"Mark ID\"/>";
             break;
         case "DiaryId":
-            document.getElementById(place).innerHTML =
-                "<input id=\"" + ID + "\" type=\"number\" min=\"0\"/>";
+            document.getElementById("VSI").innerHTML =
+                "<input id=\"SVF\" type=\"number\" min=\"0\" placeholder=\"Diary ID\"/>";
             break;
         case "ClassId":
-            document.getElementById(place).innerHTML =
-                "<input id=\"" + ID + "\" type=\"number\" min=\"0\"/>";
+            document.getElementById("VSI").innerHTML =
+                "<input id=\"SVF\" type=\"number\" min=\"0\" placeholder=\"Class ID\"/>";
             break;
         case "Grade":
-            document.getElementById(place).innerHTML =
-                "<input id=\"" + ID + "\" type=\"number\" min=\"0\" max=\"14\" step=\"1\" />";
+            document.getElementById("VSI").innerHTML =
+                "<input id=\"SVF\" type=\"number\" min=\"0\" max=\"14\" step=\"1\" placeholder=\"Grade\"/>";
             break;
         case "Date":
-            document.getElementById(place).innerHTML =
-                "<input id=\"" + ID + "\" type=\"date\"/>"
+            document.getElementById("VSI").innerHTML =
+                "<input id=\"SVF\" type=\"date\" placeholder=\"Date\"/>"
             break;
         case "Year":
-            document.getElementById(place).innerHTML =
-                "<input id=\"" + ID + "\" type=\"number\" min=\"1900\" max=\"2099\" step=\"1\" value=\"2022\" />";
+            document.getElementById("VSI").innerHTML =
+                "<input id=\"SVF\" type=\"number\" min=\"1900\" max=\"2099\" step=\"1\" value=\"2022\" placeholder=\"Year\"/>";
             break;
         case "Sign":
-            document.getElementById(place).innerHTML =
-                "<input id=\"" + ID + "\" type=\"text\" maxlength='1' pattern='[A-Z]'/>";
+            document.getElementById("VSI").innerHTML =
+                "<input id=\"SVF\" type=\"text\" maxlength='1' pattern='[A-Z]' placeholder=\"Sign\"/>";
             break;
         case "Mark":
-            document.getElementById(place).innerHTML =
-                "<input id=\"" + ID + "\" type=\"number\" min=\"1\" max=\"5\" step=\"1\" value=\"5\" />";
+            document.getElementById("VSI").innerHTML =
+                "<input id=\"SVF\" type=\"number\" min=\"1\" max=\"5\" step=\"1\" value=\"5\" placeholder=\"Mark\"/>";
             break;
         default:
             window.alert("Error! Missing SearchInputSpecification!")
@@ -169,7 +178,7 @@ function confirmSearch() {
     let sVal = document.getElementById("SVF").value
 
     let xhr = new XMLHttpRequest();
-    let url = "/tli/search/Student";
+    let url = "/tli/search";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -185,8 +194,8 @@ function confirmSearch() {
 
 function addMenuButton() {
     let toAddSelectField = "<tr>" +
-        "    <td style='width: 50%'>Searching for :\n" +
-        "        <select id=\"AFS\">\n" +
+        "    <td style='width: 50%'>Adding a :\n" +
+        "        <select id=\"AFS\" onchange='addFieldGenerate(document.getElementById(\"AFS\").value)'>\n" +
         "            <option value=\"Student\">Student</option>\n" +
         "            <option value=\"Diary\">Diary</option>\n" +
         "            <option value=\"Class\">Class</option>\n" +
@@ -194,57 +203,218 @@ function addMenuButton() {
         "            <option value=\"Mark\">Mark</option>\n" +
         "        </select>\n" +
         "    </td>" +
-        "<td>" +
-        "<input id='AddselectConfirmButton' type='button' style='width: 150px' value='Confirm Select' onclick='addFieldGenerate(document.getElementById(\"AFS\").value)'>" +
-        "</td>" +
-        "</tr>" +
-        "<tr id='AddDetailField'>" +
         "</tr>"
     document.getElementById("searchTable").innerHTML = toAddSelectField;
+    addFieldGenerate(document.getElementById("AFS").value)
 
 }
 
 function addFieldGenerate(select) {
-    let studentCase = "<td id='c1'>Student ID : " + getSpecificInputField("StudentId", "c1", "ASId") + "</td>" +
-        "<td id='c2'>Student Name : " + getSpecificInputField("Name", "c2", "ASN") + "</td>" +
-        "<td id='c3'> Birth Date : " + getSpecificInputField("Date", "c3", "ASD") + "</td>" +
-        "<td><input type='button' style='width: 150px' value='ADD' " +
-        "onclick='confirmAdding(document.getElementById(\"AFS\").value)'></td>"
+    let studentCase = "<tr>" +
+        "<td>Student ID :" +
+        "<input id=\"ASSId\" type=\"number\" min=\"10000000000\" max=\"99999999999\" step=\"1\" placeholder=\"Student ID\"/>" +
+        "</td>" +
+        "<td>Student Name : " +
+        "<input id=\"ASN\" type=\"text\" placeholder=\"Name\"/><" +
+        "/td>" +
+        "<td>Birth Date : " +
+        "<input id=\"ASD\" type=\"date\" placeholder=\"Date\"/>" +
+        "</td>" +
+        "<td>" +
+        "<input type='button' style='width: 150px' value='ADD' " +
+        "onclick='confirmAdding()'>" +
+        "</td>" +
+        "</tr>"
 
-    let diaryCase = "<td id='c1'>Diary ID : " + getSpecificInputField("DiaryId", "c1", "ADId") + "</td>" +
-        "<td id='c2'>Student ID : " + getSpecificInputField("StudentId", "c2", "ADS") + "</td>" +
-        "<td id='c3'> Class ID : " + getSpecificInputField("ClassId", "c3", "ADC") + "</td>" +
-        "<td><input type='button' style='width: 150px' value='ADD' " +
-        "onclick='confirmAdding(document.getElementById(\"AFS\").value)'></td>"
+    let diaryCase = "<tr>" +
+        "<td>Diary ID : " +
+        "<input id=\"ADDId\" type=\"number\" min=\"0\" placeholder=\"Diary ID\"/>" +
+        "</td>" +
+        "<td>Student ID : " +
+        "<input id=\"ADSId\" type=\"text\" placeholder=\"Name\"/>" +
+        "</td>" +
+        "<td> Class ID : " +
+        "<input id=\"ADCId\" type=\"number\" min=\"0\" placeholder=\"Class ID\"/>" +
+        "</td>" +
+        "<td>" +
+        "<input type='button' style='width: 150px' value='ADD' " +
+        "onclick='confirmAdding()'" +
+        "></td>" +
+        "</tr>"
+
+    let subjectCase = "<tr>" +
+        "<td>Subject ID : " +
+        "<input id=\"ASjSjId\" type=\"number\" min=\"0\" placeholder=\"Subject ID\"/>" +
+        "</td>" +
+        "<td>Subject Name : " +
+        "<input id=\"ASjN\" type=\"text\" placeholder=\"Name\"/>" +
+        "</td>" +
+        "<td>Teacher ID : " +
+        "<input id=\"ASjTId\" type=\"number\" min=\"0\" placeholder=\"Teacher ID\"/>" +
+        "</td>" +
+        "<td>" +
+        "<input type='button' style='width: 150px' value='ADD' " +
+        "onclick='confirmAdding()'" +
+        "></td>" +
+        "</tr>"
+
+    let classCase = "<tr>" +
+        "<td>Class ID : " +
+        "<input id=\"ACCId\" type=\"number\" min=\"0\" placeholder=\"Class ID\"/>" +
+        "</td>" +
+        "<td>Grade : " +
+        "<input id=\"ACG\" type=\"number\" min=\"0\" max=\"14\" step=\"1\" placeholder=\"Grade\"/>" +
+        "</td>" +
+        "<td>Sign : " +
+        "<input id=\"ACS\" type=\"text\" maxlength='1' pattern='[A-Z]' placeholder=\"Sign\"/>" +
+        "</td>" +
+        "</td>" +
+        "<td>Year : " +
+        "<input id=\"ACY\" type=\"number\" min=\"1900\" max=\"2099\" step=\"1\" value=\"2022\" placeholder=\"Year\"/>" +
+        "</td>" +
+        "</td>" +
+        "<td>Teacher ID : " +
+        "<input id=\"ACTId\" type=\"number\" min=\"0\" placeholder=\"Teacher ID\"/>" +
+        "</td>" +
+        "<td>" +
+        "<input type='button' style='width: 150px' value='ADD' " +
+        "onclick='confirmAdding()'" +
+        "></td>" +
+        "</tr>"
+
+    let markCase = "<tr>" +
+        "<td>Mark ID : " +
+        "<input id=\"AMMId\" type=\"number\" min=\"0\" placeholder=\"Mark ID\"/>" +
+        "</td>" +
+        "<td>Diary ID : " +
+        "<input id=\"AMDId\" type=\"number\" min=\"0\" placeholder=\"Diary ID\"/>" +
+        "</td>" +
+        "<td>Date : " +
+        "<input id=\"AMD\" type=\"date\" placeholder=\"Date\"/>" +
+        "</td>" +
+        "</td>" +
+        "<td>Subject ID : " +
+        "<input id=\"AMSjId\" type=\"number\" min=\"0\" placeholder=\"Subject ID\"/>" +
+        "</td>" +
+        "</td>" +
+        "<td>Mark : " +
+        "<input id=\"AMM\" type=\"number\" min=\"1\" max=\"5\" step=\"1\" value=\"5\" placeholder=\"Mark\"/>" +
+        "</td>" +
+        "<td>" +
+        "<input type='button' style='width: 150px' value='ADD' " +
+        "onclick='confirmAdding()'" +
+        "></td>" +
+        "</tr>"
+
+    let teacherCase = "<tr>" +
+        "<td>Teacher ID :" +
+        "<input id=\"ATTId\" type=\"number\" min=\"0\" placeholder=\"Teacher ID\"/>" +
+        "</td>" +
+        "<td>Teacher Name : " +
+        "<input id=\"ATN\" type=\"text\" placeholder=\"Name\"/><" +
+        "/td>" +
+        "<td>Birth Date : " +
+        "<input id=\"ATD\" type=\"date\" placeholder=\"Date\"/>" +
+        "</td>" +
+        "<td>" +
+        "<input type='button' style='width: 150px' value='ADD' " +
+        "onclick='confirmAdding()'>" +
+        "</td>" +
+        "</tr>"
 
     switch (select) {
         case "Student" :
             document.getElementById("searchTable2").innerHTML = studentCase
+            break;
         case "Diary":
             document.getElementById("searchTable2").innerHTML = diaryCase
+            break;
+        case "Class":
+            document.getElementById("searchTable2").innerHTML = classCase
+            break;
+        case "Subject":
+            document.getElementById("searchTable2").innerHTML = subjectCase
+            break;
+        case "Mark":
+            document.getElementById("searchTable2").innerHTML = markCase
+            break;
+        case "Teacher":
+            document.getElementById("searchTable2").innerHTML = teacherCase
+            break;
     }
 
 
 }
 
 function confirmAdding() {
-    let sFor = document.getElementById("SFS").value
-    let sWith = document.getElementById("SWS").value
-    let sBy = document.getElementById("SBS").value
-    let sVal = document.getElementById("SVF").value
+
+    let addFieldType = document.getElementById("AFS").value
+    let addV
+
+    switch (addFieldType) {
+
+        case "Student":
+            addV = {
+                id: document.getElementById("ASSId").value,
+                name: document.getElementById("ASN").value,
+                birthDate: document.getElementById("ASD").value
+            }
+            break;
+        case "Diary":
+            addV = {
+                id: document.getElementById("ADDId").value,
+                scid: document.getElementById("ADSId").value,
+                classID: document.getElementById("ADCId").value
+            }
+            break;
+        case "Subject":
+            addV = {
+                id: document.getElementById("ASjSjId").value,
+                subjectName: document.getElementById("ASjN").value,
+                tid: document.getElementById("ASjTId").value
+            }
+            break;
+        case "Teacher":
+            addV = {
+                id: document.getElementById("ATId").value,
+                name: document.getElementById("ATN").value,
+                birthDate: document.getElementById("ATD").value
+            }
+            break;
+        case "Class":
+            addV = {
+                id: document.getElementById("ACCId").value,
+                grade: document.getElementById("ACG").value,
+                sign: document.getElementById("ACS").value,
+                year: document.getElementById("ACY").value,
+                tid: document.getElementById("ACTId").value,
+            }
+            break;
+        case "Mark":
+            addV = {
+                id: document.getElementById("AMMId").value,
+                diaryID: document.getElementById("AMDId").value,
+                date: document.getElementById("AMD").value,
+                subjectID: document.getElementById("AMSjId").value,
+                mark: document.getElementById("AMM").value
+            }
+            break;
+
+    }
 
     let xhr = new XMLHttpRequest();
-    let url = "/tli/search/Student";
+    let url = "/tli/adding";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            window.alert("response arrive\n response:" + xhr.response)
+            window.alert("sucess adding" + xhr.response)
         }
     }
-    const search = {rFor: sFor, rWith: sWith, rBy: sBy, rValue: sVal};
-    const data = JSON.stringify(search);
+    const adding = addV;
+    const data = JSON.stringify(adding);
     xhr.send(data);
-    window.alert(search);
+    window.alert(adding);
+}
 
 
