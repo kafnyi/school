@@ -184,7 +184,7 @@ function confirmSearch() {
 }
 
 function addMenuButton() {
-    let Addfield = "<tr>" +
+    let toAddSelectField = "<tr>" +
         "    <td style='width: 50%'>Searching for :\n" +
         "        <select id=\"AFS\">\n" +
         "            <option value=\"Student\">Student</option>\n" +
@@ -200,20 +200,51 @@ function addMenuButton() {
         "</tr>" +
         "<tr id='AddDetailField'>" +
         "</tr>"
-    document.getElementById("searchTable").innerHTML = Addfield;
+    document.getElementById("searchTable").innerHTML = toAddSelectField;
 
 }
 
 function addFieldGenerate(select) {
-    let studentcase = "<td id='c1'>Student ID : " + getSpecificInputField("StudentId", "c1", "ASId") + "</td>" +
+    let studentCase = "<td id='c1'>Student ID : " + getSpecificInputField("StudentId", "c1", "ASId") + "</td>" +
         "<td id='c2'>Student Name : " + getSpecificInputField("Name", "c2", "ASN") + "</td>" +
         "<td id='c3'> Birth Date : " + getSpecificInputField("Date", "c3", "ASD") + "</td>" +
-        "<td><input type='button' style='width: 150px' value='ADD' onclick='ConfirmAdding()'></td>"
+        "<td><input type='button' style='width: 150px' value='ADD' " +
+        "onclick='confirmAdding(document.getElementById(\"AFS\").value)'></td>"
+
+    let diaryCase = "<td id='c1'>Diary ID : " + getSpecificInputField("DiaryId", "c1", "ADId") + "</td>" +
+        "<td id='c2'>Student ID : " + getSpecificInputField("StudentId", "c2", "ADS") + "</td>" +
+        "<td id='c3'> Class ID : " + getSpecificInputField("ClassId", "c3", "ADC") + "</td>" +
+        "<td><input type='button' style='width: 150px' value='ADD' " +
+        "onclick='confirmAdding(document.getElementById(\"AFS\").value)'></td>"
 
     switch (select) {
         case "Student" :
-            document.getElementById("searchTable2").innerHTML = studentcase
+            document.getElementById("searchTable2").innerHTML = studentCase
+        case "Diary":
+            document.getElementById("searchTable2").innerHTML = diaryCase
     }
 
 
 }
+
+function confirmAdding() {
+    let sFor = document.getElementById("SFS").value
+    let sWith = document.getElementById("SWS").value
+    let sBy = document.getElementById("SBS").value
+    let sVal = document.getElementById("SVF").value
+
+    let xhr = new XMLHttpRequest();
+    let url = "/tli/search/Student";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.alert("response arrive\n response:" + xhr.response)
+        }
+    }
+    const search = {rFor: sFor, rWith: sWith, rBy: sBy, rValue: sVal};
+    const data = JSON.stringify(search);
+    xhr.send(data);
+    window.alert(search);
+
+
