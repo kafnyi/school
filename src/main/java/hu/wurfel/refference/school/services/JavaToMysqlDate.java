@@ -9,11 +9,11 @@ import java.util.Date;
 @Service
 @NoArgsConstructor
 public class JavaToMysqlDate {
-	private static final String PATTERN = "yyyy-MM-dd";
-	private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(PATTERN);
+    private static final String PATTERN = "yyyy-MM-dd";
+    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(PATTERN);
 
-	public String format(Date dateToFormat) {
-		return simpleDateFormat.format(dateToFormat);
-	}
+    public String format(Date dateToFormat) {
+        return simpleDateFormat.format(dateToFormat);
+    }
 
 }

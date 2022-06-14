@@ -13,14 +13,14 @@ import java.text.ParseException;
 @EntityScan("hu.wurfel.refference.school")
 @SpringBootApplication
 public class SchoolApplication {
-	@Autowired
-	static StudentRepository studentRepository;
+    @Autowired
+    static StudentRepository studentRepository;
 
-	public static void main(String[] args) throws ParseException {
-		SpringApplication.run(SchoolApplication.class, args);
-		//	Date date =new Date();
-		//	System.out.println(date);
-		//	JavaToMysqlDate javaToMysqlDate = new JavaToMysqlDate();
-		//	System.out.println(javaToMysqlDate.format(date));
-	}
+    public static void main(String[] args) throws ParseException {
+        SpringApplication.run(SchoolApplication.class, args);
+        //	Date date =new Date();
+        //	System.out.println(date);
+        //	JavaToMysqlDate javaToMysqlDate = new JavaToMysqlDate();
+        //	System.out.println(javaToMysqlDate.format(date));
+    }
 }

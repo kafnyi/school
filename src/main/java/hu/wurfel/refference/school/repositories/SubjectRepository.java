@@ -9,13 +9,13 @@ import java.util.Optional;
 
 @Repository
 public interface SubjectRepository extends CrudRepository<Subject, Integer> {
-	ArrayList<Subject> findAll();
+    ArrayList<Subject> findAll();
 
-	Optional<Subject> findById(Integer subjectId);
+    Optional<Subject> findById(Integer subjectId);
 
-	ArrayList<Subject> findAllBySubjectName(String subjectName);
+    ArrayList<Subject> findAllBySubjectName(String subjectName);
 
-	ArrayList<Subject> findAllByTid(Long tId);
+    ArrayList<Subject> findAllByTid(Long tId);
 
-	Optional<Subject> findBySubjectNameAndTid(String subjectName, Long tId);
+    Optional<Subject> findBySubjectNameAndTid(String subjectName, Long tId);
 }

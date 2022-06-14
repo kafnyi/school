@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Setter
 @ToString
 public class Response {
-	private EntityNaming type;
-	private ArrayList content;
+    private EntityNaming type;
+    private ArrayList content;
 }
 

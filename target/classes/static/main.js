@@ -28,7 +28,7 @@ function searchMenuButton() {
         "</tr>"
     document.getElementById("searchTable").innerHTML = searchField
     selectSClarifiedInnerRow(document.getElementById("SWS").value)
-    getSpecificInputField(document.getElementById("SBS").value,"VSI","SVF")
+    getSpecificInputField(document.getElementById("SBS").value, "VSI", "SVF")
 }
 
 function selectSClarifiedInnerRow(selected) {
@@ -108,51 +108,51 @@ function getSpecificInputField(spec, place, ID) {
     switch (spec) {
         case "Name":
             document.getElementById(place).innerHTML =
-                "<input id=\""+ID+"\" type=\"text\" />"
+                "<input id=\"" + ID + "\" type=\"text\" />"
             break;
         case "StudentId":
             document.getElementById(place).innerHTML =
-                "<input id=\""+ID+"\" type=\"number\" min=\"10000000000\" max=\"99999999999\" step=\"1\" />";
+                "<input id=\"" + ID + "\" type=\"number\" min=\"10000000000\" max=\"99999999999\" step=\"1\" />";
             break;
         case "TeacherId":
             document.getElementById(place).innerHTML =
-                "<input id=\""+ID+"\" type=\"number\" min=\"0\"/>";
+                "<input id=\"" + ID + "\" type=\"number\" min=\"0\"/>";
             break;
         case "SubjectId":
             document.getElementById(place).innerHTML =
-                "<input id=\""+ID+"\" type=\"number\" min=\"0\"/>";
+                "<input id=\"" + ID + "\" type=\"number\" min=\"0\"/>";
             break;
         case "MarkId":
             document.getElementById(place).innerHTML =
-                "<input id=\""+ID+"\" type=\"number\" min=\"0\"/>";
+                "<input id=\"" + ID + "\" type=\"number\" min=\"0\"/>";
             break;
         case "DiaryId":
             document.getElementById(place).innerHTML =
-                "<input id=\""+ID+"\" type=\"number\" min=\"0\"/>";
+                "<input id=\"" + ID + "\" type=\"number\" min=\"0\"/>";
             break;
         case "ClassId":
             document.getElementById(place).innerHTML =
-                "<input id=\""+ID+"\" type=\"number\" min=\"0\"/>";
+                "<input id=\"" + ID + "\" type=\"number\" min=\"0\"/>";
             break;
         case "Grade":
             document.getElementById(place).innerHTML =
-                "<input id=\""+ID+"\" type=\"number\" min=\"0\" max=\"14\" step=\"1\" />";
+                "<input id=\"" + ID + "\" type=\"number\" min=\"0\" max=\"14\" step=\"1\" />";
             break;
         case "Date":
             document.getElementById(place).innerHTML =
-                "<input id=\""+ID+"\" type=\"date\"/>"
+                "<input id=\"" + ID + "\" type=\"date\"/>"
             break;
         case "Year":
             document.getElementById(place).innerHTML =
-                "<input id=\""+ID+"\" type=\"number\" min=\"1900\" max=\"2099\" step=\"1\" value=\"2022\" />";
+                "<input id=\"" + ID + "\" type=\"number\" min=\"1900\" max=\"2099\" step=\"1\" value=\"2022\" />";
             break;
         case "Sign":
             document.getElementById(place).innerHTML =
-                "<input id=\""+ID+"\" type=\"text\" maxlength='1' pattern='[A-Z]'/>";
+                "<input id=\"" + ID + "\" type=\"text\" maxlength='1' pattern='[A-Z]'/>";
             break;
         case "Mark":
             document.getElementById(place).innerHTML =
-                "<input id=\""+ID+"\" type=\"number\" min=\"1\" max=\"5\" step=\"1\" value=\"5\" />";
+                "<input id=\"" + ID + "\" type=\"number\" min=\"1\" max=\"5\" step=\"1\" value=\"5\" />";
             break;
         default:
             window.alert("Error! Missing SearchInputSpecification!")
@@ -174,7 +174,7 @@ function confirmSearch() {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            window.alert("response arrive\n response:"+xhr.response)
+            window.alert("response arrive\n response:" + xhr.response)
         }
     }
     const search = {rFor: sFor, rWith: sWith, rBy: sBy, rValue: sVal};
@@ -183,7 +183,7 @@ function confirmSearch() {
     window.alert(search);
 }
 
-function addMenuButton(){
+function addMenuButton() {
     let Addfield = "<tr>" +
         "    <td style='width: 50%'>Searching for :\n" +
         "        <select id=\"AFS\">\n" +
@@ -204,17 +204,16 @@ function addMenuButton(){
 
 }
 
-function addFieldGenerate(select){
-    let studentcase = "<td id='c1'>Student ID : " + getSpecificInputField("StudentId", "c1","ASId") +"</td>" +
-        "<td id='c2'>Student Name : "+getSpecificInputField("Name", "c2","ASN") + "</td>" +
-        "<td id='c3'> Birth Date : "+getSpecificInputField("Date", "c3","ASD")+"</td>" +
+function addFieldGenerate(select) {
+    let studentcase = "<td id='c1'>Student ID : " + getSpecificInputField("StudentId", "c1", "ASId") + "</td>" +
+        "<td id='c2'>Student Name : " + getSpecificInputField("Name", "c2", "ASN") + "</td>" +
+        "<td id='c3'> Birth Date : " + getSpecificInputField("Date", "c3", "ASD") + "</td>" +
         "<td><input type='button' style='width: 150px' value='ADD' onclick='ConfirmAdding()'></td>"
 
-    switch (select){
-        case "Student" :document.getElementById("searchTable2").innerHTML = studentcase
+    switch (select) {
+        case "Student" :
+            document.getElementById("searchTable2").innerHTML = studentcase
     }
-
-
 
 
 }

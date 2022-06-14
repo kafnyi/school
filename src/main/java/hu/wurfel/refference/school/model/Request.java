@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 @Data
 public class Request implements Serializable {
-	private final EntityNaming rFor;
-	private final EntityNaming rWith;
-	private final SearchByFields rBy;
-	private final String rValue;
+    private final EntityNaming rFor;
+    private final EntityNaming rWith;
+    private final SearchByFields rBy;
+    private final String rValue;
 }

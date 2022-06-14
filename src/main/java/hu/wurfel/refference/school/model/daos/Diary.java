@@ -17,14 +17,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "diary")
 public class Diary {
-	@Id
-	@Column(name = "DiaryID", nullable = false)
-	private Integer id;
+    @Id
+    @Column(name = "DiaryID", nullable = false)
+    private Integer id;
 
-	@Column(name = "SCID", nullable = false)
-	private Long scid;
+    @Column(name = "SCID", nullable = false)
+    private Long scid;
 
-	@Column(name = "ClassID", nullable = false)
-	private Integer classID;
+    @Column(name = "ClassID", nullable = false)
+    private Integer classID;
 
 }

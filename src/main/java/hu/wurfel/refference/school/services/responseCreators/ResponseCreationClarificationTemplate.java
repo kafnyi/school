@@ -7,24 +7,24 @@ import java.util.ArrayList;
 
 public class ResponseCreationClarificationTemplate {
 
-	@Autowired
-	StudentService studentService;
+    @Autowired
+    StudentService studentService;
 
-	@Autowired
-	DiaryService diaryService;
+    @Autowired
+    DiaryService diaryService;
 
-	@Autowired
-	ClassService classService;
+    @Autowired
+    ClassService classService;
 
-	@Autowired
-	SubjectService subjectService;
+    @Autowired
+    SubjectService subjectService;
 
-	@Autowired
-	MarkService markService;
+    @Autowired
+    MarkService markService;
 
-	@Autowired
-	TeacherService teacherService;
+    @Autowired
+    TeacherService teacherService;
 
-	ArrayList rContent;
+    ArrayList rContent;
 
 }

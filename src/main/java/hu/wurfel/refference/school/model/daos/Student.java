@@ -16,22 +16,22 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "student")
 public class Student {
-	@Id
-	@Column(name = "SID", nullable = false)
-	private Long id;
+    @Id
+    @Column(name = "SID", nullable = false)
+    private Long id;
 
-	@Column(name = "Name", nullable = false, length = 54)
-	private String name;
+    @Column(name = "Name", nullable = false, length = 54)
+    private String name;
 
-	@Column(name = "Birthdate", nullable = false)
-	private String birthDate;
+    @Column(name = "Birthdate", nullable = false)
+    private String birthDate;
 
-	@Override
-	public String toString() {
-		return "Student{" +
-				"ID=" + id +
-				", Name='" + name + '\'' +
-				", Birthdate=" + birthDate +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "Student{" +
+                "ID=" + id +
+                ", Name='" + name + '\'' +
+                ", Birthdate=" + birthDate +
+                '}';
+    }
 }

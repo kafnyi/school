@@ -11,50 +11,50 @@ import java.util.ArrayList;
 @Service
 public class TeacherCrudService {
 
-	@Autowired
-	private TeacherRepository teacherRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
 
-	public Iterable<Teacher> getAllTeacher() {
-		return teacherRepository.findAll();
-	}
+    public Iterable<Teacher> getAllTeacher() {
+        return teacherRepository.findAll();
+    }
 
-	public Teacher getTeacherByTeacherId(Long Id) {
-		return teacherRepository.findById(Id).get();
-	}
+    public Teacher getTeacherByTeacherId(Long Id) {
+        return teacherRepository.findById(Id).get();
+    }
 
-	public ArrayList<Teacher> getTeacherByName(String name) {
-		return teacherRepository.findAllByName(name);
-	}
+    public ArrayList<Teacher> getTeacherByName(String name) {
+        return teacherRepository.findAllByName(name);
+    }
 
-	public ArrayList<Teacher> getTeacherByBirth(String date) {
-		return teacherRepository.findAllByBirthDate(date);
-	}
+    public ArrayList<Teacher> getTeacherByBirth(String date) {
+        return teacherRepository.findAllByBirthDate(date);
+    }
 
-	public Teacher saveTeacher(@NotNull Teacher teacher) {
-		teacherRepository.save(teacher);
-		return getTeacherByTeacherId(teacher.getId());
-	}
+    public Teacher saveTeacher(@NotNull Teacher teacher) {
+        teacherRepository.save(teacher);
+        return getTeacherByTeacherId(teacher.getId());
+    }
 
-	public Teacher saveTeacher(Long id, String name, String birth) {
-		return saveTeacher(new Teacher(id, name, birth));
-	}
+    public Teacher saveTeacher(Long id, String name, String birth) {
+        return saveTeacher(new Teacher(id, name, birth));
+    }
 
-	public Teacher setTeacherID(@NotNull Teacher teacher, long id) {
-		teacher.setId(id);
-		return saveTeacher(teacher);
-	}
+    public Teacher setTeacherID(@NotNull Teacher teacher, long id) {
+        teacher.setId(id);
+        return saveTeacher(teacher);
+    }
 
-	public Teacher setTeacherName(@NotNull Teacher teacher, String name) {
-		teacher.setName(name);
-		return saveTeacher(teacher);
-	}
+    public Teacher setTeacherName(@NotNull Teacher teacher, String name) {
+        teacher.setName(name);
+        return saveTeacher(teacher);
+    }
 
-	public Teacher setTeacherBirth(@NotNull Teacher teacher, String date) {
-		teacher.setBirthDate(date);
-		return saveTeacher(teacher);
-	}
+    public Teacher setTeacherBirth(@NotNull Teacher teacher, String date) {
+        teacher.setBirthDate(date);
+        return saveTeacher(teacher);
+    }
 
-	public void deleteTeacher(@NotNull Teacher teacher) {
-		teacherRepository.delete(teacher);
-	}
+    public void deleteTeacher(@NotNull Teacher teacher) {
+        teacherRepository.delete(teacher);
+    }
 }

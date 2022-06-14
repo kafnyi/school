@@ -10,23 +10,23 @@ import java.util.Optional;
 
 @Repository
 public interface ClassRepository extends CrudRepository<Class, Integer> {
-	ArrayList<Class> findAll();
+    ArrayList<Class> findAll();
 
-	Optional<Class> findById(Integer classId);
+    Optional<Class> findById(Integer classId);
 
-	ArrayList<Class> findAllByGrade(short grade);
+    ArrayList<Class> findAllByGrade(short grade);
 
-	ArrayList<Class> findAllBySign(char sign);
+    ArrayList<Class> findAllBySign(char sign);
 
-	ArrayList<Class> findAllByYear(Year year);
+    ArrayList<Class> findAllByYear(Year year);
 
-	ArrayList<Class> findAllByTid(Long tId);
+    ArrayList<Class> findAllByTid(Long tId);
 
-	ArrayList<Class> findAllByGradeAndSign(short grade, char sign);
+    ArrayList<Class> findAllByGradeAndSign(short grade, char sign);
 
-	ArrayList<Class> findAllByGradeAndYear(short grade, Year year);
+    ArrayList<Class> findAllByGradeAndYear(short grade, Year year);
 
-	ArrayList<Class> findAllBySignAndYear(char sign, Year year);
+    ArrayList<Class> findAllBySignAndYear(char sign, Year year);
 
-	Optional<Class> findByGradeAndSignAndYear(short grade, char sign, Year year);
+    Optional<Class> findByGradeAndSignAndYear(short grade, char sign, Year year);
 }

@@ -18,20 +18,20 @@ import java.time.Year;
 @Entity
 @Table(name = "class")
 public class Class {
-	@Id
-	@Column(name = "ClassID", nullable = false)
-	private Integer id;
+    @Id
+    @Column(name = "ClassID", nullable = false)
+    private Integer id;
 
-	@Column(name = "Grade", nullable = false)
-	private short grade;
+    @Column(name = "Grade", nullable = false)
+    private short grade;
 
-	@Column(name = "Sign", nullable = false)
-	private char sign;
+    @Column(name = "Sign", nullable = false)
+    private char sign;
 
-	@Column(name = "Year", nullable = false)
-	private Year year;
+    @Column(name = "Year", nullable = false)
+    private Year year;
 
-	@Column(name = "TID", nullable = false)
-	private Long tid;
+    @Column(name = "TID", nullable = false)
+    private Long tid;
 
 }

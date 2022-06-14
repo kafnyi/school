@@ -11,13 +11,13 @@ import java.util.Optional;
 @Repository
 public interface TeacherRepository extends CrudRepository<Teacher, Long> {
 
-	ArrayList<Teacher> findAll();
+    ArrayList<Teacher> findAll();
 
-	Optional<Teacher> findById(Long id);
+    Optional<Teacher> findById(Long id);
 
-	ArrayList<Teacher> findAllByName(String name);
+    ArrayList<Teacher> findAllByName(String name);
 
-	ArrayList<Teacher> findAllByBirthDate(String birthDate);
+    ArrayList<Teacher> findAllByBirthDate(String birthDate);
 
-	Optional<Teacher> findByNameAndBirthDate(String name, Date birthDate);
+    Optional<Teacher> findByNameAndBirthDate(String name, Date birthDate);
 }

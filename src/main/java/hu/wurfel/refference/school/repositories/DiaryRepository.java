@@ -9,13 +9,13 @@ import java.util.Optional;
 
 @Repository
 public interface DiaryRepository extends CrudRepository<Diary, Integer> {
-	ArrayList<Diary> findAll();
+    ArrayList<Diary> findAll();
 
-	Optional<Diary> findById(Integer id);
+    Optional<Diary> findById(Integer id);
 
-	ArrayList<Diary> findAllByScid(Long scid);
+    ArrayList<Diary> findAllByScid(Long scid);
 
-	ArrayList<Diary> findAllByClassID(Integer classId);
+    ArrayList<Diary> findAllByClassID(Integer classId);
 
-	Optional<Diary> findByScidAndClassID(Long scid, Integer classId);
+    Optional<Diary> findByScidAndClassID(Long scid, Integer classId);
 }

@@ -17,14 +17,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "subject")
 public class Subject {
-	@Id
-	@Column(name = "SubjectID", nullable = false)
-	private Integer id;
+    @Id
+    @Column(name = "SubjectID", nullable = false)
+    private Integer id;
 
-	@Column(name = "SubjectName", nullable = false, length = 32)
-	private String subjectName;
+    @Column(name = "SubjectName", nullable = false, length = 32)
+    private String subjectName;
 
-	@Column(name = "TID", nullable = false)
-	private Long tid;
+    @Column(name = "TID", nullable = false)
+    private Long tid;
 
 }

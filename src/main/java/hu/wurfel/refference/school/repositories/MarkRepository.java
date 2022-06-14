@@ -9,21 +9,21 @@ import java.util.Optional;
 
 @Repository
 public interface MarkRepository extends CrudRepository<Mark, Long> {
-	ArrayList<Mark> findAll();
+    ArrayList<Mark> findAll();
 
-	Optional<Mark> findById(Long markId);
+    Optional<Mark> findById(Long markId);
 
-	ArrayList<Mark> findAllByDiaryID(Integer diaryId);
+    ArrayList<Mark> findAllByDiaryID(Integer diaryId);
 
-	ArrayList<Mark> findAllByDate(String date);
+    ArrayList<Mark> findAllByDate(String date);
 
-	ArrayList<Mark> findAllBySubjectID(Integer subjectId);
+    ArrayList<Mark> findAllBySubjectID(Integer subjectId);
 
-	ArrayList<Mark> findAllByMark(byte mark);
+    ArrayList<Mark> findAllByMark(byte mark);
 
-	ArrayList<Mark> findAllByDiaryIDAndSubjectID(Integer diaryId, Integer subjectId);
+    ArrayList<Mark> findAllByDiaryIDAndSubjectID(Integer diaryId, Integer subjectId);
 
-	ArrayList<Mark> findAllByDiaryIDAndDate(Integer diaryId, String date);
+    ArrayList<Mark> findAllByDiaryIDAndDate(Integer diaryId, String date);
 
-	Optional<Mark> findByDiaryIDAndDateAndSubjectID(Integer diaryId, String date, Integer subjectId);
+    Optional<Mark> findByDiaryIDAndDateAndSubjectID(Integer diaryId, String date, Integer subjectId);
 }

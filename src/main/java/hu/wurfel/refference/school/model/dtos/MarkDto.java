@@ -7,9 +7,9 @@ import java.util.Date;
 
 @Data
 public class MarkDto implements Serializable {
-	private final Long mId;
-	private final Integer dId;
-	private final Date date;
-	private final Integer sjId;
-	private final byte mark;
+    private final Long mId;
+    private final Integer dId;
+    private final Date date;
+    private final Integer sjId;
+    private final byte mark;
 }
