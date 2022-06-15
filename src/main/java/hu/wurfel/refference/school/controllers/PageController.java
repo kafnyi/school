@@ -2,6 +2,7 @@ package hu.wurfel.refference.school.controllers;
 
 import hu.wurfel.refference.school.model.AddRequest;
 import hu.wurfel.refference.school.model.SearchRequest;
+import hu.wurfel.refference.school.services.requestServices.AddRequestService;
 import hu.wurfel.refference.school.services.requestServices.SearchResponseCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ public class PageController {
 
     @Autowired
     SearchResponseCreator searchResponseCreator;
+    @Autowired
+    AddRequestService addRequestService;
 
     @RequestMapping("/")
     public String index() {
@@ -33,7 +36,7 @@ public class PageController {
         return "SLI";
     }
 
-    @PostMapping("/tli/search/Student")
+    @PostMapping("/tli/search")
     public ResponseEntity<ArrayList> searchForStudent(@RequestBody SearchRequest request) {
         ArrayList answer = new ArrayList();
         answer = searchResponseCreator.create(request);
@@ -42,9 +45,14 @@ public class PageController {
     }
 
     @PostMapping("/tli/adding")
-    public ResponseEntity<ArrayList> adding (@RequestBody AddRequest addRequest){
+    public ResponseEntity<ArrayList> adding(@RequestBody AddRequest addRequest) {
+        AddRequest input = addRequest;
+        System.out.println(input);
         ArrayList answer = new ArrayList<>();
-
+        answer = addRequestService.create(addRequest);
+        System.out.println("The " + addRequest.getType() + "added!");
+        System.out.println(answer);
+        return ResponseEntity.ok(answer);
     }
 
 

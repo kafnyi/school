@@ -357,7 +357,7 @@ function confirmAdding() {
                 type:document.getElementById("AFS").value,
                 id: document.getElementById("ASSId").value,
                 name: document.getElementById("ASN").value,
-                birthDate: document.getElementById("ASD").value
+                date: document.getElementById("ASD").value
             }
             break;
         case "Diary":
@@ -381,7 +381,7 @@ function confirmAdding() {
                 type:document.getElementById("AFS").value,
                 id: document.getElementById("ATId").value,
                 name: document.getElementById("ATN").value,
-                birthDate: document.getElementById("ATD").value
+                date: document.getElementById("ATD").value
             }
             break;
         case "Class":

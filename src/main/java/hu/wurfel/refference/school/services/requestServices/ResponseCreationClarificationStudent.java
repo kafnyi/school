@@ -31,9 +31,9 @@ public class ResponseCreationClarificationStudent extends ResponseCreationClarif
                 sWTeacher(request);
             }
             default -> {
-			}
+            }
         }
-		return rContent;
+        return rContent;
     }
 
     public void sWStudent(SearchRequest request) {
