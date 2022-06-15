@@ -1,6 +1,6 @@
-package hu.wurfel.refference.school.services.responseCreators;
+package hu.wurfel.refference.school.services.requestServices;
 
-import hu.wurfel.refference.school.model.Request;
+import hu.wurfel.refference.school.model.SearchRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 @Service
 public class ResponseCreationClarificationDiary extends ResponseCreationClarificationTemplate {
 
-    public ArrayList create(Request request) {
+    public ArrayList create(SearchRequest request) {
         rContent = new ArrayList<>();
         switch (request.getRWith()) {
             case Student -> {
@@ -36,7 +36,7 @@ public class ResponseCreationClarificationDiary extends ResponseCreationClarific
         return rContent;
     }
 
-    private void dWStudent(Request request) {
+    private void dWStudent(SearchRequest request) {
         switch (request.getRBy()) {
             case StudentId -> {
                 rContent = diaryService.getDiariesByStudent(studentService.getStudentByStudentId(Long.parseLong(request.getRValue())));
@@ -52,7 +52,7 @@ public class ResponseCreationClarificationDiary extends ResponseCreationClarific
         }
     }
 
-    private void dWDiary(Request request) {
+    private void dWDiary(SearchRequest request) {
         switch (request.getRBy()) {
             case DiaryId -> {
                 rContent.add(diaryService.getDiaryByDiaryid(Integer.parseInt(request.getRValue())));
@@ -68,7 +68,7 @@ public class ResponseCreationClarificationDiary extends ResponseCreationClarific
         }
     }
 
-    private void dWClass(Request request) {
+    private void dWClass(SearchRequest request) {
         switch (request.getRBy()) {
             case ClassId -> {
                 rContent = diaryService.getDiariesByClassid(Integer.parseInt(request.getRValue()));
@@ -90,7 +90,7 @@ public class ResponseCreationClarificationDiary extends ResponseCreationClarific
         }
     }
 
-    private void dWSubject(Request request) {
+    private void dWSubject(SearchRequest request) {
         switch (request.getRBy()) {
             case SubjectId -> {
                 rContent = diaryService.getDiariesBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(request.getRValue())));
@@ -106,7 +106,7 @@ public class ResponseCreationClarificationDiary extends ResponseCreationClarific
         }
     }
 
-    private void dWMark(Request request) {
+    private void dWMark(SearchRequest request) {
         switch (request.getRBy()) {
             case MarkId -> {
                 rContent.add(diaryService.getDiaryByMark(markService.getMarkByMarkid(Long.parseLong(request.getRValue()))));
@@ -128,7 +128,7 @@ public class ResponseCreationClarificationDiary extends ResponseCreationClarific
         }
     }
 
-    private void dWTeacher(Request request) {
+    private void dWTeacher(SearchRequest request) {
         switch (request.getRBy()) {
             case TeacherId -> {
                 rContent = diaryService.getDiariesByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(request.getRValue())));

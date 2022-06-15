@@ -1,11 +1,8 @@
 package hu.wurfel.refference.school.controllers;
 
-import hu.wurfel.refference.school.model.Request;
-import hu.wurfel.refference.school.repositories.StudentRepository;
-import hu.wurfel.refference.school.services.entity.StudentService;
-import hu.wurfel.refference.school.services.entity.cruds.StudentCrudService;
-import hu.wurfel.refference.school.services.responseCreators.ResponseCreationClarificationStudent;
-import hu.wurfel.refference.school.services.responseCreators.ResponseCreator;
+import hu.wurfel.refference.school.model.AddRequest;
+import hu.wurfel.refference.school.model.SearchRequest;
+import hu.wurfel.refference.school.services.requestServices.SearchResponseCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,15 +16,7 @@ import java.util.ArrayList;
 public class PageController {
 
     @Autowired
-    StudentRepository studentRepository;
-    @Autowired
-    ResponseCreator responseCreator;
-    @Autowired
-    StudentService studentService;
-    @Autowired
-    StudentCrudService studentCrudService;
-    @Autowired
-    ResponseCreationClarificationStudent rccs; //ITTAHIBAAAAAAAA
+    SearchResponseCreator searchResponseCreator;
 
     @RequestMapping("/")
     public String index() {
@@ -45,16 +34,16 @@ public class PageController {
     }
 
     @PostMapping("/tli/search/Student")
-    public ResponseEntity<ArrayList> searchForStudent(@RequestBody Request request) {
-        //System.out.println(request);
-        //System.out.println(studentRepository.findAll());
-        //System.out.println(studentRepository.findById(Long.parseLong(request.getRValue())));
+    public ResponseEntity<ArrayList> searchForStudent(@RequestBody SearchRequest request) {
         ArrayList answer = new ArrayList();
-        //answer.add(studentService.getStudentByStudentId(Long.parseLong(request.getRValue())));
-        //System.out.println("this is the answer:" + answer);
-        answer = responseCreator.create(request);
+        answer = searchResponseCreator.create(request);
         System.out.println("the response:" + answer);
         return ResponseEntity.ok(answer);
+    }
+
+    @PostMapping("/tli/adding")
+    public ResponseEntity<ArrayList> adding (@RequestBody AddRequest addRequest){
+        ArrayList answer = new ArrayList<>();
 
     }
 

@@ -1,4 +1,4 @@
-package hu.wurfel.refference.school.services.responseCreators;
+package hu.wurfel.refference.school.services.requestServices;
 
 import hu.wurfel.refference.school.model.Response;
 import hu.wurfel.refference.school.model.enums.EntityNaming;

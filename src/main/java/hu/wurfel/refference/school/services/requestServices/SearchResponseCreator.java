@@ -1,14 +1,14 @@
-package hu.wurfel.refference.school.services.responseCreators;
+package hu.wurfel.refference.school.services.requestServices;
 
-import hu.wurfel.refference.school.model.Request;
+import hu.wurfel.refference.school.model.SearchRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 @Component
-public class ResponseCreator extends ResponseCreatorTemplate {
+public class SearchResponseCreator extends ResponseCreatorTemplate {
 
-    public ArrayList create(Request request) {
+    public ArrayList create(SearchRequest request) {
         responseType = request.getRFor();
         responseContent = new ArrayList();
         responseContent.add(responseType);

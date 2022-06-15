@@ -1,6 +1,6 @@
-package hu.wurfel.refference.school.services.responseCreators;
+package hu.wurfel.refference.school.services.requestServices;
 
-import hu.wurfel.refference.school.model.Request;
+import hu.wurfel.refference.school.model.SearchRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 @Service
 public class ResponseCreationClarificationSubject extends ResponseCreationClarificationTemplate {
 
-    public ArrayList create(Request request) {
+    public ArrayList create(SearchRequest request) {
         rContent = new ArrayList<>();
         switch (request.getRWith()) {
             case Student -> {
@@ -36,7 +36,7 @@ public class ResponseCreationClarificationSubject extends ResponseCreationClarif
         return rContent;
     }
 
-    private void sjWStudent(Request request) {
+    private void sjWStudent(SearchRequest request) {
         switch (request.getRBy()) {
             case StudentId -> {
                 rContent = subjectService.getSubjectsByStudent(studentService.getStudentByStudentId(Long.parseLong(request.getRValue())));
@@ -52,7 +52,7 @@ public class ResponseCreationClarificationSubject extends ResponseCreationClarif
         }
     }
 
-    private void sjWDiary(Request request) {
+    private void sjWDiary(SearchRequest request) {
         switch (request.getRBy()) {
             case DiaryId -> {
                 rContent = subjectService.getSubjectsByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(request.getRValue())));
@@ -68,7 +68,7 @@ public class ResponseCreationClarificationSubject extends ResponseCreationClarif
         }
     }
 
-    private void sjWClass(Request request) {
+    private void sjWClass(SearchRequest request) {
         switch (request.getRBy()) {
             case ClassId -> {
                 rContent = subjectService.getSubjectsByClass(classService.getClassByClassId(Integer.parseInt(request.getRValue())));
@@ -90,7 +90,7 @@ public class ResponseCreationClarificationSubject extends ResponseCreationClarif
         }
     }
 
-    private void sjWSubject(Request request) {
+    private void sjWSubject(SearchRequest request) {
         switch (request.getRBy()) {
             case SubjectId -> {
                 rContent.add(subjectService.getSubjectBySubjectId(Integer.parseInt(request.getRValue())));
@@ -106,7 +106,7 @@ public class ResponseCreationClarificationSubject extends ResponseCreationClarif
         }
     }
 
-    private void sjWMark(Request request) {
+    private void sjWMark(SearchRequest request) {
         switch (request.getRBy()) {
             case MarkId -> {
                 rContent.add(subjectService.getSubjectByMark(markService.getMarkByMarkid(Long.parseLong(request.getRValue()))));
@@ -128,7 +128,7 @@ public class ResponseCreationClarificationSubject extends ResponseCreationClarif
         }
     }
 
-    private void sjWTeacher(Request request) {
+    private void sjWTeacher(SearchRequest request) {
         switch (request.getRBy()) {
             case TeacherId -> {
                 rContent = subjectService.getSubjectsByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(request.getRValue())));

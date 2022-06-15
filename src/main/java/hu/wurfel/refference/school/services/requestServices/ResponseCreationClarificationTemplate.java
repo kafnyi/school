@@ -1,4 +1,4 @@
-package hu.wurfel.refference.school.services.responseCreators;
+package hu.wurfel.refference.school.services.requestServices;
 
 import hu.wurfel.refference.school.services.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
