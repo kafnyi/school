@@ -1,9 +1,11 @@
 package hu.wurfel.refference.school.controllers;
 
 import hu.wurfel.refference.school.model.AddRequest;
+import hu.wurfel.refference.school.model.DeleteRequest;
 import hu.wurfel.refference.school.model.SearchRequest;
 import hu.wurfel.refference.school.services.requestServices.AddRequestService;
-import hu.wurfel.refference.school.services.requestServices.SearchResponseCreator;
+import hu.wurfel.refference.school.services.requestServices.DeleteRequestService;
+import hu.wurfel.refference.school.services.requestServices.SearchRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,9 +19,11 @@ import java.util.ArrayList;
 public class PageController {
 
     @Autowired
-    SearchResponseCreator searchResponseCreator;
+    SearchRequestService searchRequestService;
     @Autowired
     AddRequestService addRequestService;
+    @Autowired
+    DeleteRequestService deleteRequestService;
 
     @RequestMapping("/")
     public String index() {
@@ -39,7 +43,7 @@ public class PageController {
     @PostMapping("/tli/search")
     public ResponseEntity<ArrayList> searchForStudent(@RequestBody SearchRequest request) {
         ArrayList answer = new ArrayList();
-        answer = searchResponseCreator.create(request);
+        answer = searchRequestService.create(request);
         System.out.println("the response:" + answer);
         return ResponseEntity.ok(answer);
     }
@@ -56,10 +60,10 @@ public class PageController {
     }
 
     @PostMapping("/tli/delete")
-    public void delete(@RequestBody DeleteRequest deleteRequest){
-        DeleteRequest delete = deleteRequest;
-        System.out.println(delete);
-
+    public void delete(@RequestBody DeleteRequest deleteRequest) {
+        DeleteRequest toDelete = deleteRequest;
+        System.out.println(toDelete);
+        deleteRequestService.create(toDelete);
     }
 
 

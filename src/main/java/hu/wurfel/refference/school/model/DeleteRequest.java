@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class DeleteRequest {
     private EntityNaming type;
-    private String
+	private String id;
 }

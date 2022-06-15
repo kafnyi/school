@@ -6,17 +6,17 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 @Component
-public class SearchResponseCreator extends ResponseCreatorTemplate {
+public class SearchRequestService extends ResponseCreatorTemplate {
 
-    public ArrayList create(SearchRequest request) {
-        responseType = request.getRFor();
-        responseContent = new ArrayList();
-        responseContent.add(responseType);
-        switch (request.getRFor()) {
-            case Student -> {
-                responseContent.addAll(responseCreationClarificationStudent.create(request));
-            }
-            case Class -> {
+	public ArrayList create(SearchRequest request) {
+		responseType = request.getRFor();
+		responseContent = new ArrayList();
+		responseContent.add(responseType);
+		switch (request.getRFor()) {
+			case Student -> {
+				responseContent.addAll(responseCreationClarificationStudent.create(request));
+			}
+			case Class -> {
                 responseContent.addAll(responseCreationClarificationClass.create(request));
             }
             case Diary -> {
