@@ -421,3 +421,97 @@ function confirmAdding() {
     xhr.send(data);
     window.alert(adding);
 }
+
+function createSearchResponseTable(json) {
+    let i;
+    let r = json;
+    let table
+    switch (r[0]) {
+        case "Student" : {
+            table = "<tr><th>Student ID</th><th>Name</th><th>Birth date</th></tr>";
+            for (i = 1; i < r.length; i++) {
+                table += "<tr><td onclick=\"\"> " +
+                    r[i].id +
+                    "</td><td onclick=\"\">" +
+                    r[i].name +
+                    "</td><td>" +
+                    r[i].birthDate +
+                    "</td></tr>";
+            }
+        }
+        case "Teacher" : {
+            table = "<tr><th>Teacher ID</th><th>Name</th><th>Birth date</th></tr>";
+            for (i = 1; i < r.length; i++) {
+                table += "<tr><td onclick=\"\"> " +
+                    r[i].id +
+                    "</td><td onclick=\"\">" +
+                    r[i].name +
+                    "</td><td>" +
+                    r[i].birthDate +
+                    "</td></tr>";
+            }
+        }
+        case "Class" : {
+            table = "<tr><th>Class ID</th><th>Name</th><th>Birth date</th></tr>";
+            for (i = 1; i < r.length; i++) {
+                table += "<tr><td onclick=\"\"> " +
+                    r[i].id +
+                    "</td><td onclick=\"\">" +
+                    r[i].name +
+                    "</td><td>" +
+                    r[i].birthDate +
+                    "</td></tr>";
+            }
+        }
+        case "Subject" : {
+            table = "<tr><th>Card Number</th><th>Name</th><th>Birth date</th></tr>";
+            for (i = 1; i < r.length; i++) {
+                table += "<tr><td onclick=\"\"> " +
+                    r[i].id +
+                    "</td><td onclick=\"\">" +
+                    r[i].name +
+                    "</td><td>" +
+                    r[i].birthDate +
+                    "</td></tr>";
+            }
+        }
+        case "Diary": {
+            table = "<tr><th>Card Number</th><th>Name</th><th>Birth date</th></tr>";
+            for (i = 1; i < r.length; i++) {
+                table += "<tr><td onclick=\"\"> " +
+                    r[i].id +
+                    "</td><td onclick=\"\">" +
+                    r[i].name +
+                    "</td><td>" +
+                    r[i].birthDate +
+                    "</td></tr>";
+            }
+        }
+        case "Mark" : {
+            table = "<tr><th>Card Number</th><th>Name</th><th>Birth date</th></tr>";
+            for (i = 1; i < r.length; i++) {
+                table += "<tr><td onclick=\"\"> " +
+                    r[i].id +
+                    "</td><td onclick=\"\">" +
+                    r[i].name +
+                    "</td><td>" +
+                    r[i].birthDate +
+                    "</td></tr>";
+            }
+        }
+        default : {
+        }
+
+    }
+    = "<tr><th>Card Number</th><th>Name</th><th>Birth date</th></tr>";
+    for (i = 1; i < r.length; i++) {
+        table += "<tr><td onclick=\"\"> " +
+            r[i].id +
+            "</td><td onclick=\"\">" +
+            r[i].name +
+            "</td><td>" +
+            r[i].sbirth +
+            "</td></tr>";
+    }
+    document.getElementById("searchTable2").innerHTML = table
+}

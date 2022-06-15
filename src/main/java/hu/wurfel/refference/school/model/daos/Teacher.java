@@ -24,7 +24,7 @@ public class Teacher {
     @Column(name = "Name", nullable = false, length = 54)
     private String name;
 
-    @Column(name = "BirthDate", nullable = false)
+    @Column(name = "Birthdate", nullable = false)
     private String birthDate;
 
     @Override
