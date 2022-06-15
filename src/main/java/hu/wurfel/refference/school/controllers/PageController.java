@@ -55,5 +55,12 @@ public class PageController {
         return ResponseEntity.ok(answer);
     }
 
+    @PostMapping("/tli/delete")
+    public void delete(@RequestBody DeleteRequest deleteRequest){
+        DeleteRequest delete = deleteRequest;
+        System.out.println(delete);
+
+    }
+
 
 }
