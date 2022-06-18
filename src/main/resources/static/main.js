@@ -183,6 +183,8 @@ function confirmSearch() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             window.alert("response arrive\n response:" + xhr.response)
+            let result = JSON.parse(xhr.response)
+            createSearchResponseTable(result)
         }
     }
     const search = {rFor: sFor, rWith: sWith, rBy: sBy, rValue: sVal};
@@ -425,12 +427,12 @@ function confirmAdding() {
 function createSearchResponseTable(json) {
     let i;
     let r = json;
-    let table
+    let table;
     switch (r[0]) {
         case "Student" : {
             table = "<tr><th>Student ID</th><th>Name</th><th>Birth date</th></tr>";
             for (i = 1; i < r.length; i++) {
-                table += "<tr><td onclick=\"\"> " +
+                table += "<tr><td onclick=\"createModifyTable(" + r[0] + " , " + r[i] + " )\"> " +
                     r[i].id +
                     "</td><td onclick=\"\">" +
                     r[i].name +
@@ -438,80 +440,151 @@ function createSearchResponseTable(json) {
                     r[i].birthDate +
                     "</td></tr>";
             }
+            break;
         }
         case "Teacher" : {
             table = "<tr><th>Teacher ID</th><th>Name</th><th>Birth date</th></tr>";
             for (i = 1; i < r.length; i++) {
-                table += "<tr><td onclick=\"\"> " +
+                table += "<tr><td onclick=\"createModifyTable(" + r[0] + " , " + r[i] + " )\"> " +
                     r[i].id +
                     "</td><td onclick=\"\">" +
                     r[i].name +
                     "</td><td>" +
-                    r[i].birthDate +
+                    r[i].date +
                     "</td></tr>";
             }
+            break;
         }
         case "Class" : {
-            table = "<tr><th>Class ID</th><th>Name</th><th>Birth date</th></tr>";
+            table = "<tr><th>Class ID</th><th>Year</th><th>Grade</th><th>Sign</th><th>Teacher ID</th></tr>";
             for (i = 1; i < r.length; i++) {
-                table += "<tr><td onclick=\"\"> " +
+                table += "<tr><td onclick=\"createModifyTable(" + r[0] + " , " + r[i] + " )\"> " +
                     r[i].id +
                     "</td><td onclick=\"\">" +
-                    r[i].name +
+                    r[i].year +
                     "</td><td>" +
-                    r[i].birthDate +
+                    r[i].grade +
+                    "</td><td>" +
+                    r[i].sign +
+                    "</td><td>" +
+                    r[i].teacherID +
                     "</td></tr>";
             }
+            break;
         }
         case "Subject" : {
-            table = "<tr><th>Card Number</th><th>Name</th><th>Birth date</th></tr>";
+            table = "<tr><th>Subject ID</th><th>Name</th><th>Teacher ID</th></tr>";
             for (i = 1; i < r.length; i++) {
-                table += "<tr><td onclick=\"\"> " +
+                table += "<tr><td onclick=\"createModifyTable(" + r[0] + " , " + r[i] + " )\"> " +
                     r[i].id +
-                    "</td><td onclick=\"\">" +
+                    "</td><td>" +
                     r[i].name +
                     "</td><td>" +
-                    r[i].birthDate +
+                    r[i].teacherID +
                     "</td></tr>";
             }
+            break;
         }
         case "Diary": {
-            table = "<tr><th>Card Number</th><th>Name</th><th>Birth date</th></tr>";
+            table = "<tr><th>Diary ID</th><th>Student ID</th><th>Class ID</th></tr>";
             for (i = 1; i < r.length; i++) {
-                table += "<tr><td onclick=\"\"> " +
+                table += "<tr><td onclick=\"createModifyTable(" + r[0] + " , " + r[i] + " )\"> " +
                     r[i].id +
                     "</td><td onclick=\"\">" +
-                    r[i].name +
+                    r[i].studentID +
                     "</td><td>" +
-                    r[i].birthDate +
+                    r[i].classID +
                     "</td></tr>";
             }
+            break;
         }
         case "Mark" : {
-            table = "<tr><th>Card Number</th><th>Name</th><th>Birth date</th></tr>";
+            table = "<tr><th>Mark ID</th><th>Diary ID</th><th>Date</th><th>Subject ID</th><th>Mark</th></tr>";
             for (i = 1; i < r.length; i++) {
-                table += "<tr><td onclick=\"\"> " +
+                table += "<tr><td onclick=\"createModifyTable(" + r[0] + " , " + r[i] + " )\"> " +
                     r[i].id +
                     "</td><td onclick=\"\">" +
-                    r[i].name +
+                    r[i].diaryID +
                     "</td><td>" +
-                    r[i].birthDate +
+                    r[i].date +
+                    "</td><td>" +
+                    r[i].subjectID +
+                    "</td><td>" +
+                    r[i].mark +
                     "</td></tr>";
             }
+            break;
         }
         default : {
         }
 
     }
-    = "<tr><th>Card Number</th><th>Name</th><th>Birth date</th></tr>";
-    for (i = 1; i < r.length; i++) {
-        table += "<tr><td onclick=\"\"> " +
-            r[i].id +
-            "</td><td onclick=\"\">" +
-            r[i].name +
-            "</td><td>" +
-            r[i].sbirth +
-            "</td></tr>";
-    }
+
+
     document.getElementById("searchTable2").innerHTML = table
+}
+
+function createModifyTable(modifyType, Data) {
+
+    let original = Data
+    let modified = original;
+    let table
+    switch (modifyType) {
+        case "Student" : {
+            table += "<tr><td>Name :</td><td><input id='MNI' type='text' value='" + Data.name + "' placeholder='Student Name'></td></tr>" +
+                "<tr><td>ID :</td><td><input id='MIdI' type='number' value='" + Data.id + "' placeholder='Student ID' min='10000000000' max='99999999999'></td></tr>" +
+                "<tr><td>Birthday :</td><td><input id='MDI' type='date' value='" + Data.birthDate + "' placeholder='Birthday'></td></tr>" +
+                "<tr><td><input type='button' value='Modify' style='width: 150px' onclick='confirmModify(" + modifyType + " , " + original + ")'></td>" +
+                "<td><input type='button' value='Delete' style='width: 150px' onclick='confirmDelete(" + modifyType + " , " + original + ")'></td></tr>"
+        }
+        case "Diary" : {
+            table += "<tr><td>Name :</td><td><input id='MNI' type='text' value='" + Data.name + "' placeholder='Student Name'></td></tr>" +
+                "<tr><td>ID :</td><td><input id='MIdI' type='number' value='" + Data.id + "' placeholder='Student ID' min='10000000000' max='99999999999'></td></tr>" +
+                "<tr><td>Birthday :</td><td><input id='MDI' type='date' value='" + Data.birthDate + "' placeholder='Birthday'></td></tr>" +
+                "<tr><td><input type='button' value='Modify' style='width: 150px' onclick='confirmModify(" + modifyType + " , " + original + ")'></td>" +
+                "<td><input type='button' value='Delete' style='width: 150px' onclick='confirmDelete(" + modifyType + " , " + original + ")'></td></tr>"
+        }
+        case "Class" : {
+            table += "<tr><td>Name :</td><td><input id='MNI' type='text' value='" + Data.name + "' placeholder='Student Name'></td></tr>" +
+                "<tr><td>ID :</td><td><input id='MIdI' type='number' value='" + Data.id + "' placeholder='Student ID' min='10000000000' max='99999999999'></td></tr>" +
+                "<tr><td>Birthday :</td><td><input id='MDI' type='date' value='" + Data.birthDate + "' placeholder='Birthday'></td></tr>" +
+                "<tr><td><input type='button' value='Modify' style='width: 150px' onclick='confirmModify(" + modifyType + " , " + original + ")'></td>" +
+                "<td><input type='button' value='Delete' style='width: 150px' onclick='confirmDelete(" + modifyType + " , " + original + ")'></td></tr>"
+        }
+        case "Subject" : {
+            table += "<tr><td>Subject Name :</td><td><input id='MNI' type='text' value='" + Data.name + "' placeholder='Student Name'></td></tr>" +
+                "<tr><td>ID :</td><td><input id='MIdI' type='number' value='" + Data.id + "' placeholder='Subject ID'></td></tr>" +
+                "<tr><td>Teacher ID :</td><td><input id='MNI' type='text' value='" + Data.name + "' placeholder='Student Name'></td></tr>" +
+                "<tr><td><input type='button' value='Modify' style='width: 150px' onclick='confirmModify(" + modifyType + " , " + original + ")'></td>" +
+                "<td><input type='button' value='Delete' style='width: 150px' onclick='confirmDelete(" + modifyType + " , " + original + ")'></td></tr>"
+        }
+        case "Teacher" : {
+            table += "<tr><td>Name :</td><td><input id='MNI' type='text' value='" + Data.name + "' placeholder='Student Name'></td></tr>" +
+                "<tr><td>ID :</td><td><input id='MIdI' type='number' value='" + Data.id + "' placeholder='Student ID' min='10000000000' max='99999999999'></td></tr>" +
+                "<tr><td>Birthday :</td><td><input id='MDI' type='date' value='" + Data.birthDate + "' placeholder='Birthday'></td></tr>" +
+                "<tr><td><input type='button' value='Modify' style='width: 150px' onclick='confirmModify(" + modifyType + " , " + original + ")'></td>" +
+                "<td><input type='button' value='Delete' style='width: 150px' onclick='confirmDelete(" + modifyType + " , " + original + ")'></td></tr>"
+        }
+        default: {
+        }
+    }
+}
+
+function confirmModify(type, original, modified) {
+
+    let xhr = new XMLHttpRequest();
+    let url = "/tli/modify";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.alert("sucess modify" + xhr.response)
+        }
+    }
+    const modify = type + original + modified;
+    const data = JSON.stringify(modify);
+    xhr.send(data);
+    window.alert(modify);
+
+
 }
