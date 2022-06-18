@@ -23,7 +23,7 @@ public class StudentService extends StudentCrudService {
     private MarkCrudService markCrudService;
 
     public Student getStudentByDiary(@NotNull Diary diary) {
-        return getStudentByStudentId(diary.getScid());
+        return getStudentByStudentId(diary.getStudentId());
     }
 
     public ArrayList<Student> getStudentsByDiaries(@NotNull ArrayList<Diary> diaries) {

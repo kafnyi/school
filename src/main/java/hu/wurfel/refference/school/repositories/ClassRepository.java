@@ -20,7 +20,7 @@ public interface ClassRepository extends CrudRepository<Class, Integer> {
 
     ArrayList<Class> findAllByYear(Year year);
 
-    ArrayList<Class> findAllByTid(Long tId);
+    ArrayList<Class> findAllByTeacherId(Long teacherId);
 
     ArrayList<Class> findAllByGradeAndSign(short grade, char sign);
 

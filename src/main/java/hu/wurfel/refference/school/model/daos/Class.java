@@ -32,6 +32,6 @@ public class Class {
     private Year year;
 
     @Column(name = "TID", nullable = false)
-    private Long tid;
+    private Long teacherId;
 
 }

@@ -13,9 +13,9 @@ public interface DiaryRepository extends CrudRepository<Diary, Integer> {
 
     Optional<Diary> findById(Integer id);
 
-    ArrayList<Diary> findAllByScid(Long scid);
+    ArrayList<Diary> findAllByStudentId(Long studentId);
 
     ArrayList<Diary> findAllByClassID(Integer classId);
 
-    Optional<Diary> findByScidAndClassID(Long scid, Integer classId);
+    Optional<Diary> findByStudentIdAndClassID(Long studentId, Integer classId);
 }

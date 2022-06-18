@@ -22,7 +22,7 @@ public class TeacherService extends TeacherCrudService {
     private SubjectCrudService subjectCrudService;
 
     public Teacher getTeacherByClass(@NotNull Class division) {
-        return getTeacherByTeacherId(division.getTid());
+        return getTeacherByTeacherId(division.getTeacherId());
     }
 
     public ArrayList<Teacher> getTeachersByClasses(@NotNull ArrayList<Class> classes) {

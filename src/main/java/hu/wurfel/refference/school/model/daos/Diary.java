@@ -22,7 +22,7 @@ public class Diary {
     private Integer id;
 
     @Column(name = "SCID", nullable = false)
-    private Long scid;
+    private Long studentId;
 
     @Column(name = "ClassID", nullable = false)
     private Integer classID;

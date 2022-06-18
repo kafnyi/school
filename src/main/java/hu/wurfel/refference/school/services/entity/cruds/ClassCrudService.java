@@ -36,7 +36,7 @@ public class ClassCrudService {
     }
 
     public ArrayList<Class> getClassesByTid(Long tid) {
-        return classRepository.findAllByTid(tid);
+        return classRepository.findAllByTeacherId(tid);
     }
 
     public ArrayList<Class> getClassesByGradeAndSign(short grade, char sign) {
@@ -85,7 +85,7 @@ public class ClassCrudService {
     }
 
     public Class setTid(@NotNull Class division, Long tid) {
-        division.setTid(tid);
+	    division.setTeacherId(tid);
         return saveClass(division);
     }
 
