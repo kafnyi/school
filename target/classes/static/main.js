@@ -433,20 +433,20 @@ function createSearchResponseTable(json) {
             table = "<tr><th>Student ID</th><th>Name</th><th>Birth date</th></tr>";
             for (let i = 1; i < r.length; i++) {
                 student = r[i];
-                table += "<tr><td onclick=\"createModifyTable( "+type+" ," + student + ")\"> " +
+                table += "<tr><td onclick=\"createModifyTable( " + type + " ," + student + ")\"> " +
                     student.id +
                     "</td><td >" +
                     student.name +
                     "</td><td>" +
                     student.birthDate +
-                    "</td><td><input type='button' value='Modify' onclick='createModifyTable(\"Student\" , "+student+")'></td></tr>";
+                    "</td><td><input type='button' value='Modify' onclick='createModifyTable("+type+", " + student + ")'></td></tr>";
             }
             break;
         }
         case "Teacher" : {
             table = "<tr><th>Teacher ID</th><th>Name</th><th>Birth date</th></tr>";
             for (let i = 1; i < r.length; i++) {
-                table += "<tr><td onclick=\"window.alert("+type+","+ r[i] +")\"> " +
+                table += "<tr><td onclick=\"window.alert(" + type + "," + r[i] + ")\"> " +
                     r[i].id +
                     "</td><td onclick=\"\">" +
                     r[i].name +
@@ -525,11 +525,12 @@ function createSearchResponseTable(json) {
     document.getElementById("searchTable2").innerHTML = table
 }
 
-function createModifyTable(type ,data) {
+function createModifyTable(type, data) {
 
-    let tableType =type
+    window.alert("pre start")
+    let tableType = type
     let original = data
-    let table="<tr> <td>mi a fsz van?00000000</td></tr>";
+    let table = "<tr> <td>mi a fsz van?00000000</td></tr>";
     window.alert("start")
 
     switch (tableType) {
@@ -553,7 +554,8 @@ function createModifyTable(type ,data) {
         case "Mark" : {
             break;
         }
-        default: { table = "default bazdmeg"+ tableType
+        default: {
+            table = "default bazdmeg" + tableType
         }
     }
     document.getElementById("searchTable3").innerHTML = table;

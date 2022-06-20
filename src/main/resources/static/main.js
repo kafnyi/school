@@ -35,21 +35,67 @@ function searchMenuButton() {
 }
 
 function selectSClarifiedInnerRow(selected) {
-    let rValueSB = "Search By :"
-    let rValueSI
-    let rValueStd = "        <select id=\"SBS\" " +
+
+    let resValue = "Search By :";
+
+    switch (selected) {
+        case "Student" :
+            resValue += generateSpecificSelectForStudentSearch();
+            break
+        case "Diary":
+            resValue += generateSpecificSelectForDiarySearch();
+            break
+        case "Class":
+            resValue += generateSpecificSelectForClassSearch();
+            break
+        case "Subject":
+            resValue += generateSpecificSelectForSubjectSearch();
+            break
+        case "Mark":
+            resValue += generateSpecificSelectForMarkSearch();
+            break
+        default:
+            resValue = "please select what you want to search by "
+            break
+    }
+    document.getElementById("SCIR").innerHTML = resValue;
+}
+
+function generateSpecificSelectForStudentSearch() {
+    let student = "        <select id=\"SBS\" " +
         "onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"StudentId\" name='SIdI'>Student ID</option>\n" +
         "            <option value=\"Name\" name='TextI'>Name</option>\n" +
         "            <option value=\"Date\"  name='DateI'>Birth Date</option>\n" +
         "        </select>\n"
-    let rValueDry = "        <select id=\"SBS\" " +
+
+    return student;
+}
+
+function generateSpecificSelectForDiarySearch() {
+    let diary = "        <select id=\"SBS\" " +
         "onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"DiaryId\" name='IdI'>Diary ID</option>\n" +
         "            <option value=\"StudentId\" name='SIdI'>Student ID</option>\n" +
         "            <option value=\"ClassId\" name='IdI'>Class ID</option>\n" +
         "        </select>\n"
-    let rValueCls = "        <select id=\"SBS\" " +
+
+    return diary;
+}
+
+function generateSpecificSelectForSubjectSearch() {
+    let subject = "        <select id=\"SBS\" " +
+        "onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
+        "            <option value=\"SubjectId\" name='IdI'>Subject ID</option>\n" +
+        "            <option value=\"Name\" name='TextI'>Subject Name</option>\n" +
+        "            <option value=\"TeacherId\" name='IdI'>Teacher ID</option>\n" +
+        "        </select>\n"
+
+    return subject;
+}
+
+function generateSpecificSelectForClassSearch() {
+    let division = "        <select id=\"SBS\" " +
         "onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"ClassId\" name='IdI'>Class ID</option>\n" +
         "            <option value=\"Grade\" name='GradeI'>Grade</option>\n" +
@@ -57,13 +103,12 @@ function selectSClarifiedInnerRow(selected) {
         "            <option value=\"Year\" name='YearI'>Year</option>\n" +
         "            <option value=\"TeacherId\" name='IdI'>Teacher ID</option>\n" +
         "        </select>\n"
-    let rValueSbj = "        <select id=\"SBS\" " +
-        "onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
-        "            <option value=\"SubjectId\" name='IdI'>Subject ID</option>\n" +
-        "            <option value=\"Name\" name='TextI'>Subject Name</option>\n" +
-        "            <option value=\"TeacherId\" name='IdI'>Teacher ID</option>\n" +
-        "        </select>\n"
-    let rValueMrk = "        <select id=\"SBS\" " +
+
+    return division;
+}
+
+function generateSpecificSelectForMarkSearch() {
+    let mark = "        <select id=\"SBS\" " +
         "onchange='getSpecificInputField(document.getElementById(\"SBS\").value)'>\n" +
         "            <option value=\"MarkId\" name='IdI'>Mark ID</option>\n" +
         "            <option value=\"DiaryId\" name='IdI'>Diary ID</option>\n" +
@@ -71,34 +116,8 @@ function selectSClarifiedInnerRow(selected) {
         "            <option value=\"SubjectId\" name='IdI'>Subject ID</option>\n" +
         "            <option value=\"Mark\" name='MarkI'>Mark</option>\n" +
         "        </select>\n"
-    let resValue;
 
-    switch (selected) {
-        case "Student" :
-            resValue = rValueSB + rValueStd
-            document.getElementById("SCIR").innerHTML = resValue;
-            break
-        case "Diary":
-            resValue = rValueSB + rValueDry
-            document.getElementById("SCIR").innerHTML = resValue;
-            break
-        case "Class":
-            resValue = rValueSB + rValueCls
-            document.getElementById("SCIR").innerHTML = resValue;
-            break
-        case "Subject":
-            resValue = rValueSB + rValueSbj
-            document.getElementById("SCIR").innerHTML = resValue;
-            break
-        case "Mark":
-            resValue = rValueSB + rValueMrk
-            document.getElementById("SCIR").innerHTML = resValue;
-            break
-        default:
-            resValue = "please select what you want to search by "
-            document.getElementById("SCIR").innerHTML = resValue;
-            break
-    }
+    return mark;
 }
 
 function getSpecificInputField(spec) {
@@ -179,6 +198,7 @@ function confirmSearch() {
     let xhr = new XMLHttpRequest();
     let url = "/tli/search";
     xhr.open("POST", url, true);
+    xhr.subscribe()
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -191,10 +211,115 @@ function confirmSearch() {
     xhr.send(data);
 }
 
+function createSearchResponseTable(json) {
+    let type = json[0];
+    let r = json;
+    let table;
+    let student;
+    let forward = json;
+    switch (type) {
+        case "Student" : {
+            table = "<tr><th>Student ID</th><th>Name</th><th>Birth date</th></tr>";
+            for (let i = 1; i < r.length; i++) {
+                student = r[i];
+                table += "<tr><td onclick=\"createModifyTable( " + type + " ," + student + ")\"> " +
+                    student.id +
+                    "</td><td >" +
+                    student.name +
+                    "</td><td>" +
+                    student.birthDate +
+                    "</td><td><input type='button' value='Modify' onclick='createModifyTable(" + type + ", " + student + ")'></td></tr>";
+            }
+            break;
+        }
+        case "Teacher" : {
+            table = "<tr><th>Teacher ID</th><th>Name</th><th>Birth date</th></tr>";
+            for (let i = 1; i < r.length; i++) {
+                table += "<tr><td onclick=\"window.alert(" + type + "," + r[i] + ")\"> " +
+                    r[i].id +
+                    "</td><td onclick=\"\">" +
+                    r[i].name +
+                    "</td><td>" +
+                    r[i].date +
+                    "</td></tr>";
+            }
+            break;
+        }
+        case "Class" : {
+            table = "<tr><th>Class ID</th><th>Year</th><th>Grade</th><th>Sign</th><th>Teacher ID</th></tr>";
+            for (let i = 1; i < r.length; i++) {
+                table += "<tr><td onclick=\"createModifyTable(" + r[0] + " , " + r[i] + " )\"> " +
+                    r[i].id +
+                    "</td><td onclick=\"\">" +
+                    r[i].year +
+                    "</td><td>" +
+                    r[i].grade +
+                    "</td><td>" +
+                    r[i].sign +
+                    "</td><td>" +
+                    r[i].teacherID +
+                    "</td></tr>";
+            }
+            break;
+        }
+        case "Subject" : {
+            table = "<tr><th>Subject ID</th><th>Name</th><th>Teacher ID</th></tr>";
+            for (let i = 1; i < r.length; i++) {
+                table += "<tr><td onclick=\"createModifyTable(" + r[0] + " , " + r[i] + " )\"> " +
+                    r[i].id +
+                    "</td><td>" +
+                    r[i].name +
+                    "</td><td>" +
+                    r[i].teacherID +
+                    "</td></tr>";
+            }
+            break;
+        }
+        case "Diary": {
+            table = "<tr><th>Diary ID</th><th>Student ID</th><th>Class ID</th></tr>";
+            for (let i = 1; i < r.length; i++) {
+                table += "<tr><td onclick=\"createModifyTable(" + r[0] + " , " + r[i] + " )\"> " +
+                    r[i].id +
+                    "</td><td onclick=\"\">" +
+                    r[i].studentID +
+                    "</td><td>" +
+                    r[i].classID +
+                    "</td></tr>";
+            }
+            break;
+        }
+        case "Mark" : {
+            table = "<tr><th>Mark ID</th><th>Diary ID</th><th>Date</th><th>Subject ID</th><th>Mark</th></tr>"
+            for (let i = 1; i < r.length; i++) {
+                table += "<tr><td onclick='createModifyTable(" + r[0] + " , " + r[i] + " )'> " +
+                    r[i].id +
+                    "</td><td onclick=\"\">" +
+                    r[i].diaryID +
+                    "</td><td>" +
+                    r[i].date +
+                    "</td><td>" +
+                    r[i].subjectID +
+                    "</td><td>" +
+                    r[i].mark +
+                    "</td></tr>";
+            }
+            break;
+        }
+        default : {
+        }
+
+    }
+
+
+    document.getElementById("searchTable2").innerHTML = table
+}
+
+//Add Menu functions
+
 function addMenuButton() {
     let toAddSelectField = "<tr>" +
         "    <td style='width: 50%'>Adding a :\n" +
-        "        <select id=\"AFS\" onchange='addFieldGenerate(document.getElementById(\"AFS\").value)'>\n" +
+        "        <select id=\"AFS\" onchange='generateAddField(document.getElementById(\"AFS\").value)'>\n" +
         "            <option value=\"Student\">Student</option>\n" +
         "            <option value=\"Diary\">Diary</option>\n" +
         "            <option value=\"Class\">Class</option>\n" +
@@ -204,12 +329,36 @@ function addMenuButton() {
         "    </td>" +
         "</tr>"
     document.getElementById("searchTable").innerHTML = toAddSelectField;
-    addFieldGenerate(document.getElementById("AFS").value)
+    generateAddField(document.getElementById("AFS").value)
 
 }
 
-function addFieldGenerate(select) {
-    let studentCase = "<tr>" +
+function generateAddField(select) {
+
+    switch (select) {
+        case "Student" :
+            document.getElementById("searchTable2").innerHTML = createStudentAddField()
+            break;
+        case "Diary":
+            document.getElementById("searchTable2").innerHTML = createDiaryAddField()
+            break;
+        case "Class":
+            document.getElementById("searchTable2").innerHTML = createClassAddField()
+            break;
+        case "Subject":
+            document.getElementById("searchTable2").innerHTML = createSubjectAddField()
+            break;
+        case "Mark":
+            document.getElementById("searchTable2").innerHTML = createMarkAddField()
+            break;
+        case "Teacher":
+            document.getElementById("searchTable2").innerHTML = createTeacherAddField()
+            break;
+    }
+}
+
+function createStudentAddField() {
+    let studentField = "<tr>" +
         "<td>Student ID :" +
         "<input id=\"ASSId\" type=\"number\" min=\"10000000000\" max=\"99999999999\" step=\"1\" placeholder=\"Student ID\"/>" +
         "</td>" +
@@ -225,7 +374,11 @@ function addFieldGenerate(select) {
         "</td>" +
         "</tr>"
 
-    let diaryCase = "<tr>" +
+    return studentField;
+}
+
+function createDiaryAddField() {
+    let diaryField = "<tr>" +
         "<td>Diary ID : " +
         "<input id=\"ADDId\" type=\"number\" min=\"0\" placeholder=\"Diary ID\"/>" +
         "</td>" +
@@ -241,7 +394,11 @@ function addFieldGenerate(select) {
         "></td>" +
         "</tr>"
 
-    let subjectCase = "<tr>" +
+    return diaryField;
+}
+
+function createSubjectAddField() {
+    let subjectField = "<tr>" +
         "<td>Subject ID : " +
         "<input id=\"ASjSjId\" type=\"number\" min=\"0\" placeholder=\"Subject ID\"/>" +
         "</td>" +
@@ -257,7 +414,11 @@ function addFieldGenerate(select) {
         "></td>" +
         "</tr>"
 
-    let classCase = "<tr>" +
+    return subjectField;
+}
+
+function createClassAddField() {
+    let classField = "<tr>" +
         "<td>Class ID : " +
         "<input id=\"ACCId\" type=\"number\" min=\"0\" placeholder=\"Class ID\"/>" +
         "</td>" +
@@ -281,7 +442,11 @@ function addFieldGenerate(select) {
         "></td>" +
         "</tr>"
 
-    let markCase = "<tr>" +
+    return classField;
+}
+
+function createMarkAddField() {
+    let markField = "<tr>" +
         "<td>Mark ID : " +
         "<input id=\"AMMId\" type=\"number\" min=\"0\" placeholder=\"Mark ID\"/>" +
         "</td>" +
@@ -305,7 +470,11 @@ function addFieldGenerate(select) {
         "></td>" +
         "</tr>"
 
-    let teacherCase = "<tr>" +
+    return markField;
+}
+
+function createTeacherAddField() {
+    let teacherField = "<tr>" +
         "<td>Teacher ID :" +
         "<input id=\"ATTId\" type=\"number\" min=\"0\" placeholder=\"Teacher ID\"/>" +
         "</td>" +
@@ -321,60 +490,31 @@ function addFieldGenerate(select) {
         "</td>" +
         "</tr>"
 
-    switch (select) {
-        case "Student" :
-            document.getElementById("searchTable2").innerHTML = studentCase
-            break;
-        case "Diary":
-            document.getElementById("searchTable2").innerHTML = diaryCase
-            break;
-        case "Class":
-            document.getElementById("searchTable2").innerHTML = classCase
-            break;
-        case "Subject":
-            document.getElementById("searchTable2").innerHTML = subjectCase
-            break;
-        case "Mark":
-            document.getElementById("searchTable2").innerHTML = markCase
-            break;
-        case "Teacher":
-            document.getElementById("searchTable2").innerHTML = teacherCase
-            break;
-    }
-
-
+    return teacherField;
 }
 
-function confirmAdding() {
-
-    let addFieldType = document.getElementById("AFS").value
-    let addV
-
-    let studentAdding ={
+function getStudentDetailsForAdding() {
+    let student = {
         type: document.getElementById("AFS").value,
         id: document.getElementById("ASSId").value,
         name: document.getElementById("ASN").value,
         date: document.getElementById("ASD").value
     }
-    let diaryAdding = {
+    return student;
+}
+
+function getDiaryDetailsForAdding() {
+    let diary = {
         type: document.getElementById("AFS").value,
         id: document.getElementById("ADDId").value,
         studentID: document.getElementById("ADSId").value,
         classID: document.getElementById("ADCId").value
     }
-    let subjectAdding = {
-        type: document.getElementById("AFS").value,
-        id: document.getElementById("ASjSjId").value,
-        subjectName: document.getElementById("ASjN").value,
-        teacherID: document.getElementById("ASjTId").value
-    }
-    let teacherAdding ={
-        type: document.getElementById("AFS").value,
-        id: document.getElementById("ATId").value,
-        name: document.getElementById("ATN").value,
-        date: document.getElementById("ATD").value
-    }
-    let classAdding = {
+    return diary;
+}
+
+function getClassDetailsForAdding() {
+    let division = {
         type: document.getElementById("AFS").value,
         id: document.getElementById("ACCId").value,
         grade: document.getElementById("ACG").value,
@@ -382,7 +522,31 @@ function confirmAdding() {
         year: document.getElementById("ACY").value,
         teacherID: document.getElementById("ACTId").value,
     }
-    let markAdding = {
+    return division;
+}
+
+function getSubjectDetailsForAdding() {
+    let subject = {
+        type: document.getElementById("AFS").value,
+        id: document.getElementById("ASjSjId").value,
+        subjectName: document.getElementById("ASjN").value,
+        teacherID: document.getElementById("ASjTId").value
+    }
+    return subject;
+}
+
+function getTeacherDetailsForAdding() {
+    let teacher = {
+        type: document.getElementById("AFS").value,
+        id: document.getElementById("ATId").value,
+        name: document.getElementById("ATN").value,
+        date: document.getElementById("ATD").value
+    }
+    return teacher;
+}
+
+function getMarkDetailsForAdding() {
+    let mark = {
         type: document.getElementById("AFS").value,
         id: document.getElementById("AMMId").value,
         diaryID: document.getElementById("AMDId").value,
@@ -390,30 +554,37 @@ function confirmAdding() {
         subjectID: document.getElementById("AMSjId").value,
         mark: document.getElementById("AMM").value
     }
+    return mark;
+}
+
+function confirmAdding() {
+
+    let addFieldType = document.getElementById("AFS").value
+    let addV
+
     switch (addFieldType) {
 
         case "Student":
-            addV = studentAdding
+            addV = getStudentDetailsForAdding()
             break;
         case "Diary":
-            addV = diaryAdding
+            addV = getDiaryDetailsForAdding()
             break;
         case "Subject":
-            addV = subjectAdding
+            addV = getSubjectDetailsForAdding()
             break;
         case "Teacher":
-            addV = teacherAdding
+            addV = getTeacherDetailsForAdding()
             break;
         case "Class":
-            addV = classAdding
+            addV = getClassDetailsForAdding()
             break;
         case "Mark":
-            addV = markAdding
+            addV = getMarkDetailsForAdding()
             break;
+
     }
-    addRequestSend(addV)
-}
-function addRequestSend(request){
+
     let xhr = new XMLHttpRequest();
     let url = "/tli/adding";
     xhr.open("POST", url, true);
@@ -423,201 +594,16 @@ function addRequestSend(request){
             window.alert("sucess adding" + xhr.response)
         }
     }
-    const adding = request;
+    const adding = addV;
     const data = JSON.stringify(adding);
     xhr.send(data);
-}
-
-function createSearchResponseTable(json) {
-    let type = json[0];
-    let response = json;
-    let table;
-    let student;
-    let forward = json;
-
-
-    switch (type) {
-        case "Student" :table = getStudentTable(response)
-            break;
-        case "Teacher" :table = getTeacherTable(response)
-            break;
-        case "Class" :table = getClassTable(response)
-            break;
-        case "Subject" :table = getSubjectTable(response)
-            break;
-        case "Diary":table = getDiaryTable(response)
-            break;
-        case "Mark" :table = getMarkTable(response)
-            break;
-        default :
-    }
-    document.getElementById("searchTable2").innerHTML = table
-}
-
-function getStudentTable(data){
-    let table;
-    table = "<tr><th>Student ID</th><th>Name</th><th>Birth date</th></tr>";
-    for (let i = 1; i < data.length; i++) {
-        let student = data[i];
-        table += "<tr><td> " +
-            student.id +
-            "</td><td >" +
-            student.name +
-            "</td><td>" +
-            student.birthDate +
-            "</td></tr>";
-    }
-    return table;
-}
-
-function getDiaryTable(data){
-    let table;
-    table = "<tr><th>Diary ID</th><th>Student ID</th><th>Class ID</th></tr>";
-    for (let i = 1; i < data.length; i++) {
-        let diary = data[i]
-        table += "<tr><td> " +
-            diary.id +
-            "</td><td onclick=\"\">" +
-            diary.studentID +
-            "</td><td>" +
-            diary.classID +
-            "</td></tr>";
-    }
-    return table;
-}
-
-function getClassTable(data){
-    let table;
-    table = "<tr><th>Class ID</th><th>Year</th><th>Grade</th><th>Sign</th><th>Teacher ID</th></tr>";
-    for (let i = 1; i < data.length; i++) {
-        let division = data[i]
-        table += "<tr><td> " +
-            division.id +
-            "</td><td onclick=\"\">" +
-            division.year +
-            "</td><td>" +
-            division.grade +
-            "</td><td>" +
-            division.sign +
-            "</td><td>" +
-            division.teacherID +
-            "</td></tr>";
-    }
-    return table;
-}
-
-function getSubjectTable(data){
-    let table;
-    table = "<tr><th>Subject ID</th><th>Name</th><th>Teacher ID</th></tr>";
-    for (let i = 1; i < data.length; i++) {
-        let subject = data[i]
-        table += "<tr><td> " +
-            subject.id +
-            "</td><td>" +
-            subject.name +
-            "</td><td>" +
-            subject.teacherID +
-            "</td></tr>";
-    }
-    return table;
-}
-
-function getMarkTable(data) {
-    let table;
-   table = "<tr><th>Mark ID</th><th>Diary ID</th><th>Date</th><th>Subject ID</th><th>Mark</th></tr>"
-    for (let i = 1; i < data.length; i++) {
-        let mark =data[i]
-        table += "<tr><td> " +
-            mark.id +
-            "</td><td onclick=\"\">" +
-            mark.diaryID +
-            "</td><td>" +
-            mark.date +
-            "</td><td>" +
-            mark.subjectID +
-            "</td><td>" +
-            mark.mark +
-            "</td></tr>";
-    }
-    return table;
-}
-
-function getTeacherTable(data){
-    let table;
-    table = "<tr><th>Teacher ID</th><th>Name</th><th>Birth date</th></tr>";
-    for (let i = 1; i < data.length; i++) {
-        let teacher = data[i]
-        table += "<tr><td> " +
-            teacher.id +
-            "</td><td onclick=\"\">" +
-            teacher.name +
-            "</td><td>" +
-            teacher.date +
-            "</td></tr>";
-    }
-    return table;
-}
-
-function getStudentModifyTable(student){
-    let studentTable = "<tr><td>Name :</td><td><input id='MNI' type='text' value='" + student.name + "' placeholder='Student Name'></td></tr>" +
-        "<tr><td>Student ID :</td><td><input id='MIdI' type='number' value='"+student.id+"' placeholder='Student ID' min='10000000000' max='99999999999'></td></tr>" +
-        "<tr><td>Birthday :</td><td><input id='MDI' type='date' value='" + student.birthDate + "' placeholder='Birthday'></td></tr>" +
-        "<tr><td><input type='button' value='Modify' style='width: 150px' ></td>" +
-        "<td><input type='button' value='Delete' style='width: 150px' ></td></tr>"
-    return studentTable
-}
-
-function getTeacherModifyTable(teacher){
-    let teacherTable = "<tr><td>Name :</td><td><input id='MNI' type='text' value='" + teacher.name + "' placeholder='Teacher Name'></td></tr>" +
-        "<tr><td>ID :</td><td><input id='MIdI' type='number' value='" + teacher.id + "' placeholder='Teacher ID' min='1000000000' max='9999999999'></td></tr>" +
-        "<tr><td>Birthday :</td><td><input id='MDI' type='date' value='" + teacher.birthDate + "' placeholder='Birthday'></td></tr>" +
-        "<tr><td><input type='button' value='Modify' style='width: 150px' onclick='confirmModify(\"Teacher\" , " + teacher + ")'></td>" +
-        "<td><input type='button' value='Delete' style='width: 150px' onclick='confirmDelete(\"Teacher\" , " + teacher + ")'></td></tr>"
-    return teacherTable
-}
-
-function getDiaryModifyTable(diary){
-    let diaryTable = "<tr><td>Diary ID :</td><td><input id='MIdI' type='number' value='" + diary.id + "' placeholder='Diary ID' min='0'></td></tr>" +
-        "<tr><td>Student ID :</td><td><input id='MSIdI' type='number' value='" + diary.studentId + "' placeholder='Student ID' min='10000000000' max='99999999999'></td></tr>" +
-        "<tr><td>Class ID :</td><td><input id='MCIdI' type='number' value='" + diary.classId + "' placeholder='Class ID' min='0'></td></tr>" +
-        "<tr><td><input type='button' value='Modify' style='width: 150px' onclick='confirmModify(\"Diary\"  , " + diary + ")'></td>" +
-        "<td><input type='button' value='Delete' style='width: 150px' onclick='confirmDelete(\"Diary\"  , " + diary + ")'></td></tr>"
-    return diaryTable
-}
-
-function getSubjectModifyTable(subject){
-    let subjectTable = "<tr><td>Subject Name :</td><td><input id='MNI' type='text' value='" + subject.name + "' placeholder='Subject Name'></td></tr>" +
-        "<tr><td>ID :</td><td><input id='MSjIdI' type='number' value='" + subject.id + "' placeholder='Subject ID' min='0'></td></tr>" +
-        "<tr><td>Teacher ID :</td><td><input id='MTIdI' type='number' value='" + subject.teacherId + "' placeholder='Teacher ID' min='1000000000' max='9999999999'></td></tr>" +
-        "<tr><td><input type='button' value='Modify' style='width: 150px' onclick='confirmModify(\"Subject\" , " + subject + ")'></td>" +
-        "<td><input type='button' value='Delete' style='width: 150px' onclick='confirmDelete(\"Subject\" , " + subject + ")'></td></tr>"
-    return subjectTable
-}
-
-function getClassModifyTable(division){
-    let classTable = "<tr><td>Class ID :</td><td><input id='MCdI' type='number' value='" + division.id + "' placeholder='Class ID' min='0'></td></tr>" +
-        "<tr><td> Grade :</td><td><input id='MGI' type='number' value='" + division.grade + "' placeholder='Grade' min='1' max='14'></td></tr>" +
-        "<tr><td>Sign :</td><td><input id='MSI' type='text' value='" + division.sign + "' placeholder='Sign' maxlength='1' pattern='[A-Z]'></td></tr>" +
-        "<tr><td>Year :</td><td><input id='MYI' type='number' value='" + division.year + "' placeholder='Year' min='1900' max='2099'></td></tr>" +
-        "<tr><td>Teacher ID :</td><td><input id='MTIdI' type='number' value='" + division.teacherId + "' placeholder='Teacher ID' min='1000000000' max='9999999999'></td></tr>" +
-        "<tr><td><input type='button' value='Modify' style='width: 150px' onclick='confirmModify(" + tableType + " , " + division + ")'></td>" +
-        "<td><input type='button' value='Delete' style='width: 150px' onclick='confirmDelete(" + tableType + " , " + division + ")'></td></tr>"
-    return classTable
-}
-
-function getMarkModifyTable(mark){
-    let markTable =  "<tr><td>Mark ID :</td><td><input id='MIdI' type='number' value='" + mark.id + "' placeholder='Mark ID' min='0'></td></tr>" +
-        "<tr><td> Diary ID :</td><td><input id='MDIdI' type='number' value='" + mark.diaryId + "' placeholder='Diary ID' min='0'></td></tr>" +
-        "<tr><td>Date :</td><td><input id='MDI' type='date' value='" + mark.date + "' placeholder='Date'></td></tr>" +
-        "<tr><td>Subject ID :</td><td><input id='MSjIdI' type='number' value='" + mark.subjectId + "' placeholder='Subject ID' min='0'></td></tr>" +
-        "<tr><td>Mark :</td><td><input id='MMI' type='number' value='" + mark.mark + "' placeholder='Mark' min='1' max='5'></td></tr>" +
-        "<tr><td><input type='button' value='Modify' style='width: 150px' onclick='confirmModify(" + tableType + " , " + mark + ")'></td>" +
-        "<td><input type='button' value='Delete' style='width: 150px' onclick='confirmDelete(" + tableType + " , " + mark + ")'></td></tr>"
+    window.alert(adding);
 }
 
 
 function createModifyTable(type, data) {
 
+    window.alert("pre start")
     let tableType = type
     let original = data
     let table = "<tr> <td>mi a fsz van?00000000</td></tr>";
@@ -668,6 +654,7 @@ function confirmModify(type, original) {
     const data = JSON.stringify(modify);
     xhr.send(data);
     window.alert(modify);
+
 
 }
 
