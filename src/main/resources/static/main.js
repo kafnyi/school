@@ -188,7 +188,6 @@ function createAndSendSearchRequest() {
     let xhr = new XMLHttpRequest();
     let url = "/tli/search";
     xhr.open("POST", url, true);
-    xhr.subscribe()
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -235,13 +234,14 @@ function createSearchResultTable(json) {
 function generateStudentResultTable(result) {
     let table = "<tr><th>Student ID</th><th>Name</th><th>Birth date</th></tr>";
     for (let i = 1; i < result.length; i++) {
+        let student = result[i]
         table += "<tr><td> " +
             student.id +
             "</td><td >" +
             student.name +
             "</td><td>" +
             student.birthDate +
-            "</td><td><input type='button' value='Modify' onclick='createModifyTable(" + type + ", " + student + ")'></td></tr>";
+            "</td></tr>";
     }
     return table;
 }
@@ -249,12 +249,13 @@ function generateStudentResultTable(result) {
 function generateTeacherResultTable(result) {
     let table = "<tr><th>Teacher ID</th><th>Name</th><th>Birth date</th></tr>";
     for (let i = 1; i < result.length; i++) {
+        let teacher = result[i]
         table += "<tr><td> " +
-            result[i].id +
-            "</td><td onclick=\"\">" +
-            result[i].name +
+            teacher.id +
             "</td><td>" +
-            result[i].date +
+            teacher.name +
+            "</td><td>" +
+            teacher.date +
             "</td></tr>";
     }
     return table;
@@ -263,12 +264,13 @@ function generateTeacherResultTable(result) {
 function generateSubjectResultTable(result) {
     let table = "<tr><th>Subject ID</th><th>Name</th><th>Teacher ID</th></tr>";
     for (let i = 1; i < result.length; i++) {
-        table += "<tr><td onclick=\"createModifyTable(" + result[0] + " , " + result[i] + " )\"> " +
-            result[i].id +
+        let subject = result[i]
+        table += "<tr><td> " +
+            subject.id +
             "</td><td>" +
-            result[i].name +
+            subject.name +
             "</td><td>" +
-            result[i].teacherID +
+            subject.teacherID +
             "</td></tr>";
     }
     return table;
@@ -277,16 +279,17 @@ function generateSubjectResultTable(result) {
 function generateClassResultTable(result) {
     let table = "<tr><th>Class ID</th><th>Year</th><th>Grade</th><th>Sign</th><th>Teacher ID</th></tr>";
     for (let i = 1; i < result.length; i++) {
+        let division = result[i]
         table += "<tr><td> " +
-            result[i].id +
-            "</td><td onclick=\"\">" +
-            result[i].year +
+            division.id +
             "</td><td>" +
-            result[i].grade +
+            division.year +
             "</td><td>" +
-            result[i].sign +
+            division.grade +
             "</td><td>" +
-            result[i].teacherID +
+            division.sign +
+            "</td><td>" +
+            division.teacherID +
             "</td></tr>";
     }
     return table;
@@ -295,12 +298,13 @@ function generateClassResultTable(result) {
 function generateDiaryResultTable(result) {
     let table = "<tr><th>Diary ID</th><th>Student ID</th><th>Class ID</th></tr>";
     for (let i = 1; i < result.length; i++) {
-        table += "<tr><td onclick=\"createModifyTable(" + result[0] + " , " + result[i] + " )\"> " +
-            result[i].id +
+        let diary = result[i]
+        table += "<tr><td> " +
+            diary.id +
             "</td><td onclick=\"\">" +
-            result[i].studentID +
+            diary.studentID +
             "</td><td>" +
-            result[i].classID +
+            diary.classID +
             "</td></tr>";
     }
     return table;
@@ -309,16 +313,17 @@ function generateDiaryResultTable(result) {
 function generateMarkResultTable(result) {
     let table = "<tr><th>Mark ID</th><th>Diary ID</th><th>Date</th><th>Subject ID</th><th>Mark</th></tr>"
     for (let i = 1; i < result.length; i++) {
-        table += "<tr><td onclick='createModifyTable(" + result[0] + " , " + result[i] + " )'> " +
-            result[i].id +
+        let mark = result[i]
+        table += "<tr><td> " +
+            mark.id +
             "</td><td onclick=\"\">" +
-            result[i].diaryID +
+            mark.diaryID +
             "</td><td>" +
-            result[i].date +
+            mark.date +
             "</td><td>" +
-            result[i].subjectID +
+            mark.subjectID +
             "</td><td>" +
-            result[i].mark +
+            mark.mark +
             "</td></tr>";
     }
     return table;
