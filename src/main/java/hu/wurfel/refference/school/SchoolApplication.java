@@ -1,6 +1,6 @@
 package hu.wurfel.refference.school;
 
-import hu.wurfel.refference.school.repositories.StudentRepository;
+import hu.wurfel.refference.school.student.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,9 +18,5 @@ public class SchoolApplication {
 
     public static void main(String[] args) throws ParseException {
         SpringApplication.run(SchoolApplication.class, args);
-        //	Date date =new Date();
-        //	System.out.println(date);
-        //	JavaToMysqlDate javaToMysqlDate = new JavaToMysqlDate();
-        //	System.out.println(javaToMysqlDate.format(date));
     }
 }

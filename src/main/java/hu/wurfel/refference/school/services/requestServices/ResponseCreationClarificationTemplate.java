@@ -1,30 +1,35 @@
 package hu.wurfel.refference.school.services.requestServices;
 
-import hu.wurfel.refference.school.services.entity.*;
+import hu.wurfel.refference.school.diary.DiaryService;
+import hu.wurfel.refference.school.division.ClassService;
+import hu.wurfel.refference.school.mark.MarkService;
+import hu.wurfel.refference.school.student.StudentService;
+import hu.wurfel.refference.school.subject.SubjectService;
+import hu.wurfel.refference.school.teacher.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 
 public class ResponseCreationClarificationTemplate {
 
-    @Autowired
-    StudentService studentService;
+	@Autowired
+	protected StudentService studentService;
 
-    @Autowired
-    DiaryService diaryService;
+	@Autowired
+	protected DiaryService diaryService;
 
-    @Autowired
-    ClassService classService;
+	@Autowired
+	protected ClassService classService;
 
-    @Autowired
-    SubjectService subjectService;
+	@Autowired
+	protected SubjectService subjectService;
 
-    @Autowired
-    MarkService markService;
+	@Autowired
+	protected MarkService markService;
 
-    @Autowired
-    TeacherService teacherService;
+	@Autowired
+	protected TeacherService teacherService;
 
-    ArrayList rContent;
+	protected ArrayList rContent;
 
 }
