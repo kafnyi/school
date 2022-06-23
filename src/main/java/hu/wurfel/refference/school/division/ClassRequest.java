@@ -1,7 +1,7 @@
 package hu.wurfel.refference.school.division;
 
-import hu.wurfel.refference.school.model.enums.EntityNaming;
-import hu.wurfel.refference.school.model.enums.SearchByFields;
+import hu.wurfel.refference.school.base.enums.EntityNaming;
+import hu.wurfel.refference.school.base.enums.SearchByFields;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

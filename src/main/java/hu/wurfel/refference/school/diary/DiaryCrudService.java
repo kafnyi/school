@@ -28,7 +28,7 @@ public class DiaryCrudService {
     }
 
     public Diary getDiaryByScidAndClassid(Long scid, Integer cid) {
-	    return diaryRepository.findByStudentIdAndClassID(scid, cid).get();
+        return diaryRepository.findByStudentIdAndClassID(scid, cid).get();
     }
 
     public Diary saveDiary(@NotNull Diary diary) {
@@ -46,7 +46,7 @@ public class DiaryCrudService {
     }
 
     public Diary setDiaryScid(@NotNull Diary diary, Long scid) {
-	    diary.setStudentId(scid);
+        diary.setStudentId(scid);
         return saveDiary(diary);
     }
 

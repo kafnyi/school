@@ -1,7 +1,6 @@
 package hu.wurfel.refference.school.diary;
 
-import hu.wurfel.refference.school.model.SearchRequest;
-import hu.wurfel.refference.school.services.requestServices.ResponseCreationClarificationTemplate;
+import hu.wurfel.refference.school.base.ResponseCreationClarificationTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;

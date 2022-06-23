@@ -1,4 +1,4 @@
-package hu.wurfel.refference.school.services.requestServices;
+package hu.wurfel.refference.school.base;
 
 import hu.wurfel.refference.school.diary.DiaryService;
 import hu.wurfel.refference.school.division.ClassService;
@@ -12,24 +12,24 @@ import java.util.ArrayList;
 
 public class ResponseCreationClarificationTemplate {
 
-	@Autowired
-	protected StudentService studentService;
+    @Autowired
+    protected StudentService studentService;
 
-	@Autowired
-	protected DiaryService diaryService;
+    @Autowired
+    protected DiaryService diaryService;
 
-	@Autowired
-	protected ClassService classService;
+    @Autowired
+    protected ClassService classService;
 
-	@Autowired
-	protected SubjectService subjectService;
+    @Autowired
+    protected SubjectService subjectService;
 
-	@Autowired
-	protected MarkService markService;
+    @Autowired
+    protected MarkService markService;
 
-	@Autowired
-	protected TeacherService teacherService;
+    @Autowired
+    protected TeacherService teacherService;
 
-	protected ArrayList rContent;
+    protected ArrayList rContent;
 
 }

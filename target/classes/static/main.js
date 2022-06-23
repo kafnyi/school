@@ -186,7 +186,7 @@ function createAndSendSearchRequest() {
     let sVal = document.getElementById("SVF").value
 
     let xhr = new XMLHttpRequest();
-    let url = "/tli/search";
+    let url = "/tli/search/" + sFor;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -514,7 +514,7 @@ function createAndSendAddingRequest() {
     let addValue = createAddingValue(addType)
 
     let xhr = new XMLHttpRequest();
-    let url = "/tli/adding";
+    let url = "/tli/add/" + addType;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -524,7 +524,7 @@ function createAndSendAddingRequest() {
     }
     const data = JSON.stringify(addValue);
     xhr.send(data);
-    window.alert(adding);
+    window.alert(data);
 }
 
 function createAddingValue(type) {
@@ -658,7 +658,7 @@ function createModifyTable(type, data) {
 function confirmModify(type, original) {
 
     let xhr = new XMLHttpRequest();
-    let url = "/tli/modify";
+    let url = "/tli/modify/";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -666,7 +666,7 @@ function confirmModify(type, original) {
             window.alert("sucess modify" + xhr.response)
         }
     }
-    const modify = type + original;
+    const modify = original;
     const data = JSON.stringify(modify);
     xhr.send(data);
     window.alert(modify);
@@ -677,7 +677,7 @@ function confirmModify(type, original) {
 function confirmDelete(type, toDelete) {
 
     let xhr = new XMLHttpRequest();
-    let url = "/tli/delete";
+    let url = "/tli/delete/" + type;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -685,10 +685,10 @@ function confirmDelete(type, toDelete) {
             window.alert("sucess DELETE")
         }
     }
-        const modify = type + toDelete;
-        const data = JSON.stringify(modify);
-        xhr.send(data);
-        window.alert(modify + " is sent to deleteing");
+    const modify = toDelete;
+    const data = JSON.stringify(modify);
+    xhr.send(data);
+    window.alert(modify + " is sent to deleteing");
 
 
 }

@@ -186,7 +186,7 @@ function createAndSendSearchRequest() {
     let sVal = document.getElementById("SVF").value
 
     let xhr = new XMLHttpRequest();
-    let url = "/tli/search/"+ sFor;
+    let url = "/tli/search/" + sFor;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -514,7 +514,7 @@ function createAndSendAddingRequest() {
     let addValue = createAddingValue(addType)
 
     let xhr = new XMLHttpRequest();
-    let url = "/tli/add/"+addType;
+    let url = "/tli/add/" + addType;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -666,7 +666,7 @@ function confirmModify(type, original) {
             window.alert("sucess modify" + xhr.response)
         }
     }
-    const modify =original;
+    const modify = original;
     const data = JSON.stringify(modify);
     xhr.send(data);
     window.alert(modify);
@@ -685,10 +685,10 @@ function confirmDelete(type, toDelete) {
             window.alert("sucess DELETE")
         }
     }
-        const modify =toDelete;
-        const data = JSON.stringify(modify);
-        xhr.send(data);
-        window.alert(modify + " is sent to deleteing");
+    const modify = toDelete;
+    const data = JSON.stringify(modify);
+    xhr.send(data);
+    window.alert(modify + " is sent to deleteing");
 
 
 }

@@ -83,7 +83,7 @@ public class ClassCrudService {
     }
 
     public Class setTid(@NotNull Class division, Long tid) {
-	    division.setTeacherId(tid);
+        division.setTeacherId(tid);
         return saveClass(division);
     }
 

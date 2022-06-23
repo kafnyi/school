@@ -1,4 +1,4 @@
-package hu.wurfel.refference.school.model.enums;
+package hu.wurfel.refference.school.base.enums;
 
 public enum EntityNaming {
     Student, Diary, Class, Subject, Mark, Teacher
