@@ -13,7 +13,7 @@ public class TeacherCrudService {
     private TeacherRepository teacherRepository;
 
     public Iterable<Teacher> getAllTeacher() {
-        return teacherRepository.findAll();
+        return new ArrayList<Teacher>(teacherRepository.findAll());
     }
 
     public Teacher getTeacherByTeacherId(Long Id) {

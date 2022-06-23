@@ -12,7 +12,7 @@ public class SubjectCrudService {
     private SubjectRepository subjectRepository;
 
     public ArrayList<Subject> getAllSubjects() {
-        return subjectRepository.findAll();
+        return new ArrayList<Subject>(subjectRepository.findAll());
     }
 
     public Subject getSubjectBySubjectId(Integer id) {

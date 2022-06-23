@@ -9,10 +9,10 @@ import java.util.ArrayList;
 public class SearchRequestService extends ResponseCreatorTemplate {
 
 	public ArrayList create(SearchRequest request) {
-		responseType = request.getRFor();
+		responseType = request.getSearchFor();
 		responseContent = new ArrayList();
 		responseContent.add(responseType);
-		switch (request.getRFor()) {
+		switch (request.getSearchFor()) {
 			case Student -> {
 				responseContent.addAll(responseCreationClarificationStudent.create(request));
 			}

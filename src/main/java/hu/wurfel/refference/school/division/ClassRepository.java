@@ -1,5 +1,6 @@
 package hu.wurfel.refference.school.division;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,10 +9,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
-public interface ClassRepository extends CrudRepository<Class, Integer> {
-    ArrayList<Class> findAll();
-
-    Optional<Class> findById(Integer classId);
+public interface ClassRepository extends JpaRepository<Class, Integer> {
 
     ArrayList<Class> findAllByGrade(short grade);
 

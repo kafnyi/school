@@ -10,8 +10,8 @@ import java.io.Serializable;
 @Component
 @Data
 public class SearchRequest implements Serializable {
-    private final EntityNaming rFor;
-    private final EntityNaming rWith;
-    private final SearchByFields rBy;
-    private final String rValue;
+    private final EntityNaming searchFor;
+    private final EntityNaming searchWith;
+    private final SearchByFields searchBy;
+    private final String searchValue;
 }

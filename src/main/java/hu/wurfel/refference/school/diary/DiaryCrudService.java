@@ -12,7 +12,7 @@ public class DiaryCrudService {
     private DiaryRepository diaryRepository;
 
     public ArrayList<Diary> getAllDiaries() {
-        return diaryRepository.findAll();
+        return new ArrayList<Diary>(diaryRepository.findAll());
     }
 
     public Diary getDiaryByDiaryid(Integer Id) {

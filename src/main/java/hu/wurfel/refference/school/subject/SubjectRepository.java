@@ -1,5 +1,6 @@
 package hu.wurfel.refference.school.subject;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -7,10 +8,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
-public interface SubjectRepository extends CrudRepository<Subject, Integer> {
-    ArrayList<Subject> findAll();
-
-    Optional<Subject> findById(Integer subjectId);
+public interface SubjectRepository extends JpaRepository<Subject, Integer> {
 
     ArrayList<Subject> findAllBySubjectName(String subjectName);
 
