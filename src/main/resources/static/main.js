@@ -186,42 +186,42 @@ function createAndSendSearchRequest() {
     let sVal = document.getElementById("SVF").value
 
     let xhr = new XMLHttpRequest();
-    let url = "/tli/search/" + sFor;
+    let url = "/api/v1/search/" + sFor;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let result = JSON.parse(xhr.response)
-            createSearchResultTable(result)
+            createSearchResultTable(document.getElementById("SFS").value, result)
         }
     }
-    const search = {rFor: sFor, rWith: sWith, rBy: sBy, rValue: sVal};
+    const search = {searchFor: sFor, searchWith: sWith, searchBy: sBy, searchValue: sVal};
     const data = JSON.stringify(search);
     xhr.send(data);
 }
 
-function createSearchResultTable(json) {
-    let type = json[0];
-    let result = json;
+function createSearchResultTable(responseType, json) {
+    let type = responseType;
+
     let table;
     switch (type) {
         case "Student" :
-            table = generateStudentResultTable(result)
+            table = generateStudentResultTable(json)
             break;
         case "Teacher" :
-            table = generateTeacherResultTable(result)
+            table = generateTeacherResultTable(json)
             break;
         case "Class" :
-            table = generateClassResultTable(result)
+            table = generateClassResultTable(json)
             break;
         case "Subject" :
-            table = generateSubjectResultTable(result)
+            table = generateSubjectResultTable(json)
             break;
         case "Diary":
-            table = generateDiaryResultTable(result)
+            table = generateDiaryResultTable(json)
             break;
         case "Mark" :
-            table = generateMarkResultTable(result)
+            table = generateMarkResultTable(json)
             break;
         default :
 
@@ -233,24 +233,26 @@ function createSearchResultTable(json) {
 
 function generateStudentResultTable(result) {
     let table = "<tr><th>Student ID</th><th>Name</th><th>Birth date</th></tr>";
-    for (let i = 1; i < result.length; i++) {
+    for (let i = 0; i < result.length; i++) {
         let student = result[i]
-        table += "<tr><td> " +
+        table += "<tr><td>" +
             student.id +
             "</td><td >" +
             student.name +
             "</td><td>" +
             student.birthDate +
-            "</td></tr>";
+            "</td><td>" +
+            "<input type='button' value='Modify' " +
+            "onclick='generateModifyStudentTable(" + student + ")'></td></tr>";
     }
     return table;
 }
 
 function generateTeacherResultTable(result) {
     let table = "<tr><th>Teacher ID</th><th>Name</th><th>Birth date</th></tr>";
-    for (let i = 1; i < result.length; i++) {
+    for (let i = 0; i < result.length; i++) {
         let teacher = result[i]
-        table += "<tr><td> " +
+        table += "<tr onclick=''><td> " +
             teacher.id +
             "</td><td>" +
             teacher.name +
@@ -263,7 +265,7 @@ function generateTeacherResultTable(result) {
 
 function generateSubjectResultTable(result) {
     let table = "<tr><th>Subject ID</th><th>Name</th><th>Teacher ID</th></tr>";
-    for (let i = 1; i < result.length; i++) {
+    for (let i = 0; i < result.length; i++) {
         let subject = result[i]
         table += "<tr><td> " +
             subject.id +
@@ -278,7 +280,7 @@ function generateSubjectResultTable(result) {
 
 function generateClassResultTable(result) {
     let table = "<tr><th>Class ID</th><th>Year</th><th>Grade</th><th>Sign</th><th>Teacher ID</th></tr>";
-    for (let i = 1; i < result.length; i++) {
+    for (let i = 0; i < result.length; i++) {
         let division = result[i]
         table += "<tr><td> " +
             division.id +
@@ -297,7 +299,7 @@ function generateClassResultTable(result) {
 
 function generateDiaryResultTable(result) {
     let table = "<tr><th>Diary ID</th><th>Student ID</th><th>Class ID</th></tr>";
-    for (let i = 1; i < result.length; i++) {
+    for (let i = 0; i < result.length; i++) {
         let diary = result[i]
         table += "<tr><td> " +
             diary.id +
@@ -312,7 +314,7 @@ function generateDiaryResultTable(result) {
 
 function generateMarkResultTable(result) {
     let table = "<tr><th>Mark ID</th><th>Diary ID</th><th>Date</th><th>Subject ID</th><th>Mark</th></tr>"
-    for (let i = 1; i < result.length; i++) {
+    for (let i = 0; i < result.length; i++) {
         let mark = result[i]
         table += "<tr><td> " +
             mark.id +
@@ -328,6 +330,25 @@ function generateMarkResultTable(result) {
     }
     return table;
 }
+
+function generateModifyStudentTable(student) {
+    let table2 = "<tr><td>Student ID: </td><td>" + student.id + "</td></tr>" +
+        "<tr><td>Student Name : " +
+        "<input id=\"MSN\" type=\"text\" placeholder=\"Name\"/><" +
+        "/td></tr>" +
+        "<tr><td>Birth Date : " +
+        "<input id=\"MSD\" type=\"date\" placeholder=\"Date\"/>" +
+        "</td></tr>" +
+        "<tr><td>" +
+        "<input type='button' style='width: 150px' value='ADD' " +
+        "onclick='createAndSendModifyRequest(\"Student\", " + student + ")'>" +
+        "</td>" +
+        "<td><input type='button' style='width: 150px' value='Delete'" +
+        "onclick='createAndSendDeleteRequest(\"Student\", " + student + ")'></td>" +
+        "</tr>";
+    document.getElementById("searchTable2").innerHTML = table2
+}
+
 
 //Add Menu functions
 
@@ -514,7 +535,7 @@ function createAndSendAddingRequest() {
     let addValue = createAddingValue(addType)
 
     let xhr = new XMLHttpRequest();
-    let url = "/tli/add/" + addType;
+    let url = "/api/v1/add/" + addType;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -617,48 +638,11 @@ function getMarkDetailsForAdding() {
     return mark;
 }
 
-function createModifyTable(type, data) {
 
-    window.alert("pre start")
-    let tableType = type
-    let original = data
-    let table = "<tr> <td>mi a fsz van?00000000</td></tr>";
-    window.alert("start")
-
-    switch (tableType) {
-        case "Student" : {
-            window.alert("hi mivan")
-            table = "<tr> <td>mi a fsz van?</td></tr>"
-            break;
-        }
-        case "Diary" : {
-            break;
-        }
-        case "Class" : {
-            break;
-        }
-        case "Subject" : {
-            break;
-        }
-        case "Teacher" : {
-            break;
-        }
-        case "Mark" : {
-            break;
-        }
-        default: {
-            table = "default bazdmeg" + tableType
-        }
-    }
-    document.getElementById("searchTable3").innerHTML = table;
-
-    window.alert("lefutott")
-}
-
-function confirmModify(type, original) {
+function createAndSendModifyRequest(type, original) {
 
     let xhr = new XMLHttpRequest();
-    let url = "/tli/modify/";
+    let url = "/api/v1/modify/" + type;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -674,10 +658,9 @@ function confirmModify(type, original) {
 
 }
 
-function confirmDelete(type, toDelete) {
-
+function createAndSendDeleteRequest(type, toDelete) {
     let xhr = new XMLHttpRequest();
-    let url = "/tli/delete/" + type;
+    let url = "/api/v1/delete/" + type;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {

@@ -17,26 +17,26 @@ public class DiaryController {
     @Autowired
     DiaryService diaryService;
 
-    @PostMapping("/api/v1/search/Student")
+    @PostMapping("/api/v1/search/Diary")
     public ResponseEntity<ArrayList> searchForStudent(@RequestBody DiaryRequest diaryRequest) {
         ArrayList answer = new ArrayList();
         answer = responseCreationClarificationDiary.create(diaryRequest);
         return ResponseEntity.ok(answer);
     }
 
-    @PostMapping("/api/v1/adding/Student")
+	@PostMapping("/api/v1/adding/Diary")
     public ResponseEntity<ArrayList> adding(@RequestBody DiaryRequest diaryRequest) {
         ArrayList answer = new ArrayList();
         answer.add(diaryService.saveDiary(Integer.parseInt(diaryRequest.getId()), Long.parseLong(diaryRequest.getStudentId()), Integer.parseInt(diaryRequest.getClassId())));
         return ResponseEntity.ok(answer);
     }
 
-    @PostMapping("/api/v1/delete/Student")
+	@PostMapping("/api/v1/delete/Diary")
     public void delete(@RequestBody DiaryRequest diaryRequest) {
         diaryService.deleteDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(diaryRequest.getId())));
     }
 
-    @PostMapping("/api/vi/modify/Studet")
+	@PostMapping("/api/vi/modify/Diary")
     public ResponseEntity<ArrayList> modifyStudent(@RequestBody DiaryRequest diaryRequest) {
         Diary diary = diaryService.getDiaryByDiaryid(Integer.parseInt(diaryRequest.getId()));
         diary.setStudentId(Long.parseLong(diaryRequest.getStudentId()));
