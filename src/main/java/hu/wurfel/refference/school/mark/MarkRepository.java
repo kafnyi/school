@@ -1,16 +1,13 @@
 package hu.wurfel.refference.school.mark;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
-public interface MarkRepository extends CrudRepository<Mark, Long> {
-    ArrayList<Mark> findAll();
-
-    Optional<Mark> findById(Long markId);
+public interface MarkRepository extends JpaRepository<Mark, Long> {
 
     ArrayList<Mark> findAllByDiaryID(Integer diaryId);
 

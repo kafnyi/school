@@ -13,7 +13,7 @@ public class StudentCrudService {
     public StudentRepository studentRepository;
 
     public ArrayList<Student> getAllStudents() {
-        return studentRepository.findAll();
+        return new ArrayList<Student>(studentRepository.findAll());
     }
 
     public Student getStudentByStudentId(long id) {

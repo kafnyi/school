@@ -12,7 +12,7 @@ public class MarkCrudService {
     private MarkRepository markRepository;
 
     public ArrayList<Mark> getAllMarks() {
-        return markRepository.findAll();
+        return new ArrayList<Mark>(markRepository.findAll());
     }
 
     public Mark getMarkByMarkid(Long mid) {
