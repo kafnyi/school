@@ -191,8 +191,8 @@ function createAndSendSearchRequest() {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            let result =JSON.parse(xhr.response)
-            createSearchResultTable(document.getElementById("SFS").value , result)
+            let result = JSON.parse(xhr.response)
+            createSearchResultTable(document.getElementById("SFS").value, result)
         }
     }
     const search = {searchFor: sFor, searchWith: sWith, searchBy: sBy, searchValue: sVal};
@@ -232,18 +232,17 @@ function createSearchResultTable(responseType, json) {
 }
 
 function generateStudentResultTable(result) {
+    let student
     let table = "<tr><th>Student ID</th><th>Name</th><th>Birth date</th></tr>";
     for (let i = 0; i < result.length; i++) {
-        let student = result[i]
-        table += "<tr><td>" +
+        student = result[i]
+        table += "<tr><td onclick='generateModifyTableStudent("+student.id+")'>" +
             student.id +
             "</td><td >" +
             student.name +
             "</td><td>" +
             student.birthDate +
-            "</td><td>" +
-            "<input type='button' value='Modify' " +
-            "onclick='generateModifyStudentTable("+student+")'></td></tr>";
+            "</td></tr>";
     }
     return table;
 }
@@ -331,8 +330,40 @@ function generateMarkResultTable(result) {
     return table;
 }
 
-function generateModifyStudentTable(student){
-    let table2 = "<tr><td>Student ID: </td><td>" + student.id + "</td></tr>" +
+function createAndSendSearchForModify(type , id) {
+    let xhr = new XMLHttpRequest();
+    let url = "/api/v1/search/" + type;
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.alert(xhr.response)
+            let result =JSON.parse(xhr.response)
+            window.alert(result.toString())
+            return result;
+        }
+    }
+    const search = {searchFor: type, searchWith: type, searchBy: type += "Id", searchValue: id};
+    const data = JSON.stringify(search);
+    xhr.send(data);
+}
+
+function createModifyTable(type, json){
+switch (type) {
+    case "Student" :
+        generateModifyTableStudent(json)
+    default:
+}
+
+}
+
+
+function generateModifyTableStudent(result) {
+    let studentId = result
+
+    let student = createAndSendSearchForModify("Student", studentId)
+    
+        let table2 = "<tr><td>Student ID: " + studentId + "</td></tr>" +
         "<tr><td>Student Name : " +
         "<input id=\"MSN\" type=\"text\" placeholder=\"Name\"/><" +
         "/td></tr>" +
@@ -340,12 +371,13 @@ function generateModifyStudentTable(student){
         "<input id=\"MSD\" type=\"date\" placeholder=\"Date\"/>" +
         "</td></tr>" +
         "<tr><td>" +
-        "<input type='button' style='width: 150px' value='ADD' " +
-        "onclick='createAndSendModifyRequest(\"Student\", "+student+")'>" +
+        //"<input type='button' style='width: 150px' value='ADD' " +
+       // "onclick='createAndSendModifyRequest(\"Student\", " + studentId + ")'>" +
         "</td>" +
-        "<td><input type='button' style='width: 150px' value='Delete'" +
-        "onclick='createAndSendDeleteRequest(\"Student\", "+student+")'></td>" +
+       // "<td><input type='button' style='width: 150px' value='Delete'" +
+      //  "onclick='createAndSendDeleteRequest(\"Student\", " + studentId + ")'></td>" +
         "</tr>";
+    let table= "<tr><td>helloooooo</td></tr>"
     document.getElementById("searchTable2").innerHTML = table2
 }
 
@@ -642,7 +674,7 @@ function getMarkDetailsForAdding() {
 function createAndSendModifyRequest(type, original) {
 
     let xhr = new XMLHttpRequest();
-    let url = "/api/v1/modify/"+type;
+    let url = "/api/v1/modify/" + type;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -672,6 +704,4 @@ function createAndSendDeleteRequest(type, toDelete) {
     const data = JSON.stringify(modify);
     xhr.send(data);
     window.alert(modify + " is sent to deleteing");
-
-
 }
