@@ -236,7 +236,7 @@ function generateStudentResultTable(result) {
     let table = "<tr><th>Student ID</th><th>Name</th><th>Birth date</th></tr>";
     for (let i = 0; i < result.length; i++) {
         student = result[i]
-        table += "<tr><td onclick='generateModifyTableStudent("+student+")'>" +
+        table += "<tr><td onclick='createAndSendSearchForModifyRequest(\"Student\" , "+student.id+")'>" +
             student.id +
             "</td><td >" +
             student.name +
@@ -330,57 +330,6 @@ function generateMarkResultTable(result) {
     return table;
 }
 
-function createAndSendSearchForModify(type , id) {
-    let xhr = new XMLHttpRequest();
-    let url = "/api/v1/search/" + type;
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            window.alert(xhr.response)
-            let result =JSON.parse(xhr.response)
-            createModifyTable(type , result)
-        }
-    }
-    const search = {searchFor: type, searchWith: type, searchBy: type += "Id", searchValue: id};
-    const data = JSON.stringify(search);
-    xhr.send(data);
-}
-
-function createModifyTable(type, json){
-switch (type) {
-    case "Student" :
-        generateModifyTableStudent(json)
-        break
-    default:
-}
-
-}
-
-
-function generateModifyTableStudent(result) {
-    window.alert(result.toString())
-    let studentId = result.id
-
-
-
-        let table2 = "<tr><td>Student ID: " + studentId + "</td></tr>" +
-        "<tr><td>Student Name : " +
-        "<input id=\"MSN\" type=\"text\" placeholder=\"Name\"/><" +
-        "/td></tr>" +
-        "<tr><td>Birth Date : " +
-        "<input id=\"MSD\" type=\"date\" placeholder=\"Date\"/>" +
-        "</td></tr>" +
-        "<tr><td>" +
-        //"<input type='button' style='width: 150px' value='ADD' " +
-       // "onclick='createAndSendModifyRequest(\"Student\", " + studentId + ")'>" +
-        "</td>" +
-       // "<td><input type='button' style='width: 150px' value='Delete'" +
-      //  "onclick='createAndSendDeleteRequest(\"Student\", " + studentId + ")'></td>" +
-        "</tr>";
-    let table= "<tr><td>helloooooo</td></tr>"
-    document.getElementById("searchTable2").innerHTML = table2
-}
 
 
 //Add Menu functions
@@ -671,8 +620,10 @@ function getMarkDetailsForAdding() {
     return mark;
 }
 
+//Modify functions
 
-function createAndSendModifyRequest(type, original) {
+
+function createAndSendModifyRequest(type, inID) {
 
     let xhr = new XMLHttpRequest();
     let url = "/api/v1/modify/" + type;
@@ -681,9 +632,14 @@ function createAndSendModifyRequest(type, original) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             window.alert("sucess modify" + xhr.response)
+            let result = JSON.parse(xhr.response)
+            document.getElementById("searchTable2").innerHTML = generateStudentResultTable(result)
         }
     }
-    const modify = original;
+    const id = inID;
+    const newName = document.getElementById("MSN").value
+    const newBirthDate = document.getElementById("MSD").value
+    let modify = {id:id , name:newName , date:newBirthDate}
     const data = JSON.stringify(modify);
     xhr.send(data);
     window.alert(modify);
@@ -705,4 +661,55 @@ function createAndSendDeleteRequest(type, toDelete) {
     const data = JSON.stringify(modify);
     xhr.send(data);
     window.alert(modify + " is sent to deleteing");
+}
+
+function createAndSendSearchForModifyRequest(type , id) {
+    let xhr = new XMLHttpRequest();
+    let url = "/api/v1/search/" + type;
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.alert(xhr.response)
+            let result =JSON.parse(xhr.response)
+            createModifyTable(type, result)
+        }
+    }
+    const search = {searchFor: type, searchWith: type, searchBy: type + "Id", searchValue: id};
+    const data = JSON.stringify(search);
+    xhr.send(data);
+}
+
+function createModifyTable(type, json){
+    window.alert(type)
+    switch (type) {
+        case "Student" :
+            window.alert("Start response processing")
+            generateModifyTableStudent(json)
+            break
+        default:{ break}
+    }
+
+}
+
+
+function generateModifyTableStudent(response) {
+    let student = response[0]
+
+
+    let table2 = "<tr><td>Student ID: " + student.id + "</td></tr>" +
+        "<tr><td>Student Name : " +
+        "<input id=\"MSN\" type=\"text\" placeholder=\"Name\" value='"+student.name+"'/><" +
+        "/td></tr>" +
+        "<tr><td>Birth Date : " +
+        "<input id=\"MSD\" type=\"date\" placeholder=\"Date\" value='"+student.birthDate+"'/>" +
+        "</td></tr>" +
+        "<tr><td>" +
+        "<input type='button' style='width: 150px' value='ADD' " +
+        "onclick='createAndSendModifyRequest(\"Student\", " + student.id + ")'>" +
+        "</td>" +
+        "<td><input type='button' style='width: 150px' value='Delete'" +
+        "onclick='createAndSendDeleteRequest(\"Student\", " + student.id + ")'></td>" +
+        "</tr>";
+    document.getElementById("searchTable2").innerHTML = table2
 }

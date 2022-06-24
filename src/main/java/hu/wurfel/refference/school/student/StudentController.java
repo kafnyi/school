@@ -36,7 +36,7 @@ public class StudentController {
         studentService.deleteStudent(studentService.getStudentByStudentId(Long.parseLong(studentRequest.getId())));
     }
 
-    @PostMapping("/api/vi/modify/Studet")
+    @PostMapping("/api/v1/modify/Student")
     public ResponseEntity<ArrayList> modifyStudent(@RequestBody StudentRequest studentRequest) {
         Student student = studentService.getStudentByStudentId(Long.parseLong(studentRequest.getId()));
         student.setName(studentRequest.getName());
