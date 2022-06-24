@@ -236,7 +236,7 @@ function generateStudentResultTable(result) {
     let table = "<tr><th>Student ID</th><th>Name</th><th>Birth date</th></tr>";
     for (let i = 0; i < result.length; i++) {
         student = result[i]
-        table += "<tr><td onclick='generateModifyTableStudent("+student.id+")'>" +
+        table += "<tr><td onclick='generateModifyTableStudent("+student+")'>" +
             student.id +
             "</td><td >" +
             student.name +
@@ -339,8 +339,7 @@ function createAndSendSearchForModify(type , id) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             window.alert(xhr.response)
             let result =JSON.parse(xhr.response)
-            window.alert(result.toString())
-            return result;
+            createModifyTable(type , result)
         }
     }
     const search = {searchFor: type, searchWith: type, searchBy: type += "Id", searchValue: id};
@@ -352,6 +351,7 @@ function createModifyTable(type, json){
 switch (type) {
     case "Student" :
         generateModifyTableStudent(json)
+        break
     default:
 }
 
@@ -359,10 +359,11 @@ switch (type) {
 
 
 function generateModifyTableStudent(result) {
-    let studentId = result
+    window.alert(result.toString())
+    let studentId = result.id
 
-    let student = createAndSendSearchForModify("Student", studentId)
-    
+
+
         let table2 = "<tr><td>Student ID: " + studentId + "</td></tr>" +
         "<tr><td>Student Name : " +
         "<input id=\"MSN\" type=\"text\" placeholder=\"Name\"/><" +
