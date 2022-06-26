@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController("/api/v1/Subject")
 public class SubjectController {
@@ -11,15 +12,15 @@ public class SubjectController {
     SubjectService subjectService;
 
     @PostMapping("/search")
-    public ResponseEntity<ArrayList> searchForStudent(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
-        ArrayList answer = new ArrayList();
+    public ResponseEntity<List<Subject>> searchForStudent(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
+        List<Subject> answer;
         answer = subjectService.getAutomated(subjectRequestForSearch);
         return ResponseEntity.ok(answer);
     }
 
     @PostMapping("/adding")
-    public ResponseEntity<ArrayList> adding(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
-        ArrayList answer = new ArrayList();
+    public ResponseEntity<List<Subject>> adding(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
+        List<Subject> answer = new ArrayList<>();
         answer.add(subjectService.saveSubject(Integer.parseInt(subjectRequestForSearch.getId()), subjectRequestForSearch.getName(), Long.parseLong(subjectRequestForSearch.getTeacherId())));
         return ResponseEntity.ok(answer);
     }
@@ -30,12 +31,12 @@ public class SubjectController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<ArrayList> modifyStudent(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
+    public ResponseEntity<List<Subject>> modifyStudent(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
         Subject subject = subjectService.getSubjectBySubjectId(Integer.parseInt(subjectRequestForSearch.getId()));
         subject.setSubjectName(subjectRequestForSearch.getName());
         subject.setTid(Long.parseLong(subjectRequestForSearch.getTeacherId()));
         subjectService.saveSubject(subject);
-        ArrayList answer = new ArrayList();
+        List<Subject> answer = new ArrayList<>();
         answer.add(subjectService.getSubjectBySubjectId(subject.getId()));
         return ResponseEntity.ok(answer);
     }

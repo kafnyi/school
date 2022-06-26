@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController("/api/v1/Teacher")
 public class TeacherController {
@@ -11,15 +12,15 @@ public class TeacherController {
     TeacherService teacherService;
 
     @PostMapping("/search")
-    public ResponseEntity<ArrayList> searchForStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
-        ArrayList answer = new ArrayList();
+    public ResponseEntity<List<Teacher>> searchForStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
+        List<Teacher> answer;
         answer = teacherService.getAutomated(teacherRequestForSearch);
         return ResponseEntity.ok(answer);
     }
 
     @PostMapping("/adding")
-    public ResponseEntity<ArrayList> adding(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
-        ArrayList answer = new ArrayList();
+    public ResponseEntity<List<Teacher>> adding(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
+        List<Teacher> answer = new ArrayList<>();
         answer.add(teacherService.saveTeacher(Long.parseLong(teacherRequestForSearch.getId()), teacherRequestForSearch.getName(), teacherRequestForSearch.getDate()));
         return ResponseEntity.ok(answer);
     }
@@ -30,12 +31,12 @@ public class TeacherController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<ArrayList> modifyStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
+    public ResponseEntity<List<Teacher>> modifyStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
         Teacher teacher = teacherService.getTeacherByTeacherId(Long.parseLong(teacherRequestForSearch.getId()));
         teacher.setName(teacherRequestForSearch.getName());
         teacher.setBirthDate(teacherRequestForSearch.getDate());
         teacherService.saveTeacher(teacher);
-        ArrayList answer = new ArrayList();
+        List<Teacher> answer = new ArrayList<>();
         answer.add(teacherService.getTeacherByTeacherId(teacher.getId()));
         return ResponseEntity.ok(answer);
     }

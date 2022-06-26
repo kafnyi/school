@@ -5,23 +5,23 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController("/api/vi/Class")
 public class ClassController {
 
-
     ClassService classService;
 
     @PostMapping("/search")
-    public ResponseEntity<ArrayList> searchForStudent(@RequestBody ClassRequestForSearch classRequestForSearch) {
-        ArrayList answer = new ArrayList();
+    public ResponseEntity<List<Class>> search(@RequestBody ClassRequestForSearch classRequestForSearch) {
+        List<Class> answer;
         answer = classService.getAutomated(classRequestForSearch);
         return ResponseEntity.ok(answer);
     }
 
     @PostMapping("/adding")
-    public ResponseEntity<ArrayList> adding(@RequestBody ClassRequestForSearch classRequestForSearch) {
-        ArrayList answer = new ArrayList();
+    public ResponseEntity<List<Class>> adding(@RequestBody ClassRequestForSearch classRequestForSearch) {
+        List<Class> answer = new ArrayList<>();
         answer.add(classService.saveClass(Integer.parseInt(classRequestForSearch.getId()), Short.parseShort(classRequestForSearch.getGrade()), classRequestForSearch.getSign().strip().charAt(0), Year.parse(classRequestForSearch.getYear()), Long.parseLong(classRequestForSearch.getTeacherId())));
         return ResponseEntity.ok(answer);
     }
@@ -32,14 +32,14 @@ public class ClassController {
     }
 
     @PutMapping("/api/vi/modify/Class")
-    public ResponseEntity<ArrayList> modifyStudent(@RequestBody ClassRequestForSearch classRequestForSearch) {
+    public ResponseEntity<List<Class>> modify(@RequestBody ClassRequestForSearch classRequestForSearch) {
         Class division = classService.getClassByClassId(Integer.parseInt(classRequestForSearch.getId()));
         division.setId(Integer.parseInt(classRequestForSearch.getId()));
         division.setGrade(Short.parseShort(classRequestForSearch.getGrade()));
         division.setSign(classRequestForSearch.getSign().strip().charAt(0));
         division.setYear(Year.parse(classRequestForSearch.getYear()));
         classService.saveClass(division);
-        ArrayList answer = new ArrayList();
+        List<Class> answer = new ArrayList<>();
         answer.add(classService.getClassByClassId(division.getId()));
         return ResponseEntity.ok(answer);
     }

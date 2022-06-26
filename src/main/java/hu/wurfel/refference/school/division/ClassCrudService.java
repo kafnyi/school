@@ -1,19 +1,23 @@
 package hu.wurfel.refference.school.division;
 
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ClassCrudService {
 
-    @Autowired
-    private ClassRepository classRepository;
+    private final ClassRepository classRepository;
 
-    public ArrayList<Class> getAllClasses() {
+    public ClassCrudService(ClassRepository classRepository) {
+        this.classRepository = classRepository;
+    }
+
+
+    public List<Class> getAllClasses() {
         return new ArrayList<Class>(classRepository.findAll());
     }
 
@@ -21,31 +25,31 @@ public class ClassCrudService {
         return classRepository.findById(cid).get();
     }
 
-    public ArrayList<Class> getClassesByGrade(short grade) {
+    public List<Class> getClassesByGrade(short grade) {
         return classRepository.findAllByGrade(grade);
     }
 
-    public ArrayList<Class> getClassesBySign(char sign) {
+    public List<Class> getClassesBySign(char sign) {
         return classRepository.findAllBySign(sign);
     }
 
-    public ArrayList<Class> getClassesByYear(Year year) {
+    public List<Class> getClassesByYear(Year year) {
         return classRepository.findAllByYear(year);
     }
 
-    public ArrayList<Class> getClassesByTid(Long tid) {
+    public List<Class> getClassesByTid(Long tid) {
         return classRepository.findAllByTeacherId(tid);
     }
 
-    public ArrayList<Class> getClassesByGradeAndSign(short grade, char sign) {
+    public List<Class> getClassesByGradeAndSign(short grade, char sign) {
         return classRepository.findAllByGradeAndSign(grade, sign);
     }
 
-    public ArrayList<Class> getClassesByGradeAndYear(short grade, Year year) {
+    public List<Class> getClassesByGradeAndYear(short grade, Year year) {
         return classRepository.findAllByGradeAndYear(grade, year);
     }
 
-    public ArrayList<Class> getClassesBySignAndYear(char sign, Year year) {
+    public List<Class> getClassesBySignAndYear(char sign, Year year) {
         return classRepository.findAllBySignAndYear(sign, year);
     }
 
