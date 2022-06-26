@@ -1,5 +1,6 @@
 package hu.wurfel.refference.school.student;
 
+import hu.wurfel.refference.school.base.enums.EntityFieldNames;
 import hu.wurfel.refference.school.diary.Diary;
 import hu.wurfel.refference.school.diary.DiaryCrudService;
 import hu.wurfel.refference.school.diary.DiaryService;
@@ -46,97 +47,71 @@ public class StudentService extends StudentCrudService {
 		this.teacherService = teacherService;
 	}
 
-	public List<Student> getAutomated(StudentRequestForSearch request) {
-		rContent = new ArrayList<>();
-		switch (request.getSearchWith()) {
-			case Student -> sWStudent(request);
-			case Diary -> sWDiary(request);
-			case Class -> sWClass(request);
-			case Subject -> sWSubject(request);
-			case Mark -> sWMark(request);
-			case Teacher -> sWTeacher(request);
-			default -> {
-			}
+	List<Student> sWStudent(EntityFieldNames searchBy, String value) {
+		switch (searchBy) {
+			case StudentId -> rContent.add(getStudentByStudentId(Long.parseLong(value)));
+			case Name -> rContent = getStudentsByName(value);
+			case Date -> rContent = getStudentsByBirth(value);
+			default -> rContent = null;
 		}
 		return rContent;
 	}
 
-	public void sWStudent(StudentRequestForSearch request) {
-		switch (request.getSearchBy()) {
-			case StudentId -> rContent.add(getStudentByStudentId(Long.parseLong(request.getSearchValue())));
-			case Name -> rContent = getStudentsByName(request.getSearchValue());
-			case Date -> rContent = getStudentsByBirth(request.getSearchValue());
-			default -> {
-			}
+	List<Student> sWDiary(EntityFieldNames searchBy, String value) {
+		switch (searchBy) {
+			case DiaryId -> rContent.add(getStudentByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(value))));
+			case StudentId -> rContent.add(getStudentByStudentId(Long.parseLong(value)));
+			case ClassId -> rContent = getStudentsByDiaries(diaryService.getDiariesByClassid(Integer.parseInt(value)));
+			default -> rContent = null;
 		}
+		return rContent;
 	}
 
-	private void sWDiary(StudentRequestForSearch request) {
-		switch (request.getSearchBy()) {
-			case DiaryId ->
-					rContent.add(getStudentByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(request.getSearchValue()))));
-			case StudentId -> rContent.add(getStudentByStudentId(Long.parseLong(request.getSearchValue())));
-			case ClassId ->
-					rContent = getStudentsByDiaries(diaryService.getDiariesByClassid(Integer.parseInt(request.getSearchValue())));
-			default -> {
-			}
+	List<Student> sWClass(EntityFieldNames searchBy, String value) {
+		switch (searchBy) {
+			case ClassId -> rContent = getStudentsByClass(classService.getClassByClassId(Integer.parseInt(value)));
+			case Grade -> rContent = getStudentsByClasses(classService.getClassesByGrade(Short.parseShort(value)));
+			case Sign -> rContent = getStudentsByClasses(classService.getClassesBySign(value.strip().charAt(0)));
+			case Year -> rContent = getStudentsByClasses(classService.getClassesByYear(Year.parse(value)));
+			case TeacherId -> rContent = getStudentsByClasses(classService.getClassesByTid(Long.parseLong(value)));
+			default -> rContent = null;
 		}
+		return rContent;
 	}
 
-	private void sWClass(StudentRequestForSearch request) {
-		switch (request.getSearchBy()) {
-			case ClassId ->
-					rContent = getStudentsByClass(classService.getClassByClassId(Integer.parseInt(request.getSearchValue())));
-			case Grade ->
-					rContent = getStudentsByClasses(classService.getClassesByGrade(Short.parseShort(request.getSearchValue())));
-			case Sign ->
-					rContent = getStudentsByClasses(classService.getClassesBySign(request.getSearchValue().strip().charAt(0)));
-			case Year ->
-					rContent = getStudentsByClasses(classService.getClassesByYear(Year.parse(request.getSearchValue())));
-			case TeacherId ->
-					rContent = getStudentsByClasses(classService.getClassesByTid(Long.parseLong(request.getSearchValue())));
-			default -> {
-			}
-		}
-	}
-
-	private void sWSubject(StudentRequestForSearch request) {
-		switch (request.getSearchBy()) {
+	List<Student> sWSubject(EntityFieldNames searchBy, String value) {
+		switch (searchBy) {
 			case SubjectId ->
-					rContent = getStudentsBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(request.getSearchValue())));
-			case Name -> rContent = getStudentsBySubjects(subjectService.getSubjectsByName(request.getSearchValue()));
-			case TeacherId ->
-					rContent = getStudentsBySubjects(subjectService.getSubjectsByTid(Long.parseLong(request.getSearchValue())));
-			default -> {
-			}
+					rContent = getStudentsBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(value)));
+			case Name -> rContent = getStudentsBySubjects(subjectService.getSubjectsByName(value));
+			case TeacherId -> rContent = getStudentsBySubjects(subjectService.getSubjectsByTid(Long.parseLong(value)));
+			default -> rContent = null;
 		}
+		return rContent;
 	}
 
-	private void sWMark(StudentRequestForSearch request) {
-		switch (request.getSearchBy()) {
-			case MarkId ->
-					rContent.add(getStudentByMark(markService.getMarkByMarkid(Long.parseLong(request.getSearchValue()))));
-			case DiaryId ->
-					rContent.add(getStudentByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(request.getSearchValue()))));
-			case Date -> rContent = getStudentsByMarks(markService.getMarksByDate(request.getSearchValue()));
+	List<Student> sWMark(EntityFieldNames searchBy, String value) {
+		switch (searchBy) {
+			case MarkId -> rContent.add(getStudentByMark(markService.getMarkByMarkid(Long.parseLong(value))));
+			case DiaryId -> rContent.add(getStudentByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(value))));
+			case Date -> rContent = getStudentsByMarks(markService.getMarksByDate(value));
 			case SubjectId ->
-					rContent = getStudentsBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(request.getSearchValue())));
-			case Mark ->
-					rContent = getStudentsByMarks(markService.getMarksByMark(Byte.parseByte(request.getSearchValue())));
-			default -> {
-			}
+					rContent = getStudentsBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(value)));
+			case Mark -> rContent = getStudentsByMarks(markService.getMarksByMark(Byte.parseByte(value)));
+			default -> rContent = null;
 		}
+		return rContent;
 	}
 
-	private void sWTeacher(StudentRequestForSearch request) {
-		switch (request.getSearchBy()) {
+	List<Student> sWTeacher(EntityFieldNames searchBy, String value) {
+		switch (searchBy) {
 			case TeacherId ->
-					rContent = getStudentsByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(request.getSearchValue())));
-			case Name -> rContent = getStudentsByTeachers(teacherService.getTeacherByName(request.getSearchValue()));
-			case Date -> rContent = getStudentsByTeachers(teacherService.getTeacherByBirth(request.getSearchValue()));
-			default -> {
-			}
+					rContent = getStudentsByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(value)));
+			case Name -> rContent = getStudentsByTeachers(teacherService.getTeacherByName(value));
+			case Date -> rContent = getStudentsByTeachers(teacherService.getTeacherByBirth(value));
+			default -> rContent = null;
 		}
+		return rContent;
 	}
 
 	protected Student getStudentByDiary(@NotNull Diary diary) {

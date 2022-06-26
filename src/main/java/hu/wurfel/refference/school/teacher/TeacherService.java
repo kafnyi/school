@@ -1,5 +1,6 @@
 package hu.wurfel.refference.school.teacher;
 
+import hu.wurfel.refference.school.base.enums.EntityFieldNames;
 import hu.wurfel.refference.school.diary.Diary;
 import hu.wurfel.refference.school.diary.DiaryCrudService;
 import hu.wurfel.refference.school.diary.DiaryService;
@@ -44,104 +45,73 @@ public class TeacherService extends TeacherCrudService {
 		this.subjectService = subjectService;
 	}
 
-	public List<Teacher> getAutomated(TeacherRequestForSearch teacherRequestForSearch) {
-		rContent = new ArrayList<>();
-		switch (teacherRequestForSearch.getSearchWith()) {
-			case Student -> tWStudent(teacherRequestForSearch);
-			case Diary -> tWDiary(teacherRequestForSearch);
-			case Class -> tWClass(teacherRequestForSearch);
-			case Subject -> tWSubject(teacherRequestForSearch);
-			case Mark -> tWMark(teacherRequestForSearch);
-			case Teacher -> tWTeacher(teacherRequestForSearch);
-			default -> {
-			}
+
+	List<Teacher> tWStudent(EntityFieldNames searchBy, String value) {
+		switch (searchBy) {
+			case StudentId ->
+					rContent = getTeachersByStudent(studentService.getStudentByStudentId(Long.parseLong(value)));
+			case Name -> rContent = getTeachersByStudents(studentService.getStudentsByName(value));
+			case Date -> rContent = getTeachersByStudents(studentService.getStudentsByBirth(value));
+			default -> rContent = null;
 		}
 		return rContent;
 	}
 
-	private void tWStudent(TeacherRequestForSearch teacherRequestForSearch) {
-		switch (teacherRequestForSearch.getSearchBy()) {
-			case StudentId ->
-					rContent = getTeachersByStudent(studentService.getStudentByStudentId(Long.parseLong(teacherRequestForSearch.getSearchValue())));
-			case Name ->
-					rContent = getTeachersByStudents(studentService.getStudentsByName(teacherRequestForSearch.getSearchValue()));
-			case Date ->
-                    rContent = getTeachersByStudents(studentService.getStudentsByBirth(teacherRequestForSearch.getSearchValue()));
-            default -> {
-            }
-        }
-    }
+	List<Teacher> tWDiary(EntityFieldNames searchBy, String value) {
+		switch (searchBy) {
+			case DiaryId -> rContent = getTeachersByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(value)));
+			case StudentId -> rContent = getTeachersByDiaries(diaryService.getDiariesByScid(Long.parseLong(value)));
+			case ClassId -> rContent = getTeachersByDiaries(diaryService.getDiariesByClassid(Integer.parseInt(value)));
+			default -> rContent = null;
+		}
+		return rContent;
+	}
 
-    private void tWDiary(TeacherRequestForSearch teacherRequestForSearch) {
-        switch (teacherRequestForSearch.getSearchBy()) {
-            case DiaryId ->
-                    rContent = getTeachersByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(teacherRequestForSearch.getSearchValue())));
-            case StudentId ->
-                    rContent = getTeachersByDiaries(diaryService.getDiariesByScid(Long.parseLong(teacherRequestForSearch.getSearchValue())));
-            case ClassId ->
-                    rContent = getTeachersByDiaries(diaryService.getDiariesByClassid(Integer.parseInt(teacherRequestForSearch.getSearchValue())));
-            default -> {
-            }
-        }
-    }
+	List<Teacher> tWClass(EntityFieldNames searchBy, String value) {
+		switch (searchBy) {
+			case ClassId -> rContent.add(getTeacherByClass(classService.getClassByClassId(Integer.parseInt(value))));
+			case Grade -> rContent = getTeachersByClasses(classService.getClassesByGrade(Short.parseShort(value)));
+			case Sign -> rContent = getTeachersByClasses(classService.getClassesBySign(value.strip().charAt(0)));
+			case Year -> rContent = getTeachersByClasses(classService.getClassesByYear(Year.parse(value)));
+			case TeacherId -> rContent.add(getTeacherByTeacherId(Long.parseLong(value)));
+			default -> rContent = null;
+		}
+		return rContent;
+	}
 
-    private void tWClass(TeacherRequestForSearch teacherRequestForSearch) {
-        switch (teacherRequestForSearch.getSearchBy()) {
-            case ClassId ->
-                    rContent.add(getTeacherByClass(classService.getClassByClassId(Integer.parseInt(teacherRequestForSearch.getSearchValue()))));
-            case Grade ->
-                    rContent = getTeachersByClasses(classService.getClassesByGrade(Short.parseShort(teacherRequestForSearch.getSearchValue())));
-            case Sign ->
-                    rContent = getTeachersByClasses(classService.getClassesBySign(teacherRequestForSearch.getSearchValue().strip().charAt(0)));
-            case Year ->
-                    rContent = getTeachersByClasses(classService.getClassesByYear(Year.parse(teacherRequestForSearch.getSearchValue())));
-            case TeacherId ->
-                    rContent.add(getTeacherByTeacherId(Long.parseLong(teacherRequestForSearch.getSearchValue())));
-            default -> {
-            }
-        }
-    }
+	List<Teacher> tWSubject(EntityFieldNames searchBy, String value) {
+		switch (searchBy) {
+			case SubjectId ->
+					rContent.add(getTeacherBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(value))));
+			case Name -> rContent = getTeacherBySubjects(subjectService.getSubjectsByName(value));
+			case TeacherId -> rContent.add(getTeacherByTeacherId(Long.parseLong(value)));
+			default -> rContent = null;
+		}
+		return rContent;
+	}
 
-    private void tWSubject(TeacherRequestForSearch teacherRequestForSearch) {
-        switch (teacherRequestForSearch.getSearchBy()) {
-            case SubjectId ->
-                    rContent.add(getTeacherBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(teacherRequestForSearch.getSearchValue()))));
-            case Name ->
-                    rContent = getTeacherBySubjects(subjectService.getSubjectsByName(teacherRequestForSearch.getSearchValue()));
-            case TeacherId ->
-                    rContent.add(getTeacherByTeacherId(Long.parseLong(teacherRequestForSearch.getSearchValue())));
-            default -> {
-            }
-        }
-    }
+	List<Teacher> tWMark(EntityFieldNames searchBy, String value) {
+		switch (searchBy) {
+			case MarkId -> rContent.add(getTeacherByMark(markService.getMarkByMarkid(Long.parseLong(value))));
+			case DiaryId -> rContent = getTeachersByMarks(markService.getMarksByDiaryid(Integer.parseInt(value)));
+			case Date -> rContent = getTeachersByMarks(markService.getMarksByDate(value));
+			case SubjectId ->
+					rContent.add(getTeacherBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(value))));
+			case Mark -> rContent = getTeachersByMarks(markService.getMarksByMark(Byte.parseByte(value)));
+			default -> rContent = null;
+		}
+		return rContent;
+	}
 
-    private void tWMark(TeacherRequestForSearch teacherRequestForSearch) {
-        switch (teacherRequestForSearch.getSearchBy()) {
-            case MarkId ->
-                    rContent.add(getTeacherByMark(markService.getMarkByMarkid(Long.parseLong(teacherRequestForSearch.getSearchValue()))));
-            case DiaryId ->
-                    rContent = getTeachersByMarks(markService.getMarksByDiaryid(Integer.parseInt(teacherRequestForSearch.getSearchValue())));
-            case Date ->
-                    rContent = getTeachersByMarks(markService.getMarksByDate(teacherRequestForSearch.getSearchValue()));
-            case SubjectId ->
-                    rContent.add(getTeacherBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(teacherRequestForSearch.getSearchValue()))));
-            case Mark ->
-                    rContent = getTeachersByMarks(markService.getMarksByMark(Byte.parseByte(teacherRequestForSearch.getSearchValue())));
-            default -> {
-            }
-        }
-    }
-
-    private void tWTeacher(TeacherRequestForSearch teacherRequestForSearch) {
-	    switch (teacherRequestForSearch.getSearchBy()) {
-		    case TeacherId ->
-				    rContent.add(getTeacherByTeacherId(Long.parseLong(teacherRequestForSearch.getSearchValue())));
-		    case Name -> rContent = getTeacherByName(teacherRequestForSearch.getSearchValue());
-		    case Date -> rContent = getTeacherByBirth(teacherRequestForSearch.getSearchValue());
-		    default -> {
-		    }
-	    }
-    }
+	List<Teacher> tWTeacher(EntityFieldNames searchBy, String value) {
+		switch (searchBy) {
+			case TeacherId -> rContent.add(getTeacherByTeacherId(Long.parseLong(value)));
+			case Name -> rContent = getTeacherByName(value);
+			case Date -> rContent = getTeacherByBirth(value);
+			default -> rContent = null;
+		}
+		return rContent;
+	}
 
 	protected Teacher getTeacherByClass(@NotNull Class division) {
 		return getTeacherByTeacherId(division.getTeacherId());
