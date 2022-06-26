@@ -1,29 +1,33 @@
 package hu.wurfel.refference.school.diary;
 
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DiaryCrudService {
-    @Autowired
-    private DiaryRepository diaryRepository;
 
-    public ArrayList<Diary> getAllDiaries() {
-        return new ArrayList<Diary>(diaryRepository.findAll());
+    private final DiaryRepository diaryRepository;
+
+    public DiaryCrudService(DiaryRepository diaryRepository) {
+        this.diaryRepository = diaryRepository;
+    }
+
+    public List<Diary> getAllDiaries() {
+        return new ArrayList<>(diaryRepository.findAll());
     }
 
     public Diary getDiaryByDiaryid(Integer Id) {
         return diaryRepository.findById(Id).get();
     }
 
-    public ArrayList<Diary> getDiariesByScid(Long scid) {
+    public List<Diary> getDiariesByScid(Long scid) {
         return diaryRepository.findAllByStudentId(scid);
     }
 
-    public ArrayList<Diary> getDiariesByClassid(Integer cid) {
+    public List<Diary> getDiariesByClassid(Integer cid) {
         return diaryRepository.findAllByClassID(cid);
     }
 

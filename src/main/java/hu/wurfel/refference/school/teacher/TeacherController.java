@@ -1,25 +1,28 @@
 package hu.wurfel.refference.school.teacher;
 
+import hu.wurfel.refference.school.base.enums.EntityFieldNames;
+import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController("/api/v1/Teacher")
 public class TeacherController {
 
     TeacherService teacherService;
 
-    @PostMapping("/search")
-    public ResponseEntity<ArrayList> searchForStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
-        ArrayList answer = new ArrayList();
-        answer = teacherService.getAutomated(teacherRequestForSearch);
+    @GetMapping("/search/{searchWith}/{searchBy}/{value}}")
+    public ResponseEntity<List<Teacher>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
+        List<Teacher> answer;
+        answer = getSearchResponseList(searchWith, searchBy, value);
         return ResponseEntity.ok(answer);
     }
 
     @PostMapping("/adding")
-    public ResponseEntity<ArrayList> adding(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
-        ArrayList answer = new ArrayList();
+    public ResponseEntity<List<Teacher>> adding(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
+        List<Teacher> answer = new ArrayList<>();
         answer.add(teacherService.saveTeacher(Long.parseLong(teacherRequestForSearch.getId()), teacherRequestForSearch.getName(), teacherRequestForSearch.getDate()));
         return ResponseEntity.ok(answer);
     }
@@ -30,14 +33,41 @@ public class TeacherController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<ArrayList> modifyStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
+    public ResponseEntity<List<Teacher>> modifyStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
         Teacher teacher = teacherService.getTeacherByTeacherId(Long.parseLong(teacherRequestForSearch.getId()));
         teacher.setName(teacherRequestForSearch.getName());
         teacher.setBirthDate(teacherRequestForSearch.getDate());
         teacherService.saveTeacher(teacher);
-        ArrayList answer = new ArrayList();
+        List<Teacher> answer = new ArrayList<>();
         answer.add(teacherService.getTeacherByTeacherId(teacher.getId()));
         return ResponseEntity.ok(answer);
+    }
+
+    private List<Teacher> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
+
+        switch (searchWith) {
+            case Student -> {
+                return teacherService.tWStudent(searchBy, value);
+            }
+            case Diary -> {
+                return teacherService.tWDiary(searchBy, value);
+            }
+            case Class -> {
+                return teacherService.tWClass(searchBy, value);
+            }
+            case Subject -> {
+                return teacherService.tWSubject(searchBy, value);
+            }
+            case Mark -> {
+                return teacherService.tWMark(searchBy, value);
+            }
+            case Teacher -> {
+                return teacherService.tWTeacher(searchBy, value);
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 
 }

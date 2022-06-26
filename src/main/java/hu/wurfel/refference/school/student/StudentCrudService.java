@@ -1,18 +1,21 @@
 package hu.wurfel.refference.school.student;
 
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class StudentCrudService {
 
-    @Autowired
-    public StudentRepository studentRepository;
+    public final StudentRepository studentRepository;
 
-    public ArrayList<Student> getAllStudents() {
+    public StudentCrudService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+    public List<Student> getAllStudents() {
         return new ArrayList<Student>(studentRepository.findAll());
     }
 
@@ -20,11 +23,11 @@ public class StudentCrudService {
         return studentRepository.findById(id).get();
     }
 
-    public ArrayList<Student> getStudentsByName(String name) {
+    public List<Student> getStudentsByName(String name) {
         return studentRepository.findAllByName(name);
     }
 
-    public ArrayList<Student> getStudentsByBirth(String date) {
+    public List<Student> getStudentsByBirth(String date) {
         return studentRepository.findAllByBirthDate(date);
     }
 
