@@ -1,45 +1,49 @@
 package hu.wurfel.refference.school.mark;
 
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MarkCrudService {
-    @Autowired
-    private MarkRepository markRepository;
 
-    public ArrayList<Mark> getAllMarks() {
-        return new ArrayList<Mark>(markRepository.findAll());
+    private final MarkRepository markRepository;
+
+    public MarkCrudService(MarkRepository markRepository) {
+        this.markRepository = markRepository;
+    }
+
+    public List<Mark> getAllMarks() {
+        return new ArrayList<>(markRepository.findAll());
     }
 
     public Mark getMarkByMarkid(Long mid) {
         return markRepository.findById(mid).get();
     }
 
-    public ArrayList<Mark> getMarksByDiaryid(Integer did) {
+    public List<Mark> getMarksByDiaryid(Integer did) {
         return markRepository.findAllByDiaryID(did);
     }
 
-    public ArrayList<Mark> getMarksByDate(String date) {
+    public List<Mark> getMarksByDate(String date) {
         return markRepository.findAllByDate(date);
     }
 
-    public ArrayList<Mark> getMarksBySubjectid(Integer sid) {
+    public List<Mark> getMarksBySubjectid(Integer sid) {
         return markRepository.findAllBySubjectID(sid);
     }
 
-    public ArrayList<Mark> getMarksByMark(byte mark) {
+    public List<Mark> getMarksByMark(byte mark) {
         return markRepository.findAllByMark(mark);
     }
 
-    public ArrayList<Mark> getMarksByDiaryidAndDate(Integer did, String date) {
+    public List<Mark> getMarksByDiaryidAndDate(Integer did, String date) {
         return markRepository.findAllByDiaryIDAndDate(did, date);
     }
 
-    public ArrayList<Mark> getMarksByDiaryidAndSubjectid(Integer did, Integer sid) {
+    public List<Mark> getMarksByDiaryidAndSubjectid(Integer did, Integer sid) {
         return markRepository.findAllByDiaryIDAndSubjectID(did, sid);
     }
 

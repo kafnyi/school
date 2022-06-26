@@ -18,21 +18,35 @@ import org.springframework.stereotype.Service;
 
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class StudentService extends StudentCrudService {
 
-	private ClassCrudService classCrudService;
-	private DiaryCrudService diaryCrudService;
-	private MarkCrudService markCrudService;
-	private DiaryService diaryService;
-	private ClassService classService;
-	private MarkService markService;
-	private SubjectService subjectService;
-	private TeacherService teacherService;
-	private ArrayList<Student> rContent;
+	private final ClassCrudService classCrudService;
+	private final DiaryCrudService diaryCrudService;
+	private final MarkCrudService markCrudService;
+	private final DiaryService diaryService;
+	private final ClassService classService;
+	private final MarkService markService;
+	private final SubjectService subjectService;
+	private final TeacherService teacherService;
+	private List<Student> rContent;
 
-	public ArrayList getAutomated(StudentRequestForSearch request) {
+
+	public StudentService(StudentRepository studentRepository, ClassCrudService classCrudService, DiaryCrudService diaryCrudService, MarkCrudService markCrudService, DiaryService diaryService, ClassService classService, MarkService markService, SubjectService subjectService, TeacherService teacherService) {
+		super(studentRepository);
+		this.classCrudService = classCrudService;
+		this.diaryCrudService = diaryCrudService;
+		this.markCrudService = markCrudService;
+		this.diaryService = diaryService;
+		this.classService = classService;
+		this.markService = markService;
+		this.subjectService = subjectService;
+		this.teacherService = teacherService;
+	}
+
+	public List<Student> getAutomated(StudentRequestForSearch request) {
 		rContent = new ArrayList<>();
 		switch (request.getSearchWith()) {
 			case Student -> sWStudent(request);
@@ -129,8 +143,8 @@ public class StudentService extends StudentCrudService {
 		return getStudentByStudentId(diary.getStudentId());
 	}
 
-	protected ArrayList<Student> getStudentsByDiaries(@NotNull ArrayList<Diary> diaries) {
-		ArrayList<Student> students = new ArrayList<Student>();
+	protected List<Student> getStudentsByDiaries(@NotNull List<Diary> diaries) {
+		List<Student> students = new ArrayList<>();
 		for (Diary diary : diaries) {
 			students.add(getStudentByDiary(diary));
 		}
@@ -141,56 +155,56 @@ public class StudentService extends StudentCrudService {
 		return getStudentByStudentId(diaryCrudService.getDiaryByDiaryid(mark.getDiaryID()).getId());
 	}
 
-	protected ArrayList<Student> getStudentsByMarks(@NotNull ArrayList<Mark> marks) {
-		ArrayList<Student> students = new ArrayList<>();
+	protected List<Student> getStudentsByMarks(@NotNull List<Mark> marks) {
+		List<Student> students = new ArrayList<>();
 		for (Mark mark : marks) {
 			students.add(getStudentByMark(mark));
 		}
 		return students;
 	}
 
-	protected ArrayList<Student> getStudentsByClass(@NotNull Class division) {
-		ArrayList<Student> students = new ArrayList<>();
-		for (Diary diary : new ArrayList<Diary>(diaryCrudService.getDiariesByClassid(division.getId()))) {
+	protected List<Student> getStudentsByClass(@NotNull Class division) {
+		List<Student> students = new ArrayList<>();
+		for (Diary diary : new ArrayList<>(diaryCrudService.getDiariesByClassid(division.getId()))) {
 			students.add(getStudentByDiary(diary));
 		}
 		return students;
 	}
 
-	protected ArrayList<Student> getStudentsByClasses(@NotNull ArrayList<Class> classes) {
-		ArrayList<Student> students = new ArrayList<>();
+	protected List<Student> getStudentsByClasses(@NotNull List<Class> classes) {
+		List<Student> students = new ArrayList<>();
 		for (Class division : classes) {
 			students.addAll(getStudentsByClass(division));
 		}
 		return students;
 	}
 
-	protected ArrayList<Student> getStudentsBySubject(@NotNull Subject subject) {
-		ArrayList<Student> students = new ArrayList<>();
-		for (Mark mark : new ArrayList<Mark>(markCrudService.getMarksBySubjectid(subject.getId()))) {
+	protected List<Student> getStudentsBySubject(@NotNull Subject subject) {
+		List<Student> students = new ArrayList<>();
+		for (Mark mark : new ArrayList<>(markCrudService.getMarksBySubjectid(subject.getId()))) {
 			students.add(getStudentByMark(mark));
 		}
 		return students;
 	}
 
-	protected ArrayList<Student> getStudentsBySubjects(@NotNull ArrayList<Subject> subjects) {
-		ArrayList<Student> students = new ArrayList<>();
+	protected List<Student> getStudentsBySubjects(@NotNull List<Subject> subjects) {
+		List<Student> students = new ArrayList<>();
 		for (Subject subject : subjects) {
 			students.addAll(getStudentsBySubject(subject));
 		}
 		return students;
 	}
 
-	protected ArrayList<Student> getStudentsByTeacher(@NotNull Teacher teacher) {
-		ArrayList<Student> students = new ArrayList<>();
-		for (Class division : new ArrayList<Class>(classCrudService.getClassesByTid(teacher.getId()))) {
+	protected List<Student> getStudentsByTeacher(@NotNull Teacher teacher) {
+		List<Student> students = new ArrayList<>();
+		for (Class division : new ArrayList<>(classCrudService.getClassesByTid(teacher.getId()))) {
 			students.addAll(getStudentsByClass(division));
 		}
 		return students;
 	}
 
-	protected ArrayList<Student> getStudentsByTeachers(@NotNull ArrayList<Teacher> teachers) {
-		ArrayList<Student> students = new ArrayList<>();
+	protected List<Student> getStudentsByTeachers(@NotNull List<Teacher> teachers) {
+		List<Student> students = new ArrayList<>();
 		for (Teacher teacher : teachers) {
 			students.addAll(getStudentsByTeacher(teacher));
 		}

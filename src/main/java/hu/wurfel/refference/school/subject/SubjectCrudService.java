@@ -1,29 +1,33 @@
 package hu.wurfel.refference.school.subject;
 
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SubjectCrudService {
-    @Autowired
-    private SubjectRepository subjectRepository;
 
-    public ArrayList<Subject> getAllSubjects() {
-        return new ArrayList<Subject>(subjectRepository.findAll());
+    private final SubjectRepository subjectRepository;
+
+    public SubjectCrudService(SubjectRepository subjectRepository) {
+        this.subjectRepository = subjectRepository;
+    }
+
+    public List<Subject> getAllSubjects() {
+        return new ArrayList<>(subjectRepository.findAll());
     }
 
     public Subject getSubjectBySubjectId(Integer id) {
         return subjectRepository.findById(id).get();
     }
 
-    public ArrayList<Subject> getSubjectsByName(String name) {
+    public List<Subject> getSubjectsByName(String name) {
         return subjectRepository.findAllBySubjectName(name);
     }
 
-    public ArrayList<Subject> getSubjectsByTid(Long tid) {
+    public List<Subject> getSubjectsByTid(Long tid) {
         return subjectRepository.findAllByTid(tid);
     }
 
