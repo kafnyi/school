@@ -1,5 +1,7 @@
 package hu.wurfel.refference.school.student;
 
+import hu.wurfel.refference.school.base.enums.EntityFieldNames;
+import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +14,8 @@ public class StudentController {
 
     StudentService studentService;
 
-    @PostMapping("/search")
-    public ResponseEntity<List<Student>> searchForStudent(@RequestBody StudentRequestForSearch studentRequestForSearch) {
+    @GetMapping("/search/{searchWith}/{searchBy}/{value}}")
+    public ResponseEntity<List<Student>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         List<Student> answer;
         answer = studentService.getAutomated(studentRequestForSearch);
         return ResponseEntity.ok(answer);

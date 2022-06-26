@@ -1,5 +1,7 @@
 package hu.wurfel.refference.school.division;
 
+import hu.wurfel.refference.school.base.enums.EntityFieldNames;
+import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,10 +14,10 @@ public class ClassController {
 
     ClassService classService;
 
-    @PostMapping("/search")
-    public ResponseEntity<List<Class>> search(@RequestBody ClassRequestForSearch classRequestForSearch) {
+    @GetMapping("/search/{searchWith}/{searchBy}/{value}}")
+    public ResponseEntity<List<Class>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         List<Class> answer;
-        answer = classService.getAutomated(classRequestForSearch);
+        answer = getSearchResponseList(searchWith, searchBy, value);
         return ResponseEntity.ok(answer);
     }
 
@@ -42,6 +44,33 @@ public class ClassController {
         List<Class> answer = new ArrayList<>();
         answer.add(classService.getClassByClassId(division.getId()));
         return ResponseEntity.ok(answer);
+    }
+
+    private List<Class> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
+
+        switch (searchWith) {
+            case Student -> {
+                return classService.cWStudent(searchBy, value);
+            }
+            case Diary -> {
+                return classService.cWDiary(searchBy, value);
+            }
+            case Class -> {
+                return classService.cWClass(searchBy, value);
+            }
+            case Subject -> {
+                return classService.cWSubject(searchBy, value);
+            }
+            case Mark -> {
+                return classService.cWMark(searchBy, value);
+            }
+            case Teacher -> {
+                return classService.cWTeacher(searchBy, value);
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 
 }
