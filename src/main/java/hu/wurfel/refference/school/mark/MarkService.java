@@ -3,16 +3,14 @@ package hu.wurfel.refference.school.mark;
 import hu.wurfel.refference.school.base.enums.EntityFieldNames;
 import hu.wurfel.refference.school.diary.Diary;
 import hu.wurfel.refference.school.diary.DiaryCrudService;
-import hu.wurfel.refference.school.diary.DiaryService;
 import hu.wurfel.refference.school.division.Class;
-import hu.wurfel.refference.school.division.ClassService;
+import hu.wurfel.refference.school.division.ClassCrudService;
 import hu.wurfel.refference.school.student.Student;
-import hu.wurfel.refference.school.student.StudentService;
+import hu.wurfel.refference.school.student.StudentCrudService;
 import hu.wurfel.refference.school.subject.Subject;
 import hu.wurfel.refference.school.subject.SubjectCrudService;
-import hu.wurfel.refference.school.subject.SubjectService;
 import hu.wurfel.refference.school.teacher.Teacher;
-import hu.wurfel.refference.school.teacher.TeacherService;
+import hu.wurfel.refference.school.teacher.TeacherCrudService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -25,29 +23,27 @@ public class MarkService extends MarkCrudService {
 
     private final DiaryCrudService diaryCrudService;
     private final SubjectCrudService subjectCrudService;
-    private final StudentService studentService;
-    private final SubjectService subjectService;
-    private final DiaryService diaryService;
-    private final ClassService classService;
-    private final TeacherService teacherService;
+    private final StudentCrudService studentCrudService;
+    private final ClassCrudService classCrudService;
+    private final TeacherCrudService teacherCrudService;
     private List<Mark> rContent;
 
-    public MarkService(MarkRepository markRepository, DiaryCrudService diaryCrudService, SubjectCrudService subjectCrudService, StudentService studentService, SubjectService subjectService, DiaryService diaryService, ClassService classService, TeacherService teacherService) {
+    public MarkService(MarkRepository markRepository, DiaryCrudService diaryCrudService, SubjectCrudService subjectCrudService, StudentCrudService studentCrudService, ClassCrudService classCrudService, TeacherCrudService teacherCrudService) {
         super(markRepository);
         this.diaryCrudService = diaryCrudService;
         this.subjectCrudService = subjectCrudService;
-        this.studentService = studentService;
-        this.subjectService = subjectService;
-        this.diaryService = diaryService;
-        this.classService = classService;
-        this.teacherService = teacherService;
+        this.studentCrudService = studentCrudService;
+        this.classCrudService = classCrudService;
+        this.teacherCrudService = teacherCrudService;
     }
+
 
     List<Mark> mWStudent(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case StudentId -> rContent = getMarksByStudent(studentService.getStudentByStudentId(Long.parseLong(value)));
-            case Name -> rContent = getMarksByStudents(studentService.getStudentsByName(value));
-            case Date -> rContent = getMarksByStudents(studentService.getStudentsByBirth(value));
+            case StudentId ->
+                    rContent = getMarksByStudent(studentCrudService.getStudentByStudentId(Long.parseLong(value)));
+            case Name -> rContent = getMarksByStudents(studentCrudService.getStudentsByName(value));
+            case Date -> rContent = getMarksByStudents(studentCrudService.getStudentsByBirth(value));
             default -> rContent = null;
         }
         return rContent;
@@ -55,9 +51,9 @@ public class MarkService extends MarkCrudService {
 
     List<Mark> mWDiary(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case DiaryId -> rContent = getMarksByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(value)));
-            case StudentId -> rContent = getMarksByDiaries(diaryService.getDiariesByScid(Long.parseLong(value)));
-            case ClassId -> rContent = getMarksByDiaries(diaryService.getDiariesByClassid(Integer.parseInt(value)));
+            case DiaryId -> rContent = getMarksByDiary(diaryCrudService.getDiaryByDiaryid(Integer.parseInt(value)));
+            case StudentId -> rContent = getMarksByDiaries(diaryCrudService.getDiariesByScid(Long.parseLong(value)));
+            case ClassId -> rContent = getMarksByDiaries(diaryCrudService.getDiariesByClassid(Integer.parseInt(value)));
             default -> rContent = null;
         }
         return rContent;
@@ -65,11 +61,11 @@ public class MarkService extends MarkCrudService {
 
     List<Mark> mWClass(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case ClassId -> rContent = getMarksByClass(classService.getClassByClassId(Integer.parseInt(value)));
-            case Grade -> rContent = getMarksByClasses(classService.getClassesByGrade(Short.parseShort(value)));
-            case Sign -> rContent = getMarksByClasses(classService.getClassesBySign(value.strip().charAt(0)));
-            case Year -> rContent = getMarksByClasses(classService.getClassesByYear(Year.parse(value)));
-            case TeacherId -> rContent = getMarksByClasses(classService.getClassesByTid(Long.parseLong(value)));
+            case ClassId -> rContent = getMarksByClass(classCrudService.getClassByClassId(Integer.parseInt(value)));
+            case Grade -> rContent = getMarksByClasses(classCrudService.getClassesByGrade(Short.parseShort(value)));
+            case Sign -> rContent = getMarksByClasses(classCrudService.getClassesBySign(value.strip().charAt(0)));
+            case Year -> rContent = getMarksByClasses(classCrudService.getClassesByYear(Year.parse(value)));
+            case TeacherId -> rContent = getMarksByClasses(classCrudService.getClassesByTid(Long.parseLong(value)));
             default -> rContent = null;
         }
         return rContent;
@@ -78,9 +74,9 @@ public class MarkService extends MarkCrudService {
     List<Mark> mWSubject(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
             case SubjectId ->
-                    rContent = getMarksBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(value)));
-            case Name -> rContent = getMarksBySubjects(subjectService.getSubjectsByName(value));
-            case TeacherId -> rContent = getMarksBySubjects(subjectService.getSubjectsByTid(Long.parseLong(value)));
+                    rContent = getMarksBySubject(subjectCrudService.getSubjectBySubjectId(Integer.parseInt(value)));
+            case Name -> rContent = getMarksBySubjects(subjectCrudService.getSubjectsByName(value));
+            case TeacherId -> rContent = getMarksBySubjects(subjectCrudService.getSubjectsByTid(Long.parseLong(value)));
             default -> rContent = null;
         }
         return rContent;
@@ -100,9 +96,10 @@ public class MarkService extends MarkCrudService {
 
     List<Mark> mWTeacher(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case TeacherId -> rContent = getMarksByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(value)));
-            case Name -> rContent = getMarksByTeachers(teacherService.getTeacherByName(value));
-            case Date -> rContent = getMarksByTeachers(teacherService.getTeacherByBirth(value));
+            case TeacherId ->
+                    rContent = getMarksByTeacher(teacherCrudService.getTeacherByTeacherId(Long.parseLong(value)));
+            case Name -> rContent = getMarksByTeachers(teacherCrudService.getTeacherByName(value));
+            case Date -> rContent = getMarksByTeachers(teacherCrudService.getTeacherByBirth(value));
             default -> rContent = null;
         }
         return rContent;
