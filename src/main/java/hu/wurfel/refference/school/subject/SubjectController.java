@@ -13,7 +13,7 @@ public class SubjectController {
 
     SubjectService subjectService;
 
-    @GetMapping("/search/{searchWith}/{searchBy}/{value}}")
+    @GetMapping("/search/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Subject>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         List<Subject> answer;
         answer = getSearchResponseList(searchWith, searchBy, value);
