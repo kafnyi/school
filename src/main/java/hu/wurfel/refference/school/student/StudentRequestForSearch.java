@@ -1,4 +1,4 @@
-package hu.wurfel.refference.school.subject;
+package hu.wurfel.refference.school.student;
 
 import hu.wurfel.refference.school.base.enums.EntityNaming;
 import hu.wurfel.refference.school.base.enums.SearchByFields;
@@ -7,12 +7,12 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class SubjectRequest implements Serializable {
+public class StudentRequestForSearch implements Serializable {
     private EntityNaming searchFor;
     private EntityNaming searchWith;
     private SearchByFields searchBy;
     private String searchValue;
     private String id;
     private String name;
-    private String teacherId;
+    private String date;
 }

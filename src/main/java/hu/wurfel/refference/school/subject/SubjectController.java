@@ -11,16 +11,16 @@ public class SubjectController {
     SubjectService subjectService;
 
     @PostMapping("/search")
-    public ResponseEntity<ArrayList> searchForStudent(@RequestBody SubjectRequest subjectRequest) {
+    public ResponseEntity<ArrayList> searchForStudent(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
         ArrayList answer = new ArrayList();
-        answer = subjectService.getAutomated(subjectRequest);
+        answer = subjectService.getAutomated(subjectRequestForSearch);
         return ResponseEntity.ok(answer);
     }
 
     @PostMapping("/adding")
-    public ResponseEntity<ArrayList> adding(@RequestBody SubjectRequest subjectRequest) {
+    public ResponseEntity<ArrayList> adding(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
         ArrayList answer = new ArrayList();
-        answer.add(subjectService.saveSubject(Integer.parseInt(subjectRequest.getId()), subjectRequest.getName(), Long.parseLong(subjectRequest.getTeacherId())));
+        answer.add(subjectService.saveSubject(Integer.parseInt(subjectRequestForSearch.getId()), subjectRequestForSearch.getName(), Long.parseLong(subjectRequestForSearch.getTeacherId())));
         return ResponseEntity.ok(answer);
     }
 
@@ -30,10 +30,10 @@ public class SubjectController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<ArrayList> modifyStudent(@RequestBody SubjectRequest subjectRequest) {
-        Subject subject = subjectService.getSubjectBySubjectId(Integer.parseInt(subjectRequest.getId()));
-        subject.setSubjectName(subjectRequest.getName());
-        subject.setTid(Long.parseLong(subjectRequest.getTeacherId()));
+    public ResponseEntity<ArrayList> modifyStudent(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
+        Subject subject = subjectService.getSubjectBySubjectId(Integer.parseInt(subjectRequestForSearch.getId()));
+        subject.setSubjectName(subjectRequestForSearch.getName());
+        subject.setTid(Long.parseLong(subjectRequestForSearch.getTeacherId()));
         subjectService.saveSubject(subject);
         ArrayList answer = new ArrayList();
         answer.add(subjectService.getSubjectBySubjectId(subject.getId()));

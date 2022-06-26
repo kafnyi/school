@@ -30,95 +30,96 @@ public class ClassService extends ClassCrudService {
     private TeacherService teacherService;
     private ArrayList<Class> rContent;
 
-    public ArrayList getAutomated(ClassRequest classRequest) {
+    public ArrayList getAutomated(ClassRequestForSearch classRequestForSearch) {
         rContent = new ArrayList<>();
-        switch (classRequest.getSearchWith()) {
-            case Student -> cWStudent(classRequest);
-            case Diary -> cWDiary(classRequest);
-            case Class -> cWClass(classRequest);
-            case Subject -> cWSubject(classRequest);
-            case Mark -> cWMark(classRequest);
-            case Teacher -> cWTeacher(classRequest);
+        switch (classRequestForSearch.getSearchWith()) {
+            case Student -> cWStudent(classRequestForSearch);
+            case Diary -> cWDiary(classRequestForSearch);
+            case Class -> cWClass(classRequestForSearch);
+            case Subject -> cWSubject(classRequestForSearch);
+            case Mark -> cWMark(classRequestForSearch);
+            case Teacher -> cWTeacher(classRequestForSearch);
             default -> {
             }
         }
         return rContent;
     }
 
-    private void cWStudent(ClassRequest classRequest) {
-        switch (classRequest.getSearchBy()) {
+    private void cWStudent(ClassRequestForSearch classRequestForSearch) {
+        switch (classRequestForSearch.getSearchBy()) {
             case StudentId ->
-                    rContent = getClassesByStudent(studentService.getStudentByStudentId(Long.parseLong(classRequest.getSearchValue())));
+                    rContent = getClassesByStudent(studentService.getStudentByStudentId(Long.parseLong(classRequestForSearch.getSearchValue())));
             case Name ->
-                    rContent = getClassesByStudents(studentService.getStudentsByName(classRequest.getSearchValue()));
+                    rContent = getClassesByStudents(studentService.getStudentsByName(classRequestForSearch.getSearchValue()));
             case Date ->
-                    rContent = getClassesByStudents(studentService.getStudentsByBirth(classRequest.getSearchValue()));
+                    rContent = getClassesByStudents(studentService.getStudentsByBirth(classRequestForSearch.getSearchValue()));
             default -> {
             }
         }
     }
 
-    private void cWDiary(ClassRequest classRequest) {
-        switch (classRequest.getSearchBy()) {
+    private void cWDiary(ClassRequestForSearch classRequestForSearch) {
+        switch (classRequestForSearch.getSearchBy()) {
             case DiaryId ->
-                    rContent.add(getClassByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(classRequest.getSearchValue()))));
+                    rContent.add(getClassByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(classRequestForSearch.getSearchValue()))));
             case StudentId ->
-                    rContent = getClassesByDiaries(diaryService.getDiariesByScid(Long.parseLong(classRequest.getSearchValue())));
-            case ClassId -> rContent.add(getClassByClassId(Integer.parseInt(classRequest.getSearchValue())));
+                    rContent = getClassesByDiaries(diaryService.getDiariesByScid(Long.parseLong(classRequestForSearch.getSearchValue())));
+            case ClassId -> rContent.add(getClassByClassId(Integer.parseInt(classRequestForSearch.getSearchValue())));
             default -> {
             }
         }
     }
 
-    private void cWClass(ClassRequest classRequest) {
-        switch (classRequest.getSearchBy()) {
-            case ClassId -> rContent.add(getClassByClassId(Integer.parseInt(classRequest.getSearchValue())));
-            case Grade -> rContent = getClassesByGrade(Short.parseShort(classRequest.getSearchValue()));
-            case Sign -> rContent = getClassesBySign(classRequest.getSearchValue().strip().charAt(0));
-            case Year -> rContent = getClassesByYear(Year.parse(classRequest.getSearchValue()));
-            case TeacherId -> rContent = getClassesByTid(Long.parseLong(classRequest.getSearchValue()));
+    private void cWClass(ClassRequestForSearch classRequestForSearch) {
+        switch (classRequestForSearch.getSearchBy()) {
+            case ClassId -> rContent.add(getClassByClassId(Integer.parseInt(classRequestForSearch.getSearchValue())));
+            case Grade -> rContent = getClassesByGrade(Short.parseShort(classRequestForSearch.getSearchValue()));
+            case Sign -> rContent = getClassesBySign(classRequestForSearch.getSearchValue().strip().charAt(0));
+            case Year -> rContent = getClassesByYear(Year.parse(classRequestForSearch.getSearchValue()));
+            case TeacherId -> rContent = getClassesByTid(Long.parseLong(classRequestForSearch.getSearchValue()));
             default -> {
             }
         }
     }
 
-    private void cWSubject(ClassRequest classRequest) {
-        switch (classRequest.getSearchBy()) {
+    private void cWSubject(ClassRequestForSearch classRequestForSearch) {
+        switch (classRequestForSearch.getSearchBy()) {
             case SubjectId ->
-                    rContent = getClassesBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(classRequest.getSearchValue())));
+                    rContent = getClassesBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(classRequestForSearch.getSearchValue())));
             case Name ->
-                    rContent = getClassesBySubjects(subjectService.getSubjectsByName(classRequest.getSearchValue()));
+                    rContent = getClassesBySubjects(subjectService.getSubjectsByName(classRequestForSearch.getSearchValue()));
             case TeacherId ->
-                    rContent = getClassesBySubjects(subjectService.getSubjectsByTid(Long.parseLong(classRequest.getSearchValue())));
+                    rContent = getClassesBySubjects(subjectService.getSubjectsByTid(Long.parseLong(classRequestForSearch.getSearchValue())));
             default -> {
             }
         }
     }
 
-    private void cWMark(ClassRequest classRequest) {
-        switch (classRequest.getSearchBy()) {
+    private void cWMark(ClassRequestForSearch classRequestForSearch) {
+        switch (classRequestForSearch.getSearchBy()) {
             case MarkId ->
-                    rContent.add(getClassByMark(markService.getMarkByMarkid(Long.parseLong(classRequest.getSearchValue()))));
+                    rContent.add(getClassByMark(markService.getMarkByMarkid(Long.parseLong(classRequestForSearch.getSearchValue()))));
             case DiaryId ->
-                    rContent.add(getClassByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(classRequest.getSearchValue()))));
-            case Date -> rContent = getClassesByMarks(markService.getMarksByDate(classRequest.getSearchValue()));
+                    rContent.add(getClassByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(classRequestForSearch.getSearchValue()))));
+            case Date ->
+                    rContent = getClassesByMarks(markService.getMarksByDate(classRequestForSearch.getSearchValue()));
             case SubjectId ->
-                    rContent = getClassesByMarks(markService.getMarksBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(classRequest.getSearchValue()))));
+                    rContent = getClassesByMarks(markService.getMarksBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(classRequestForSearch.getSearchValue()))));
             case Mark ->
-                    rContent = getClassesByMarks(markService.getMarksByMark(Byte.parseByte(classRequest.getSearchValue())));
+                    rContent = getClassesByMarks(markService.getMarksByMark(Byte.parseByte(classRequestForSearch.getSearchValue())));
             default -> {
             }
         }
     }
 
-    private void cWTeacher(ClassRequest classRequest) {
-        switch (classRequest.getSearchBy()) {
+    private void cWTeacher(ClassRequestForSearch classRequestForSearch) {
+        switch (classRequestForSearch.getSearchBy()) {
             case TeacherId ->
-                    rContent = getClassesByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(classRequest.getSearchValue())));
+                    rContent = getClassesByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(classRequestForSearch.getSearchValue())));
             case Name ->
-                    rContent = getClassesByTeachers(teacherService.getTeacherByName(classRequest.getSearchValue()));
+                    rContent = getClassesByTeachers(teacherService.getTeacherByName(classRequestForSearch.getSearchValue()));
             case Date ->
-                    rContent = getClassesByTeachers(teacherService.getTeacherByBirth(classRequest.getSearchValue()));
+                    rContent = getClassesByTeachers(teacherService.getTeacherByBirth(classRequestForSearch.getSearchValue()));
             default -> {
             }
         }

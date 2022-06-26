@@ -32,7 +32,7 @@ public class StudentService extends StudentCrudService {
 	private TeacherService teacherService;
 	private ArrayList<Student> rContent;
 
-	public ArrayList getAutomated(StudentRequest request) {
+	public ArrayList getAutomated(StudentRequestForSearch request) {
 		rContent = new ArrayList<>();
 		switch (request.getSearchWith()) {
 			case Student -> sWStudent(request);
@@ -47,7 +47,7 @@ public class StudentService extends StudentCrudService {
 		return rContent;
 	}
 
-	public void sWStudent(StudentRequest request) {
+	public void sWStudent(StudentRequestForSearch request) {
 		switch (request.getSearchBy()) {
 			case StudentId -> rContent.add(getStudentByStudentId(Long.parseLong(request.getSearchValue())));
 			case Name -> rContent = getStudentsByName(request.getSearchValue());
@@ -57,7 +57,7 @@ public class StudentService extends StudentCrudService {
 		}
 	}
 
-	private void sWDiary(StudentRequest request) {
+	private void sWDiary(StudentRequestForSearch request) {
 		switch (request.getSearchBy()) {
 			case DiaryId ->
 					rContent.add(getStudentByDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(request.getSearchValue()))));
@@ -69,7 +69,7 @@ public class StudentService extends StudentCrudService {
 		}
 	}
 
-	private void sWClass(StudentRequest request) {
+	private void sWClass(StudentRequestForSearch request) {
 		switch (request.getSearchBy()) {
 			case ClassId ->
 					rContent = getStudentsByClass(classService.getClassByClassId(Integer.parseInt(request.getSearchValue())));
@@ -86,7 +86,7 @@ public class StudentService extends StudentCrudService {
 		}
 	}
 
-	private void sWSubject(StudentRequest request) {
+	private void sWSubject(StudentRequestForSearch request) {
 		switch (request.getSearchBy()) {
 			case SubjectId ->
 					rContent = getStudentsBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(request.getSearchValue())));
@@ -98,7 +98,7 @@ public class StudentService extends StudentCrudService {
 		}
 	}
 
-	private void sWMark(StudentRequest request) {
+	private void sWMark(StudentRequestForSearch request) {
 		switch (request.getSearchBy()) {
 			case MarkId ->
 					rContent.add(getStudentByMark(markService.getMarkByMarkid(Long.parseLong(request.getSearchValue()))));
@@ -114,7 +114,7 @@ public class StudentService extends StudentCrudService {
 		}
 	}
 
-	private void sWTeacher(StudentRequest request) {
+	private void sWTeacher(StudentRequestForSearch request) {
 		switch (request.getSearchBy()) {
 			case TeacherId ->
 					rContent = getStudentsByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(request.getSearchValue())));

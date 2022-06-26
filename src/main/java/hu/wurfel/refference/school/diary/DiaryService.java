@@ -31,96 +31,97 @@ public class DiaryService extends DiaryCrudService {
     private ArrayList<Diary> rContent;
 
 
-    public ArrayList getAutomated(DiaryRequest diaryRequest) {
+    public ArrayList getAutomated(DiaryRequestForSearch diaryRequestForSearch) {
         rContent = new ArrayList<>();
-        switch (diaryRequest.getSearchWith()) {
-            case Student -> dWStudent(diaryRequest);
-            case Diary -> dWDiary(diaryRequest);
-            case Class -> dWClass(diaryRequest);
-            case Subject -> dWSubject(diaryRequest);
-            case Mark -> dWMark(diaryRequest);
-            case Teacher -> dWTeacher(diaryRequest);
+        switch (diaryRequestForSearch.getSearchWith()) {
+            case Student -> dWStudent(diaryRequestForSearch);
+            case Diary -> dWDiary(diaryRequestForSearch);
+            case Class -> dWClass(diaryRequestForSearch);
+            case Subject -> dWSubject(diaryRequestForSearch);
+            case Mark -> dWMark(diaryRequestForSearch);
+            case Teacher -> dWTeacher(diaryRequestForSearch);
             default -> {
             }
         }
         return rContent;
     }
 
-    private void dWStudent(DiaryRequest diaryRequest) {
-        switch (diaryRequest.getSearchBy()) {
+    private void dWStudent(DiaryRequestForSearch diaryRequestForSearch) {
+        switch (diaryRequestForSearch.getSearchBy()) {
             case StudentId ->
-                    rContent = getDiariesByStudent(studentService.getStudentByStudentId(Long.parseLong(diaryRequest.getSearchValue())));
+                    rContent = getDiariesByStudent(studentService.getStudentByStudentId(Long.parseLong(diaryRequestForSearch.getSearchValue())));
             case Name ->
-                    rContent = getDiariesByStudents(studentService.getStudentsByName(diaryRequest.getSearchValue()));
+                    rContent = getDiariesByStudents(studentService.getStudentsByName(diaryRequestForSearch.getSearchValue()));
             case Date ->
-                    rContent = getDiariesByStudents(studentService.getStudentsByBirth(diaryRequest.getSearchValue()));
+                    rContent = getDiariesByStudents(studentService.getStudentsByBirth(diaryRequestForSearch.getSearchValue()));
             default -> {
             }
         }
     }
 
-    private void dWDiary(DiaryRequest diaryRequest) {
-        switch (diaryRequest.getSearchBy()) {
-            case DiaryId -> rContent.add(getDiaryByDiaryid(Integer.parseInt(diaryRequest.getSearchValue())));
-            case StudentId -> rContent = getDiariesByScid(Long.parseLong(diaryRequest.getSearchValue()));
-            case ClassId -> rContent = getDiariesByClassid(Integer.parseInt(diaryRequest.getSearchValue()));
+    private void dWDiary(DiaryRequestForSearch diaryRequestForSearch) {
+        switch (diaryRequestForSearch.getSearchBy()) {
+            case DiaryId -> rContent.add(getDiaryByDiaryid(Integer.parseInt(diaryRequestForSearch.getSearchValue())));
+            case StudentId -> rContent = getDiariesByScid(Long.parseLong(diaryRequestForSearch.getSearchValue()));
+            case ClassId -> rContent = getDiariesByClassid(Integer.parseInt(diaryRequestForSearch.getSearchValue()));
             default -> {
             }
         }
     }
 
-    private void dWClass(DiaryRequest diaryRequest) {
-        switch (diaryRequest.getSearchBy()) {
-            case ClassId -> rContent = getDiariesByClassid(Integer.parseInt(diaryRequest.getSearchValue()));
+    private void dWClass(DiaryRequestForSearch diaryRequestForSearch) {
+        switch (diaryRequestForSearch.getSearchBy()) {
+            case ClassId -> rContent = getDiariesByClassid(Integer.parseInt(diaryRequestForSearch.getSearchValue()));
             case Grade ->
-                    rContent = getDiariesByClasses(classService.getClassesByGrade(Short.parseShort(diaryRequest.getSearchValue())));
+                    rContent = getDiariesByClasses(classService.getClassesByGrade(Short.parseShort(diaryRequestForSearch.getSearchValue())));
             case Sign ->
-                    rContent = getDiariesByClasses(classService.getClassesBySign(diaryRequest.getSearchValue().strip().charAt(0)));
+                    rContent = getDiariesByClasses(classService.getClassesBySign(diaryRequestForSearch.getSearchValue().strip().charAt(0)));
             case Year ->
-                    rContent = getDiariesByClasses(classService.getClassesByYear(Year.parse(diaryRequest.getSearchValue())));
+                    rContent = getDiariesByClasses(classService.getClassesByYear(Year.parse(diaryRequestForSearch.getSearchValue())));
             case TeacherId ->
-                    rContent = getDiariesByClasses(classService.getClassesByTid(Long.parseLong(diaryRequest.getSearchValue())));
+                    rContent = getDiariesByClasses(classService.getClassesByTid(Long.parseLong(diaryRequestForSearch.getSearchValue())));
             default -> {
             }
         }
     }
 
-    private void dWSubject(DiaryRequest diaryRequest) {
-        switch (diaryRequest.getSearchBy()) {
+    private void dWSubject(DiaryRequestForSearch diaryRequestForSearch) {
+        switch (diaryRequestForSearch.getSearchBy()) {
             case SubjectId ->
-                    rContent = getDiariesBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(diaryRequest.getSearchValue())));
+                    rContent = getDiariesBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(diaryRequestForSearch.getSearchValue())));
             case Name ->
-                    rContent = getDiariesBySubjects(subjectService.getSubjectsByName(diaryRequest.getSearchValue()));
+                    rContent = getDiariesBySubjects(subjectService.getSubjectsByName(diaryRequestForSearch.getSearchValue()));
             case TeacherId ->
-                    rContent = getDiariesBySubjects(subjectService.getSubjectsByTid(Long.parseLong(diaryRequest.getSearchValue())));
+                    rContent = getDiariesBySubjects(subjectService.getSubjectsByTid(Long.parseLong(diaryRequestForSearch.getSearchValue())));
             default -> {
             }
         }
     }
 
-    private void dWMark(DiaryRequest diaryRequest) {
-        switch (diaryRequest.getSearchBy()) {
+    private void dWMark(DiaryRequestForSearch diaryRequestForSearch) {
+        switch (diaryRequestForSearch.getSearchBy()) {
             case MarkId ->
-                    rContent.add(getDiaryByMark(markService.getMarkByMarkid(Long.parseLong(diaryRequest.getSearchValue()))));
-            case DiaryId -> rContent.add(getDiaryByDiaryid(Integer.parseInt(diaryRequest.getSearchValue())));
-            case Date -> rContent = getDiariesByMarks(markService.getMarksByDate(diaryRequest.getSearchValue()));
+                    rContent.add(getDiaryByMark(markService.getMarkByMarkid(Long.parseLong(diaryRequestForSearch.getSearchValue()))));
+            case DiaryId -> rContent.add(getDiaryByDiaryid(Integer.parseInt(diaryRequestForSearch.getSearchValue())));
+            case Date ->
+                    rContent = getDiariesByMarks(markService.getMarksByDate(diaryRequestForSearch.getSearchValue()));
             case SubjectId ->
-                    rContent = getDiariesByMarks(markService.getMarksBySubjectid(Integer.parseInt(diaryRequest.getSearchValue())));
+                    rContent = getDiariesByMarks(markService.getMarksBySubjectid(Integer.parseInt(diaryRequestForSearch.getSearchValue())));
             case Mark ->
-                    rContent = getDiariesByMarks(markService.getMarksByMark(Byte.parseByte(diaryRequest.getSearchValue())));
+                    rContent = getDiariesByMarks(markService.getMarksByMark(Byte.parseByte(diaryRequestForSearch.getSearchValue())));
             default -> {
             }
         }
     }
 
-    private void dWTeacher(DiaryRequest diaryRequest) {
-        switch (diaryRequest.getSearchBy()) {
+    private void dWTeacher(DiaryRequestForSearch diaryRequestForSearch) {
+        switch (diaryRequestForSearch.getSearchBy()) {
             case TeacherId ->
-                    rContent = getDiariesByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(diaryRequest.getSearchValue())));
+                    rContent = getDiariesByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(diaryRequestForSearch.getSearchValue())));
             case Name ->
-                    rContent = getDiariesByTeachers(teacherService.getTeacherByName(diaryRequest.getSearchValue()));
+                    rContent = getDiariesByTeachers(teacherService.getTeacherByName(diaryRequestForSearch.getSearchValue()));
             case Date ->
-                    rContent = getDiariesByTeachers(teacherService.getTeacherByBirth(diaryRequest.getSearchValue()));
+                    rContent = getDiariesByTeachers(teacherService.getTeacherByBirth(diaryRequestForSearch.getSearchValue()));
             default -> {
             }
         }

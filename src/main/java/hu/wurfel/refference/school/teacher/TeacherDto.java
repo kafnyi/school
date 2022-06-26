@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 public class TeacherDto implements Serializable {
-    private final Long tId;
+    private final Long id;
     private final String name;
     private final Date birthDate;
 }
