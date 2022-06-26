@@ -1,41 +1,37 @@
 package hu.wurfel.refference.school.division;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Year;
 import java.util.ArrayList;
 
-@RestController
+@RestController("/api/vi/Class")
 public class ClassController {
 
 
-    @Autowired
     ClassService classService;
 
-    @PostMapping("/api/v1/search/Class")
+    @PostMapping("/search")
     public ResponseEntity<ArrayList> searchForStudent(@RequestBody ClassRequest classRequest) {
         ArrayList answer = new ArrayList();
         answer = classService.getAutomated(classRequest);
         return ResponseEntity.ok(answer);
     }
 
-    @PostMapping("/api/v1/adding/Class")
+    @PostMapping("/adding")
     public ResponseEntity<ArrayList> adding(@RequestBody ClassRequest classRequest) {
         ArrayList answer = new ArrayList();
         answer.add(classService.saveClass(Integer.parseInt(classRequest.getId()), Short.parseShort(classRequest.getGrade()), classRequest.getSign().strip().charAt(0), Year.parse(classRequest.getYear()), Long.parseLong(classRequest.getTeacherId())));
         return ResponseEntity.ok(answer);
     }
 
-    @PostMapping("/api/v1/delete/Class")
-    public void delete(@RequestBody ClassRequest classRequest) {
-        classService.deleteClass(classService.getClassByClassId(Integer.parseInt(classRequest.getId())));
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable String id) {
+        classService.deleteClass(classService.getClassByClassId(Integer.parseInt(id)));
     }
 
-    @PostMapping("/api/vi/modify/Class")
+    @PutMapping("/api/vi/modify/Class")
     public ResponseEntity<ArrayList> modifyStudent(@RequestBody ClassRequest classRequest) {
         Class division = classService.getClassByClassId(Integer.parseInt(classRequest.getId()));
         division.setId(Integer.parseInt(classRequest.getId()));

@@ -1,40 +1,35 @@
 package hu.wurfel.refference.school.subject;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
-@RestController
+@RestController("/api/v1/Subject")
 public class SubjectController {
 
-
-    @Autowired
     SubjectService subjectService;
 
-    @PostMapping("/api/v1/search/Subject")
+    @PostMapping("/search")
     public ResponseEntity<ArrayList> searchForStudent(@RequestBody SubjectRequest subjectRequest) {
         ArrayList answer = new ArrayList();
         answer = subjectService.getAutomated(subjectRequest);
         return ResponseEntity.ok(answer);
     }
 
-    @PostMapping("/api/v1/adding/Subject")
+    @PostMapping("/adding")
     public ResponseEntity<ArrayList> adding(@RequestBody SubjectRequest subjectRequest) {
         ArrayList answer = new ArrayList();
         answer.add(subjectService.saveSubject(Integer.parseInt(subjectRequest.getId()), subjectRequest.getName(), Long.parseLong(subjectRequest.getTeacherId())));
         return ResponseEntity.ok(answer);
     }
 
-    @PostMapping("/api/v1/delete/Subject")
-    public void delete(@RequestBody SubjectRequest subjectRequest) {
-        subjectService.delete(subjectService.getSubjectBySubjectId(Integer.parseInt(subjectRequest.getId())));
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable String id) {
+        subjectService.delete(subjectService.getSubjectBySubjectId(Integer.parseInt(id)));
     }
 
-    @PostMapping("/api/vi/modify/Subject")
+    @PutMapping("/modify")
     public ResponseEntity<ArrayList> modifyStudent(@RequestBody SubjectRequest subjectRequest) {
         Subject subject = subjectService.getSubjectBySubjectId(Integer.parseInt(subjectRequest.getId()));
         subject.setSubjectName(subjectRequest.getName());
