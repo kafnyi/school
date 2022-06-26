@@ -1,5 +1,7 @@
 package hu.wurfel.refference.school.teacher;
 
+import hu.wurfel.refference.school.base.enums.EntityFieldNames;
+import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +13,10 @@ public class TeacherController {
 
     TeacherService teacherService;
 
-    @PostMapping("/search")
-    public ResponseEntity<List<Teacher>> searchForStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
+    @GetMapping("/search/{searchWith}/{searchBy}/{value}}")
+    public ResponseEntity<List<Teacher>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         List<Teacher> answer;
-        answer = teacherService.getAutomated(teacherRequestForSearch);
+        answer = getSearchResponseList(searchWith, searchBy, value);
         return ResponseEntity.ok(answer);
     }
 
@@ -39,6 +41,33 @@ public class TeacherController {
         List<Teacher> answer = new ArrayList<>();
         answer.add(teacherService.getTeacherByTeacherId(teacher.getId()));
         return ResponseEntity.ok(answer);
+    }
+
+    private List<Teacher> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
+
+        switch (searchWith) {
+            case Student -> {
+                return teacherService.tWStudent(searchBy, value);
+            }
+            case Diary -> {
+                return teacherService.tWDiary(searchBy, value);
+            }
+            case Class -> {
+                return teacherService.tWClass(searchBy, value);
+            }
+            case Subject -> {
+                return teacherService.tWSubject(searchBy, value);
+            }
+            case Mark -> {
+                return teacherService.tWMark(searchBy, value);
+            }
+            case Teacher -> {
+                return teacherService.tWTeacher(searchBy, value);
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 
 }

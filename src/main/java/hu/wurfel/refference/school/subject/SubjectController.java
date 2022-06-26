@@ -1,5 +1,7 @@
 package hu.wurfel.refference.school.subject;
 
+import hu.wurfel.refference.school.base.enums.EntityFieldNames;
+import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +13,10 @@ public class SubjectController {
 
     SubjectService subjectService;
 
-    @PostMapping("/search")
-    public ResponseEntity<List<Subject>> searchForStudent(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
+    @GetMapping("/search/{searchWith}/{searchBy}/{value}}")
+    public ResponseEntity<List<Subject>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         List<Subject> answer;
-        answer = subjectService.getAutomated(subjectRequestForSearch);
+        answer = getSearchResponseList(searchWith, searchBy, value);
         return ResponseEntity.ok(answer);
     }
 
@@ -39,6 +41,33 @@ public class SubjectController {
         List<Subject> answer = new ArrayList<>();
         answer.add(subjectService.getSubjectBySubjectId(subject.getId()));
         return ResponseEntity.ok(answer);
+    }
+
+    private List<Subject> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
+
+        switch (searchWith) {
+            case Student -> {
+                return subjectService.sjWStudent(searchBy, value);
+            }
+            case Diary -> {
+                return subjectService.sjWDiary(searchBy, value);
+            }
+            case Class -> {
+                return subjectService.sjWClass(searchBy, value);
+            }
+            case Subject -> {
+                return subjectService.sjWSubject(searchBy, value);
+            }
+            case Mark -> {
+                return subjectService.sjWMark(searchBy, value);
+            }
+            case Teacher -> {
+                return subjectService.sjWTeacher(searchBy, value);
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 
 }
