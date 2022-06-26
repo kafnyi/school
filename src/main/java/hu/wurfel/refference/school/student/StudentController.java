@@ -8,32 +8,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController("/api/v1/Student")
+@RestController
 public class StudentController {
 
 
     StudentService studentService;
 
-    @GetMapping("/search/{searchWith}/{searchBy}/{value}}")
+    @GetMapping("/api/v1/Student/search/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Student>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         List<Student> answer;
         answer = getSearchResponseList(searchWith, searchBy, value);
         return ResponseEntity.ok(answer);
     }
 
-    @PostMapping("/adding")
+    @PostMapping("/api/v1/Student/adding")
     public ResponseEntity<List<Student>> adding(@RequestBody StudentRequestForSearch studentRequestForSearch) {
         List<Student> answer = new ArrayList<>();
         answer.add(studentService.saveStudent(Long.parseLong(studentRequestForSearch.getId()), studentRequestForSearch.getName(), studentRequestForSearch.getDate()));
         return ResponseEntity.ok(answer);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/api/v1/Student/delete/{id}")
     public void delete(@PathVariable String id) {
         studentService.deleteStudent(studentService.getStudentByStudentId(Long.parseLong(id)));
     }
 
-    @PutMapping("/modify")
+    @PutMapping("/api/v1/Student/modify")
     public ResponseEntity<List<Student>> modifyStudent(@RequestBody StudentRequestForSearch studentRequestForSearch) {
         Student student = studentService.getStudentByStudentId(Long.parseLong(studentRequestForSearch.getId()));
         student.setName(studentRequestForSearch.getName());
