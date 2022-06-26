@@ -30,6 +30,9 @@ public class MarkService extends MarkCrudService {
     private TeacherService teacherService;
     private ArrayList<Mark> rContent;
 
+    public MarkService() {
+    }
+
     public ArrayList getAutomated(MarkRequestForSearch markRequestForSearch) {
         rContent = new ArrayList<>();
         switch (markRequestForSearch.getSearchWith()) {
