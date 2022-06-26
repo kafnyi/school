@@ -8,31 +8,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController("/api/v1/Teacher")
+@RestController
 public class TeacherController {
 
     TeacherService teacherService;
 
-    @GetMapping("/search/{searchWith}/{searchBy}/{value}}")
+    @GetMapping("/api/v1/Teacher/search/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Teacher>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         List<Teacher> answer;
         answer = getSearchResponseList(searchWith, searchBy, value);
         return ResponseEntity.ok(answer);
     }
 
-    @PostMapping("/adding")
+    @PostMapping("/api/v1/Teacher/adding")
     public ResponseEntity<List<Teacher>> adding(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
         List<Teacher> answer = new ArrayList<>();
         answer.add(teacherService.saveTeacher(Long.parseLong(teacherRequestForSearch.getId()), teacherRequestForSearch.getName(), teacherRequestForSearch.getDate()));
         return ResponseEntity.ok(answer);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/api/v1/Teacher/delete/{id}")
     public void delete(@PathVariable String id) {
         teacherService.deleteTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(id)));
     }
 
-    @PutMapping("/modify")
+    @PutMapping("/api/v1/Teacher/modify")
     public ResponseEntity<List<Teacher>> modifyStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
         Teacher teacher = teacherService.getTeacherByTeacherId(Long.parseLong(teacherRequestForSearch.getId()));
         teacher.setName(teacherRequestForSearch.getName());

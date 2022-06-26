@@ -8,32 +8,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController("/api/v1/Diary")
+@RestController
 public class DiaryController {
 
 
 	DiaryService diaryService;
 
-	@GetMapping("/search/{searchWith}/{searchBy}/{value}}")
+	@GetMapping("/api/v1/Diary/search/{searchWith}/{searchBy}/{value}")
 	public ResponseEntity<List<Diary>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
 		List<Diary> answer;
 		answer = getSearchResponseList(searchWith, searchBy, value);
 		return ResponseEntity.ok(answer);
 	}
 
-	@PostMapping("/adding")
+	@PostMapping("/api/v1/Diary/adding")
 	public ResponseEntity<List<Diary>> adding(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
 		List<Diary> answer = new ArrayList<>();
 		answer.add(diaryService.saveDiary(Integer.parseInt(diaryRequestForSearch.getId()), Long.parseLong(diaryRequestForSearch.getStudentId()), Integer.parseInt(diaryRequestForSearch.getClassId())));
 		return ResponseEntity.ok(answer);
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/api/v1/Diary/delete/{id}")
 	public void deleteById(@PathVariable String id) {
         diaryService.deleteDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(id)));
     }
 
-	@PutMapping("/modify")
+	@PutMapping("/api/v1/Diary/modify")
 	public ResponseEntity<List<Diary>> modify(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
 		Diary diary = diaryService.getDiaryByDiaryid(Integer.parseInt(diaryRequestForSearch.getId()));
 		diary.setStudentId(Long.parseLong(diaryRequestForSearch.getStudentId()));
