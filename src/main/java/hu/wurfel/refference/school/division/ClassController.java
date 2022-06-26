@@ -9,31 +9,31 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController("/api/vi/Class")
+@RestController
 public class ClassController {
 
     ClassService classService;
 
-    @GetMapping("/search/{searchWith}/{searchBy}/{value}}")
+    @GetMapping("/api/vi/Class/search/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Class>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         List<Class> answer;
         answer = getSearchResponseList(searchWith, searchBy, value);
         return ResponseEntity.ok(answer);
     }
 
-    @PostMapping("/adding")
+    @PostMapping("/api/vi/Class/adding")
     public ResponseEntity<List<Class>> adding(@RequestBody ClassRequestForSearch classRequestForSearch) {
         List<Class> answer = new ArrayList<>();
         answer.add(classService.saveClass(Integer.parseInt(classRequestForSearch.getId()), Short.parseShort(classRequestForSearch.getGrade()), classRequestForSearch.getSign().strip().charAt(0), Year.parse(classRequestForSearch.getYear()), Long.parseLong(classRequestForSearch.getTeacherId())));
         return ResponseEntity.ok(answer);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/api/vi/Class/delete/{id}")
     public void delete(@PathVariable String id) {
         classService.deleteClass(classService.getClassByClassId(Integer.parseInt(id)));
     }
 
-    @PutMapping("/api/vi/modify/Class")
+    @PutMapping("/api/vi/Class/api/vi/modify/Class")
     public ResponseEntity<List<Class>> modify(@RequestBody ClassRequestForSearch classRequestForSearch) {
         Class division = classService.getClassByClassId(Integer.parseInt(classRequestForSearch.getId()));
         division.setId(Integer.parseInt(classRequestForSearch.getId()));
