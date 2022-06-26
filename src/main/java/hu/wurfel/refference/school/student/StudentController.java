@@ -11,8 +11,6 @@ import java.util.ArrayList;
 @RestController
 public class StudentController {
 
-    @Autowired
-    ResponseCreationClarificationStudent responseCreationClarificationStudent;
 
     @Autowired
     StudentService studentService;
@@ -20,7 +18,7 @@ public class StudentController {
     @PostMapping("/api/v1/search/Student")
     public ResponseEntity<ArrayList> searchForStudent(@RequestBody StudentRequest studentRequest) {
         ArrayList answer = new ArrayList();
-        answer = responseCreationClarificationStudent.create(studentRequest);
+        answer = studentService.getAutomated(studentRequest);
         return ResponseEntity.ok(answer);
     }
 

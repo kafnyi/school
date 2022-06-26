@@ -12,15 +12,12 @@ import java.util.ArrayList;
 public class TeacherController {
 
     @Autowired
-    ResponseCreationClarificationTeacher responseCreationClarificationTeacher;
-
-    @Autowired
     TeacherService teacherService;
 
     @PostMapping("/api/v1/search/Teacher")
     public ResponseEntity<ArrayList> searchForStudent(@RequestBody TeacherRequest teacherRequest) {
         ArrayList answer = new ArrayList();
-        answer = responseCreationClarificationTeacher.create(teacherRequest);
+        answer = teacherService.getAutomated(teacherRequest);
         return ResponseEntity.ok(answer);
     }
 

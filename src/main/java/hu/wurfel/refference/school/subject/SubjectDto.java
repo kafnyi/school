@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Data
 public class SubjectDto implements Serializable {
-    private final Integer sjId;
-    private final String subjectName;
-    private final Long tId;
+	private final Integer id;
+	private final String name;
+	private final Long teacherId;
 }

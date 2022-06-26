@@ -236,7 +236,7 @@ function generateStudentResultTable(result) {
     let table = "<tr><th>Student ID</th><th>Name</th><th>Birth date</th></tr>";
     for (let i = 0; i < result.length; i++) {
         student = result[i]
-        table += "<tr><td onclick='createAndSendSearchForModifyRequest(\"Student\" , "+student.id+")'>" +
+        table += "<tr><td onclick='createAndSendSearchForModifyRequest(\"Student\" , " + student.id + ")'>" +
             student.id +
             "</td><td >" +
             student.name +
@@ -639,7 +639,7 @@ function createAndSendModifyRequest(type, inID) {
     const id = inID;
     const newName = document.getElementById("MSN").value
     const newBirthDate = document.getElementById("MSD").value
-    let modify = {id:id , name:newName , date:newBirthDate}
+    let modify = {id: id, name: newName, date: newBirthDate}
     const data = JSON.stringify(modify);
     xhr.send(data);
     window.alert(modify);
@@ -663,7 +663,7 @@ function createAndSendDeleteRequest(type, toDelete) {
     window.alert(modify + " is sent to deleteing");
 }
 
-function createAndSendSearchForModifyRequest(type , id) {
+function createAndSendSearchForModifyRequest(type, id) {
     let xhr = new XMLHttpRequest();
     let url = "/api/v1/search/" + type;
     xhr.open("POST", url, true);
@@ -671,7 +671,7 @@ function createAndSendSearchForModifyRequest(type , id) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             window.alert(xhr.response)
-            let result =JSON.parse(xhr.response)
+            let result = JSON.parse(xhr.response)
             createModifyTable(type, result)
         }
     }
@@ -680,14 +680,16 @@ function createAndSendSearchForModifyRequest(type , id) {
     xhr.send(data);
 }
 
-function createModifyTable(type, json){
+function createModifyTable(type, json) {
     window.alert(type)
     switch (type) {
         case "Student" :
             window.alert("Start response processing")
             generateModifyTableStudent(json)
             break
-        default:{ break}
+        default: {
+            break
+        }
     }
 
 }
@@ -699,10 +701,10 @@ function generateModifyTableStudent(response) {
 
     let table2 = "<tr><td>Student ID: " + student.id + "</td></tr>" +
         "<tr><td>Student Name : " +
-        "<input id=\"MSN\" type=\"text\" placeholder=\"Name\" value='"+student.name+"'/><" +
+        "<input id=\"MSN\" type=\"text\" placeholder=\"Name\" value='" + student.name + "'/><" +
         "/td></tr>" +
         "<tr><td>Birth Date : " +
-        "<input id=\"MSD\" type=\"date\" placeholder=\"Date\" value='"+student.birthDate+"'/>" +
+        "<input id=\"MSD\" type=\"date\" placeholder=\"Date\" value='" + student.birthDate + "'/>" +
         "</td></tr>" +
         "<tr><td>" +
         "<input type='button' style='width: 150px' value='ADD' " +

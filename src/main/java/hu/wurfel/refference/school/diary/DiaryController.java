@@ -11,8 +11,6 @@ import java.util.ArrayList;
 @RestController
 public class DiaryController {
 
-    @Autowired
-    ResponseCreationClarificationDiary responseCreationClarificationDiary;
 
     @Autowired
     DiaryService diaryService;
@@ -20,7 +18,7 @@ public class DiaryController {
     @PostMapping("/api/v1/search/Diary")
     public ResponseEntity<ArrayList> searchForStudent(@RequestBody DiaryRequest diaryRequest) {
         ArrayList answer = new ArrayList();
-        answer = responseCreationClarificationDiary.create(diaryRequest);
+        answer = diaryService.getAutomated(diaryRequest);
         return ResponseEntity.ok(answer);
     }
 

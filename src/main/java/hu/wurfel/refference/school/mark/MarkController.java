@@ -1,6 +1,5 @@
 package hu.wurfel.refference.school.mark;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,16 +10,13 @@ import java.util.ArrayList;
 @RestController
 public class MarkController {
 
-    @Autowired
-    ResponseCreationClarificationMark responseCreationClarificationMark;
 
-    @Autowired
     MarkService markService;
 
     @PostMapping("/api/v1/search/Mark")
     public ResponseEntity<ArrayList> searchForStudent(@RequestBody MarkRequest markRequest) {
         ArrayList answer = new ArrayList();
-        answer = responseCreationClarificationMark.create(markRequest);
+        answer = markService.getAutomated(markRequest);
         return ResponseEntity.ok(answer);
     }
 

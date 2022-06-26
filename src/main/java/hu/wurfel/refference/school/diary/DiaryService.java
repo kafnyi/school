@@ -2,29 +2,135 @@ package hu.wurfel.refference.school.diary;
 
 import hu.wurfel.refference.school.division.Class;
 import hu.wurfel.refference.school.division.ClassCrudService;
+import hu.wurfel.refference.school.division.ClassService;
 import hu.wurfel.refference.school.mark.Mark;
 import hu.wurfel.refference.school.mark.MarkCrudService;
+import hu.wurfel.refference.school.mark.MarkService;
 import hu.wurfel.refference.school.student.Student;
+import hu.wurfel.refference.school.student.StudentService;
 import hu.wurfel.refference.school.subject.Subject;
+import hu.wurfel.refference.school.subject.SubjectService;
 import hu.wurfel.refference.school.teacher.Teacher;
+import hu.wurfel.refference.school.teacher.TeacherService;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
 import java.util.ArrayList;
 
 @Service
 public class DiaryService extends DiaryCrudService {
-    @Autowired
-    private ClassCrudService classCrudService;
-    @Autowired
-    private MarkCrudService markCrudService;
 
-    public ArrayList<Diary> getDiariesByStudent(@NotNull Student student) {
+    private ClassCrudService classCrudService;
+    private MarkCrudService markCrudService;
+    private StudentService studentService;
+    private TeacherService teacherService;
+    private SubjectService subjectService;
+    private ClassService classService;
+    private MarkService markService;
+    private ArrayList<Diary> rContent;
+
+
+    public ArrayList getAutomated(DiaryRequest diaryRequest) {
+        rContent = new ArrayList<>();
+        switch (diaryRequest.getSearchWith()) {
+            case Student -> dWStudent(diaryRequest);
+            case Diary -> dWDiary(diaryRequest);
+            case Class -> dWClass(diaryRequest);
+            case Subject -> dWSubject(diaryRequest);
+            case Mark -> dWMark(diaryRequest);
+            case Teacher -> dWTeacher(diaryRequest);
+            default -> {
+            }
+        }
+        return rContent;
+    }
+
+    private void dWStudent(DiaryRequest diaryRequest) {
+        switch (diaryRequest.getSearchBy()) {
+            case StudentId ->
+                    rContent = getDiariesByStudent(studentService.getStudentByStudentId(Long.parseLong(diaryRequest.getSearchValue())));
+            case Name ->
+                    rContent = getDiariesByStudents(studentService.getStudentsByName(diaryRequest.getSearchValue()));
+            case Date ->
+                    rContent = getDiariesByStudents(studentService.getStudentsByBirth(diaryRequest.getSearchValue()));
+            default -> {
+            }
+        }
+    }
+
+    private void dWDiary(DiaryRequest diaryRequest) {
+        switch (diaryRequest.getSearchBy()) {
+            case DiaryId -> rContent.add(getDiaryByDiaryid(Integer.parseInt(diaryRequest.getSearchValue())));
+            case StudentId -> rContent = getDiariesByScid(Long.parseLong(diaryRequest.getSearchValue()));
+            case ClassId -> rContent = getDiariesByClassid(Integer.parseInt(diaryRequest.getSearchValue()));
+            default -> {
+            }
+        }
+    }
+
+    private void dWClass(DiaryRequest diaryRequest) {
+        switch (diaryRequest.getSearchBy()) {
+            case ClassId -> rContent = getDiariesByClassid(Integer.parseInt(diaryRequest.getSearchValue()));
+            case Grade ->
+                    rContent = getDiariesByClasses(classService.getClassesByGrade(Short.parseShort(diaryRequest.getSearchValue())));
+            case Sign ->
+                    rContent = getDiariesByClasses(classService.getClassesBySign(diaryRequest.getSearchValue().strip().charAt(0)));
+            case Year ->
+                    rContent = getDiariesByClasses(classService.getClassesByYear(Year.parse(diaryRequest.getSearchValue())));
+            case TeacherId ->
+                    rContent = getDiariesByClasses(classService.getClassesByTid(Long.parseLong(diaryRequest.getSearchValue())));
+            default -> {
+            }
+        }
+    }
+
+    private void dWSubject(DiaryRequest diaryRequest) {
+        switch (diaryRequest.getSearchBy()) {
+            case SubjectId ->
+                    rContent = getDiariesBySubject(subjectService.getSubjectBySubjectId(Integer.parseInt(diaryRequest.getSearchValue())));
+            case Name ->
+                    rContent = getDiariesBySubjects(subjectService.getSubjectsByName(diaryRequest.getSearchValue()));
+            case TeacherId ->
+                    rContent = getDiariesBySubjects(subjectService.getSubjectsByTid(Long.parseLong(diaryRequest.getSearchValue())));
+            default -> {
+            }
+        }
+    }
+
+    private void dWMark(DiaryRequest diaryRequest) {
+        switch (diaryRequest.getSearchBy()) {
+            case MarkId ->
+                    rContent.add(getDiaryByMark(markService.getMarkByMarkid(Long.parseLong(diaryRequest.getSearchValue()))));
+            case DiaryId -> rContent.add(getDiaryByDiaryid(Integer.parseInt(diaryRequest.getSearchValue())));
+            case Date -> rContent = getDiariesByMarks(markService.getMarksByDate(diaryRequest.getSearchValue()));
+            case SubjectId ->
+                    rContent = getDiariesByMarks(markService.getMarksBySubjectid(Integer.parseInt(diaryRequest.getSearchValue())));
+            case Mark ->
+                    rContent = getDiariesByMarks(markService.getMarksByMark(Byte.parseByte(diaryRequest.getSearchValue())));
+            default -> {
+            }
+        }
+    }
+
+    private void dWTeacher(DiaryRequest diaryRequest) {
+        switch (diaryRequest.getSearchBy()) {
+            case TeacherId ->
+                    rContent = getDiariesByTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(diaryRequest.getSearchValue())));
+            case Name ->
+                    rContent = getDiariesByTeachers(teacherService.getTeacherByName(diaryRequest.getSearchValue()));
+            case Date ->
+                    rContent = getDiariesByTeachers(teacherService.getTeacherByBirth(diaryRequest.getSearchValue()));
+            default -> {
+            }
+        }
+    }
+
+    protected ArrayList<Diary> getDiariesByStudent(@NotNull Student student) {
         return getDiariesByScid(student.getId());
     }
 
-    public ArrayList<Diary> getDiariesByStudents(@NotNull ArrayList<Student> students) {
+    protected ArrayList<Diary> getDiariesByStudents(@NotNull ArrayList<Student> students) {
         ArrayList<Diary> diaries = new ArrayList<>();
         for (Student student : students) {
             diaries.addAll(getDiariesByStudents(students));
@@ -32,11 +138,11 @@ public class DiaryService extends DiaryCrudService {
         return diaries;
     }
 
-    public ArrayList<Diary> getDiariesByClass(@NotNull Class division) {
+    protected ArrayList<Diary> getDiariesByClass(@NotNull Class division) {
         return getDiariesByClassid(division.getId());
     }
 
-    public ArrayList<Diary> getDiariesByClasses(@NotNull ArrayList<Class> classes) {
+    protected ArrayList<Diary> getDiariesByClasses(@NotNull ArrayList<Class> classes) {
         ArrayList<Diary> diaries = new ArrayList<>();
         for (Class division : classes) {
             diaries.addAll(getDiariesByClass(division));
@@ -44,11 +150,11 @@ public class DiaryService extends DiaryCrudService {
         return diaries;
     }
 
-    public Diary getDiaryByMark(@NotNull Mark mark) {
+    protected Diary getDiaryByMark(@NotNull Mark mark) {
         return getDiaryByDiaryid(mark.getDiaryID());
     }
 
-    public ArrayList<Diary> getDiariesByMarks(@NotNull ArrayList<Mark> marks) {
+    protected ArrayList<Diary> getDiariesByMarks(@NotNull ArrayList<Mark> marks) {
         ArrayList<Diary> diaries = new ArrayList<>();
         for (Mark mark : marks) {
             diaries.add(getDiaryByMark(mark));
@@ -56,7 +162,7 @@ public class DiaryService extends DiaryCrudService {
         return diaries;
     }
 
-    public ArrayList<Diary> getDiariesBySubject(@NotNull Subject subject) {
+    protected ArrayList<Diary> getDiariesBySubject(@NotNull Subject subject) {
         ArrayList<Diary> result = new ArrayList<>();
         for (Mark mark : new ArrayList<Mark>(markCrudService.getMarksBySubjectid(subject.getId()))) {
             result.add(getDiaryByMark(mark));
@@ -64,7 +170,7 @@ public class DiaryService extends DiaryCrudService {
         return result;
     }
 
-    public ArrayList<Diary> getDiariesBySubjects(@NotNull ArrayList<Subject> subjects) {
+    protected ArrayList<Diary> getDiariesBySubjects(@NotNull ArrayList<Subject> subjects) {
         ArrayList<Diary> diaries = new ArrayList<>();
         for (Subject subject : subjects) {
             diaries.addAll(getDiariesBySubject(subject));
@@ -72,7 +178,7 @@ public class DiaryService extends DiaryCrudService {
         return diaries;
     }
 
-    public ArrayList<Diary> getDiariesByTeacher(@NotNull Teacher teacher) {
+    protected ArrayList<Diary> getDiariesByTeacher(@NotNull Teacher teacher) {
         ArrayList<Diary> result = new ArrayList<>();
         for (Class division : new ArrayList<Class>(classCrudService.getClassesByTid(teacher.getId()))) {
             result.addAll(getDiariesByClass(division));
@@ -80,7 +186,7 @@ public class DiaryService extends DiaryCrudService {
         return result;
     }
 
-    public ArrayList<Diary> getDiariesByTeachers(@NotNull ArrayList<Teacher> teachers) {
+    protected ArrayList<Diary> getDiariesByTeachers(@NotNull ArrayList<Teacher> teachers) {
         ArrayList<Diary> diaries = new ArrayList<>();
         for (Teacher teacher : teachers) {
             diaries.addAll(getDiariesByTeacher(teacher));

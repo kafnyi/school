@@ -12,8 +12,6 @@ import java.util.ArrayList;
 @RestController
 public class ClassController {
 
-    @Autowired
-    ResponseCreationClarificationClass responseCreationClarificationClass;
 
     @Autowired
     ClassService classService;
@@ -21,7 +19,7 @@ public class ClassController {
     @PostMapping("/api/v1/search/Class")
     public ResponseEntity<ArrayList> searchForStudent(@RequestBody ClassRequest classRequest) {
         ArrayList answer = new ArrayList();
-        answer = responseCreationClarificationClass.create(classRequest);
+        answer = classService.getAutomated(classRequest);
         return ResponseEntity.ok(answer);
     }
 
