@@ -517,7 +517,7 @@ function createAndSendAddingRequest() {
     let addValue = createAddingValue(addType)
 
     let xhr = new XMLHttpRequest();
-    let url = "/api/v1/add/" + addType;
+    let url = "/api/v1/" + addType + "/adding";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -626,8 +626,8 @@ function getMarkDetailsForAdding() {
 function createAndSendModifyRequest(type, inID) {
 
     let xhr = new XMLHttpRequest();
-    let url = "/api/v1/modify/" + type;
-    xhr.open("POST", url, true);
+    let url = "/api/v1/" + type + "/modify";
+    xhr.open("PUT", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -637,9 +637,7 @@ function createAndSendModifyRequest(type, inID) {
         }
     }
     const id = inID;
-    const newName = document.getElementById("MSN").value
-    const newBirthDate = document.getElementById("MSD").value
-    let modify = {id: id, name: newName, date: newBirthDate}
+    let modify = getDataForModify
     const data = JSON.stringify(modify);
     xhr.send(data);
     window.alert(modify);
@@ -647,20 +645,21 @@ function createAndSendModifyRequest(type, inID) {
 
 }
 
-function createAndSendDeleteRequest(type, toDelete) {
-    let xhr = new XMLHttpRequest();
-    let url = "/api/v1/delete/" + type;
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            window.alert("sucess DELETE")
-        }
+function getDataForModify(type, id) {
+    switch (type) {
+        case "Student":
+            return getModifyDataForStudent(id)
+        case "Teacher":
+            return getModifyDataForTeacher(id)
+        case "Diary":
+            return getModifyDataForDiary(id)
+        case "Subject":
+            return getModifyDataForSubject(id)
+        case "Mark":
+            return getModifyDataForMark(id)
+        case "Class":
+            return getModifyDataForClass(id)
     }
-    const modify = toDelete;
-    const data = JSON.stringify(modify);
-    xhr.send(data);
-    window.alert(modify + " is sent to deleteing");
 }
 
 function createAndSendSearchForModifyRequest(type, id) {
@@ -694,7 +693,6 @@ function createModifyTable(type, json) {
 
 }
 
-
 function generateModifyTableStudent(response) {
     let student = response[0]
 
@@ -714,4 +712,78 @@ function generateModifyTableStudent(response) {
         "onclick='createAndSendDeleteRequest(\"Student\", " + student.id + ")'></td>" +
         "</tr>";
     document.getElementById("searchTable2").innerHTML = table2
+}
+
+function getModifyDataForStudent(id) {
+    let data = {
+        id: id,
+        name: document.getElementById("MSN").value,
+        date: document.getElementById("MSD").value
+    }
+    return data
+}
+
+function getModifyDataForTeacher(id) {
+    let data = {
+        id: id,
+        name: document.getElementById("MTN").value,
+        date: document.getElementById("MTD").value
+    }
+    return data
+}
+
+function getModifyDataForDiary(id) {
+    let data = {
+        id: id,
+        name: document.getElementById("MDS").value,
+        date: document.getElementById("MDC").value
+    }
+    return data
+}
+
+function getModifyDataForSubject(id) {
+    let data = {
+        id: id,
+        name: document.getElementById("MSjN").value,
+        teacherId: document.getElementById("MSjT").value
+    }
+    return data
+}
+
+function getModifyDataForMark(id) {
+    let data = {
+        id: id,
+        diaryId: document.getElementById("MMD").value,
+        date: document.getElementById("MMD").value,
+        subjectId: document.getElementById("MMSj").value,
+        mark: document.getElementById("MMM").value
+    }
+    return data
+}
+
+function getModifyDataForClass(id) {
+    let data = {
+        id: id,
+        grade: document.getElementById("MCG").value,
+        sign: document.getElementById("MCS").value,
+        year: document.getElementById("MCY").value,
+        teacherId: document.getElementById("MCT").value
+
+    }
+    return data
+}
+
+//Delete function
+
+function createAndSendDeleteRequest(type, toDelete) {
+    let xhr = new XMLHttpRequest();
+    let url = "/api/v1/" + type + "/delete/" + toDelete;
+    xhr.open("DELETE", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            window.alert("sucess DELETE")
+        }
+    }
+    xhr.send();
 }
