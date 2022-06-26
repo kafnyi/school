@@ -12,16 +12,16 @@ public class StudentController {
     StudentService studentService;
 
     @PostMapping("/search")
-    public ResponseEntity<ArrayList> searchForStudent(@RequestBody StudentRequest studentRequest) {
+    public ResponseEntity<ArrayList> searchForStudent(@RequestBody StudentRequestForSearch studentRequestForSearch) {
         ArrayList answer = new ArrayList();
-        answer = studentService.getAutomated(studentRequest);
+        answer = studentService.getAutomated(studentRequestForSearch);
         return ResponseEntity.ok(answer);
     }
 
     @PostMapping("/adding")
-    public ResponseEntity<ArrayList> adding(@RequestBody StudentRequest studentRequest) {
+    public ResponseEntity<ArrayList> adding(@RequestBody StudentRequestForSearch studentRequestForSearch) {
         ArrayList answer = new ArrayList();
-        answer.add(studentService.saveStudent(Long.parseLong(studentRequest.getId()), studentRequest.getName(), studentRequest.getDate()));
+        answer.add(studentService.saveStudent(Long.parseLong(studentRequestForSearch.getId()), studentRequestForSearch.getName(), studentRequestForSearch.getDate()));
         return ResponseEntity.ok(answer);
     }
 
@@ -31,10 +31,10 @@ public class StudentController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<ArrayList> modifyStudent(@RequestBody StudentRequest studentRequest) {
-        Student student = studentService.getStudentByStudentId(Long.parseLong(studentRequest.getId()));
-        student.setName(studentRequest.getName());
-        student.setBirthDate(studentRequest.getDate());
+    public ResponseEntity<ArrayList> modifyStudent(@RequestBody StudentRequestForSearch studentRequestForSearch) {
+        Student student = studentService.getStudentByStudentId(Long.parseLong(studentRequestForSearch.getId()));
+        student.setName(studentRequestForSearch.getName());
+        student.setBirthDate(studentRequestForSearch.getDate());
         studentService.saveStudent(student);
         ArrayList answer = new ArrayList();
         answer.add(studentService.getStudentByStudentId(student.getId()));

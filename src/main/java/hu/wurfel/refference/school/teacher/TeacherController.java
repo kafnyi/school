@@ -11,16 +11,16 @@ public class TeacherController {
     TeacherService teacherService;
 
     @PostMapping("/search")
-    public ResponseEntity<ArrayList> searchForStudent(@RequestBody TeacherRequest teacherRequest) {
+    public ResponseEntity<ArrayList> searchForStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
         ArrayList answer = new ArrayList();
-        answer = teacherService.getAutomated(teacherRequest);
+        answer = teacherService.getAutomated(teacherRequestForSearch);
         return ResponseEntity.ok(answer);
     }
 
     @PostMapping("/adding")
-    public ResponseEntity<ArrayList> adding(@RequestBody TeacherRequest teacherRequest) {
+    public ResponseEntity<ArrayList> adding(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
         ArrayList answer = new ArrayList();
-        answer.add(teacherService.saveTeacher(Long.parseLong(teacherRequest.getId()), teacherRequest.getName(), teacherRequest.getDate()));
+        answer.add(teacherService.saveTeacher(Long.parseLong(teacherRequestForSearch.getId()), teacherRequestForSearch.getName(), teacherRequestForSearch.getDate()));
         return ResponseEntity.ok(answer);
     }
 
@@ -30,10 +30,10 @@ public class TeacherController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<ArrayList> modifyStudent(@RequestBody TeacherRequest teacherRequest) {
-        Teacher teacher = teacherService.getTeacherByTeacherId(Long.parseLong(teacherRequest.getId()));
-        teacher.setName(teacherRequest.getName());
-        teacher.setBirthDate(teacherRequest.getDate());
+    public ResponseEntity<ArrayList> modifyStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
+        Teacher teacher = teacherService.getTeacherByTeacherId(Long.parseLong(teacherRequestForSearch.getId()));
+        teacher.setName(teacherRequestForSearch.getName());
+        teacher.setBirthDate(teacherRequestForSearch.getDate());
         teacherService.saveTeacher(teacher);
         ArrayList answer = new ArrayList();
         answer.add(teacherService.getTeacherByTeacherId(teacher.getId()));

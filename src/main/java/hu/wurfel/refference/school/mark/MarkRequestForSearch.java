@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class MarkRequest implements Serializable {
+public class MarkRequestForSearch implements Serializable {
     private EntityNaming searchFor;
     private EntityNaming searchWith;
     private SearchByFields searchBy;

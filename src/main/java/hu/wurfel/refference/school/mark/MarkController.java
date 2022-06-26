@@ -12,16 +12,16 @@ public class MarkController {
     MarkService markService;
 
     @PostMapping("/search")
-    public ResponseEntity<ArrayList> searchForStudent(@RequestBody MarkRequest markRequest) {
+    public ResponseEntity<ArrayList> searchForStudent(@RequestBody MarkRequestForSearch markRequestForSearch) {
         ArrayList answer = new ArrayList();
-        answer = markService.getAutomated(markRequest);
+        answer = markService.getAutomated(markRequestForSearch);
         return ResponseEntity.ok(answer);
     }
 
     @PostMapping("/adding")
-    public ResponseEntity<ArrayList> adding(@RequestBody MarkRequest markRequest) {
+    public ResponseEntity<ArrayList> adding(@RequestBody MarkRequestForSearch markRequestForSearch) {
         ArrayList answer = new ArrayList();
-        answer.add(markService.saveMark(Long.parseLong(markRequest.getId()), Integer.parseInt(markRequest.getDiaryId()), markRequest.getDate(), Integer.parseInt(markRequest.getSubjectId()), Byte.parseByte(markRequest.getMark())));
+        answer.add(markService.saveMark(Long.parseLong(markRequestForSearch.getId()), Integer.parseInt(markRequestForSearch.getDiaryId()), markRequestForSearch.getDate(), Integer.parseInt(markRequestForSearch.getSubjectId()), Byte.parseByte(markRequestForSearch.getMark())));
         return ResponseEntity.ok(answer);
     }
 
@@ -31,12 +31,12 @@ public class MarkController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<ArrayList> modifyStudent(@RequestBody MarkRequest markRequest) {
-        Mark mark = markService.getMarkByMarkid(Long.parseLong(markRequest.getId()));
-        mark.setDiaryID(Integer.parseInt(markRequest.getDiaryId()));
-        mark.setSubjectID(Integer.parseInt(markRequest.getSubjectId()));
-        mark.setDate(markRequest.getDate());
-        mark.setMark(Byte.parseByte(markRequest.getMark()));
+    public ResponseEntity<ArrayList> modifyStudent(@RequestBody MarkRequestForSearch markRequestForSearch) {
+        Mark mark = markService.getMarkByMarkid(Long.parseLong(markRequestForSearch.getId()));
+        mark.setDiaryID(Integer.parseInt(markRequestForSearch.getDiaryId()));
+        mark.setSubjectID(Integer.parseInt(markRequestForSearch.getSubjectId()));
+        mark.setDate(markRequestForSearch.getDate());
+        mark.setMark(Byte.parseByte(markRequestForSearch.getMark()));
         markService.saveMark(mark);
         ArrayList answer = new ArrayList();
         answer.add(markService.getMarkByMarkid(mark.getId()));

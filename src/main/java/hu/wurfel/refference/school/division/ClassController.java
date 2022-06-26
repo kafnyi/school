@@ -13,16 +13,16 @@ public class ClassController {
     ClassService classService;
 
     @PostMapping("/search")
-    public ResponseEntity<ArrayList> searchForStudent(@RequestBody ClassRequest classRequest) {
+    public ResponseEntity<ArrayList> searchForStudent(@RequestBody ClassRequestForSearch classRequestForSearch) {
         ArrayList answer = new ArrayList();
-        answer = classService.getAutomated(classRequest);
+        answer = classService.getAutomated(classRequestForSearch);
         return ResponseEntity.ok(answer);
     }
 
     @PostMapping("/adding")
-    public ResponseEntity<ArrayList> adding(@RequestBody ClassRequest classRequest) {
+    public ResponseEntity<ArrayList> adding(@RequestBody ClassRequestForSearch classRequestForSearch) {
         ArrayList answer = new ArrayList();
-        answer.add(classService.saveClass(Integer.parseInt(classRequest.getId()), Short.parseShort(classRequest.getGrade()), classRequest.getSign().strip().charAt(0), Year.parse(classRequest.getYear()), Long.parseLong(classRequest.getTeacherId())));
+        answer.add(classService.saveClass(Integer.parseInt(classRequestForSearch.getId()), Short.parseShort(classRequestForSearch.getGrade()), classRequestForSearch.getSign().strip().charAt(0), Year.parse(classRequestForSearch.getYear()), Long.parseLong(classRequestForSearch.getTeacherId())));
         return ResponseEntity.ok(answer);
     }
 
@@ -32,12 +32,12 @@ public class ClassController {
     }
 
     @PutMapping("/api/vi/modify/Class")
-    public ResponseEntity<ArrayList> modifyStudent(@RequestBody ClassRequest classRequest) {
-        Class division = classService.getClassByClassId(Integer.parseInt(classRequest.getId()));
-        division.setId(Integer.parseInt(classRequest.getId()));
-        division.setGrade(Short.parseShort(classRequest.getGrade()));
-        division.setSign(classRequest.getSign().strip().charAt(0));
-        division.setYear(Year.parse(classRequest.getYear()));
+    public ResponseEntity<ArrayList> modifyStudent(@RequestBody ClassRequestForSearch classRequestForSearch) {
+        Class division = classService.getClassByClassId(Integer.parseInt(classRequestForSearch.getId()));
+        division.setId(Integer.parseInt(classRequestForSearch.getId()));
+        division.setGrade(Short.parseShort(classRequestForSearch.getGrade()));
+        division.setSign(classRequestForSearch.getSign().strip().charAt(0));
+        division.setYear(Year.parse(classRequestForSearch.getYear()));
         classService.saveClass(division);
         ArrayList answer = new ArrayList();
         answer.add(classService.getClassByClassId(division.getId()));
