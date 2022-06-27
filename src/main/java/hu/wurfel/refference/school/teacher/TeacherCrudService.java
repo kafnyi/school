@@ -15,47 +15,47 @@ public class TeacherCrudService {
         this.teacherRepository = teacherRepository;
     }
 
-    public Iterable<Teacher> getAllTeacher() {
+    public Iterable<Teacher> getAll() {
         return new ArrayList<>(teacherRepository.findAll());
     }
 
-    public Teacher getTeacherByTeacherId(Long Id) {
+    public Teacher getByTeacherId(Long Id) {
         return teacherRepository.findById(Id).get();
     }
 
-    public List<Teacher> getTeacherByName(String name) {
+    public List<Teacher> getByName(String name) {
         return teacherRepository.findAllByName(name);
     }
 
-    public List<Teacher> getTeacherByBirth(String date) {
+    public List<Teacher> getByBirth(String date) {
         return teacherRepository.findAllByBirthDate(date);
     }
 
-    public Teacher saveTeacher(@NotNull Teacher teacher) {
+    public Teacher save(@NotNull Teacher teacher) {
         teacherRepository.save(teacher);
-        return getTeacherByTeacherId(teacher.getId());
+        return getByTeacherId(teacher.getId());
     }
 
-    public Teacher saveTeacher(Long id, String name, String birth) {
-        return saveTeacher(new Teacher(id, name, birth));
+    public Teacher save(Long id, String name, String birth) {
+        return save(new Teacher(id, name, birth));
     }
 
-    public Teacher setTeacherID(@NotNull Teacher teacher, long id) {
+    public Teacher setID(@NotNull Teacher teacher, long id) {
         teacher.setId(id);
-        return saveTeacher(teacher);
+        return save(teacher);
     }
 
-    public Teacher setTeacherName(@NotNull Teacher teacher, String name) {
+    public Teacher setName(@NotNull Teacher teacher, String name) {
         teacher.setName(name);
-        return saveTeacher(teacher);
+        return save(teacher);
     }
 
-    public Teacher setTeacherBirth(@NotNull Teacher teacher, String date) {
+    public Teacher setBirth(@NotNull Teacher teacher, String date) {
         teacher.setBirthDate(date);
-        return saveTeacher(teacher);
+        return save(teacher);
     }
 
-    public void deleteTeacher(@NotNull Teacher teacher) {
+    public void delete(@NotNull Teacher teacher) {
         teacherRepository.delete(teacher);
     }
 }

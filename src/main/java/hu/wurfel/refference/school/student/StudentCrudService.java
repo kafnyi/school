@@ -15,51 +15,51 @@ public class StudentCrudService {
         this.studentRepository = studentRepository;
     }
 
-    public List<Student> getAllStudents() {
+    public List<Student> getAll() {
         return new ArrayList<Student>(studentRepository.findAll());
     }
 
-    public Student getStudentByStudentId(long id) {
+    public Student getByStudentId(long id) {
         return studentRepository.findById(id).get();
     }
 
-    public List<Student> getStudentsByName(String name) {
+    public List<Student> getByName(String name) {
         return studentRepository.findAllByName(name);
     }
 
-    public List<Student> getStudentsByBirth(String date) {
+    public List<Student> getByBirth(String date) {
         return studentRepository.findAllByBirthDate(date);
     }
 
-    public Student getStudentByNameAndBirth(String name, String birth) {
+    public Student getByNameAndBirth(String name, String birth) {
         return studentRepository.findByNameAndBirthDate(name, birth).get();
     }
 
-    public Student saveStudent(@NotNull Student student) {
+    public Student save(@NotNull Student student) {
         studentRepository.save(student);
-        return getStudentByStudentId(student.getId());
+        return getByStudentId(student.getId());
     }
 
-    public Student saveStudent(long id, String name, String birth) {
-        return saveStudent(new Student(id, name, birth));
+    public Student save(long id, String name, String birth) {
+        return save(new Student(id, name, birth));
     }
 
-    public Student setStudentID(@NotNull Student student, long id) {
+    public Student setID(@NotNull Student student, long id) {
         student.setId(id);
-        return saveStudent(student);
+        return save(student);
     }
 
-    public Student setStudentName(@NotNull Student student, String name) {
+    public Student setName(@NotNull Student student, String name) {
         student.setName(name);
-        return saveStudent(student);
+        return save(student);
     }
 
-    public Student setStudentBirth(@NotNull Student student, String date) {
+    public Student setBirthDate(@NotNull Student student, String date) {
         student.setBirthDate(date);
-        return saveStudent(student);
+        return save(student);
     }
 
-    public void deleteStudent(@NotNull Student student) {
+    public void delete(@NotNull Student student) {
         studentRepository.delete(student);
     }
 }

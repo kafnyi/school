@@ -24,25 +24,25 @@ public class ClassController {
     @PostMapping("/api/vi/Class/adding")
     public ResponseEntity<List<Class>> adding(@RequestBody ClassRequestForSearch classRequestForSearch) {
         List<Class> answer = new ArrayList<>();
-        answer.add(classService.saveClass(Integer.parseInt(classRequestForSearch.getId()), Short.parseShort(classRequestForSearch.getGrade()), classRequestForSearch.getSign().strip().charAt(0), Year.parse(classRequestForSearch.getYear()), Long.parseLong(classRequestForSearch.getTeacherId())));
+        answer.add(classService.save(Integer.parseInt(classRequestForSearch.getId()), Short.parseShort(classRequestForSearch.getGrade()), classRequestForSearch.getSign().strip().charAt(0), Year.parse(classRequestForSearch.getYear()), Long.parseLong(classRequestForSearch.getTeacherId())));
         return ResponseEntity.ok(answer);
     }
 
     @DeleteMapping("/api/vi/Class/delete/{id}")
     public void delete(@PathVariable String id) {
-        classService.deleteClass(classService.getClassByClassId(Integer.parseInt(id)));
+        classService.delete(classService.getByClassId(Integer.parseInt(id)));
     }
 
     @PutMapping("/api/vi/Class/api/vi/modify/Class")
     public ResponseEntity<List<Class>> modify(@RequestBody ClassRequestForSearch classRequestForSearch) {
-        Class division = classService.getClassByClassId(Integer.parseInt(classRequestForSearch.getId()));
+        Class division = classService.getByClassId(Integer.parseInt(classRequestForSearch.getId()));
         division.setId(Integer.parseInt(classRequestForSearch.getId()));
         division.setGrade(Short.parseShort(classRequestForSearch.getGrade()));
         division.setSign(classRequestForSearch.getSign().strip().charAt(0));
         division.setYear(Year.parse(classRequestForSearch.getYear()));
-        classService.saveClass(division);
+        classService.save(division);
         List<Class> answer = new ArrayList<>();
-        answer.add(classService.getClassByClassId(division.getId()));
+        answer.add(classService.getByClassId(division.getId()));
         return ResponseEntity.ok(answer);
     }
 
@@ -50,22 +50,22 @@ public class ClassController {
 
         switch (searchWith) {
             case Student -> {
-                return classService.cWStudent(searchBy, value);
+                return classService.searchWithStudent(searchBy, value);
             }
             case Diary -> {
-                return classService.cWDiary(searchBy, value);
+                return classService.searchWithDiary(searchBy, value);
             }
             case Class -> {
-                return classService.cWClass(searchBy, value);
+                return classService.searchWithClass(searchBy, value);
             }
             case Subject -> {
-                return classService.cWSubject(searchBy, value);
+                return classService.searchWithSubject(searchBy, value);
             }
             case Mark -> {
-                return classService.cWMark(searchBy, value);
+                return classService.searchWithMark(searchBy, value);
             }
             case Teacher -> {
-                return classService.cWTeacher(searchBy, value);
+                return classService.searchWithTeacher(searchBy, value);
             }
             default -> {
                 return null;

@@ -23,23 +23,23 @@ public class SubjectController {
     @PostMapping("/api/v1/Subject/adding")
     public ResponseEntity<List<Subject>> adding(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
         List<Subject> answer = new ArrayList<>();
-        answer.add(subjectService.saveSubject(Integer.parseInt(subjectRequestForSearch.getId()), subjectRequestForSearch.getName(), Long.parseLong(subjectRequestForSearch.getTeacherId())));
+        answer.add(subjectService.save(Integer.parseInt(subjectRequestForSearch.getId()), subjectRequestForSearch.getName(), Long.parseLong(subjectRequestForSearch.getTeacherId())));
         return ResponseEntity.ok(answer);
     }
 
     @DeleteMapping("/api/v1/Subject/delete/{id}")
     public void delete(@PathVariable String id) {
-        subjectService.delete(subjectService.getSubjectBySubjectId(Integer.parseInt(id)));
+        subjectService.delete(subjectService.getBySubjectId(Integer.parseInt(id)));
     }
 
     @PutMapping("/api/v1/Subject/modify")
     public ResponseEntity<List<Subject>> modifyStudent(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
-        Subject subject = subjectService.getSubjectBySubjectId(Integer.parseInt(subjectRequestForSearch.getId()));
+        Subject subject = subjectService.getBySubjectId(Integer.parseInt(subjectRequestForSearch.getId()));
         subject.setSubjectName(subjectRequestForSearch.getName());
         subject.setTid(Long.parseLong(subjectRequestForSearch.getTeacherId()));
-        subjectService.saveSubject(subject);
+        subjectService.save(subject);
         List<Subject> answer = new ArrayList<>();
-        answer.add(subjectService.getSubjectBySubjectId(subject.getId()));
+        answer.add(subjectService.getBySubjectId(subject.getId()));
         return ResponseEntity.ok(answer);
     }
 
@@ -47,22 +47,22 @@ public class SubjectController {
 
         switch (searchWith) {
             case Student -> {
-                return subjectService.sjWStudent(searchBy, value);
+                return subjectService.searchWithStudent(searchBy, value);
             }
             case Diary -> {
-                return subjectService.sjWDiary(searchBy, value);
+                return subjectService.searchWithDiary(searchBy, value);
             }
             case Class -> {
-                return subjectService.sjWClass(searchBy, value);
+                return subjectService.searchWithClass(searchBy, value);
             }
             case Subject -> {
-                return subjectService.sjWSubject(searchBy, value);
+                return subjectService.searchWithSubject(searchBy, value);
             }
             case Mark -> {
-                return subjectService.sjWMark(searchBy, value);
+                return subjectService.searchWithMark(searchBy, value);
             }
             case Teacher -> {
-                return subjectService.sjWTeacher(searchBy, value);
+                return subjectService.searchWithTeacher(searchBy, value);
             }
             default -> {
                 return null;
