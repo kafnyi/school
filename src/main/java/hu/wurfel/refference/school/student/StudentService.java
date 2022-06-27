@@ -85,12 +85,12 @@ public class StudentService extends StudentCrudService {
 
 	List<Student> sWMark(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
-			case MarkId -> rContent.add(getStudentByMark(markCrudService.getMarkByMarkid(Long.parseLong(value))));
+			case MarkId -> rContent.add(getStudentByMark(markCrudService.getByMarkid(Long.parseLong(value))));
 			case DiaryId -> rContent.add(getStudentByDiary(diaryCrudService.getByDiaryId(Integer.parseInt(value))));
-			case Date -> rContent = getStudentsByMarks(markCrudService.getMarksByDate(value));
+			case Date -> rContent = getStudentsByMarks(markCrudService.getByDate(value));
 			case SubjectId ->
 					rContent = getStudentsBySubject(subjectCrudService.getSubjectBySubjectId(Integer.parseInt(value)));
-			case Mark -> rContent = getStudentsByMarks(markCrudService.getMarksByMark(Byte.parseByte(value)));
+			case Mark -> rContent = getStudentsByMarks(markCrudService.getByMark(Byte.parseByte(value)));
 			default -> rContent = null;
 		}
 		return rContent;
@@ -149,7 +149,7 @@ public class StudentService extends StudentCrudService {
 
 	protected List<Student> getStudentsBySubject(@NotNull Subject subject) {
 		List<Student> students = new ArrayList<>();
-		for (Mark mark : new ArrayList<>(markCrudService.getMarksBySubjectid(subject.getId()))) {
+		for (Mark mark : new ArrayList<>(markCrudService.getBySubjectid(subject.getId()))) {
 			students.add(getStudentByMark(mark));
 		}
 		return students;

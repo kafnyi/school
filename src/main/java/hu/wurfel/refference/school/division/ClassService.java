@@ -83,12 +83,11 @@ public class ClassService extends ClassCrudService {
 
     List<Class> searchWithMark(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case MarkId -> rContent.add(getByMark(markCrudService.getMarkByMarkid(Long.parseLong(value))));
+            case MarkId -> rContent.add(getByMark(markCrudService.getByMarkid(Long.parseLong(value))));
             case DiaryId -> rContent.add(getByDiary(diaryCrudService.getByDiaryId(Integer.parseInt(value))));
-            case Date -> rContent = getClassesByMarks(markCrudService.getMarksByDate(value));
-            case SubjectId ->
-                    rContent = getClassesByMarks(markCrudService.getMarksBySubjectid(Integer.parseInt(value)));
-            case Mark -> rContent = getClassesByMarks(markCrudService.getMarksByMark(Byte.parseByte(value)));
+            case Date -> rContent = getClassesByMarks(markCrudService.getByDate(value));
+            case SubjectId -> rContent = getClassesByMarks(markCrudService.getBySubjectid(Integer.parseInt(value)));
+            case Mark -> rContent = getClassesByMarks(markCrudService.getByMark(Byte.parseByte(value)));
             default -> rContent = null;
         }
         return rContent;
@@ -158,7 +157,7 @@ public class ClassService extends ClassCrudService {
 
     protected List<Class> getBySubject(@NotNull Subject subject) {
         List<Class> classes = new ArrayList<>();
-        for (Mark mark : new ArrayList<>(markCrudService.getMarksBySubjectid(subject.getId()))) {
+        for (Mark mark : new ArrayList<>(markCrudService.getBySubjectid(subject.getId()))) {
             classes.add(getByMark(mark));
         }
         return classes;

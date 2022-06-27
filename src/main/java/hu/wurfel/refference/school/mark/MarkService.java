@@ -84,11 +84,11 @@ public class MarkService extends MarkCrudService {
 
     List<Mark> mWMark(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case MarkId -> rContent.add(getMarkByMarkid(Long.parseLong(value)));
-            case DiaryId -> rContent = getMarksByDiaryid(Integer.parseInt(value));
-            case Date -> rContent = getMarksByDate(value);
-            case SubjectId -> rContent = getMarksBySubjectid(Integer.parseInt(value));
-            case Mark -> rContent = getMarksByMark(Byte.parseByte(value));
+            case MarkId -> rContent.add(getByMarkid(Long.parseLong(value)));
+            case DiaryId -> rContent = getByDiaryid(Integer.parseInt(value));
+            case Date -> rContent = getByDate(value);
+            case SubjectId -> rContent = getBySubjectid(Integer.parseInt(value));
+            case Mark -> rContent = getByMark(Byte.parseByte(value));
             default -> rContent = null;
         }
         return rContent;
@@ -106,7 +106,7 @@ public class MarkService extends MarkCrudService {
     }
 
     protected List<Mark> getMarksByDiary(@NotNull Diary diary) {
-        return getMarksByDiaryid(diary.getId());
+        return getByDiaryid(diary.getId());
     }
 
     protected List<Mark> getMarksByDiaries(@NotNull List<Diary> diaries) {
@@ -150,7 +150,7 @@ public class MarkService extends MarkCrudService {
     }
 
     public List<Mark> getMarksBySubject(@NotNull Subject subject) {
-        return getMarksBySubjectid(subject.getId());
+        return getBySubjectid(subject.getId());
     }
 
     protected List<Mark> getMarksBySubjects(@NotNull List<Subject> subjects) {

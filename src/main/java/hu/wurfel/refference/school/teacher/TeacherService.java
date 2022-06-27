@@ -88,12 +88,12 @@ public class TeacherService extends TeacherCrudService {
 
 	List<Teacher> tWMark(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
-			case MarkId -> rContent.add(getTeacherByMark(markCrudService.getMarkByMarkid(Long.parseLong(value))));
-			case DiaryId -> rContent = getTeachersByMarks(markCrudService.getMarksByDiaryid(Integer.parseInt(value)));
-			case Date -> rContent = getTeachersByMarks(markCrudService.getMarksByDate(value));
+			case MarkId -> rContent.add(getTeacherByMark(markCrudService.getByMarkid(Long.parseLong(value))));
+			case DiaryId -> rContent = getTeachersByMarks(markCrudService.getByDiaryid(Integer.parseInt(value)));
+			case Date -> rContent = getTeachersByMarks(markCrudService.getByDate(value));
 			case SubjectId ->
 					rContent.add(getTeacherBySubject(subjectCrudService.getSubjectBySubjectId(Integer.parseInt(value))));
-			case Mark -> rContent = getTeachersByMarks(markCrudService.getMarksByMark(Byte.parseByte(value)));
+			case Mark -> rContent = getTeachersByMarks(markCrudService.getByMark(Byte.parseByte(value)));
 			default -> rContent = null;
 		}
 		return rContent;
@@ -147,7 +147,7 @@ public class TeacherService extends TeacherCrudService {
 
 	protected List<Teacher> getTeachersByDiary(@NotNull Diary diary) {
 		List<Teacher> result = new ArrayList<>();
-		for (Mark mark : new ArrayList<>(markCrudService.getMarksByDiaryid(diary.getId()))) {
+		for (Mark mark : new ArrayList<>(markCrudService.getByDiaryid(diary.getId()))) {
 			result.add(getTeacherByMark(mark));
 		}
 		return result;
