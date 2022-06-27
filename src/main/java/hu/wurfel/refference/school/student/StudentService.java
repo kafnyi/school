@@ -61,11 +61,11 @@ public class StudentService extends StudentCrudService {
 
 	List<Student> sWClass(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
-			case ClassId -> rContent = getStudentsByClass(classCrudService.getClassByClassId(Integer.parseInt(value)));
-			case Grade -> rContent = getStudentsByClasses(classCrudService.getClassesByGrade(Short.parseShort(value)));
-			case Sign -> rContent = getStudentsByClasses(classCrudService.getClassesBySign(value.strip().charAt(0)));
-			case Year -> rContent = getStudentsByClasses(classCrudService.getClassesByYear(Year.parse(value)));
-			case TeacherId -> rContent = getStudentsByClasses(classCrudService.getClassesByTid(Long.parseLong(value)));
+			case ClassId -> rContent = getStudentsByClass(classCrudService.getByClassId(Integer.parseInt(value)));
+			case Grade -> rContent = getStudentsByClasses(classCrudService.getByGrade(Short.parseShort(value)));
+			case Sign -> rContent = getStudentsByClasses(classCrudService.getBySign(value.strip().charAt(0)));
+			case Year -> rContent = getStudentsByClasses(classCrudService.getByYear(Year.parse(value)));
+			case TeacherId -> rContent = getStudentsByClasses(classCrudService.getByTid(Long.parseLong(value)));
 			default -> rContent = null;
 		}
 		return rContent;
@@ -165,7 +165,7 @@ public class StudentService extends StudentCrudService {
 
 	protected List<Student> getStudentsByTeacher(@NotNull Teacher teacher) {
 		List<Student> students = new ArrayList<>();
-		for (Class division : new ArrayList<>(classCrudService.getClassesByTid(teacher.getId()))) {
+		for (Class division : new ArrayList<>(classCrudService.getByTid(teacher.getId()))) {
 			students.addAll(getStudentsByClass(division));
 		}
 		return students;

@@ -17,81 +17,81 @@ public class ClassCrudService {
     }
 
 
-    public List<Class> getAllClasses() {
+    public List<Class> getAll() {
         return new ArrayList<Class>(classRepository.findAll());
     }
 
-    public Class getClassByClassId(Integer cid) {
+    public Class getByClassId(Integer cid) {
         return classRepository.findById(cid).get();
     }
 
-    public List<Class> getClassesByGrade(short grade) {
+    public List<Class> getByGrade(short grade) {
         return classRepository.findAllByGrade(grade);
     }
 
-    public List<Class> getClassesBySign(char sign) {
+    public List<Class> getBySign(char sign) {
         return classRepository.findAllBySign(sign);
     }
 
-    public List<Class> getClassesByYear(Year year) {
+    public List<Class> getByYear(Year year) {
         return classRepository.findAllByYear(year);
     }
 
-    public List<Class> getClassesByTid(Long tid) {
+    public List<Class> getByTid(Long tid) {
         return classRepository.findAllByTeacherId(tid);
     }
 
-    public List<Class> getClassesByGradeAndSign(short grade, char sign) {
+    public List<Class> getByGradeAndSign(short grade, char sign) {
         return classRepository.findAllByGradeAndSign(grade, sign);
     }
 
-    public List<Class> getClassesByGradeAndYear(short grade, Year year) {
+    public List<Class> getByGradeAndYear(short grade, Year year) {
         return classRepository.findAllByGradeAndYear(grade, year);
     }
 
-    public List<Class> getClassesBySignAndYear(char sign, Year year) {
+    public List<Class> getBySignAndYear(char sign, Year year) {
         return classRepository.findAllBySignAndYear(sign, year);
     }
 
-    public Class getClassByGradeAndSignAndYear(short grade, char sign, Year year) {
+    public Class getByGradeAndSignAndYear(short grade, char sign, Year year) {
         return classRepository.findByGradeAndSignAndYear(grade, sign, year).get();
     }
 
-    public Class saveClass(@NotNull Class division) {
+    public Class save(@NotNull Class division) {
         classRepository.save(division);
-        return getClassByClassId(division.getId());
+        return getByClassId(division.getId());
     }
 
-    public Class saveClass(Integer classid, short grade, char sign, Year year, Long tid) {
-        return saveClass(new Class(classid, grade, sign, year, tid));
+    public Class save(Integer classid, short grade, char sign, Year year, Long tid) {
+        return save(new Class(classid, grade, sign, year, tid));
     }
 
-    public Class setClassId(@NotNull Class division, Integer classid) {
+    public Class setId(@NotNull Class division, Integer classid) {
         division.setId(classid);
-        return saveClass(division);
+        return save(division);
     }
 
     public Class setGrade(@NotNull Class division, short grade) {
         division.setGrade(grade);
-        return saveClass(division);
+        return save(division);
     }
 
     public Class setSign(@NotNull Class division, char sign) {
         division.setSign(sign);
-        return saveClass(division);
+        return save(division);
     }
 
     public Class setYear(@NotNull Class division, Year year) {
         division.setYear(year);
-        return saveClass(division);
+        return save(division);
     }
 
-    public Class setTid(@NotNull Class division, Long tid) {
+    public Class setTeacherId(@NotNull Class division, Long tid) {
         division.setTeacherId(tid);
-        return saveClass(division);
+        return save(division);
     }
 
-    public void deleteClass(@NotNull Class division) {
+    public void delete(@NotNull Class division) {
         classRepository.delete(division);
     }
 }

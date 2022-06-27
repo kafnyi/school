@@ -61,11 +61,11 @@ public class MarkService extends MarkCrudService {
 
     List<Mark> mWClass(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case ClassId -> rContent = getMarksByClass(classCrudService.getClassByClassId(Integer.parseInt(value)));
-            case Grade -> rContent = getMarksByClasses(classCrudService.getClassesByGrade(Short.parseShort(value)));
-            case Sign -> rContent = getMarksByClasses(classCrudService.getClassesBySign(value.strip().charAt(0)));
-            case Year -> rContent = getMarksByClasses(classCrudService.getClassesByYear(Year.parse(value)));
-            case TeacherId -> rContent = getMarksByClasses(classCrudService.getClassesByTid(Long.parseLong(value)));
+            case ClassId -> rContent = getMarksByClass(classCrudService.getByClassId(Integer.parseInt(value)));
+            case Grade -> rContent = getMarksByClasses(classCrudService.getByGrade(Short.parseShort(value)));
+            case Sign -> rContent = getMarksByClasses(classCrudService.getBySign(value.strip().charAt(0)));
+            case Year -> rContent = getMarksByClasses(classCrudService.getByYear(Year.parse(value)));
+            case TeacherId -> rContent = getMarksByClasses(classCrudService.getByTid(Long.parseLong(value)));
             default -> rContent = null;
         }
         return rContent;

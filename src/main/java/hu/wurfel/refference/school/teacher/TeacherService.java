@@ -65,11 +65,10 @@ public class TeacherService extends TeacherCrudService {
 
 	List<Teacher> tWClass(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
-			case ClassId ->
-					rContent.add(getTeacherByClass(classCrudService.getClassByClassId(Integer.parseInt(value))));
-			case Grade -> rContent = getTeachersByClasses(classCrudService.getClassesByGrade(Short.parseShort(value)));
-			case Sign -> rContent = getTeachersByClasses(classCrudService.getClassesBySign(value.strip().charAt(0)));
-			case Year -> rContent = getTeachersByClasses(classCrudService.getClassesByYear(Year.parse(value)));
+			case ClassId -> rContent.add(getTeacherByClass(classCrudService.getByClassId(Integer.parseInt(value))));
+			case Grade -> rContent = getTeachersByClasses(classCrudService.getByGrade(Short.parseShort(value)));
+			case Sign -> rContent = getTeachersByClasses(classCrudService.getBySign(value.strip().charAt(0)));
+			case Year -> rContent = getTeachersByClasses(classCrudService.getByYear(Year.parse(value)));
 			case TeacherId -> rContent.add(getTeacherByTeacherId(Long.parseLong(value)));
 			default -> rContent = null;
 		}

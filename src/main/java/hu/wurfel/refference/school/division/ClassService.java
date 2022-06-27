@@ -53,7 +53,7 @@ public class ClassService extends ClassCrudService {
         switch (searchBy) {
             case DiaryId -> rContent.add(getClassByDiary(diaryCrudService.getByDiaryId(Integer.parseInt(value))));
             case StudentId -> rContent = getClassesByDiaries(diaryCrudService.getByScid(Long.parseLong(value)));
-            case ClassId -> rContent.add(getClassByClassId(Integer.parseInt(value)));
+            case ClassId -> rContent.add(getByClassId(Integer.parseInt(value)));
             default -> rContent = null;
         }
         return rContent;
@@ -61,11 +61,11 @@ public class ClassService extends ClassCrudService {
 
     List<Class> cWClass(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case ClassId -> rContent.add(getClassByClassId(Integer.parseInt(value)));
-            case Grade -> rContent = getClassesByGrade(Short.parseShort(value));
-            case Sign -> rContent = getClassesBySign(value.strip().charAt(0));
-            case Year -> rContent = getClassesByYear(Year.parse(value));
-            case TeacherId -> rContent = getClassesByTid(Long.parseLong(value));
+            case ClassId -> rContent.add(getByClassId(Integer.parseInt(value)));
+            case Grade -> rContent = getByGrade(Short.parseShort(value));
+            case Sign -> rContent = getBySign(value.strip().charAt(0));
+            case Year -> rContent = getByYear(Year.parse(value));
+            case TeacherId -> rContent = getByTid(Long.parseLong(value));
             default -> rContent = null;
         }
         return rContent;
@@ -108,7 +108,7 @@ public class ClassService extends ClassCrudService {
     }
 
     protected Class getClassByDiary(@NotNull Diary diary) {
-        return getClassByClassId(diary.getClassID());
+        return getByClassId(diary.getClassID());
     }
 
     protected List<Class> getClassesByDiaries(@NotNull List<Diary> diaries) {
@@ -120,7 +120,7 @@ public class ClassService extends ClassCrudService {
     }
 
     protected Class getClassByMark(@NotNull Mark mark) {
-        return getClassByClassId((diaryCrudService.getByDiaryId(mark.getDiaryID())).getClassID());
+        return getByClassId((diaryCrudService.getByDiaryId(mark.getDiaryID())).getClassID());
     }
 
     protected List<Class> getClassesByMarks(@NotNull List<Mark> marks) {
@@ -132,7 +132,7 @@ public class ClassService extends ClassCrudService {
     }
 
     protected List<Class> getClassesByTeacher(@NotNull Teacher teacher) {
-        return getClassesByTid(teacher.getId());
+        return getByTid(teacher.getId());
     }
 
     protected List<Class> getClassesByTeachers(@NotNull List<Teacher> teachers) {

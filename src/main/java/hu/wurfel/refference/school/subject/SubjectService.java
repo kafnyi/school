@@ -61,11 +61,11 @@ public class SubjectService extends SubjectCrudService {
 
     List<Subject> sjWClass(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case ClassId -> rContent = getSubjectsByClass(classCrudService.getClassByClassId(Integer.parseInt(value)));
-            case Grade -> rContent = getSubjectsByClasses(classCrudService.getClassesByGrade(Short.parseShort(value)));
-            case Sign -> rContent = getSubjectsByClasses(classCrudService.getClassesBySign(value.strip().charAt(0)));
-            case Year -> rContent = getSubjectsByClasses(classCrudService.getClassesByYear(Year.parse(value)));
-            case TeacherId -> rContent = getSubjectsByClasses(classCrudService.getClassesByTid(Long.parseLong(value)));
+            case ClassId -> rContent = getSubjectsByClass(classCrudService.getByClassId(Integer.parseInt(value)));
+            case Grade -> rContent = getSubjectsByClasses(classCrudService.getByGrade(Short.parseShort(value)));
+            case Sign -> rContent = getSubjectsByClasses(classCrudService.getBySign(value.strip().charAt(0)));
+            case Year -> rContent = getSubjectsByClasses(classCrudService.getByYear(Year.parse(value)));
+            case TeacherId -> rContent = getSubjectsByClasses(classCrudService.getByTid(Long.parseLong(value)));
             default -> rContent = null;
         }
         return rContent;
