@@ -50,22 +50,22 @@ public class ClassController {
 
         switch (searchWith) {
             case Student -> {
-                return classService.cWStudent(searchBy, value);
+                return classService.searchWithStudent(searchBy, value);
             }
             case Diary -> {
-                return classService.cWDiary(searchBy, value);
+                return classService.searchWithDiary(searchBy, value);
             }
             case Class -> {
-                return classService.cWClass(searchBy, value);
+                return classService.searchWithClass(searchBy, value);
             }
             case Subject -> {
-                return classService.cWSubject(searchBy, value);
+                return classService.searchWithSubject(searchBy, value);
             }
             case Mark -> {
-                return classService.cWMark(searchBy, value);
+                return classService.searchWithMark(searchBy, value);
             }
             case Teacher -> {
-                return classService.cWTeacher(searchBy, value);
+                return classService.searchWithTeacher(searchBy, value);
             }
             default -> {
                 return null;
