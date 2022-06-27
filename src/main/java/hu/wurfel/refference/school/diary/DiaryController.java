@@ -48,22 +48,22 @@ public class DiaryController {
 
 		switch (searchWith) {
 			case Student -> {
-				return diaryService.dWStudent(searchBy, value);
+				return diaryService.searchWithStudent(searchBy, value);
 			}
 			case Diary -> {
-				return diaryService.dWDiary(searchBy, value);
+				return diaryService.searchWithDiary(searchBy, value);
 			}
 			case Class -> {
-				return diaryService.dWClass(searchBy, value);
+				return diaryService.searchWithClass(searchBy, value);
 			}
 			case Subject -> {
-				return diaryService.dWSubject(searchBy, value);
+				return diaryService.searchWithSubject(searchBy, value);
 			}
 			case Mark -> {
-				return diaryService.dWMark(searchBy, value);
+				return diaryService.searchWithMark(searchBy, value);
 			}
 			case Teacher -> {
-				return diaryService.dWTeacher(searchBy, value);
+				return diaryService.searchWithTeacher(searchBy, value);
 			}
 			default -> {
 				return null;
