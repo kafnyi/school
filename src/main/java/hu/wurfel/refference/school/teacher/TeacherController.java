@@ -47,22 +47,22 @@ public class TeacherController {
 
         switch (searchWith) {
             case Student -> {
-                return teacherService.tWStudent(searchBy, value);
+                return teacherService.searchWithStudent(searchBy, value);
             }
             case Diary -> {
-                return teacherService.tWDiary(searchBy, value);
+                return teacherService.searchWithDiary(searchBy, value);
             }
             case Class -> {
-                return teacherService.tWClass(searchBy, value);
+                return teacherService.searchWithClass(searchBy, value);
             }
             case Subject -> {
-                return teacherService.tWSubject(searchBy, value);
+                return teacherService.searchWithSubject(searchBy, value);
             }
             case Mark -> {
-                return teacherService.tWMark(searchBy, value);
+                return teacherService.searchWithMark(searchBy, value);
             }
             case Teacher -> {
-                return teacherService.tWTeacher(searchBy, value);
+                return teacherService.searchWithTeacher(searchBy, value);
             }
             default -> {
                 return null;
