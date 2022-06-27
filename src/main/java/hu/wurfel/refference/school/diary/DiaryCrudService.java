@@ -15,7 +15,7 @@ public class DiaryCrudService {
         this.diaryRepository = diaryRepository;
     }
 
-    public List<Diary> getAllDiaries() {
+    public List<Diary> getAll() {
         return new ArrayList<>(diaryRepository.findAll());
     }
 
