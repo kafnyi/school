@@ -50,22 +50,22 @@ public class MarkController {
 
         switch (searchWith) {
             case Student -> {
-                return markService.mWStudent(searchBy, value);
+                return markService.searchWithStudent(searchBy, value);
             }
             case Diary -> {
-                return markService.mWDiary(searchBy, value);
+                return markService.searchWithDiary(searchBy, value);
             }
             case Class -> {
-                return markService.mWClass(searchBy, value);
+                return markService.searchWithClass(searchBy, value);
             }
             case Subject -> {
-                return markService.mWSubject(searchBy, value);
+                return markService.searchWithSubject(searchBy, value);
             }
             case Mark -> {
-                return markService.mWMark(searchBy, value);
+                return markService.searchWithMark(searchBy, value);
             }
             case Teacher -> {
-                return markService.mWTeacher(searchBy, value);
+                return markService.searchWithTeacher(searchBy, value);
             }
             default -> {
                 return null;
