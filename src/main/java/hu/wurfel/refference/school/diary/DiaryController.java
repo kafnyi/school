@@ -24,23 +24,23 @@ public class DiaryController {
 	@PostMapping("/api/v1/Diary/adding")
 	public ResponseEntity<List<Diary>> adding(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
 		List<Diary> answer = new ArrayList<>();
-		answer.add(diaryService.saveDiary(Integer.parseInt(diaryRequestForSearch.getId()), Long.parseLong(diaryRequestForSearch.getStudentId()), Integer.parseInt(diaryRequestForSearch.getClassId())));
+		answer.add(diaryService.save(Integer.parseInt(diaryRequestForSearch.getId()), Long.parseLong(diaryRequestForSearch.getStudentId()), Integer.parseInt(diaryRequestForSearch.getClassId())));
 		return ResponseEntity.ok(answer);
 	}
 
 	@DeleteMapping("/api/v1/Diary/delete/{id}")
 	public void deleteById(@PathVariable String id) {
-        diaryService.deleteDiary(diaryService.getDiaryByDiaryid(Integer.parseInt(id)));
+		diaryService.delete(diaryService.getByDiaryId(Integer.parseInt(id)));
     }
 
 	@PutMapping("/api/v1/Diary/modify")
 	public ResponseEntity<List<Diary>> modify(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
-		Diary diary = diaryService.getDiaryByDiaryid(Integer.parseInt(diaryRequestForSearch.getId()));
+		Diary diary = diaryService.getByDiaryId(Integer.parseInt(diaryRequestForSearch.getId()));
 		diary.setStudentId(Long.parseLong(diaryRequestForSearch.getStudentId()));
 		diary.setClassID(Integer.parseInt(diaryRequestForSearch.getClassId()));
-		diaryService.saveDiary(diary);
+		diaryService.save(diary);
 		List<Diary> answer = new ArrayList<>();
-		answer.add(diaryService.getDiaryByDiaryid(diary.getId()));
+		answer.add(diaryService.getByDiaryId(diary.getId()));
 		return ResponseEntity.ok(answer);
 	}
 
@@ -48,22 +48,22 @@ public class DiaryController {
 
 		switch (searchWith) {
 			case Student -> {
-				return diaryService.dWStudent(searchBy, value);
+				return diaryService.searchWithStudent(searchBy, value);
 			}
 			case Diary -> {
-				return diaryService.dWDiary(searchBy, value);
+				return diaryService.searchWithDiary(searchBy, value);
 			}
 			case Class -> {
-				return diaryService.dWClass(searchBy, value);
+				return diaryService.searchWithClass(searchBy, value);
 			}
 			case Subject -> {
-				return diaryService.dWSubject(searchBy, value);
+				return diaryService.searchWithSubject(searchBy, value);
 			}
 			case Mark -> {
-				return diaryService.dWMark(searchBy, value);
+				return diaryService.searchWithMark(searchBy, value);
 			}
 			case Teacher -> {
-				return diaryService.dWTeacher(searchBy, value);
+				return diaryService.searchWithTeacher(searchBy, value);
 			}
 			default -> {
 				return null;

@@ -38,142 +38,139 @@ public class SubjectService extends SubjectCrudService {
     }
 
 
-    List<Subject> sjWStudent(EntityFieldNames searchBy, String value) {
+    List<Subject> searchWithStudent(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case StudentId ->
-                    rContent = getSubjectsByStudent(studentCrudService.getStudentByStudentId(Long.parseLong(value)));
-            case Name -> rContent = getSubjectsByStudents(studentCrudService.getStudentsByName(value));
-            case Date -> rContent = getSubjectsByStudents(studentCrudService.getStudentsByBirth(value));
+            case StudentId -> rContent = getByStudent(studentCrudService.getByStudentId(Long.parseLong(value)));
+            case Name -> rContent = getByStudents(studentCrudService.getByName(value));
+            case Date -> rContent = getByStudents(studentCrudService.getByBirth(value));
             default -> rContent = null;
         }
         return rContent;
     }
 
-    List<Subject> sjWDiary(EntityFieldNames searchBy, String value) {
+    List<Subject> searchWithDiary(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case DiaryId -> rContent = getSubjectsByDiary(diaryCrudService.getDiaryByDiaryid(Integer.parseInt(value)));
-            case StudentId -> rContent = getSubjectsByDiaries(diaryCrudService.getDiariesByScid(Long.parseLong(value)));
-            case ClassId ->
-                    rContent = getSubjectsByDiaries(diaryCrudService.getDiariesByClassid(Integer.parseInt(value)));
+            case DiaryId -> rContent = getByDiary(diaryCrudService.getByDiaryId(Integer.parseInt(value)));
+            case StudentId -> rContent = getByDiaries(diaryCrudService.getByScid(Long.parseLong(value)));
+            case ClassId -> rContent = getByDiaries(diaryCrudService.getByClassid(Integer.parseInt(value)));
             default -> rContent = null;
         }
         return rContent;
     }
 
-    List<Subject> sjWClass(EntityFieldNames searchBy, String value) {
+    List<Subject> searchWithClass(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case ClassId -> rContent = getSubjectsByClass(classCrudService.getClassByClassId(Integer.parseInt(value)));
-            case Grade -> rContent = getSubjectsByClasses(classCrudService.getClassesByGrade(Short.parseShort(value)));
-            case Sign -> rContent = getSubjectsByClasses(classCrudService.getClassesBySign(value.strip().charAt(0)));
-            case Year -> rContent = getSubjectsByClasses(classCrudService.getClassesByYear(Year.parse(value)));
-            case TeacherId -> rContent = getSubjectsByClasses(classCrudService.getClassesByTid(Long.parseLong(value)));
+            case ClassId -> rContent = getByClass(classCrudService.getByClassId(Integer.parseInt(value)));
+            case Grade -> rContent = getByClasses(classCrudService.getByGrade(Short.parseShort(value)));
+            case Sign -> rContent = getByClasses(classCrudService.getBySign(value.strip().charAt(0)));
+            case Year -> rContent = getByClasses(classCrudService.getByYear(Year.parse(value)));
+            case TeacherId -> rContent = getByClasses(classCrudService.getByTid(Long.parseLong(value)));
             default -> rContent = null;
         }
         return rContent;
     }
 
-    List<Subject> sjWSubject(EntityFieldNames searchBy, String value) {
+    List<Subject> searchWithSubject(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case SubjectId -> rContent.add(getSubjectBySubjectId(Integer.parseInt(value)));
-            case Name -> rContent = getSubjectsByName(value);
-            case TeacherId -> rContent = getSubjectsByTid(Long.parseLong(value));
+            case SubjectId -> rContent.add(getBySubjectId(Integer.parseInt(value)));
+            case Name -> rContent = getByName(value);
+            case TeacherId -> rContent = getByTeacherId(Long.parseLong(value));
             default -> rContent = null;
         }
         return rContent;
     }
 
-    List<Subject> sjWMark(EntityFieldNames searchBy, String value) {
+    List<Subject> searchWithMark(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case MarkId -> rContent.add(getSubjectByMark(markCrudService.getMarkByMarkid(Long.parseLong(value))));
-            case DiaryId -> rContent = getSubjectsByMarks(markCrudService.getMarksByDiaryid(Integer.parseInt(value)));
-            case Date -> rContent = getSubjectsByMarks(markCrudService.getMarksByDate(value));
-            case SubjectId -> rContent.add(getSubjectBySubjectId(Integer.parseInt(value)));
-            case Mark -> rContent = getSubjectsByMarks(markCrudService.getMarksByMark(Byte.parseByte(value)));
+            case MarkId -> rContent.add(getByMark(markCrudService.getByMarkid(Long.parseLong(value))));
+            case DiaryId -> rContent = getByMarks(markCrudService.getByDiaryid(Integer.parseInt(value)));
+            case Date -> rContent = getByMarks(markCrudService.getByDate(value));
+            case SubjectId -> rContent.add(getBySubjectId(Integer.parseInt(value)));
+            case Mark -> rContent = getByMarks(markCrudService.getByMark(Byte.parseByte(value)));
             default -> rContent = null;
         }
         return rContent;
     }
 
-    List<Subject> sjWTeacher(EntityFieldNames searchBy, String value) {
+    List<Subject> searchWithTeacher(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case TeacherId ->
-                    rContent = getSubjectsByTeacher(teacherCrudService.getTeacherByTeacherId(Long.parseLong(value)));
-            case Name -> rContent = getSubjectsByTeachers(teacherCrudService.getTeacherByName(value));
-            case Date -> rContent = getSubjectsByTeachers(teacherCrudService.getTeacherByBirth(value));
+            case TeacherId -> rContent = getByTeacher(teacherCrudService.getByTeacherId(Long.parseLong(value)));
+            case Name -> rContent = getByTeachers(teacherCrudService.getByName(value));
+            case Date -> rContent = getByTeachers(teacherCrudService.getByBirth(value));
             default -> rContent = null;
         }
         return rContent;
     }
 
-    protected Subject getSubjectByMark(@NotNull Mark mark) {
-        return getSubjectBySubjectId(mark.getSubjectID());
+    protected Subject getByMark(@NotNull Mark mark) {
+        return getBySubjectId(mark.getSubjectID());
     }
 
-    protected List<Subject> getSubjectsByMarks(@NotNull List<Mark> marks) {
+    protected List<Subject> getByMarks(@NotNull List<Mark> marks) {
         List<Subject> subjects = new ArrayList<>();
         for (Mark mark : marks) {
-            subjects.add(getSubjectByMark(mark));
+            subjects.add(getByMark(mark));
         }
         return subjects;
     }
 
-    protected List<Subject> getSubjectsByTeacher(@NotNull Teacher teacher) {
-        return getSubjectsByTid(teacher.getId());
+    protected List<Subject> getByTeacher(@NotNull Teacher teacher) {
+        return getByTeacherId(teacher.getId());
     }
 
-    protected List<Subject> getSubjectsByTeachers(@NotNull List<Teacher> teachers) {
+    protected List<Subject> getByTeachers(@NotNull List<Teacher> teachers) {
         List<Subject> subjects = new ArrayList<>();
         for (Teacher teacher : teachers) {
-            subjects.addAll(getSubjectsByTeacher(teacher));
+            subjects.addAll(getByTeacher(teacher));
         }
         return subjects;
     }
 
-    protected List<Subject> getSubjectsByDiary(@NotNull Diary diary) {
+    protected List<Subject> getByDiary(@NotNull Diary diary) {
         List<Subject> subjects = new ArrayList<>();
-        for (Mark mark : new ArrayList<>(markCrudService.getMarksByDiaryid(diary.getId()))) {
-            subjects.add(getSubjectByMark(mark));
+        for (Mark mark : new ArrayList<>(markCrudService.getByDiaryid(diary.getId()))) {
+            subjects.add(getByMark(mark));
         }
         return subjects;
     }
 
-    protected List<Subject> getSubjectsByDiaries(@NotNull List<Diary> diaries) {
+    protected List<Subject> getByDiaries(@NotNull List<Diary> diaries) {
         List<Subject> subjects = new ArrayList<>();
         for (Diary diary : diaries) {
-            subjects.addAll(getSubjectsByDiary(diary));
+            subjects.addAll(getByDiary(diary));
         }
         return subjects;
     }
 
-    protected List<Subject> getSubjectsByStudent(@NotNull Student student) {
+    protected List<Subject> getByStudent(@NotNull Student student) {
         List<Subject> subjects = new ArrayList<>();
-        for (Diary diary : new ArrayList<>(diaryCrudService.getDiariesByScid(student.getId()))) {
-            subjects.addAll(getSubjectsByDiary(diary));
+        for (Diary diary : new ArrayList<>(diaryCrudService.getByScid(student.getId()))) {
+            subjects.addAll(getByDiary(diary));
         }
         return subjects;
     }
 
-    protected List<Subject> getSubjectsByStudents(@NotNull List<Student> students) {
+    protected List<Subject> getByStudents(@NotNull List<Student> students) {
         List<Subject> subjects = new ArrayList<>();
         for (Student student : students) {
-            subjects.addAll(getSubjectsByStudent(student));
+            subjects.addAll(getByStudent(student));
         }
         return subjects;
     }
 
 
-    protected List<Subject> getSubjectsByClass(@NotNull Class division) {
+    protected List<Subject> getByClass(@NotNull Class division) {
         List<Subject> subjects = new ArrayList<>();
-        for (Diary diary : new ArrayList<>(diaryCrudService.getDiariesByClassid(division.getId()))) {
-            subjects.addAll(getSubjectsByDiary(diary));
+        for (Diary diary : new ArrayList<>(diaryCrudService.getByClassid(division.getId()))) {
+            subjects.addAll(getByDiary(diary));
         }
         return subjects;
     }
 
-    protected List<Subject> getSubjectsByClasses(@NotNull List<Class> classes) {
+    protected List<Subject> getByClasses(@NotNull List<Class> classes) {
         List<Subject> subjects = new ArrayList<>();
         for (Class division : classes) {
-            subjects.addAll(getSubjectsByClass(division));
+            subjects.addAll(getByClass(division));
         }
         return subjects;
     }

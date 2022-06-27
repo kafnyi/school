@@ -24,23 +24,23 @@ public class StudentController {
     @PostMapping("/api/v1/Student/adding")
     public ResponseEntity<List<Student>> adding(@RequestBody StudentRequestForSearch studentRequestForSearch) {
         List<Student> answer = new ArrayList<>();
-        answer.add(studentService.saveStudent(Long.parseLong(studentRequestForSearch.getId()), studentRequestForSearch.getName(), studentRequestForSearch.getDate()));
+        answer.add(studentService.save(Long.parseLong(studentRequestForSearch.getId()), studentRequestForSearch.getName(), studentRequestForSearch.getDate()));
         return ResponseEntity.ok(answer);
     }
 
     @DeleteMapping("/api/v1/Student/delete/{id}")
     public void delete(@PathVariable String id) {
-        studentService.deleteStudent(studentService.getStudentByStudentId(Long.parseLong(id)));
+        studentService.delete(studentService.getByStudentId(Long.parseLong(id)));
     }
 
     @PutMapping("/api/v1/Student/modify")
     public ResponseEntity<List<Student>> modifyStudent(@RequestBody StudentRequestForSearch studentRequestForSearch) {
-        Student student = studentService.getStudentByStudentId(Long.parseLong(studentRequestForSearch.getId()));
+        Student student = studentService.getByStudentId(Long.parseLong(studentRequestForSearch.getId()));
         student.setName(studentRequestForSearch.getName());
         student.setBirthDate(studentRequestForSearch.getDate());
-        studentService.saveStudent(student);
+        studentService.save(student);
         List<Student> answer = new ArrayList<>();
-        answer.add(studentService.getStudentByStudentId(student.getId()));
+        answer.add(studentService.getByStudentId(student.getId()));
         return ResponseEntity.ok(answer);
     }
 
@@ -48,22 +48,22 @@ public class StudentController {
 
         switch (searchWith) {
             case Student -> {
-                return studentService.sWStudent(searchBy, value);
+                return studentService.searchWithStudent(searchBy, value);
             }
             case Diary -> {
-                return studentService.sWDiary(searchBy, value);
+                return studentService.searchWithDiary(searchBy, value);
             }
             case Class -> {
-                return studentService.sWClass(searchBy, value);
+                return studentService.searchWithClass(searchBy, value);
             }
             case Subject -> {
-                return studentService.sWSubject(searchBy, value);
+                return studentService.searchWithSubject(searchBy, value);
             }
             case Mark -> {
-                return studentService.sWMark(searchBy, value);
+                return studentService.searchWithMark(searchBy, value);
             }
             case Teacher -> {
-                return studentService.sWTeacher(searchBy, value);
+                return studentService.searchWithTeacher(searchBy, value);
             }
             default -> {
                 return null;
