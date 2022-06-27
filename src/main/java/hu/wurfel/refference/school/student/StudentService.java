@@ -40,9 +40,9 @@ public class StudentService extends StudentCrudService {
 
 	List<Student> sWStudent(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
-			case StudentId -> rContent.add(getStudentByStudentId(Long.parseLong(value)));
-			case Name -> rContent = getStudentsByName(value);
-			case Date -> rContent = getStudentsByBirth(value);
+			case StudentId -> rContent.add(getByStudentId(Long.parseLong(value)));
+			case Name -> rContent = getByName(value);
+			case Date -> rContent = getByBirth(value);
 			default -> rContent = null;
 		}
 		return rContent;
@@ -50,9 +50,8 @@ public class StudentService extends StudentCrudService {
 
 	List<Student> sWDiary(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
-			case DiaryId ->
-					rContent.add(getStudentByDiary(diaryCrudService.getByDiaryId(Integer.parseInt(value))));
-			case StudentId -> rContent.add(getStudentByStudentId(Long.parseLong(value)));
+			case DiaryId -> rContent.add(getStudentByDiary(diaryCrudService.getByDiaryId(Integer.parseInt(value))));
+			case StudentId -> rContent.add(getByStudentId(Long.parseLong(value)));
 			case ClassId -> rContent = getStudentsByDiaries(diaryCrudService.getByClassid(Integer.parseInt(value)));
 			default -> rContent = null;
 		}
@@ -108,7 +107,7 @@ public class StudentService extends StudentCrudService {
 	}
 
 	protected Student getStudentByDiary(@NotNull Diary diary) {
-		return getStudentByStudentId(diary.getStudentId());
+		return getByStudentId(diary.getStudentId());
 	}
 
 	protected List<Student> getStudentsByDiaries(@NotNull List<Diary> diaries) {
@@ -120,7 +119,7 @@ public class StudentService extends StudentCrudService {
 	}
 
 	protected Student getStudentByMark(@NotNull Mark mark) {
-		return getStudentByStudentId(diaryCrudService.getByDiaryId(mark.getDiaryID()).getId());
+		return getByStudentId(diaryCrudService.getByDiaryId(mark.getDiaryID()).getId());
 	}
 
 	protected List<Student> getStudentsByMarks(@NotNull List<Mark> marks) {

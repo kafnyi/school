@@ -40,9 +40,9 @@ public class DiaryService extends DiaryCrudService {
 
     List<Diary> searchWithStudent(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case StudentId -> rContent = getByStudent(studentCrudService.getStudentByStudentId(Long.parseLong(value)));
-            case Name -> rContent = getDiariesByStudents(studentCrudService.getStudentsByName(value));
-            case Date -> rContent = getDiariesByStudents(studentCrudService.getStudentsByBirth(value));
+            case StudentId -> rContent = getByStudent(studentCrudService.getByStudentId(Long.parseLong(value)));
+            case Name -> rContent = getDiariesByStudents(studentCrudService.getByName(value));
+            case Date -> rContent = getDiariesByStudents(studentCrudService.getByBirth(value));
             default -> rContent = null;
         }
         return rContent;

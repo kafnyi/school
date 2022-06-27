@@ -40,9 +40,9 @@ public class MarkService extends MarkCrudService {
 
     List<Mark> searchWithStudent(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case StudentId -> rContent = getByStudent(studentCrudService.getStudentByStudentId(Long.parseLong(value)));
-            case Name -> rContent = getByStudents(studentCrudService.getStudentsByName(value));
-            case Date -> rContent = getByStudents(studentCrudService.getStudentsByBirth(value));
+            case StudentId -> rContent = getByStudent(studentCrudService.getByStudentId(Long.parseLong(value)));
+            case Name -> rContent = getByStudents(studentCrudService.getByName(value));
+            case Date -> rContent = getByStudents(studentCrudService.getByBirth(value));
             default -> rContent = null;
         }
         return rContent;

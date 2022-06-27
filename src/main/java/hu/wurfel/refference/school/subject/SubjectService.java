@@ -40,10 +40,9 @@ public class SubjectService extends SubjectCrudService {
 
     List<Subject> sjWStudent(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case StudentId ->
-                    rContent = getSubjectsByStudent(studentCrudService.getStudentByStudentId(Long.parseLong(value)));
-            case Name -> rContent = getSubjectsByStudents(studentCrudService.getStudentsByName(value));
-            case Date -> rContent = getSubjectsByStudents(studentCrudService.getStudentsByBirth(value));
+            case StudentId -> rContent = getSubjectsByStudent(studentCrudService.getByStudentId(Long.parseLong(value)));
+            case Name -> rContent = getSubjectsByStudents(studentCrudService.getByName(value));
+            case Date -> rContent = getSubjectsByStudents(studentCrudService.getByBirth(value));
             default -> rContent = null;
         }
         return rContent;
