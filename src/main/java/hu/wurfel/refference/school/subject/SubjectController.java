@@ -47,22 +47,22 @@ public class SubjectController {
 
         switch (searchWith) {
             case Student -> {
-                return subjectService.sjWStudent(searchBy, value);
+                return subjectService.searchWithStudent(searchBy, value);
             }
             case Diary -> {
-                return subjectService.sjWDiary(searchBy, value);
+                return subjectService.searchWithDiary(searchBy, value);
             }
             case Class -> {
-                return subjectService.sjWClass(searchBy, value);
+                return subjectService.searchWithClass(searchBy, value);
             }
             case Subject -> {
-                return subjectService.sjWSubject(searchBy, value);
+                return subjectService.searchWithSubject(searchBy, value);
             }
             case Mark -> {
-                return subjectService.sjWMark(searchBy, value);
+                return subjectService.searchWithMark(searchBy, value);
             }
             case Teacher -> {
-                return subjectService.sjWTeacher(searchBy, value);
+                return subjectService.searchWithTeacher(searchBy, value);
             }
             default -> {
                 return null;
