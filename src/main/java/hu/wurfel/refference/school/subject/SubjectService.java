@@ -94,9 +94,9 @@ public class SubjectService extends SubjectCrudService {
 
     List<Subject> searchWithTeacher(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case TeacherId -> rContent = getByTeacher(teacherCrudService.getTeacherByTeacherId(Long.parseLong(value)));
-            case Name -> rContent = getByTeachers(teacherCrudService.getTeacherByName(value));
-            case Date -> rContent = getByTeachers(teacherCrudService.getTeacherByBirth(value));
+            case TeacherId -> rContent = getByTeacher(teacherCrudService.getByTeacherId(Long.parseLong(value)));
+            case Name -> rContent = getByTeachers(teacherCrudService.getByName(value));
+            case Date -> rContent = getByTeachers(teacherCrudService.getByBirth(value));
             default -> rContent = null;
         }
         return rContent;

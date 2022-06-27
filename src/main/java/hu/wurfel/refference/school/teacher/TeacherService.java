@@ -68,7 +68,7 @@ public class TeacherService extends TeacherCrudService {
 			case Grade -> rContent = getTeachersByClasses(classCrudService.getByGrade(Short.parseShort(value)));
 			case Sign -> rContent = getTeachersByClasses(classCrudService.getBySign(value.strip().charAt(0)));
 			case Year -> rContent = getTeachersByClasses(classCrudService.getByYear(Year.parse(value)));
-			case TeacherId -> rContent.add(getTeacherByTeacherId(Long.parseLong(value)));
+			case TeacherId -> rContent.add(getByTeacherId(Long.parseLong(value)));
 			default -> rContent = null;
 		}
 		return rContent;
@@ -79,7 +79,7 @@ public class TeacherService extends TeacherCrudService {
 			case SubjectId ->
 					rContent.add(getTeacherBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value))));
 			case Name -> rContent = getTeacherBySubjects(subjectCrudService.getByName(value));
-			case TeacherId -> rContent.add(getTeacherByTeacherId(Long.parseLong(value)));
+			case TeacherId -> rContent.add(getByTeacherId(Long.parseLong(value)));
 			default -> rContent = null;
 		}
 		return rContent;
@@ -100,16 +100,16 @@ public class TeacherService extends TeacherCrudService {
 
 	List<Teacher> tWTeacher(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
-			case TeacherId -> rContent.add(getTeacherByTeacherId(Long.parseLong(value)));
-			case Name -> rContent = getTeacherByName(value);
-			case Date -> rContent = getTeacherByBirth(value);
+			case TeacherId -> rContent.add(getByTeacherId(Long.parseLong(value)));
+			case Name -> rContent = getByName(value);
+			case Date -> rContent = getByBirth(value);
 			default -> rContent = null;
 		}
 		return rContent;
 	}
 
 	protected Teacher getTeacherByClass(@NotNull Class division) {
-		return getTeacherByTeacherId(division.getTeacherId());
+		return getByTeacherId(division.getTeacherId());
 	}
 
 	protected List<Teacher> getTeachersByClasses(@NotNull List<Class> classes) {
@@ -121,7 +121,7 @@ public class TeacherService extends TeacherCrudService {
 	}
 
 	protected Teacher getTeacherBySubject(@NotNull Subject subject) {
-		return getTeacherByTeacherId(subject.getTid());
+		return getByTeacherId(subject.getTid());
 	}
 
 	protected List<Teacher> getTeacherBySubjects(@NotNull List<Subject> subjects) {

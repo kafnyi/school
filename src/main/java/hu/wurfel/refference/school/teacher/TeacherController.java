@@ -23,23 +23,23 @@ public class TeacherController {
     @PostMapping("/api/v1/Teacher/adding")
     public ResponseEntity<List<Teacher>> adding(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
         List<Teacher> answer = new ArrayList<>();
-        answer.add(teacherService.saveTeacher(Long.parseLong(teacherRequestForSearch.getId()), teacherRequestForSearch.getName(), teacherRequestForSearch.getDate()));
+        answer.add(teacherService.save(Long.parseLong(teacherRequestForSearch.getId()), teacherRequestForSearch.getName(), teacherRequestForSearch.getDate()));
         return ResponseEntity.ok(answer);
     }
 
     @DeleteMapping("/api/v1/Teacher/delete/{id}")
     public void delete(@PathVariable String id) {
-        teacherService.deleteTeacher(teacherService.getTeacherByTeacherId(Long.parseLong(id)));
+        teacherService.delete(teacherService.getByTeacherId(Long.parseLong(id)));
     }
 
     @PutMapping("/api/v1/Teacher/modify")
     public ResponseEntity<List<Teacher>> modifyStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
-        Teacher teacher = teacherService.getTeacherByTeacherId(Long.parseLong(teacherRequestForSearch.getId()));
+        Teacher teacher = teacherService.getByTeacherId(Long.parseLong(teacherRequestForSearch.getId()));
         teacher.setName(teacherRequestForSearch.getName());
         teacher.setBirthDate(teacherRequestForSearch.getDate());
-        teacherService.saveTeacher(teacher);
+        teacherService.save(teacher);
         List<Teacher> answer = new ArrayList<>();
-        answer.add(teacherService.getTeacherByTeacherId(teacher.getId()));
+        answer.add(teacherService.getByTeacherId(teacher.getId()));
         return ResponseEntity.ok(answer);
     }
 
