@@ -30,17 +30,17 @@ public class DiaryController {
 
 	@DeleteMapping("/api/v1/Diary/delete/{id}")
 	public void deleteById(@PathVariable String id) {
-		diaryService.delete(diaryService.getByDiaryid(Integer.parseInt(id)));
+		diaryService.delete(diaryService.getByDiaryId(Integer.parseInt(id)));
     }
 
 	@PutMapping("/api/v1/Diary/modify")
 	public ResponseEntity<List<Diary>> modify(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
-		Diary diary = diaryService.getByDiaryid(Integer.parseInt(diaryRequestForSearch.getId()));
+		Diary diary = diaryService.getByDiaryId(Integer.parseInt(diaryRequestForSearch.getId()));
 		diary.setStudentId(Long.parseLong(diaryRequestForSearch.getStudentId()));
 		diary.setClassID(Integer.parseInt(diaryRequestForSearch.getClassId()));
 		diaryService.save(diary);
 		List<Diary> answer = new ArrayList<>();
-		answer.add(diaryService.getByDiaryid(diary.getId()));
+		answer.add(diaryService.getByDiaryId(diary.getId()));
 		return ResponseEntity.ok(answer);
 	}
 

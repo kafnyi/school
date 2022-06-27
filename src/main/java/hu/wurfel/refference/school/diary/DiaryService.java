@@ -50,7 +50,7 @@ public class DiaryService extends DiaryCrudService {
 
     List<Diary> searchWithDiary(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case DiaryId -> rContent.add(getByDiaryid(Integer.parseInt(value)));
+            case DiaryId -> rContent.add(getByDiaryId(Integer.parseInt(value)));
             case StudentId -> rContent = getByScid(Long.parseLong(value));
             case ClassId -> rContent = getByClassid(Integer.parseInt(value));
             default -> rContent = null;
@@ -84,7 +84,7 @@ public class DiaryService extends DiaryCrudService {
     List<Diary> searchWithMark(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
             case MarkId -> rContent.add(getByMark(markCrudService.getMarkByMarkid(Long.parseLong(value))));
-            case DiaryId -> rContent.add(getByDiaryid(Integer.parseInt(value)));
+            case DiaryId -> rContent.add(getByDiaryId(Integer.parseInt(value)));
             case Date -> rContent = getDiariesByMarks(markCrudService.getMarksByDate(value));
             case SubjectId ->
                     rContent = getDiariesByMarks(markCrudService.getMarksBySubjectid(Integer.parseInt(value)));
@@ -129,7 +129,7 @@ public class DiaryService extends DiaryCrudService {
     }
 
     protected Diary getByMark(@NotNull Mark mark) {
-        return getByDiaryid(mark.getDiaryID());
+        return getByDiaryId(mark.getDiaryID());
     }
 
     protected List<Diary> getDiariesByMarks(@NotNull List<Mark> marks) {
