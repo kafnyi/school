@@ -51,10 +51,9 @@ public class SubjectService extends SubjectCrudService {
 
     List<Subject> sjWDiary(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case DiaryId -> rContent = getSubjectsByDiary(diaryCrudService.getDiaryByDiaryid(Integer.parseInt(value)));
-            case StudentId -> rContent = getSubjectsByDiaries(diaryCrudService.getDiariesByScid(Long.parseLong(value)));
-            case ClassId ->
-                    rContent = getSubjectsByDiaries(diaryCrudService.getDiariesByClassid(Integer.parseInt(value)));
+            case DiaryId -> rContent = getSubjectsByDiary(diaryCrudService.getByDiaryid(Integer.parseInt(value)));
+            case StudentId -> rContent = getSubjectsByDiaries(diaryCrudService.getByScid(Long.parseLong(value)));
+            case ClassId -> rContent = getSubjectsByDiaries(diaryCrudService.getByClassid(Integer.parseInt(value)));
             default -> rContent = null;
         }
         return rContent;
@@ -147,7 +146,7 @@ public class SubjectService extends SubjectCrudService {
 
     protected List<Subject> getSubjectsByStudent(@NotNull Student student) {
         List<Subject> subjects = new ArrayList<>();
-        for (Diary diary : new ArrayList<>(diaryCrudService.getDiariesByScid(student.getId()))) {
+        for (Diary diary : new ArrayList<>(diaryCrudService.getByScid(student.getId()))) {
             subjects.addAll(getSubjectsByDiary(diary));
         }
         return subjects;
@@ -164,7 +163,7 @@ public class SubjectService extends SubjectCrudService {
 
     protected List<Subject> getSubjectsByClass(@NotNull Class division) {
         List<Subject> subjects = new ArrayList<>();
-        for (Diary diary : new ArrayList<>(diaryCrudService.getDiariesByClassid(division.getId()))) {
+        for (Diary diary : new ArrayList<>(diaryCrudService.getByClassid(division.getId()))) {
             subjects.addAll(getSubjectsByDiary(diary));
         }
         return subjects;

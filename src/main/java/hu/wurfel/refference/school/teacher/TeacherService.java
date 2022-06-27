@@ -55,11 +55,9 @@ public class TeacherService extends TeacherCrudService {
 
 	List<Teacher> tWDiary(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
-			case DiaryId -> rContent = getTeachersByDiary(diaryCrudService1.getDiaryByDiaryid(Integer.parseInt(value)));
-			case StudentId ->
-					rContent = getTeachersByDiaries(diaryCrudService1.getDiariesByScid(Long.parseLong(value)));
-			case ClassId ->
-					rContent = getTeachersByDiaries(diaryCrudService1.getDiariesByClassid(Integer.parseInt(value)));
+			case DiaryId -> rContent = getTeachersByDiary(diaryCrudService1.getByDiaryid(Integer.parseInt(value)));
+			case StudentId -> rContent = getTeachersByDiaries(diaryCrudService1.getByScid(Long.parseLong(value)));
+			case ClassId -> rContent = getTeachersByDiaries(diaryCrudService1.getByClassid(Integer.parseInt(value)));
 			default -> rContent = null;
 		}
 		return rContent;
@@ -174,7 +172,7 @@ public class TeacherService extends TeacherCrudService {
 
 	protected List<Teacher> getTeachersByStudent(@NotNull Student student) {
 		List<Teacher> result = new ArrayList<>();
-		for (Diary diary : new ArrayList<>(diaryCrudService.getDiariesByScid(student.getId()))) {
+		for (Diary diary : new ArrayList<>(diaryCrudService.getByScid(student.getId()))) {
 			result.addAll(getTeachersByDiary(diary));
 		}
 		return result;

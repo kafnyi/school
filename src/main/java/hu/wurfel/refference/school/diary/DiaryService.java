@@ -51,9 +51,9 @@ public class DiaryService extends DiaryCrudService {
 
     List<Diary> dWDiary(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case DiaryId -> rContent.add(getDiaryByDiaryid(Integer.parseInt(value)));
-            case StudentId -> rContent = getDiariesByScid(Long.parseLong(value));
-            case ClassId -> rContent = getDiariesByClassid(Integer.parseInt(value));
+            case DiaryId -> rContent.add(getByDiaryid(Integer.parseInt(value)));
+            case StudentId -> rContent = getByScid(Long.parseLong(value));
+            case ClassId -> rContent = getByClassid(Integer.parseInt(value));
             default -> rContent = null;
         }
         return rContent;
@@ -61,7 +61,7 @@ public class DiaryService extends DiaryCrudService {
 
     List<Diary> dWClass(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case ClassId -> rContent = getDiariesByClassid(Integer.parseInt(value));
+            case ClassId -> rContent = getByClassid(Integer.parseInt(value));
             case Grade -> rContent = getDiariesByClasses(classCrudService.getClassesByGrade(Short.parseShort(value)));
             case Sign -> rContent = getDiariesByClasses(classCrudService.getClassesBySign(value.strip().charAt(0)));
             case Year -> rContent = getDiariesByClasses(classCrudService.getClassesByYear(Year.parse(value)));
@@ -86,7 +86,7 @@ public class DiaryService extends DiaryCrudService {
     List<Diary> dWMark(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
             case MarkId -> rContent.add(getDiaryByMark(markCrudService.getMarkByMarkid(Long.parseLong(value))));
-            case DiaryId -> rContent.add(getDiaryByDiaryid(Integer.parseInt(value)));
+            case DiaryId -> rContent.add(getByDiaryid(Integer.parseInt(value)));
             case Date -> rContent = getDiariesByMarks(markCrudService.getMarksByDate(value));
             case SubjectId ->
                     rContent = getDiariesByMarks(markCrudService.getMarksBySubjectid(Integer.parseInt(value)));
@@ -108,7 +108,7 @@ public class DiaryService extends DiaryCrudService {
     }
 
     protected List<Diary> getDiariesByStudent(@NotNull Student student) {
-        return getDiariesByScid(student.getId());
+        return getByScid(student.getId());
     }
 
     protected List<Diary> getDiariesByStudents(@NotNull List<Student> students) {
@@ -120,7 +120,7 @@ public class DiaryService extends DiaryCrudService {
     }
 
     protected List<Diary> getDiariesByClass(@NotNull Class division) {
-        return getDiariesByClassid(division.getId());
+        return getByClassid(division.getId());
     }
 
     protected List<Diary> getDiariesByClasses(@NotNull List<Class> classes) {
@@ -132,7 +132,7 @@ public class DiaryService extends DiaryCrudService {
     }
 
     protected Diary getDiaryByMark(@NotNull Mark mark) {
-        return getDiaryByDiaryid(mark.getDiaryID());
+        return getByDiaryid(mark.getDiaryID());
     }
 
     protected List<Diary> getDiariesByMarks(@NotNull List<Mark> marks) {

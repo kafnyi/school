@@ -19,47 +19,47 @@ public class DiaryCrudService {
         return new ArrayList<>(diaryRepository.findAll());
     }
 
-    public Diary getDiaryByDiaryid(Integer Id) {
+    public Diary getByDiaryid(Integer Id) {
         return diaryRepository.findById(Id).get();
     }
 
-    public List<Diary> getDiariesByScid(Long scid) {
+    public List<Diary> getByScid(Long scid) {
         return diaryRepository.findAllByStudentId(scid);
     }
 
-    public List<Diary> getDiariesByClassid(Integer cid) {
+    public List<Diary> getByClassid(Integer cid) {
         return diaryRepository.findAllByClassID(cid);
     }
 
-    public Diary getDiaryByScidAndClassid(Long scid, Integer cid) {
+    public Diary getByScidAndClassid(Long scid, Integer cid) {
         return diaryRepository.findByStudentIdAndClassID(scid, cid).get();
     }
 
-    public Diary saveDiary(@NotNull Diary diary) {
+    public Diary save(@NotNull Diary diary) {
         diaryRepository.save(diary);
-        return getDiaryByDiaryid(diary.getId());
+        return getByDiaryid(diary.getId());
     }
 
-    public Diary saveDiary(Integer did, Long scid, Integer cid) {
-        return saveDiary(new Diary(did, scid, cid));
+    public Diary save(Integer did, Long scid, Integer cid) {
+        return save(new Diary(did, scid, cid));
     }
 
-    public Diary setDiaryId(@NotNull Diary diary, Integer did) {
+    public Diary setId(@NotNull Diary diary, Integer did) {
         diary.setId(did);
-        return saveDiary(diary);
+        return save(diary);
     }
 
-    public Diary setDiaryScid(@NotNull Diary diary, Long scid) {
+    public Diary setStidentId(@NotNull Diary diary, Long scid) {
         diary.setStudentId(scid);
-        return saveDiary(diary);
+        return save(diary);
     }
 
-    public Diary setDiaryCid(@NotNull Diary diary, Integer cid) {
+    public Diary setClassId(@NotNull Diary diary, Integer cid) {
         diary.setClassID(cid);
-        return saveDiary(diary);
+        return save(diary);
     }
 
-    public void deleteDiary(@NotNull Diary diary) {
+    public void delete(@NotNull Diary diary) {
         diaryRepository.delete(diary);
     }
 }
