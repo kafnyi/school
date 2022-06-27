@@ -72,10 +72,9 @@ public class MarkService extends MarkCrudService {
 
     List<Mark> searchWithSubject(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case SubjectId ->
-                    rContent = getBySubject(subjectCrudService.getSubjectBySubjectId(Integer.parseInt(value)));
-            case Name -> rContent = getBySubjects(subjectCrudService.getSubjectsByName(value));
-            case TeacherId -> rContent = getBySubjects(subjectCrudService.getSubjectsByTid(Long.parseLong(value)));
+            case SubjectId -> rContent = getBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value)));
+            case Name -> rContent = getBySubjects(subjectCrudService.getByName(value));
+            case TeacherId -> rContent = getBySubjects(subjectCrudService.getByTeacherId(Long.parseLong(value)));
             default -> rContent = null;
         }
         return rContent;
@@ -161,7 +160,7 @@ public class MarkService extends MarkCrudService {
 
     protected List<Mark> getByTeacher(@NotNull Teacher teacher) {
         List<Mark> marks = new ArrayList<>();
-        for (Subject subject : new ArrayList<>(subjectCrudService.getSubjectsByTid(teacher.getId()))) {
+        for (Subject subject : new ArrayList<>(subjectCrudService.getByTeacherId(teacher.getId()))) {
             marks.addAll(getBySubject(subject));
         }
         return marks;

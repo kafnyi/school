@@ -72,9 +72,9 @@ public class SubjectService extends SubjectCrudService {
 
     List<Subject> sjWSubject(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case SubjectId -> rContent.add(getSubjectBySubjectId(Integer.parseInt(value)));
-            case Name -> rContent = getSubjectsByName(value);
-            case TeacherId -> rContent = getSubjectsByTid(Long.parseLong(value));
+            case SubjectId -> rContent.add(getBySubjectId(Integer.parseInt(value)));
+            case Name -> rContent = getByName(value);
+            case TeacherId -> rContent = getByTeacherId(Long.parseLong(value));
             default -> rContent = null;
         }
         return rContent;
@@ -85,7 +85,7 @@ public class SubjectService extends SubjectCrudService {
             case MarkId -> rContent.add(getSubjectByMark(markCrudService.getByMarkid(Long.parseLong(value))));
             case DiaryId -> rContent = getSubjectsByMarks(markCrudService.getByDiaryid(Integer.parseInt(value)));
             case Date -> rContent = getSubjectsByMarks(markCrudService.getByDate(value));
-            case SubjectId -> rContent.add(getSubjectBySubjectId(Integer.parseInt(value)));
+            case SubjectId -> rContent.add(getBySubjectId(Integer.parseInt(value)));
             case Mark -> rContent = getSubjectsByMarks(markCrudService.getByMark(Byte.parseByte(value)));
             default -> rContent = null;
         }
@@ -104,7 +104,7 @@ public class SubjectService extends SubjectCrudService {
     }
 
     protected Subject getSubjectByMark(@NotNull Mark mark) {
-        return getSubjectBySubjectId(mark.getSubjectID());
+        return getBySubjectId(mark.getSubjectID());
     }
 
     protected List<Subject> getSubjectsByMarks(@NotNull List<Mark> marks) {
@@ -116,7 +116,7 @@ public class SubjectService extends SubjectCrudService {
     }
 
     protected List<Subject> getSubjectsByTeacher(@NotNull Teacher teacher) {
-        return getSubjectsByTid(teacher.getId());
+        return getByTeacherId(teacher.getId());
     }
 
     protected List<Subject> getSubjectsByTeachers(@NotNull List<Teacher> teachers) {

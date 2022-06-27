@@ -72,10 +72,9 @@ public class StudentService extends StudentCrudService {
 
 	List<Student> searchWithSubject(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
-			case SubjectId ->
-					rContent = getBySubject(subjectCrudService.getSubjectBySubjectId(Integer.parseInt(value)));
-			case Name -> rContent = getBySubjects(subjectCrudService.getSubjectsByName(value));
-			case TeacherId -> rContent = getBySubjects(subjectCrudService.getSubjectsByTid(Long.parseLong(value)));
+			case SubjectId -> rContent = getBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value)));
+			case Name -> rContent = getBySubjects(subjectCrudService.getByName(value));
+			case TeacherId -> rContent = getBySubjects(subjectCrudService.getByTeacherId(Long.parseLong(value)));
 			default -> rContent = null;
 		}
 		return rContent;
@@ -86,8 +85,7 @@ public class StudentService extends StudentCrudService {
 			case MarkId -> rContent.add(getByMark(markCrudService.getByMarkid(Long.parseLong(value))));
 			case DiaryId -> rContent.add(getByDiary(diaryCrudService.getByDiaryId(Integer.parseInt(value))));
 			case Date -> rContent = getByMarks(markCrudService.getByDate(value));
-			case SubjectId ->
-					rContent = getBySubject(subjectCrudService.getSubjectBySubjectId(Integer.parseInt(value)));
+			case SubjectId -> rContent = getBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value)));
 			case Mark -> rContent = getByMarks(markCrudService.getByMark(Byte.parseByte(value)));
 			default -> rContent = null;
 		}

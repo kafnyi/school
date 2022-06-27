@@ -15,48 +15,48 @@ public class SubjectCrudService {
         this.subjectRepository = subjectRepository;
     }
 
-    public List<Subject> getAllSubjects() {
+    public List<Subject> getAll() {
         return new ArrayList<>(subjectRepository.findAll());
     }
 
-    public Subject getSubjectBySubjectId(Integer id) {
+    public Subject getBySubjectId(Integer id) {
         return subjectRepository.findById(id).get();
     }
 
-    public List<Subject> getSubjectsByName(String name) {
+    public List<Subject> getByName(String name) {
         return subjectRepository.findAllBySubjectName(name);
     }
 
-    public List<Subject> getSubjectsByTid(Long tid) {
+    public List<Subject> getByTeacherId(Long tid) {
         return subjectRepository.findAllByTid(tid);
     }
 
-    public Subject getSubjectByNameAndTid(String name, Long tid) {
+    public Subject getByNameAndTeacherId(String name, Long tid) {
         return subjectRepository.findBySubjectNameAndTid(name, tid).get();
     }
 
-    public Subject saveSubject(@NotNull Subject subject) {
+    public Subject save(@NotNull Subject subject) {
         subjectRepository.save(subject);
-        return getSubjectBySubjectId(subject.getId());
+        return getBySubjectId(subject.getId());
     }
 
-    public Subject saveSubject(Integer id, String name, Long tid) {
-        return saveSubject(new Subject(id, name, tid));
+    public Subject save(Integer id, String name, Long tid) {
+        return save(new Subject(id, name, tid));
     }
 
-    public Subject setSubjectId(@NotNull Subject subject, Integer id) {
+    public Subject setId(@NotNull Subject subject, Integer id) {
         subject.setId(id);
-        return saveSubject(subject);
+        return save(subject);
     }
 
     public Subject setSubjectName(@NotNull Subject subject, String name) {
         subject.setSubjectName(name);
-        return saveSubject(subject);
+        return save(subject);
     }
 
-    public Subject setSubjectTid(@NotNull Subject subject, Long tid) {
+    public Subject setTeacherId(@NotNull Subject subject, Long tid) {
         subject.setTid(tid);
-        return saveSubject(subject);
+        return save(subject);
     }
 
     public void delete(@NotNull Subject subject) {

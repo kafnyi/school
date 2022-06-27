@@ -72,10 +72,9 @@ public class ClassService extends ClassCrudService {
 
     List<Class> searchWithSubject(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case SubjectId ->
-                    rContent = getBySubject(subjectCrudService.getSubjectBySubjectId(Integer.parseInt(value)));
-            case Name -> rContent = getBySubjects(subjectCrudService.getSubjectsByName(value));
-            case TeacherId -> rContent = getBySubjects(subjectCrudService.getSubjectsByTid(Long.parseLong(value)));
+            case SubjectId -> rContent = getBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value)));
+            case Name -> rContent = getBySubjects(subjectCrudService.getByName(value));
+            case TeacherId -> rContent = getBySubjects(subjectCrudService.getByTeacherId(Long.parseLong(value)));
             default -> rContent = null;
         }
         return rContent;

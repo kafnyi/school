@@ -77,8 +77,8 @@ public class TeacherService extends TeacherCrudService {
 	List<Teacher> tWSubject(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
 			case SubjectId ->
-					rContent.add(getTeacherBySubject(subjectCrudService.getSubjectBySubjectId(Integer.parseInt(value))));
-			case Name -> rContent = getTeacherBySubjects(subjectCrudService.getSubjectsByName(value));
+					rContent.add(getTeacherBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value))));
+			case Name -> rContent = getTeacherBySubjects(subjectCrudService.getByName(value));
 			case TeacherId -> rContent.add(getTeacherByTeacherId(Long.parseLong(value)));
 			default -> rContent = null;
 		}
@@ -91,7 +91,7 @@ public class TeacherService extends TeacherCrudService {
 			case DiaryId -> rContent = getTeachersByMarks(markCrudService.getByDiaryid(Integer.parseInt(value)));
 			case Date -> rContent = getTeachersByMarks(markCrudService.getByDate(value));
 			case SubjectId ->
-					rContent.add(getTeacherBySubject(subjectCrudService.getSubjectBySubjectId(Integer.parseInt(value))));
+					rContent.add(getTeacherBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value))));
 			case Mark -> rContent = getTeachersByMarks(markCrudService.getByMark(Byte.parseByte(value)));
 			default -> rContent = null;
 		}
@@ -133,7 +133,7 @@ public class TeacherService extends TeacherCrudService {
 	}
 
 	protected Teacher getTeacherByMark(@NotNull Mark mark) {
-		return getTeacherBySubject(subjectCrudService.getSubjectBySubjectId(mark.getSubjectID()));
+		return getTeacherBySubject(subjectCrudService.getBySubjectId(mark.getSubjectID()));
 	}
 
 	protected List<Teacher> getTeachersByMarks(@NotNull List<Mark> marks) {
