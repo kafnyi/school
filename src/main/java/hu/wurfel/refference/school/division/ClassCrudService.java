@@ -37,7 +37,7 @@ public class ClassCrudService {
         return classRepository.findAllByYear(year);
     }
 
-    public List<Class> getByTid(Long tid) {
+    public List<Class> getByTeacherId(Long tid) {
         return classRepository.findAllByTeacherId(tid);
     }
 
