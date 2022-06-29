@@ -9,27 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/api/v1/Diary/")
 public class DiaryController {
 
 
 	DiaryService diaryService;
 
-	@GetMapping("/api/v1/Diary/search/{searchWith}/{searchBy}/{value}")
+	@GetMapping("/search/{searchWith}/{searchBy}/{value}")
 	public ResponseEntity<List<Diary>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
 		return ResponseEntity.ok(diaryService.getSearchResponseList(searchWith, searchBy, value));
 	}
 
-	@PostMapping("/api/v1/Diary/adding")
+	@PostMapping("/adding")
 	public ResponseEntity<List<Diary>> create(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
 		return ResponseEntity.ok(diaryService.save(Integer.parseInt(diaryRequestForSearch.getId()), Long.parseLong(diaryRequestForSearch.getStudentId()), Integer.parseInt(diaryRequestForSearch.getClassId())));
 	}
 
-	@DeleteMapping("/api/v1/Diary/delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public void deleteById(@PathVariable String id) {
 		diaryService.delete(diaryService.getByDiaryId(Integer.parseInt(id)));
     }
 
-	@PutMapping("/api/v1/Diary/modify")
+	@PutMapping("/modify")
 	public ResponseEntity<List<Diary>> modify(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
 		Diary diary = diaryService.getByDiaryId(Integer.parseInt(diaryRequestForSearch.getId()));
 		diary.setStudentId(Long.parseLong(diaryRequestForSearch.getStudentId()));
