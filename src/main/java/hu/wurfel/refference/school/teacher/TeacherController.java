@@ -22,9 +22,7 @@ public class TeacherController {
 
     @PostMapping("/api/v1/Teacher/adding")
     public ResponseEntity<List<Teacher>> create(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
-        List<Teacher> answer = new ArrayList<>();
-        answer.add(teacherService.save(Long.parseLong(teacherRequestForSearch.getId()), teacherRequestForSearch.getName(), teacherRequestForSearch.getDate()));
-        return ResponseEntity.ok(answer);
+        return ResponseEntity.ok(teacherService.save(Long.parseLong(teacherRequestForSearch.getId()), teacherRequestForSearch.getName(), teacherRequestForSearch.getDate()));
     }
 
     @DeleteMapping("/api/v1/Teacher/delete/{id}")
