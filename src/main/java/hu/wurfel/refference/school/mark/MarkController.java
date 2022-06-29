@@ -22,7 +22,7 @@ public class MarkController {
     }
 
     @PostMapping("/api/v1/Mark/adding")
-    public ResponseEntity<List<Mark>> adding(@RequestBody MarkRequestForSearch markRequestForSearch) {
+    public ResponseEntity<List<Mark>> create(@RequestBody MarkRequestForSearch markRequestForSearch) {
         List<Mark> answer = new ArrayList<>();
         answer.add(markService.save(Long.parseLong(markRequestForSearch.getId()), Integer.parseInt(markRequestForSearch.getDiaryId()), markRequestForSearch.getDate(), Integer.parseInt(markRequestForSearch.getSubjectId()), Byte.parseByte(markRequestForSearch.getMark())));
         return ResponseEntity.ok(answer);
