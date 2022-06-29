@@ -16,9 +16,7 @@ public class StudentController {
 
     @GetMapping("/api/v1/Student/search/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Student>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
-        List<Student> answer;
-        answer = studentService.getSearchResponseList(searchWith, searchBy, value);
-        return ResponseEntity.ok(answer);
+        return ResponseEntity.ok(studentService.getSearchResponseList(searchWith, searchBy, value));
     }
 
     @PostMapping("/api/v1/Student/adding")

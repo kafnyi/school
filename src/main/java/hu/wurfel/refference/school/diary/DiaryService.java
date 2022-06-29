@@ -39,7 +39,6 @@ public class DiaryService extends DiaryCrudService {
     }
 
     List<Diary> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
-
         switch (searchWith) {
             case Student -> {
                 return searchWithStudent(searchBy, value);

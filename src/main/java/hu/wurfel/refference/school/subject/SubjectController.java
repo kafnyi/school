@@ -15,9 +15,7 @@ public class SubjectController {
 
     @GetMapping("/api/v1/Subject/search/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Subject>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
-        List<Subject> answer;
-        answer = subjectService.getSearchResponseList(searchWith, searchBy, value);
-        return ResponseEntity.ok(answer);
+        return ResponseEntity.ok(subjectService.getSearchResponseList(searchWith, searchBy, value));
     }
 
     @PostMapping("/api/v1/Subject/adding")
