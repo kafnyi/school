@@ -10,26 +10,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/vi/Class/search/")
 public class ClassController {
 
     ClassService classService;
 
-    @GetMapping("/api/vi/Class/search/{searchWith}/{searchBy}/{value}")
+    @GetMapping("/search/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Class>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         return ResponseEntity.ok(classService.getSearchResponseList(searchWith, searchBy, value));
     }
 
-    @PostMapping("/api/vi/Class/adding")
+    @PostMapping("/adding")
     public ResponseEntity<List<Class>> create(@RequestBody ClassRequestForSearch classRequestForSearch) {
         return ResponseEntity.ok(classService.save(Integer.parseInt(classRequestForSearch.getId()), Short.parseShort(classRequestForSearch.getGrade()), classRequestForSearch.getSign().strip().charAt(0), Year.parse(classRequestForSearch.getYear()), Long.parseLong(classRequestForSearch.getTeacherId())));
     }
 
-    @DeleteMapping("/api/vi/Class/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable String id) {
         classService.delete(classService.getByClassId(Integer.parseInt(id)));
     }
 
-    @PutMapping("/api/vi/Class/api/vi/modify/Class")
+    @PutMapping("/modify")
     public ResponseEntity<List<Class>> modify(@RequestBody ClassRequestForSearch classRequestForSearch) {
         Class division = classService.getByClassId(Integer.parseInt(classRequestForSearch.getId()));
         division.setId(Integer.parseInt(classRequestForSearch.getId()));
