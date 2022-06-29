@@ -40,8 +40,10 @@ public class StudentCrudService {
         return getByStudentId(student.getId());
     }
 
-    public Student save(long id, String name, String birth) {
-        return save(new Student(id, name, birth));
+    public List<Student> save(long id, String name, String birth) {
+        ArrayList<Student> saved = new ArrayList<>();
+        saved.add(save(new Student(id, name, birth)));
+        return saved;
     }
 
     public Student setID(@NotNull Student student, long id) {
