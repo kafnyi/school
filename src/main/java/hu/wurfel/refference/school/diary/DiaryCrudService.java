@@ -40,8 +40,10 @@ public class DiaryCrudService {
         return getByDiaryId(diary.getId());
     }
 
-    public Diary save(Integer did, Long scid, Integer cid) {
-        return save(new Diary(did, scid, cid));
+    public List<Diary> save(Integer diaryId, Long studentId, Integer classId) {
+        ArrayList<Diary> saved = new ArrayList<>();
+        saved.add(save(new Diary(diaryId, studentId, classId)));
+        return saved;
     }
 
     public Diary setId(@NotNull Diary diary, Integer did) {
