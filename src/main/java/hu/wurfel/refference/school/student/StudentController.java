@@ -9,27 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/Student/")
 public class StudentController {
 
 
     StudentService studentService;
 
-    @GetMapping("/api/v1/Student/search/{searchWith}/{searchBy}/{value}")
+    @GetMapping("/search/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Student>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         return ResponseEntity.ok(studentService.getSearchResponseList(searchWith, searchBy, value));
     }
 
-    @PostMapping("/api/v1/Student/adding")
+    @PostMapping("/adding")
     public ResponseEntity<List<Student>> create(@RequestBody StudentRequestForSearch studentRequestForSearch) {
         return ResponseEntity.ok(studentService.save(Long.parseLong(studentRequestForSearch.getId()), studentRequestForSearch.getName(), studentRequestForSearch.getDate()));
     }
 
-    @DeleteMapping("/api/v1/Student/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable String id) {
         studentService.delete(studentService.getByStudentId(Long.parseLong(id)));
     }
 
-    @PutMapping("/api/v1/Student/modify")
+    @PutMapping("/modify")
     public ResponseEntity<List<Student>> modifyStudent(@RequestBody StudentRequestForSearch studentRequestForSearch) {
         Student student = studentService.getByStudentId(Long.parseLong(studentRequestForSearch.getId()));
         student.setName(studentRequestForSearch.getName());
