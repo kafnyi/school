@@ -56,8 +56,10 @@ public class MarkCrudService {
         return getByMarkId(mark.getId());
     }
 
-    public Mark save(Long mid, Integer did, String date, Integer sid, byte mark) {
-        return save(new Mark(mid, did, date, sid, mark));
+    public List<Mark> save(Long mid, Integer did, String date, Integer sid, byte mark) {
+        ArrayList<Mark> saved = new ArrayList<>();
+        saved.add(save(new Mark(mid, did, date, sid, mark)));
+        return saved;
     }
 
     public Mark setId(@NotNull Mark mark, Long mid) {
