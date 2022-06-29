@@ -9,26 +9,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/Subject/")
 public class SubjectController {
 
     SubjectService subjectService;
 
-    @GetMapping("/api/v1/Subject/search/{searchWith}/{searchBy}/{value}")
+    @GetMapping("/search/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Subject>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         return ResponseEntity.ok(subjectService.getSearchResponseList(searchWith, searchBy, value));
     }
 
-    @PostMapping("/api/v1/Subject/adding")
+    @PostMapping("/adding")
     public ResponseEntity<List<Subject>> create(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
         return ResponseEntity.ok(subjectService.save(Integer.parseInt(subjectRequestForSearch.getId()), subjectRequestForSearch.getName(), Long.parseLong(subjectRequestForSearch.getTeacherId())));
     }
 
-    @DeleteMapping("/api/v1/Subject/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable String id) {
         subjectService.delete(subjectService.getBySubjectId(Integer.parseInt(id)));
     }
 
-    @PutMapping("/api/v1/Subject/modify")
+    @PutMapping("/modify")
     public ResponseEntity<List<Subject>> modifyStudent(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
         Subject subject = subjectService.getBySubjectId(Integer.parseInt(subjectRequestForSearch.getId()));
         subject.setSubjectName(subjectRequestForSearch.getName());
