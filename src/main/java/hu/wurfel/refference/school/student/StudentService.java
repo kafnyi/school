@@ -1,6 +1,7 @@
 package hu.wurfel.refference.school.student;
 
 import hu.wurfel.refference.school.base.enums.EntityFieldNames;
+import hu.wurfel.refference.school.base.enums.EntityNames;
 import hu.wurfel.refference.school.diary.Diary;
 import hu.wurfel.refference.school.diary.DiaryCrudService;
 import hu.wurfel.refference.school.division.Class;
@@ -37,6 +38,33 @@ public class StudentService extends StudentCrudService {
 		this.teacherCrudService = teacherCrudService;
 	}
 
+
+	List<Student> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
+
+		switch (searchWith) {
+			case Student -> {
+				return searchWithStudent(searchBy, value);
+			}
+			case Diary -> {
+				return searchWithDiary(searchBy, value);
+			}
+			case Class -> {
+				return searchWithClass(searchBy, value);
+			}
+			case Subject -> {
+				return searchWithSubject(searchBy, value);
+			}
+			case Mark -> {
+				return searchWithMark(searchBy, value);
+			}
+			case Teacher -> {
+				return searchWithTeacher(searchBy, value);
+			}
+			default -> {
+				return null;
+			}
+		}
+	}
 
 	List<Student> searchWithStudent(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {

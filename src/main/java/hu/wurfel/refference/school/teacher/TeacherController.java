@@ -16,7 +16,7 @@ public class TeacherController {
     @GetMapping("/api/v1/Teacher/search/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Teacher>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         List<Teacher> answer;
-        answer = getSearchResponseList(searchWith, searchBy, value);
+        answer = teacherService.getSearchResponseList(searchWith, searchBy, value);
         return ResponseEntity.ok(answer);
     }
 
@@ -43,31 +43,5 @@ public class TeacherController {
         return ResponseEntity.ok(answer);
     }
 
-    private List<Teacher> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
-
-        switch (searchWith) {
-            case Student -> {
-                return teacherService.searchWithStudent(searchBy, value);
-            }
-            case Diary -> {
-                return teacherService.searchWithDiary(searchBy, value);
-            }
-            case Class -> {
-                return teacherService.searchWithClass(searchBy, value);
-            }
-            case Subject -> {
-                return teacherService.searchWithSubject(searchBy, value);
-            }
-            case Mark -> {
-                return teacherService.searchWithMark(searchBy, value);
-            }
-            case Teacher -> {
-                return teacherService.searchWithTeacher(searchBy, value);
-            }
-            default -> {
-                return null;
-            }
-        }
-    }
 
 }
