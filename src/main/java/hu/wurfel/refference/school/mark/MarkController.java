@@ -16,9 +16,7 @@ public class MarkController {
 
     @GetMapping("/api/v1/Mark/search/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Mark>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
-        List<Mark> answer;
-        answer = markService.getSearchResponseList(searchWith, searchBy, value);
-        return ResponseEntity.ok(answer);
+        return ResponseEntity.ok(markService.getSearchResponseList(searchWith, searchBy, value));
     }
 
     @PostMapping("/api/v1/Mark/adding")

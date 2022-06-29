@@ -16,9 +16,7 @@ public class DiaryController {
 
 	@GetMapping("/api/v1/Diary/search/{searchWith}/{searchBy}/{value}")
 	public ResponseEntity<List<Diary>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
-		List<Diary> answer;
-		answer = diaryService.getSearchResponseList(searchWith, searchBy, value);
-		return ResponseEntity.ok(answer);
+		return ResponseEntity.ok(diaryService.getSearchResponseList(searchWith, searchBy, value));
 	}
 
 	@PostMapping("/api/v1/Diary/adding")
