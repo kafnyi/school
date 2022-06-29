@@ -23,9 +23,7 @@ public class DiaryController {
 
 	@PostMapping("/api/v1/Diary/adding")
 	public ResponseEntity<List<Diary>> create(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
-		List<Diary> answer = new ArrayList<>();
-		answer.add(diaryService.save(Integer.parseInt(diaryRequestForSearch.getId()), Long.parseLong(diaryRequestForSearch.getStudentId()), Integer.parseInt(diaryRequestForSearch.getClassId())));
-		return ResponseEntity.ok(answer);
+		return ResponseEntity.ok(diaryService.save(Integer.parseInt(diaryRequestForSearch.getId()), Long.parseLong(diaryRequestForSearch.getStudentId()), Integer.parseInt(diaryRequestForSearch.getClassId())));
 	}
 
 	@DeleteMapping("/api/v1/Diary/delete/{id}")
