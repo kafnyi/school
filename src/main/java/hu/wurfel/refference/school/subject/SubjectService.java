@@ -61,7 +61,7 @@ public class SubjectService extends SubjectCrudService {
                 return searchWithTeacher(searchBy, value);
             }
             default -> {
-                return null;
+                return new ArrayList<>();
             }
         }
     }
@@ -71,7 +71,7 @@ public class SubjectService extends SubjectCrudService {
             case StudentId -> rContent = getByStudent(studentCrudService.getByStudentId(Long.parseLong(value)));
             case Name -> rContent = getByStudents(studentCrudService.getByName(value));
             case Date -> rContent = getByStudents(studentCrudService.getByBirth(value));
-            default -> rContent = null;
+            default -> rContent = new ArrayList<>();
         }
         return rContent;
     }
@@ -79,9 +79,9 @@ public class SubjectService extends SubjectCrudService {
     List<Subject> searchWithDiary(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
             case DiaryId -> rContent = getByDiary(diaryCrudService.getByDiaryId(Integer.parseInt(value)));
-            case StudentId -> rContent = getByDiaries(diaryCrudService.getByScid(Long.parseLong(value)));
-            case ClassId -> rContent = getByDiaries(diaryCrudService.getByClassid(Integer.parseInt(value)));
-            default -> rContent = null;
+            case StudentId -> rContent = getByDiaries(diaryCrudService.getByStudentId(Long.parseLong(value)));
+            case ClassId -> rContent = getByDiaries(diaryCrudService.getByClassId(Integer.parseInt(value)));
+            default -> rContent = new ArrayList<>();
         }
         return rContent;
     }
@@ -92,8 +92,8 @@ public class SubjectService extends SubjectCrudService {
             case Grade -> rContent = getByClasses(classCrudService.getByGrade(Short.parseShort(value)));
             case Sign -> rContent = getByClasses(classCrudService.getBySign(value.strip().charAt(0)));
             case Year -> rContent = getByClasses(classCrudService.getByYear(Year.parse(value)));
-            case TeacherId -> rContent = getByClasses(classCrudService.getByTid(Long.parseLong(value)));
-            default -> rContent = null;
+            case TeacherId -> rContent = getByClasses(classCrudService.getByTeacherId(Long.parseLong(value)));
+            default -> rContent = new ArrayList<>();
         }
         return rContent;
     }
@@ -103,19 +103,19 @@ public class SubjectService extends SubjectCrudService {
             case SubjectId -> rContent.add(getBySubjectId(Integer.parseInt(value)));
             case Name -> rContent = getByName(value);
             case TeacherId -> rContent = getByTeacherId(Long.parseLong(value));
-            default -> rContent = null;
+            default -> rContent = new ArrayList<>();
         }
         return rContent;
     }
 
     List<Subject> searchWithMark(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case MarkId -> rContent.add(getByMark(markCrudService.getByMarkid(Long.parseLong(value))));
-            case DiaryId -> rContent = getByMarks(markCrudService.getByDiaryid(Integer.parseInt(value)));
+            case MarkId -> rContent.add(getByMark(markCrudService.getByMarkId(Long.parseLong(value))));
+            case DiaryId -> rContent = getByMarks(markCrudService.getByDiaryId(Integer.parseInt(value)));
             case Date -> rContent = getByMarks(markCrudService.getByDate(value));
             case SubjectId -> rContent.add(getBySubjectId(Integer.parseInt(value)));
             case Mark -> rContent = getByMarks(markCrudService.getByMark(Byte.parseByte(value)));
-            default -> rContent = null;
+            default -> rContent = new ArrayList<>();
         }
         return rContent;
     }
@@ -125,7 +125,7 @@ public class SubjectService extends SubjectCrudService {
             case TeacherId -> rContent = getByTeacher(teacherCrudService.getByTeacherId(Long.parseLong(value)));
             case Name -> rContent = getByTeachers(teacherCrudService.getByName(value));
             case Date -> rContent = getByTeachers(teacherCrudService.getByBirth(value));
-            default -> rContent = null;
+            default -> rContent = new ArrayList<>();
         }
         return rContent;
     }
@@ -156,7 +156,7 @@ public class SubjectService extends SubjectCrudService {
 
     protected List<Subject> getByDiary(@NotNull Diary diary) {
         List<Subject> subjects = new ArrayList<>();
-        for (Mark mark : new ArrayList<>(markCrudService.getByDiaryid(diary.getId()))) {
+        for (Mark mark : new ArrayList<>(markCrudService.getByDiaryId(diary.getId()))) {
             subjects.add(getByMark(mark));
         }
         return subjects;
@@ -172,7 +172,7 @@ public class SubjectService extends SubjectCrudService {
 
     protected List<Subject> getByStudent(@NotNull Student student) {
         List<Subject> subjects = new ArrayList<>();
-        for (Diary diary : new ArrayList<>(diaryCrudService.getByScid(student.getId()))) {
+        for (Diary diary : new ArrayList<>(diaryCrudService.getByStudentId(student.getId()))) {
             subjects.addAll(getByDiary(diary));
         }
         return subjects;
@@ -189,7 +189,7 @@ public class SubjectService extends SubjectCrudService {
 
     protected List<Subject> getByClass(@NotNull Class division) {
         List<Subject> subjects = new ArrayList<>();
-        for (Diary diary : new ArrayList<>(diaryCrudService.getByClassid(division.getId()))) {
+        for (Diary diary : new ArrayList<>(diaryCrudService.getByClassId(division.getId()))) {
             subjects.addAll(getByDiary(diary));
         }
         return subjects;

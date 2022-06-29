@@ -21,10 +21,8 @@ public class SubjectController {
     }
 
     @PostMapping("/api/v1/Subject/adding")
-    public ResponseEntity<List<Subject>> adding(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
-        List<Subject> answer = new ArrayList<>();
-        answer.add(subjectService.save(Integer.parseInt(subjectRequestForSearch.getId()), subjectRequestForSearch.getName(), Long.parseLong(subjectRequestForSearch.getTeacherId())));
-        return ResponseEntity.ok(answer);
+    public ResponseEntity<List<Subject>> create(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
+        return ResponseEntity.ok(subjectService.save(Integer.parseInt(subjectRequestForSearch.getId()), subjectRequestForSearch.getName(), Long.parseLong(subjectRequestForSearch.getTeacherId())));
     }
 
     @DeleteMapping("/api/v1/Subject/delete/{id}")

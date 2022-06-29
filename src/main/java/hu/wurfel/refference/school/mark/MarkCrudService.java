@@ -19,11 +19,11 @@ public class MarkCrudService {
         return new ArrayList<>(markRepository.findAll());
     }
 
-    public Mark getByMarkid(Long mid) {
+    public Mark getByMarkId(Long mid) {
         return markRepository.findById(mid).get();
     }
 
-    public List<Mark> getByDiaryid(Integer did) {
+    public List<Mark> getByDiaryId(Integer did) {
         return markRepository.findAllByDiaryID(did);
     }
 
@@ -39,25 +39,27 @@ public class MarkCrudService {
         return markRepository.findAllByMark(mark);
     }
 
-    public List<Mark> getByDiaryidAndDate(Integer did, String date) {
+    public List<Mark> getByDiaryIdAndDate(Integer did, String date) {
         return markRepository.findAllByDiaryIDAndDate(did, date);
     }
 
-    public List<Mark> getByDiaryidAndSubjectid(Integer did, Integer sid) {
+    public List<Mark> getByDiaryIdAndSubjectId(Integer did, Integer sid) {
         return markRepository.findAllByDiaryIDAndSubjectID(did, sid);
     }
 
-    public Mark getByDiaryidAndDateAndSubjectid(Integer did, String date, Integer sid) {
+    public Mark getByDiaryIdAndDateAndSubjectId(Integer did, String date, Integer sid) {
         return markRepository.findByDiaryIDAndDateAndSubjectID(did, date, sid).get();
     }
 
     public Mark save(@NotNull Mark mark) {
         markRepository.save(mark);
-        return getByMarkid(mark.getId());
+        return getByMarkId(mark.getId());
     }
 
-    public Mark save(Long mid, Integer did, String date, Integer sid, byte mark) {
-        return save(new Mark(mid, did, date, sid, mark));
+    public List<Mark> save(Long mid, Integer did, String date, Integer sid, byte mark) {
+        ArrayList<Mark> saved = new ArrayList<>();
+        saved.add(save(new Mark(mid, did, date, sid, mark)));
+        return saved;
     }
 
     public Mark setId(@NotNull Mark mark, Long mid) {
@@ -65,7 +67,7 @@ public class MarkCrudService {
         return save(mark);
     }
 
-    public Mark setDiaryid(@NotNull Mark mark, Integer did) {
+    public Mark setDiaryId(@NotNull Mark mark, Integer did) {
         mark.setDiaryID(did);
         return save(mark);
     }
@@ -75,7 +77,7 @@ public class MarkCrudService {
         return save(mark);
     }
 
-    public Mark setSubjectid(@NotNull Mark mark, Integer sid) {
+    public Mark setSubjectId(@NotNull Mark mark, Integer sid) {
         mark.setSubjectID(sid);
         return save(mark);
     }

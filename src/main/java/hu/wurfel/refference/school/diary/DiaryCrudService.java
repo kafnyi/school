@@ -23,15 +23,15 @@ public class DiaryCrudService {
         return diaryRepository.findById(Id).get();
     }
 
-    public List<Diary> getByScid(Long scid) {
+    public List<Diary> getByStudentId(Long scid) {
         return diaryRepository.findAllByStudentId(scid);
     }
 
-    public List<Diary> getByClassid(Integer cid) {
+    public List<Diary> getByClassId(Integer cid) {
         return diaryRepository.findAllByClassID(cid);
     }
 
-    public Diary getByScidAndClassid(Long scid, Integer cid) {
+    public Diary getByStudentIdAndClassId(Long scid, Integer cid) {
         return diaryRepository.findByStudentIdAndClassID(scid, cid).get();
     }
 
@@ -40,8 +40,10 @@ public class DiaryCrudService {
         return getByDiaryId(diary.getId());
     }
 
-    public Diary save(Integer did, Long scid, Integer cid) {
-        return save(new Diary(did, scid, cid));
+    public List<Diary> save(Integer diaryId, Long studentId, Integer classId) {
+        ArrayList<Diary> saved = new ArrayList<>();
+        saved.add(save(new Diary(diaryId, studentId, classId)));
+        return saved;
     }
 
     public Diary setId(@NotNull Diary diary, Integer did) {
@@ -49,7 +51,7 @@ public class DiaryCrudService {
         return save(diary);
     }
 
-    public Diary setStidentId(@NotNull Diary diary, Long scid) {
+    public Diary setStudentId(@NotNull Diary diary, Long scid) {
         diary.setStudentId(scid);
         return save(diary);
     }

@@ -22,10 +22,8 @@ public class ClassController {
     }
 
     @PostMapping("/api/vi/Class/adding")
-    public ResponseEntity<List<Class>> adding(@RequestBody ClassRequestForSearch classRequestForSearch) {
-        List<Class> answer = new ArrayList<>();
-        answer.add(classService.save(Integer.parseInt(classRequestForSearch.getId()), Short.parseShort(classRequestForSearch.getGrade()), classRequestForSearch.getSign().strip().charAt(0), Year.parse(classRequestForSearch.getYear()), Long.parseLong(classRequestForSearch.getTeacherId())));
-        return ResponseEntity.ok(answer);
+    public ResponseEntity<List<Class>> create(@RequestBody ClassRequestForSearch classRequestForSearch) {
+        return ResponseEntity.ok(classService.save(Integer.parseInt(classRequestForSearch.getId()), Short.parseShort(classRequestForSearch.getGrade()), classRequestForSearch.getSign().strip().charAt(0), Year.parse(classRequestForSearch.getYear()), Long.parseLong(classRequestForSearch.getTeacherId())));
     }
 
     @DeleteMapping("/api/vi/Class/delete/{id}")

@@ -37,7 +37,7 @@ public class ClassCrudService {
         return classRepository.findAllByYear(year);
     }
 
-    public List<Class> getByTid(Long tid) {
+    public List<Class> getByTeacherId(Long tid) {
         return classRepository.findAllByTeacherId(tid);
     }
 
@@ -62,8 +62,10 @@ public class ClassCrudService {
         return getByClassId(division.getId());
     }
 
-    public Class save(Integer classid, short grade, char sign, Year year, Long tid) {
-        return save(new Class(classid, grade, sign, year, tid));
+    public List<Class> save(Integer classid, short grade, char sign, Year year, Long tid) {
+        ArrayList<Class> saved = new ArrayList<>();
+        saved.add(save(new Class(classid, grade, sign, year, tid)));
+        return saved;
     }
 
     public Class setId(@NotNull Class division, Integer classid) {

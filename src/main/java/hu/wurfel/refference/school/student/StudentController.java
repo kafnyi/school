@@ -22,10 +22,8 @@ public class StudentController {
     }
 
     @PostMapping("/api/v1/Student/adding")
-    public ResponseEntity<List<Student>> adding(@RequestBody StudentRequestForSearch studentRequestForSearch) {
-        List<Student> answer = new ArrayList<>();
-        answer.add(studentService.save(Long.parseLong(studentRequestForSearch.getId()), studentRequestForSearch.getName(), studentRequestForSearch.getDate()));
-        return ResponseEntity.ok(answer);
+    public ResponseEntity<List<Student>> create(@RequestBody StudentRequestForSearch studentRequestForSearch) {
+        return ResponseEntity.ok(studentService.save(Long.parseLong(studentRequestForSearch.getId()), studentRequestForSearch.getName(), studentRequestForSearch.getDate()));
     }
 
     @DeleteMapping("/api/v1/Student/delete/{id}")

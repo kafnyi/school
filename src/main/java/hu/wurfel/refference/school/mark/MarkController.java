@@ -22,27 +22,25 @@ public class MarkController {
     }
 
     @PostMapping("/api/v1/Mark/adding")
-    public ResponseEntity<List<Mark>> adding(@RequestBody MarkRequestForSearch markRequestForSearch) {
-        List<Mark> answer = new ArrayList<>();
-        answer.add(markService.save(Long.parseLong(markRequestForSearch.getId()), Integer.parseInt(markRequestForSearch.getDiaryId()), markRequestForSearch.getDate(), Integer.parseInt(markRequestForSearch.getSubjectId()), Byte.parseByte(markRequestForSearch.getMark())));
-        return ResponseEntity.ok(answer);
+    public ResponseEntity<List<Mark>> create(@RequestBody MarkRequestForSearch markRequestForSearch) {
+        return ResponseEntity.ok(markService.save(Long.parseLong(markRequestForSearch.getId()), Integer.parseInt(markRequestForSearch.getDiaryId()), markRequestForSearch.getDate(), Integer.parseInt(markRequestForSearch.getSubjectId()), Byte.parseByte(markRequestForSearch.getMark())));
     }
 
     @DeleteMapping("/api/v1/Mark/delete/{id}")
     public void delete(@PathVariable String id) {
-        markService.delete(markService.getByMarkid(Long.parseLong(id)));
+        markService.delete(markService.getByMarkId(Long.parseLong(id)));
     }
 
     @PutMapping("/api/v1/Mark/modify")
     public ResponseEntity<List<Mark>> modifyStudent(@RequestBody MarkRequestForSearch markRequestForSearch) {
-        Mark mark = markService.getByMarkid(Long.parseLong(markRequestForSearch.getId()));
+	    Mark mark = markService.getByMarkId(Long.parseLong(markRequestForSearch.getId()));
         mark.setDiaryID(Integer.parseInt(markRequestForSearch.getDiaryId()));
         mark.setSubjectID(Integer.parseInt(markRequestForSearch.getSubjectId()));
         mark.setDate(markRequestForSearch.getDate());
         mark.setMark(Byte.parseByte(markRequestForSearch.getMark()));
         markService.save(mark);
         List<Mark> answer = new ArrayList<>();
-        answer.add(markService.getByMarkid(mark.getId()));
+	    answer.add(markService.getByMarkId(mark.getId()));
         return ResponseEntity.ok(answer);
     }
 

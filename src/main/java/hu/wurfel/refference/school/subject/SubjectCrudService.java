@@ -40,8 +40,10 @@ public class SubjectCrudService {
         return getBySubjectId(subject.getId());
     }
 
-    public Subject save(Integer id, String name, Long tid) {
-        return save(new Subject(id, name, tid));
+    public List<Subject> save(Integer id, String name, Long tid) {
+        ArrayList<Subject> saved = new ArrayList<>();
+        saved.add(save(new Subject(id, name, tid)));
+        return saved;
     }
 
     public Subject setId(@NotNull Subject subject, Integer id) {
