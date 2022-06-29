@@ -16,9 +16,7 @@ public class ClassController {
 
     @GetMapping("/api/vi/Class/search/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Class>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
-        List<Class> answer;
-        answer = classService.getSearchResponseList(searchWith, searchBy, value);
-        return ResponseEntity.ok(answer);
+        return ResponseEntity.ok(classService.getSearchResponseList(searchWith, searchBy, value));
     }
 
     @PostMapping("/api/vi/Class/adding")
