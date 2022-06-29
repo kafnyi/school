@@ -21,7 +21,7 @@ public class TeacherController {
     }
 
     @PostMapping("/api/v1/Teacher/adding")
-    public ResponseEntity<List<Teacher>> adding(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
+    public ResponseEntity<List<Teacher>> create(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
         List<Teacher> answer = new ArrayList<>();
         answer.add(teacherService.save(Long.parseLong(teacherRequestForSearch.getId()), teacherRequestForSearch.getName(), teacherRequestForSearch.getDate()));
         return ResponseEntity.ok(answer);
