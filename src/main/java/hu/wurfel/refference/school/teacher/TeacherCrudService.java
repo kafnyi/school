@@ -36,8 +36,10 @@ public class TeacherCrudService {
         return getByTeacherId(teacher.getId());
     }
 
-    public Teacher save(Long id, String name, String birth) {
-        return save(new Teacher(id, name, birth));
+    public List<Teacher> save(Long id, String name, String birth) {
+        ArrayList<Teacher> saved = new ArrayList<>();
+        saved.add(save(new Teacher(id, name, birth)));
+        return saved;
     }
 
     public Teacher setID(@NotNull Teacher teacher, long id) {
