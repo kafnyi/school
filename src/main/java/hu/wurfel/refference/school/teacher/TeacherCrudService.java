@@ -42,11 +42,6 @@ public class TeacherCrudService {
         return saved;
     }
 
-    public Teacher setID(@NotNull Teacher teacher, long id) {
-        teacher.setId(id);
-        return save(teacher);
-    }
-
     public Teacher setName(@NotNull Teacher teacher, String name) {
         teacher.setName(name);
         return save(teacher);
