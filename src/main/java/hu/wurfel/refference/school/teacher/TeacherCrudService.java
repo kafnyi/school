@@ -16,7 +16,7 @@ public class TeacherCrudService {
     }
 
     public Iterable<Teacher> getAll() {
-        return new ArrayList<>(teacherRepository.findAll());
+        return teacherRepository.findAll();
     }
 
     public Teacher getByTeacherId(Long Id) {
