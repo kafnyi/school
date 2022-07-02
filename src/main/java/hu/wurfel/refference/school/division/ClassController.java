@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/Class/search/")
+@RequestMapping("/api/v1/Class/")
 public class ClassController {
 
     ClassService classService;
