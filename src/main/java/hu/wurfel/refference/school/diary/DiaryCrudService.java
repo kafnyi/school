@@ -16,23 +16,23 @@ public class DiaryCrudService {
     }
 
     public List<Diary> getAll() {
-        return new ArrayList<>(diaryRepository.findAll());
+        return diaryRepository.findAll();
     }
 
     public Diary getByDiaryId(Integer Id) {
         return diaryRepository.findById(Id).get();
     }
 
-    public List<Diary> getByStudentId(Long scid) {
-        return diaryRepository.findAllByStudentId(scid);
+    public List<Diary> getByStudentId(Long studentId) {
+        return diaryRepository.findAllByStudentId(studentId);
     }
 
-    public List<Diary> getByClassId(Integer cid) {
-        return diaryRepository.findAllByClassID(cid);
+    public List<Diary> getByClassId(Integer classId) {
+        return diaryRepository.findAllByClassID(classId);
     }
 
-    public Diary getByStudentIdAndClassId(Long scid, Integer cid) {
-        return diaryRepository.findByStudentIdAndClassID(scid, cid).get();
+    public Diary getByStudentIdAndClassId(Long studentId, Integer classId) {
+        return diaryRepository.findByStudentIdAndClassID(studentId, classId).get();
     }
 
     public Diary save(@NotNull Diary diary) {
@@ -46,18 +46,18 @@ public class DiaryCrudService {
         return saved;
     }
 
-    public Diary setId(@NotNull Diary diary, Integer did) {
-        diary.setId(did);
+    public Diary setId(@NotNull Diary diary, Integer diaryId) {
+        diary.setId(diaryId);
         return save(diary);
     }
 
-    public Diary setStudentId(@NotNull Diary diary, Long scid) {
-        diary.setStudentId(scid);
+    public Diary setStudentId(@NotNull Diary diary, Long studentId) {
+        diary.setStudentId(studentId);
         return save(diary);
     }
 
-    public Diary setClassId(@NotNull Diary diary, Integer cid) {
-        diary.setClassID(cid);
+    public Diary setClassId(@NotNull Diary diary, Integer classId) {
+        diary.setClassID(classId);
         return save(diary);
     }
 
