@@ -46,11 +46,6 @@ public class StudentCrudService {
         return saved;
     }
 
-    public Student setID(@NotNull Student student, long id) {
-        student.setId(id);
-        return save(student);
-    }
-
     public Student setName(@NotNull Student student, String name) {
         student.setName(name);
         return save(student);
