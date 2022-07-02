@@ -20,8 +20,8 @@ public class SubjectController {
     }
 
     @PostMapping
-    public ResponseEntity<List<Subject>> create(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
-        return ResponseEntity.ok(subjectService.save(Integer.parseInt(subjectRequestForSearch.getId()), subjectRequestForSearch.getName(), Long.parseLong(subjectRequestForSearch.getTeacherId())));
+    public ResponseEntity<List<Subject>> create(@RequestBody SubjectDto subjectDto) {
+        return ResponseEntity.ok(subjectService.save(subjectDto.getId(), subjectDto.getName(), subjectDto.getTeacherId()));
     }
 
     @DeleteMapping("/{id}")
@@ -30,10 +30,10 @@ public class SubjectController {
     }
 
     @PutMapping
-    public ResponseEntity<List<Subject>> modifyStudent(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
-        Subject subject = subjectService.getBySubjectId(Integer.parseInt(subjectRequestForSearch.getId()));
-        subject.setSubjectName(subjectRequestForSearch.getName());
-        subject.setTid(Long.parseLong(subjectRequestForSearch.getTeacherId()));
+    public ResponseEntity<List<Subject>> modifyStudent(@RequestBody SubjectDto subjectDto) {
+        Subject subject = subjectService.getBySubjectId(subjectDto.getId());
+        subject.setSubjectName(subjectDto.getName());
+        subject.setTid(subjectDto.getTeacherId());
         subjectService.save(subject);
         List<Subject> answer = new ArrayList<>();
         answer.add(subjectService.getBySubjectId(subject.getId()));
