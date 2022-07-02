@@ -80,7 +80,7 @@ public class StudentService extends StudentCrudService {
 		switch (searchBy) {
 			case DiaryId -> rContent.add(getByDiary(diaryCrudService.getByDiaryId(Integer.parseInt(value))));
 			case StudentId -> rContent.add(getByStudentId(Long.parseLong(value)));
-			case ClassId -> rContent = getByDiaries(diaryCrudService.getByClassId(Integer.parseInt(value)));
+			case ClassId -> rContent = getByDiaries(diaryCrudService.getAllByClassId(Integer.parseInt(value)));
 			default -> rContent = new ArrayList<>();
 		}
 		return rContent;
@@ -156,7 +156,7 @@ public class StudentService extends StudentCrudService {
 
 	protected List<Student> getByClass(@NotNull Class division) {
 		List<Student> students = new ArrayList<>();
-		for (Diary diary : new ArrayList<>(diaryCrudService.getByClassId(division.getId()))) {
+		for (Diary diary : new ArrayList<>(diaryCrudService.getAllByClassId(division.getId()))) {
 			students.add(getByDiary(diary));
 		}
 		return students;

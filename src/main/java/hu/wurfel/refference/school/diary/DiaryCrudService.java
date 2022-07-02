@@ -23,11 +23,11 @@ public class DiaryCrudService {
         return diaryRepository.findById(Id).get();
     }
 
-    public List<Diary> getByStudentId(Long studentId) {
+    public List<Diary> getAllByStudentId(Long studentId) {
         return diaryRepository.findAllByStudentId(studentId);
     }
 
-    public List<Diary> getByClassId(Integer classId) {
+    public List<Diary> getAllByClassId(Integer classId) {
         return diaryRepository.findAllByClassID(classId);
     }
 
