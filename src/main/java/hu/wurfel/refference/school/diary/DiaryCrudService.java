@@ -46,11 +46,6 @@ public class DiaryCrudService {
         return saved;
     }
 
-    public Diary setId(@NotNull Diary diary, Integer diaryId) {
-        diary.setId(diaryId);
-        return save(diary);
-    }
-
     public Diary setStudentId(@NotNull Diary diary, Long studentId) {
         diary.setStudentId(studentId);
         return save(diary);
