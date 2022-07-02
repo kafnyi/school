@@ -68,11 +68,6 @@ public class ClassCrudService {
         return saved;
     }
 
-    public Class setId(@NotNull Class division, Integer classId) {
-        division.setId(classId);
-        return save(division);
-    }
-
     public Class setGrade(@NotNull Class division, short grade) {
         division.setGrade(grade);
         return save(division);
