@@ -46,22 +46,22 @@ public class TeacherService extends TeacherCrudService {
 
 		switch (searchWith) {
 			case Student -> {
-				return searchWithStudent(searchBy, value);
+				return findByStudent(searchBy, value);
 			}
 			case Diary -> {
-				return searchWithDiary(searchBy, value);
+				return findByDiary(searchBy, value);
 			}
 			case Class -> {
-				return searchWithClass(searchBy, value);
+				return findByClass(searchBy, value);
 			}
 			case Subject -> {
-				return searchWithSubject(searchBy, value);
+				return findBySubject(searchBy, value);
 			}
 			case Mark -> {
-				return searchWithMark(searchBy, value);
+				return findByMark(searchBy, value);
 			}
 			case Teacher -> {
-				return searchWithTeacher(searchBy, value);
+				return findByTeacher(searchBy, value);
 			}
 			default -> {
 				return new ArrayList<>();
@@ -69,7 +69,7 @@ public class TeacherService extends TeacherCrudService {
 		}
 	}
 
-	List<Teacher> searchWithStudent(EntityFieldNames searchBy, String value) {
+	List<Teacher> findByStudent(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
 			case StudentId -> rContent = getByStudent(studentCrudService.getByStudentId(Long.parseLong(value)));
 			case Name -> rContent = getByStudents(studentCrudService.getByName(value));
@@ -79,7 +79,7 @@ public class TeacherService extends TeacherCrudService {
 		return rContent;
 	}
 
-	List<Teacher> searchWithDiary(EntityFieldNames searchBy, String value) {
+	List<Teacher> findByDiary(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
 			case DiaryId -> rContent = getByDiary(diaryCrudService1.getByDiaryId(Integer.parseInt(value)));
 			case StudentId -> rContent = getByDiaries(diaryCrudService1.getByStudentId(Long.parseLong(value)));
@@ -89,7 +89,7 @@ public class TeacherService extends TeacherCrudService {
 		return rContent;
 	}
 
-	List<Teacher> searchWithClass(EntityFieldNames searchBy, String value) {
+	List<Teacher> findByClass(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
 			case ClassId -> rContent.add(getByClass(classCrudService.getByClassId(Integer.parseInt(value))));
 			case Grade -> rContent = getByClasses(classCrudService.getByGrade(Short.parseShort(value)));
@@ -101,7 +101,7 @@ public class TeacherService extends TeacherCrudService {
 		return rContent;
 	}
 
-	List<Teacher> searchWithSubject(EntityFieldNames searchBy, String value) {
+	List<Teacher> findBySubject(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
 			case SubjectId -> rContent.add(getBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value))));
 			case Name -> rContent = getBySubjects(subjectCrudService.getByName(value));
@@ -111,7 +111,7 @@ public class TeacherService extends TeacherCrudService {
 		return rContent;
 	}
 
-	List<Teacher> searchWithMark(EntityFieldNames searchBy, String value) {
+	List<Teacher> findByMark(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
 			case MarkId -> rContent.add(getByMark(markCrudService.getByMarkId(Long.parseLong(value))));
 			case DiaryId -> rContent = getByMarks(markCrudService.getByDiaryId(Integer.parseInt(value)));
@@ -123,7 +123,7 @@ public class TeacherService extends TeacherCrudService {
 		return rContent;
 	}
 
-	List<Teacher> searchWithTeacher(EntityFieldNames searchBy, String value) {
+	List<Teacher> findByTeacher(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
 			case TeacherId -> rContent.add(getByTeacherId(Long.parseLong(value)));
 			case Name -> rContent = getByName(value);
