@@ -16,7 +16,7 @@ public class StudentCrudService {
     }
 
     public List<Student> getAll() {
-        return new ArrayList<Student>(studentRepository.findAll());
+        return studentRepository.findAll();
     }
 
     public Student getByStudentId(long id) {
