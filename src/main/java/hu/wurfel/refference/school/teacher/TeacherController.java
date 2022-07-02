@@ -20,8 +20,8 @@ public class TeacherController {
     }
 
     @PostMapping
-    public ResponseEntity<List<Teacher>> create(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
-        return ResponseEntity.ok(teacherService.save(Long.parseLong(teacherRequestForSearch.getId()), teacherRequestForSearch.getName(), teacherRequestForSearch.getDate()));
+    public ResponseEntity<List<Teacher>> create(@RequestBody TeacherDto teacherDto) {
+        return ResponseEntity.ok(teacherService.save(teacherDto.getId(), teacherDto.getName(), teacherDto.getBirthDate()));
     }
 
     @DeleteMapping("/{id}")
@@ -30,10 +30,10 @@ public class TeacherController {
     }
 
     @PutMapping
-    public ResponseEntity<List<Teacher>> modifyStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
-        Teacher teacher = teacherService.getByTeacherId(Long.parseLong(teacherRequestForSearch.getId()));
-        teacher.setName(teacherRequestForSearch.getName());
-        teacher.setBirthDate(teacherRequestForSearch.getDate());
+    public ResponseEntity<List<Teacher>> modifyStudent(@RequestBody TeacherDto teacherDto) {
+        Teacher teacher = teacherService.getByTeacherId(teacherDto.getId());
+        teacher.setName(teacherDto.getName());
+        teacher.setBirthDate(teacherDto.getBirthDate());
         teacherService.save(teacher);
         List<Teacher> answer = new ArrayList<>();
         answer.add(teacherService.getByTeacherId(teacher.getId()));
