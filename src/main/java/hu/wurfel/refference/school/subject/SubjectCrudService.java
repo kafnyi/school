@@ -46,11 +46,6 @@ public class SubjectCrudService {
         return saved;
     }
 
-    public Subject setId(@NotNull Subject subject, Integer id) {
-        subject.setId(id);
-        return save(subject);
-    }
-
     public Subject setSubjectName(@NotNull Subject subject, String name) {
         subject.setSubjectName(name);
         return save(subject);
