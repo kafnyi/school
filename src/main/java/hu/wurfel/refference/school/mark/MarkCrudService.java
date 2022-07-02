@@ -16,7 +16,7 @@ public class MarkCrudService {
     }
 
     public List<Mark> getAll() {
-        return new ArrayList<>(markRepository.findAll());
+        return markRepository.findAll();
     }
 
     public Mark getByMarkId(Long mid) {
