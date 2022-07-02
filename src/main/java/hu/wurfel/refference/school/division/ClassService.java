@@ -88,10 +88,10 @@ public class ClassService extends ClassCrudService {
     List<Class> findByClass(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
             case ClassId -> rContent.add(getByClassId(Integer.parseInt(value)));
-            case Grade -> rContent = getByGrade(Short.parseShort(value));
-            case Sign -> rContent = getBySign(value.strip().charAt(0));
-            case Year -> rContent = getByYear(Year.parse(value));
-            case TeacherId -> rContent = getByTeacherId(Long.parseLong(value));
+            case Grade -> rContent = getAllByGrade(Short.parseShort(value));
+            case Sign -> rContent = getAllBySign(value.strip().charAt(0));
+            case Year -> rContent = getAllByYear(Year.parse(value));
+            case TeacherId -> rContent = getAllByTeacherId(Long.parseLong(value));
             default -> rContent = new ArrayList<>();
         }
         return rContent;
@@ -154,7 +154,7 @@ public class ClassService extends ClassCrudService {
     }
 
     protected List<Class> getByTeacher(@NotNull Teacher teacher) {
-        return getByTeacherId(teacher.getId());
+        return getAllByTeacherId(teacher.getId());
     }
 
     protected List<Class> getByTeachers(@NotNull List<Teacher> teachers) {

@@ -92,9 +92,9 @@ public class TeacherService extends TeacherCrudService {
 	List<Teacher> findByClass(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
 			case ClassId -> rContent.add(getByClass(classCrudService.getByClassId(Integer.parseInt(value))));
-			case Grade -> rContent = getByClasses(classCrudService.getByGrade(Short.parseShort(value)));
-			case Sign -> rContent = getByClasses(classCrudService.getBySign(value.strip().charAt(0)));
-			case Year -> rContent = getByClasses(classCrudService.getByYear(Year.parse(value)));
+			case Grade -> rContent = getByClasses(classCrudService.getAllByGrade(Short.parseShort(value)));
+			case Sign -> rContent = getByClasses(classCrudService.getAllBySign(value.strip().charAt(0)));
+			case Year -> rContent = getByClasses(classCrudService.getAllByYear(Year.parse(value)));
 			case TeacherId -> rContent.add(getByTeacherId(Long.parseLong(value)));
 			default -> rContent = new ArrayList<>();
 		}

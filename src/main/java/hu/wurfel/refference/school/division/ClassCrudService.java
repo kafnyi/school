@@ -25,31 +25,31 @@ public class ClassCrudService {
         return classRepository.findById(classId).get();
     }
 
-    public List<Class> getByGrade(short grade) {
+    public List<Class> getAllByGrade(short grade) {
         return classRepository.findAllByGrade(grade);
     }
 
-    public List<Class> getBySign(char sign) {
+    public List<Class> getAllBySign(char sign) {
         return classRepository.findAllBySign(sign);
     }
 
-    public List<Class> getByYear(Year year) {
+    public List<Class> getAllByYear(Year year) {
         return classRepository.findAllByYear(year);
     }
 
-    public List<Class> getByTeacherId(Long teacherId) {
+    public List<Class> getAllByTeacherId(Long teacherId) {
         return classRepository.findAllByTeacherId(teacherId);
     }
 
-    public List<Class> getByGradeAndSign(short grade, char sign) {
+    public List<Class> getAllByGradeAndSign(short grade, char sign) {
         return classRepository.findAllByGradeAndSign(grade, sign);
     }
 
-    public List<Class> getByGradeAndYear(short grade, Year year) {
+    public List<Class> getAllByGradeAndYear(short grade, Year year) {
         return classRepository.findAllByGradeAndYear(grade, year);
     }
 
-    public List<Class> getBySignAndYear(char sign, Year year) {
+    public List<Class> getAllBySignAndYear(char sign, Year year) {
         return classRepository.findAllBySignAndYear(sign, year);
     }
 
