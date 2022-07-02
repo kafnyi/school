@@ -20,7 +20,7 @@ public class MarkController {
         return ResponseEntity.ok(markService.getSearchResponseList(searchWith, searchBy, value));
     }
 
-    @PostMapping("/adding")
+    @PostMapping
     public ResponseEntity<List<Mark>> create(@RequestBody MarkRequestForSearch markRequestForSearch) {
         return ResponseEntity.ok(markService.save(Long.parseLong(markRequestForSearch.getId()), Integer.parseInt(markRequestForSearch.getDiaryId()), markRequestForSearch.getDate(), Integer.parseInt(markRequestForSearch.getSubjectId()), Byte.parseByte(markRequestForSearch.getMark())));
     }
@@ -30,7 +30,7 @@ public class MarkController {
         markService.delete(markService.getByMarkId(Long.parseLong(id)));
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<List<Mark>> modifyStudent(@RequestBody MarkRequestForSearch markRequestForSearch) {
 	    Mark mark = markService.getByMarkId(Long.parseLong(markRequestForSearch.getId()));
         mark.setDiaryID(Integer.parseInt(markRequestForSearch.getDiaryId()));
