@@ -30,7 +30,7 @@ public class ClassController {
         classService.delete(classService.getByClassId(Integer.parseInt(id)));
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<List<Class>> modify(@RequestBody ClassRequestForSearch classRequestForSearch) {
         Class division = classService.getByClassId(Integer.parseInt(classRequestForSearch.getId()));
         division.setId(Integer.parseInt(classRequestForSearch.getId()));
