@@ -20,7 +20,7 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getSearchResponseList(searchWith, searchBy, value));
     }
 
-    @PostMapping("/adding")
+    @PostMapping
     public ResponseEntity<List<Student>> create(@RequestBody StudentRequestForSearch studentRequestForSearch) {
         return ResponseEntity.ok(studentService.save(Long.parseLong(studentRequestForSearch.getId()), studentRequestForSearch.getName(), studentRequestForSearch.getDate()));
     }
@@ -30,7 +30,7 @@ public class StudentController {
         studentService.delete(studentService.getByStudentId(Long.parseLong(id)));
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<List<Student>> modifyStudent(@RequestBody StudentRequestForSearch studentRequestForSearch) {
         Student student = studentService.getByStudentId(Long.parseLong(studentRequestForSearch.getId()));
         student.setName(studentRequestForSearch.getName());
