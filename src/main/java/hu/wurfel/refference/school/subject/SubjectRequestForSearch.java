@@ -4,10 +4,8 @@ import hu.wurfel.refference.school.base.enums.EntityFieldNames;
 import hu.wurfel.refference.school.base.enums.EntityNames;
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
-public class SubjectRequestForSearch implements Serializable {
+public class SubjectRequestForSearch {
     private EntityNames searchFor;
     private EntityNames searchWith;
     private EntityFieldNames searchBy;
