@@ -4,15 +4,13 @@ import hu.wurfel.refference.school.base.enums.EntityFieldNames;
 import hu.wurfel.refference.school.base.enums.EntityNames;
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
-public class StudentRequestForSearch implements Serializable {
+public class StudentRequestForSearch {
     private EntityNames searchFor;
     private EntityNames searchWith;
     private EntityFieldNames searchBy;
     private String searchValue;
-    private String id;
+    private Long id;
     private String name;
     private String date;
 }
