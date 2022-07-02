@@ -69,8 +69,8 @@ public class StudentService extends StudentCrudService {
 	List<Student> findByStudent(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
 			case StudentId -> rContent.add(getByStudentId(Long.parseLong(value)));
-			case Name -> rContent = getByName(value);
-			case Date -> rContent = getByBirth(value);
+			case Name -> rContent = getAllByName(value);
+			case Date -> rContent = getAllByBirth(value);
 			default -> rContent = new ArrayList<>();
 		}
 		return rContent;

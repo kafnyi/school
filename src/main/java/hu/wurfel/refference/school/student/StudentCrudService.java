@@ -23,11 +23,11 @@ public class StudentCrudService {
         return studentRepository.findById(id).get();
     }
 
-    public List<Student> getByName(String name) {
+    public List<Student> getAllByName(String name) {
         return studentRepository.findAllByName(name);
     }
 
-    public List<Student> getByBirth(String date) {
+    public List<Student> getAllByBirth(String date) {
         return studentRepository.findAllByBirthDate(date);
     }
 
