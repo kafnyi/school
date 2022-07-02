@@ -19,7 +19,7 @@ public class TeacherController {
         return ResponseEntity.ok(teacherService.getSearchResponseList(searchWith, searchBy, value));
     }
 
-    @PostMapping("/adding")
+    @PostMapping
     public ResponseEntity<List<Teacher>> create(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
         return ResponseEntity.ok(teacherService.save(Long.parseLong(teacherRequestForSearch.getId()), teacherRequestForSearch.getName(), teacherRequestForSearch.getDate()));
     }
@@ -29,7 +29,7 @@ public class TeacherController {
         teacherService.delete(teacherService.getByTeacherId(Long.parseLong(id)));
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<List<Teacher>> modifyStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
         Teacher teacher = teacherService.getByTeacherId(Long.parseLong(teacherRequestForSearch.getId()));
         teacher.setName(teacherRequestForSearch.getName());
