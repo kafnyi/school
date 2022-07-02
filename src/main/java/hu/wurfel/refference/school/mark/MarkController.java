@@ -16,7 +16,7 @@ public class MarkController {
     MarkService markService;
 
     @GetMapping("/search/{searchWith}/{searchBy}/{value}")
-    public ResponseEntity<List<Mark>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
+    public ResponseEntity<List<Mark>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         return ResponseEntity.ok(markService.getSearchResponseList(searchWith, searchBy, value));
     }
 
@@ -31,15 +31,15 @@ public class MarkController {
     }
 
     @PutMapping
-    public ResponseEntity<List<Mark>> modifyStudent(@RequestBody MarkRequestForSearch markRequestForSearch) {
-	    Mark mark = markService.getByMarkId(Long.parseLong(markRequestForSearch.getId()));
-        mark.setDiaryID(Integer.parseInt(markRequestForSearch.getDiaryId()));
-        mark.setSubjectID(Integer.parseInt(markRequestForSearch.getSubjectId()));
-        mark.setDate(markRequestForSearch.getDate());
-        mark.setMark(Byte.parseByte(markRequestForSearch.getMark()));
+    public ResponseEntity<List<Mark>> modify(@RequestBody MarkDto markDto) {
+        Mark mark = markService.getByMarkId(markDto.getId());
+        mark.setDiaryID(mark.getDiaryID());
+        mark.setSubjectID(mark.getSubjectID());
+        mark.setDate(markDto.getDate());
+        mark.setMark(markDto.getMark());
         markService.save(mark);
         List<Mark> answer = new ArrayList<>();
-	    answer.add(markService.getByMarkId(mark.getId()));
+        answer.add(markService.getByMarkId(mark.getId()));
         return ResponseEntity.ok(answer);
     }
 
