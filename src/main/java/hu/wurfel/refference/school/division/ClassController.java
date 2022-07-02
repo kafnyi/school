@@ -20,7 +20,7 @@ public class ClassController {
         return ResponseEntity.ok(classService.getSearchResponseList(searchWith, searchBy, value));
     }
 
-    @PostMapping("/adding")
+    @PostMapping
     public ResponseEntity<List<Class>> create(@RequestBody ClassRequestForSearch classRequestForSearch) {
         return ResponseEntity.ok(classService.save(Integer.parseInt(classRequestForSearch.getId()), Short.parseShort(classRequestForSearch.getGrade()), classRequestForSearch.getSign().strip().charAt(0), Year.parse(classRequestForSearch.getYear()), Long.parseLong(classRequestForSearch.getTeacherId())));
     }
