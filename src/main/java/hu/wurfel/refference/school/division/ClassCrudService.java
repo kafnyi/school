@@ -18,7 +18,7 @@ public class ClassCrudService {
 
 
     public List<Class> getAll() {
-        return new ArrayList<Class>(classRepository.findAll());
+        return (classRepository.findAll());
     }
 
     public Class getByClassId(Integer cid) {
