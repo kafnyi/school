@@ -112,8 +112,8 @@ public class MarkService extends MarkCrudService {
             case MarkId -> rContent.add(getByMarkId(Long.parseLong(value)));
             case DiaryId -> rContent = getByDiaryId(Integer.parseInt(value));
             case Date -> rContent = getByDate(value);
-            case SubjectId -> rContent = getBySubjectid(Integer.parseInt(value));
-            case Mark -> rContent = getByMark(Byte.parseByte(value));
+	        case SubjectId -> rContent = getBySubjectId(Integer.parseInt(value));
+	        case Mark -> rContent = getByMark(Byte.parseByte(value));
             default -> rContent = new ArrayList<>();
         }
         return rContent;
@@ -174,7 +174,7 @@ public class MarkService extends MarkCrudService {
     }
 
     public List<Mark> getBySubject(@NotNull Subject subject) {
-        return getBySubjectid(subject.getId());
+	    return getBySubjectId(subject.getId());
     }
 
     protected List<Mark> getBySubjects(@NotNull List<Subject> subjects) {

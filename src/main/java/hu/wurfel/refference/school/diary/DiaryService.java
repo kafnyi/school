@@ -111,7 +111,7 @@ public class DiaryService extends DiaryCrudService {
             case MarkId -> rContent.add(getByMark(markCrudService.getByMarkId(Long.parseLong(value))));
             case DiaryId -> rContent.add(getByDiaryId(Integer.parseInt(value)));
             case Date -> rContent = getDiariesByMarks(markCrudService.getByDate(value));
-            case SubjectId -> rContent = getDiariesByMarks(markCrudService.getBySubjectid(Integer.parseInt(value)));
+            case SubjectId -> rContent = getDiariesByMarks(markCrudService.getBySubjectId(Integer.parseInt(value)));
             case Mark -> rContent = getDiariesByMarks(markCrudService.getByMark(Byte.parseByte(value)));
             default -> rContent = new ArrayList<>();
         }
@@ -166,7 +166,7 @@ public class DiaryService extends DiaryCrudService {
 
     protected List<Diary> getBySubject(@NotNull Subject subject) {
         List<Diary> result = new ArrayList<>();
-        for (Mark mark : new ArrayList<>(markCrudService.getBySubjectid(subject.getId()))) {
+        for (Mark mark : new ArrayList<>(markCrudService.getBySubjectId(subject.getId()))) {
             result.add(getByMark(mark));
         }
         return result;

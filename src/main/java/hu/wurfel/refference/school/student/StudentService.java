@@ -172,7 +172,7 @@ public class StudentService extends StudentCrudService {
 
 	protected List<Student> getBySubject(@NotNull Subject subject) {
 		List<Student> students = new ArrayList<>();
-		for (Mark mark : new ArrayList<>(markCrudService.getBySubjectid(subject.getId()))) {
+		for (Mark mark : new ArrayList<>(markCrudService.getBySubjectId(subject.getId()))) {
 			students.add(getByMark(mark));
 		}
 		return students;

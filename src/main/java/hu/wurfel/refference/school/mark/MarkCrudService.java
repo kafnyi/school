@@ -19,36 +19,36 @@ public class MarkCrudService {
         return markRepository.findAll();
     }
 
-    public Mark getByMarkId(Long mid) {
-        return markRepository.findById(mid).get();
+    public Mark getByMarkId(Long markId) {
+        return markRepository.findById(markId).get();
     }
 
-    public List<Mark> getByDiaryId(Integer did) {
-        return markRepository.findAllByDiaryID(did);
+    public List<Mark> getByDiaryId(Integer diaryId) {
+        return markRepository.findAllByDiaryID(diaryId);
     }
 
     public List<Mark> getByDate(String date) {
         return markRepository.findAllByDate(date);
     }
 
-    public List<Mark> getBySubjectid(Integer sid) {
-        return markRepository.findAllBySubjectID(sid);
+    public List<Mark> getBySubjectId(Integer subjectId) {
+        return markRepository.findAllBySubjectID(subjectId);
     }
 
     public List<Mark> getByMark(byte mark) {
         return markRepository.findAllByMark(mark);
     }
 
-    public List<Mark> getByDiaryIdAndDate(Integer did, String date) {
-        return markRepository.findAllByDiaryIDAndDate(did, date);
+    public List<Mark> getByDiaryIdAndDate(Integer diaryId, String date) {
+        return markRepository.findAllByDiaryIDAndDate(diaryId, date);
     }
 
-    public List<Mark> getByDiaryIdAndSubjectId(Integer did, Integer sid) {
-        return markRepository.findAllByDiaryIDAndSubjectID(did, sid);
+    public List<Mark> getByDiaryIdAndSubjectId(Integer diaryId, Integer subjectId) {
+        return markRepository.findAllByDiaryIDAndSubjectID(diaryId, subjectId);
     }
 
-    public Mark getByDiaryIdAndDateAndSubjectId(Integer did, String date, Integer sid) {
-        return markRepository.findByDiaryIDAndDateAndSubjectID(did, date, sid).get();
+    public Mark getByDiaryIdAndDateAndSubjectId(Integer diaryId, String date, Integer subjectId) {
+        return markRepository.findByDiaryIDAndDateAndSubjectID(diaryId, date, subjectId).get();
     }
 
     public Mark save(@NotNull Mark mark) {
@@ -56,9 +56,9 @@ public class MarkCrudService {
         return getByMarkId(mark.getId());
     }
 
-    public List<Mark> save(Long mid, Integer did, String date, Integer sid, byte mark) {
+    public List<Mark> save(Long markId, Integer diaryId, String date, Integer subjectId, byte mark) {
         ArrayList<Mark> saved = new ArrayList<>();
-        saved.add(save(new Mark(mid, did, date, sid, mark)));
+        saved.add(save(new Mark(markId, diaryId, date, subjectId, mark)));
         return saved;
     }
 
@@ -77,14 +77,14 @@ public class MarkCrudService {
         return save(mark);
     }
 
-    public Mark setSubjectId(@NotNull Mark mark, Integer sid) {
-        mark.setSubjectID(sid);
+    public Mark setSubjectId(@NotNull Mark mark, Integer subjectId) {
+        mark.setSubjectID(subjectId);
         return save(mark);
     }
 
-    public Mark setMark(@NotNull Mark mark, byte m) {
-        mark.setMark(m);
-        return save(mark);
+    public Mark setMark(@NotNull Mark markEntity, byte mark) {
+        markEntity.setMark(mark);
+        return save(markEntity);
     }
 
     public void delete(@NotNull Mark mark) {
