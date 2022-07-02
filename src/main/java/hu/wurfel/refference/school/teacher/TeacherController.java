@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/Teacher/")
+@RequestMapping("/api/v1/Teacher")
 public class TeacherController {
 
     TeacherService teacherService;
@@ -24,12 +24,12 @@ public class TeacherController {
         return ResponseEntity.ok(teacherService.save(Long.parseLong(teacherRequestForSearch.getId()), teacherRequestForSearch.getName(), teacherRequestForSearch.getDate()));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
         teacherService.delete(teacherService.getByTeacherId(Long.parseLong(id)));
     }
 
-    @PutMapping("/modify")
+    @PutMapping("/")
     public ResponseEntity<List<Teacher>> modifyStudent(@RequestBody TeacherRequestForSearch teacherRequestForSearch) {
         Teacher teacher = teacherService.getByTeacherId(Long.parseLong(teacherRequestForSearch.getId()));
         teacher.setName(teacherRequestForSearch.getName());
