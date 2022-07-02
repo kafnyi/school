@@ -16,13 +16,13 @@ public class StudentController {
     StudentService studentService;
 
     @GetMapping("/search/{searchWith}/{searchBy}/{value}")
-    public ResponseEntity<List<Student>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
+    public ResponseEntity<List<Student>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         return ResponseEntity.ok(studentService.getSearchResponseList(searchWith, searchBy, value));
     }
 
     @PostMapping
-    public ResponseEntity<List<Student>> create(@RequestBody StudentRequestForSearch studentRequestForSearch) {
-        return ResponseEntity.ok(studentService.save(Long.parseLong(studentRequestForSearch.getId()), studentRequestForSearch.getName(), studentRequestForSearch.getDate()));
+    public ResponseEntity<List<Student>> create(@RequestBody StudentDto studentDto) {
+        return ResponseEntity.ok(studentService.save(studentDto.getId(), studentDto.getName(), studentDto.getBirthDate()));
     }
 
     @DeleteMapping("/{id}")
@@ -31,10 +31,10 @@ public class StudentController {
     }
 
     @PutMapping
-    public ResponseEntity<List<Student>> modifyStudent(@RequestBody StudentRequestForSearch studentRequestForSearch) {
-        Student student = studentService.getByStudentId(Long.parseLong(studentRequestForSearch.getId()));
-        student.setName(studentRequestForSearch.getName());
-        student.setBirthDate(studentRequestForSearch.getDate());
+    public ResponseEntity<List<Student>> modify(@RequestBody StudentDto studentDto) {
+        Student student = studentService.getByStudentId(studentDto.getId());
+        student.setName(studentDto.getName());
+        student.setBirthDate(studentDto.getDate());
         studentService.save(student);
         List<Student> answer = new ArrayList<>();
         answer.add(studentService.getByStudentId(student.getId()));
