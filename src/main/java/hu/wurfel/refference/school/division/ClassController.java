@@ -14,7 +14,7 @@ public class ClassController {
 
     ClassService classService;
 
-    @GetMapping("/search/{searchWith}/{searchBy}/{value}")
+    @GetMapping("/{searchWith}/{searchBy}/{value}")
     public ResponseEntity<List<Class>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         return ResponseEntity.ok(classService.getSearchResponseList(searchWith, searchBy, value));
     }
