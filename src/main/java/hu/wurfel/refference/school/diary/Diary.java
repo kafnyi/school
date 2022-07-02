@@ -23,6 +23,6 @@ public class Diary {
     private Long studentId;
 
     @Column(name = "ClassID", nullable = false)
-    private Integer classID;
+    private Integer classId;
 
 }

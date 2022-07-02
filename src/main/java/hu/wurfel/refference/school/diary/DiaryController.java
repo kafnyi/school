@@ -34,7 +34,7 @@ public class DiaryController {
 	public ResponseEntity<List<Diary>> modify(@RequestBody DiaryDto diaryDto) {
 		Diary diary = diaryService.getByDiaryId(diaryDto.getId());
 		diary.setStudentId(diaryDto.getStudentId());
-		diary.setClassID(diary.getClassID());
+		diary.setClassId(diary.getClassId());
 		diaryService.save(diary);
 		List<Diary> answer = new ArrayList<>();
 		answer.add(diaryService.getByDiaryId(diary.getId()));

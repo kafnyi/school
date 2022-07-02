@@ -130,7 +130,7 @@ public class ClassService extends ClassCrudService {
     }
 
     protected Class getByDiary(@NotNull Diary diary) {
-        return getByClassId(diary.getClassID());
+        return getByClassId(diary.getClassId());
     }
 
     protected List<Class> getClassesByDiaries(@NotNull List<Diary> diaries) {
@@ -142,7 +142,7 @@ public class ClassService extends ClassCrudService {
     }
 
     protected Class getByMark(@NotNull Mark mark) {
-        return getByClassId((diaryCrudService.getByDiaryId(mark.getDiaryID())).getClassID());
+        return getByClassId((diaryCrudService.getByDiaryId(mark.getDiaryID())).getClassId());
     }
 
     protected List<Class> getClassesByMarks(@NotNull List<Mark> marks) {

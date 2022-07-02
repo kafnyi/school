@@ -52,7 +52,7 @@ public class DiaryCrudService {
     }
 
     public Diary setClassId(@NotNull Diary diary, Integer classId) {
-        diary.setClassID(classId);
+        diary.setClassId(classId);
         return save(diary);
     }
 
