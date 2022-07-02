@@ -34,7 +34,7 @@ public class StudentController {
     public ResponseEntity<List<Student>> modify(@RequestBody StudentDto studentDto) {
         Student student = studentService.getByStudentId(studentDto.getId());
         student.setName(studentDto.getName());
-        student.setBirthDate(studentDto.getDate());
+        student.setBirthDate(studentDto.getBirthDate());
         studentService.save(student);
         List<Student> answer = new ArrayList<>();
         answer.add(studentService.getByStudentId(student.getId()));
