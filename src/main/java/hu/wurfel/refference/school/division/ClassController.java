@@ -5,7 +5,6 @@ import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +20,8 @@ public class ClassController {
     }
 
     @PostMapping
-    public ResponseEntity<List<Class>> create(@RequestBody ClassRequestForSearch classRequestForSearch) {
-        return ResponseEntity.ok(classService.save(Integer.parseInt(classRequestForSearch.getId()), Short.parseShort(classRequestForSearch.getGrade()), classRequestForSearch.getSign().strip().charAt(0), Year.parse(classRequestForSearch.getYear()), Long.parseLong(classRequestForSearch.getTeacherId())));
+    public ResponseEntity<List<Class>> create(@RequestBody ClassDto classDto) {
+        return ResponseEntity.ok(classService.save(classDto.getId(), classDto.getGrade(), classDto.getSign(), classDto.getYear(), classDto.getTeacherId()));
     }
 
     @DeleteMapping("/{id}")
@@ -31,12 +30,11 @@ public class ClassController {
     }
 
     @PutMapping
-    public ResponseEntity<List<Class>> modify(@RequestBody ClassRequestForSearch classRequestForSearch) {
-        Class division = classService.getByClassId(Integer.parseInt(classRequestForSearch.getId()));
-        division.setId(Integer.parseInt(classRequestForSearch.getId()));
-        division.setGrade(Short.parseShort(classRequestForSearch.getGrade()));
-        division.setSign(classRequestForSearch.getSign().strip().charAt(0));
-        division.setYear(Year.parse(classRequestForSearch.getYear()));
+    public ResponseEntity<List<Class>> modify(@RequestBody ClassDto classDto) {
+        Class division = classService.getByClassId(classDto.getId());
+        division.setGrade(classDto.getGrade());
+        division.setSign(classDto.getSign());
+        division.setYear(classDto.getYear());
         classService.save(division);
         List<Class> answer = new ArrayList<>();
         answer.add(classService.getByClassId(division.getId()));
