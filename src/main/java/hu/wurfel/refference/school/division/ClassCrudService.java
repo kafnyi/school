@@ -21,8 +21,8 @@ public class ClassCrudService {
         return (classRepository.findAll());
     }
 
-    public Class getByClassId(Integer cid) {
-        return classRepository.findById(cid).get();
+    public Class getByClassId(Integer classId) {
+        return classRepository.findById(classId).get();
     }
 
     public List<Class> getByGrade(short grade) {
@@ -37,8 +37,8 @@ public class ClassCrudService {
         return classRepository.findAllByYear(year);
     }
 
-    public List<Class> getByTeacherId(Long tid) {
-        return classRepository.findAllByTeacherId(tid);
+    public List<Class> getByTeacherId(Long teacherId) {
+        return classRepository.findAllByTeacherId(teacherId);
     }
 
     public List<Class> getByGradeAndSign(short grade, char sign) {
@@ -62,14 +62,14 @@ public class ClassCrudService {
         return getByClassId(division.getId());
     }
 
-    public List<Class> save(Integer classid, short grade, char sign, Year year, Long tid) {
+    public List<Class> save(Integer classId, short grade, char sign, Year year, Long tid) {
         ArrayList<Class> saved = new ArrayList<>();
-        saved.add(save(new Class(classid, grade, sign, year, tid)));
+        saved.add(save(new Class(classId, grade, sign, year, tid)));
         return saved;
     }
 
-    public Class setId(@NotNull Class division, Integer classid) {
-        division.setId(classid);
+    public Class setId(@NotNull Class division, Integer classId) {
+        division.setId(classId);
         return save(division);
     }
 
@@ -88,8 +88,8 @@ public class ClassCrudService {
         return save(division);
     }
 
-    public Class setTeacherId(@NotNull Class division, Long tid) {
-        division.setTeacherId(tid);
+    public Class setTeacherId(@NotNull Class division, Long teacherId) {
+        division.setTeacherId(teacherId);
         return save(division);
     }
 
