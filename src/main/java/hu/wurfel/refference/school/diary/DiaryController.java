@@ -20,7 +20,7 @@ public class DiaryController {
 		return ResponseEntity.ok(diaryService.getSearchResponseList(searchWith, searchBy, value));
 	}
 
-	@PostMapping("/adding")
+	@PostMapping
 	public ResponseEntity<List<Diary>> create(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
 		return ResponseEntity.ok(diaryService.save(Integer.parseInt(diaryRequestForSearch.getId()), Long.parseLong(diaryRequestForSearch.getStudentId()), Integer.parseInt(diaryRequestForSearch.getClassId())));
 	}
@@ -30,7 +30,7 @@ public class DiaryController {
 		diaryService.delete(diaryService.getByDiaryId(Integer.parseInt(id)));
     }
 
-	@PutMapping("/")
+	@PutMapping
 	public ResponseEntity<List<Diary>> modify(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
 		Diary diary = diaryService.getByDiaryId(Integer.parseInt(diaryRequestForSearch.getId()));
 		diary.setStudentId(Long.parseLong(diaryRequestForSearch.getStudentId()));
