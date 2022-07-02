@@ -99,8 +99,8 @@ public class DiaryService extends DiaryCrudService {
     List<Diary> findBySubject(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
             case SubjectId -> rContent = getBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value)));
-            case Name -> rContent = getBySubjects(subjectCrudService.getByName(value));
-            case TeacherId -> rContent = getBySubjects(subjectCrudService.getByTeacherId(Long.parseLong(value)));
+            case Name -> rContent = getBySubjects(subjectCrudService.getAllByName(value));
+            case TeacherId -> rContent = getBySubjects(subjectCrudService.getAllByTeacherId(Long.parseLong(value)));
             default -> rContent = new ArrayList<>();
         }
         return rContent;

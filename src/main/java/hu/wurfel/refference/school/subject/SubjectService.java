@@ -101,8 +101,8 @@ public class SubjectService extends SubjectCrudService {
     List<Subject> findBySubject(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
             case SubjectId -> rContent.add(getBySubjectId(Integer.parseInt(value)));
-            case Name -> rContent = getByName(value);
-            case TeacherId -> rContent = getByTeacherId(Long.parseLong(value));
+            case Name -> rContent = getAllByName(value);
+            case TeacherId -> rContent = getAllByTeacherId(Long.parseLong(value));
             default -> rContent = new ArrayList<>();
         }
         return rContent;
@@ -143,7 +143,7 @@ public class SubjectService extends SubjectCrudService {
     }
 
     protected List<Subject> getByTeacher(@NotNull Teacher teacher) {
-        return getByTeacherId(teacher.getId());
+        return getAllByTeacherId(teacher.getId());
     }
 
     protected List<Subject> getByTeachers(@NotNull List<Teacher> teachers) {

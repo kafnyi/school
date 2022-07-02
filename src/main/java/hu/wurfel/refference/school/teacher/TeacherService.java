@@ -104,7 +104,7 @@ public class TeacherService extends TeacherCrudService {
 	List<Teacher> findBySubject(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
 			case SubjectId -> rContent.add(getBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value))));
-			case Name -> rContent = getBySubjects(subjectCrudService.getByName(value));
+			case Name -> rContent = getBySubjects(subjectCrudService.getAllByName(value));
 			case TeacherId -> rContent.add(getByTeacherId(Long.parseLong(value)));
 			default -> rContent = new ArrayList<>();
 		}

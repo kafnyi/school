@@ -23,11 +23,11 @@ public class SubjectCrudService {
         return subjectRepository.findById(id).get();
     }
 
-    public List<Subject> getByName(String name) {
+    public List<Subject> getAllByName(String name) {
         return subjectRepository.findAllBySubjectName(name);
     }
 
-    public List<Subject> getByTeacherId(Long teacherId) {
+    public List<Subject> getAllByTeacherId(Long teacherId) {
         return subjectRepository.findAllByTid(teacherId);
     }
 
