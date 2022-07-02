@@ -21,8 +21,8 @@ public class DiaryController {
 	}
 
 	@PostMapping
-	public ResponseEntity<List<Diary>> create(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
-		return ResponseEntity.ok(diaryService.save(Integer.parseInt(diaryRequestForSearch.getId()), Long.parseLong(diaryRequestForSearch.getStudentId()), Integer.parseInt(diaryRequestForSearch.getClassId())));
+	public ResponseEntity<List<Diary>> create(@RequestBody DiaryDto diaryDto) {
+		return ResponseEntity.ok(diaryService.save(diaryDto.getId(), diaryDto.getStudentId(), diaryDto.getClassId()));
 	}
 
 	@DeleteMapping("/{id}")
@@ -31,10 +31,10 @@ public class DiaryController {
     }
 
 	@PutMapping
-	public ResponseEntity<List<Diary>> modify(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
-		Diary diary = diaryService.getByDiaryId(Integer.parseInt(diaryRequestForSearch.getId()));
-		diary.setStudentId(Long.parseLong(diaryRequestForSearch.getStudentId()));
-		diary.setClassID(Integer.parseInt(diaryRequestForSearch.getClassId()));
+	public ResponseEntity<List<Diary>> modify(@RequestBody DiaryDto diaryDto) {
+		Diary diary = diaryService.getByDiaryId(diaryDto.getId());
+		diary.setStudentId(diaryDto.getStudentId());
+		diary.setClassID(diary.getClassID());
 		diaryService.save(diary);
 		List<Diary> answer = new ArrayList<>();
 		answer.add(diaryService.getByDiaryId(diary.getId()));
