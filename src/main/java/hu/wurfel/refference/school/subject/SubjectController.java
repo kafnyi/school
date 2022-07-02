@@ -19,7 +19,7 @@ public class SubjectController {
         return ResponseEntity.ok(subjectService.getSearchResponseList(searchWith, searchBy, value));
     }
 
-    @PostMapping("/adding")
+    @PostMapping
     public ResponseEntity<List<Subject>> create(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
         return ResponseEntity.ok(subjectService.save(Integer.parseInt(subjectRequestForSearch.getId()), subjectRequestForSearch.getName(), Long.parseLong(subjectRequestForSearch.getTeacherId())));
     }
@@ -29,7 +29,7 @@ public class SubjectController {
         subjectService.delete(subjectService.getBySubjectId(Integer.parseInt(id)));
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<List<Subject>> modifyStudent(@RequestBody SubjectRequestForSearch subjectRequestForSearch) {
         Subject subject = subjectService.getBySubjectId(Integer.parseInt(subjectRequestForSearch.getId()));
         subject.setSubjectName(subjectRequestForSearch.getName());
