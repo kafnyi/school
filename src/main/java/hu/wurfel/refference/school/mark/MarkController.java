@@ -21,8 +21,8 @@ public class MarkController {
     }
 
     @PostMapping
-    public ResponseEntity<List<Mark>> create(@RequestBody MarkRequestForSearch markRequestForSearch) {
-        return ResponseEntity.ok(markService.save(Long.parseLong(markRequestForSearch.getId()), Integer.parseInt(markRequestForSearch.getDiaryId()), markRequestForSearch.getDate(), Integer.parseInt(markRequestForSearch.getSubjectId()), Byte.parseByte(markRequestForSearch.getMark())));
+    public ResponseEntity<List<Mark>> create(@RequestBody MarkDto markDto) {
+        return ResponseEntity.ok(markService.save(markDto.getId(), markDto.getDiaryId(), markDto.getDate(), markDto.getSubjectId(), markDto.getMark()));
     }
 
     @DeleteMapping("/{id}")
