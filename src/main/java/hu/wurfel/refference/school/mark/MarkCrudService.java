@@ -23,27 +23,27 @@ public class MarkCrudService {
         return markRepository.findById(markId).get();
     }
 
-    public List<Mark> getByDiaryId(Integer diaryId) {
+    public List<Mark> getAllByDiaryId(Integer diaryId) {
         return markRepository.findAllByDiaryID(diaryId);
     }
 
-    public List<Mark> getByDate(String date) {
+    public List<Mark> getAllByDate(String date) {
         return markRepository.findAllByDate(date);
     }
 
-    public List<Mark> getBySubjectId(Integer subjectId) {
+    public List<Mark> getAllBySubjectId(Integer subjectId) {
         return markRepository.findAllBySubjectID(subjectId);
     }
 
-    public List<Mark> getByMark(byte mark) {
+    public List<Mark> getAllByMark(byte mark) {
         return markRepository.findAllByMark(mark);
     }
 
-    public List<Mark> getByDiaryIdAndDate(Integer diaryId, String date) {
+    public List<Mark> getAllByDiaryIdAndDate(Integer diaryId, String date) {
         return markRepository.findAllByDiaryIDAndDate(diaryId, date);
     }
 
-    public List<Mark> getByDiaryIdAndSubjectId(Integer diaryId, Integer subjectId) {
+    public List<Mark> getAllByDiaryIdAndSubjectId(Integer diaryId, Integer subjectId) {
         return markRepository.findAllByDiaryIDAndSubjectID(diaryId, subjectId);
     }
 

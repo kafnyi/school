@@ -111,9 +111,9 @@ public class ClassService extends ClassCrudService {
         switch (searchBy) {
             case MarkId -> rContent.add(getByMark(markCrudService.getByMarkId(Long.parseLong(value))));
             case DiaryId -> rContent.add(getByDiary(diaryCrudService.getByDiaryId(Integer.parseInt(value))));
-            case Date -> rContent = getClassesByMarks(markCrudService.getByDate(value));
-            case SubjectId -> rContent = getClassesByMarks(markCrudService.getBySubjectId(Integer.parseInt(value)));
-            case Mark -> rContent = getClassesByMarks(markCrudService.getByMark(Byte.parseByte(value)));
+            case Date -> rContent = getClassesByMarks(markCrudService.getAllByDate(value));
+            case SubjectId -> rContent = getClassesByMarks(markCrudService.getAllBySubjectId(Integer.parseInt(value)));
+            case Mark -> rContent = getClassesByMarks(markCrudService.getAllByMark(Byte.parseByte(value)));
             default -> rContent = new ArrayList<>();
         }
         return rContent;
@@ -183,9 +183,9 @@ public class ClassService extends ClassCrudService {
 
     protected List<Class> getBySubject(@NotNull Subject subject) {
         List<Class> classes = new ArrayList<>();
-	    for (Mark mark : new ArrayList<>(markCrudService.getBySubjectId(subject.getId()))) {
-		    classes.add(getByMark(mark));
-	    }
+        for (Mark mark : new ArrayList<>(markCrudService.getAllBySubjectId(subject.getId()))) {
+            classes.add(getByMark(mark));
+        }
         return classes;
     }
 

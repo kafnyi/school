@@ -114,10 +114,10 @@ public class TeacherService extends TeacherCrudService {
 	List<Teacher> findByMark(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
 			case MarkId -> rContent.add(getByMark(markCrudService.getByMarkId(Long.parseLong(value))));
-			case DiaryId -> rContent = getByMarks(markCrudService.getByDiaryId(Integer.parseInt(value)));
-			case Date -> rContent = getByMarks(markCrudService.getByDate(value));
+			case DiaryId -> rContent = getByMarks(markCrudService.getAllByDiaryId(Integer.parseInt(value)));
+			case Date -> rContent = getByMarks(markCrudService.getAllByDate(value));
 			case SubjectId -> rContent.add(getBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value))));
-			case Mark -> rContent = getByMarks(markCrudService.getByMark(Byte.parseByte(value)));
+			case Mark -> rContent = getByMarks(markCrudService.getAllByMark(Byte.parseByte(value)));
 			default -> rContent = new ArrayList<>();
 		}
 		return rContent;
@@ -171,7 +171,7 @@ public class TeacherService extends TeacherCrudService {
 
 	protected List<Teacher> getByDiary(@NotNull Diary diary) {
 		List<Teacher> result = new ArrayList<>();
-		for (Mark mark : new ArrayList<>(markCrudService.getByDiaryId(diary.getId()))) {
+		for (Mark mark : new ArrayList<>(markCrudService.getAllByDiaryId(diary.getId()))) {
 			result.add(getByMark(mark));
 		}
 		return result;

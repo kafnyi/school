@@ -112,9 +112,9 @@ public class StudentService extends StudentCrudService {
 		switch (searchBy) {
 			case MarkId -> rContent.add(getByMark(markCrudService.getByMarkId(Long.parseLong(value))));
 			case DiaryId -> rContent.add(getByDiary(diaryCrudService.getByDiaryId(Integer.parseInt(value))));
-			case Date -> rContent = getByMarks(markCrudService.getByDate(value));
+			case Date -> rContent = getByMarks(markCrudService.getAllByDate(value));
 			case SubjectId -> rContent = getBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value)));
-			case Mark -> rContent = getByMarks(markCrudService.getByMark(Byte.parseByte(value)));
+			case Mark -> rContent = getByMarks(markCrudService.getAllByMark(Byte.parseByte(value)));
 			default -> rContent = new ArrayList<>();
 		}
 		return rContent;
@@ -172,7 +172,7 @@ public class StudentService extends StudentCrudService {
 
 	protected List<Student> getBySubject(@NotNull Subject subject) {
 		List<Student> students = new ArrayList<>();
-		for (Mark mark : new ArrayList<>(markCrudService.getBySubjectId(subject.getId()))) {
+		for (Mark mark : new ArrayList<>(markCrudService.getAllBySubjectId(subject.getId()))) {
 			students.add(getByMark(mark));
 		}
 		return students;
