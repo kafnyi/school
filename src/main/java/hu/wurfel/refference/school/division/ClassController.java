@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/vi/Class/search/")
+@RequestMapping("/api/v1/Class/search/")
 public class ClassController {
 
     ClassService classService;
@@ -25,12 +25,12 @@ public class ClassController {
         return ResponseEntity.ok(classService.save(Integer.parseInt(classRequestForSearch.getId()), Short.parseShort(classRequestForSearch.getGrade()), classRequestForSearch.getSign().strip().charAt(0), Year.parse(classRequestForSearch.getYear()), Long.parseLong(classRequestForSearch.getTeacherId())));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
         classService.delete(classService.getByClassId(Integer.parseInt(id)));
     }
 
-    @PutMapping("/modify")
+    @PutMapping("/")
     public ResponseEntity<List<Class>> modify(@RequestBody ClassRequestForSearch classRequestForSearch) {
         Class division = classService.getByClassId(Integer.parseInt(classRequestForSearch.getId()));
         division.setId(Integer.parseInt(classRequestForSearch.getId()));
