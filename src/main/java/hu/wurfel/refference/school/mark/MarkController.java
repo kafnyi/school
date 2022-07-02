@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/Mark/")
+@RequestMapping("/api/v1/Mark")
 public class MarkController {
 
 
@@ -25,12 +25,12 @@ public class MarkController {
         return ResponseEntity.ok(markService.save(Long.parseLong(markRequestForSearch.getId()), Integer.parseInt(markRequestForSearch.getDiaryId()), markRequestForSearch.getDate(), Integer.parseInt(markRequestForSearch.getSubjectId()), Byte.parseByte(markRequestForSearch.getMark())));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
         markService.delete(markService.getByMarkId(Long.parseLong(id)));
     }
 
-    @PutMapping("/modify")
+    @PutMapping("/")
     public ResponseEntity<List<Mark>> modifyStudent(@RequestBody MarkRequestForSearch markRequestForSearch) {
 	    Mark mark = markService.getByMarkId(Long.parseLong(markRequestForSearch.getId()));
         mark.setDiaryID(Integer.parseInt(markRequestForSearch.getDiaryId()));
