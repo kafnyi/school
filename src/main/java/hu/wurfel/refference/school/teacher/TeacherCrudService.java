@@ -23,11 +23,11 @@ public class TeacherCrudService {
         return teacherRepository.findById(Id).get();
     }
 
-    public List<Teacher> getByName(String name) {
+    public List<Teacher> getAllByName(String name) {
         return teacherRepository.findAllByName(name);
     }
 
-    public List<Teacher> getByBirth(String date) {
+    public List<Teacher> getAllByBirth(String date) {
         return teacherRepository.findAllByBirthDate(date);
     }
 

@@ -123,8 +123,8 @@ public class SubjectService extends SubjectCrudService {
     List<Subject> findByTeacher(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
             case TeacherId -> rContent = getByTeacher(teacherCrudService.getByTeacherId(Long.parseLong(value)));
-            case Name -> rContent = getByTeachers(teacherCrudService.getByName(value));
-            case Date -> rContent = getByTeachers(teacherCrudService.getByBirth(value));
+            case Name -> rContent = getByTeachers(teacherCrudService.getAllByName(value));
+            case Date -> rContent = getByTeachers(teacherCrudService.getAllByBirth(value));
             default -> rContent = new ArrayList<>();
         }
         return rContent;
