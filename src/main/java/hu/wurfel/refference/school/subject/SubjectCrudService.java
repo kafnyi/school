@@ -16,7 +16,7 @@ public class SubjectCrudService {
     }
 
     public List<Subject> getAll() {
-        return new ArrayList<>(subjectRepository.findAll());
+        return subjectRepository.findAll();
     }
 
     public Subject getBySubjectId(Integer id) {
