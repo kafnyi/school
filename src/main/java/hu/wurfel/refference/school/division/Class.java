@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.Year;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
