@@ -62,11 +62,6 @@ public class MarkCrudService {
         return saved;
     }
 
-    public Mark setId(@NotNull Mark mark, Long mid) {
-        mark.setId(mid);
-        return save(mark);
-    }
-
     public Mark setDiaryId(@NotNull Mark mark, Integer did) {
         mark.setDiaryID(did);
         return save(mark);
