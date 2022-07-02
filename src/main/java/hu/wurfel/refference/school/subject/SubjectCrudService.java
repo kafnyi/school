@@ -27,12 +27,12 @@ public class SubjectCrudService {
         return subjectRepository.findAllBySubjectName(name);
     }
 
-    public List<Subject> getByTeacherId(Long tid) {
-        return subjectRepository.findAllByTid(tid);
+    public List<Subject> getByTeacherId(Long teacherId) {
+        return subjectRepository.findAllByTid(teacherId);
     }
 
-    public Subject getByNameAndTeacherId(String name, Long tid) {
-        return subjectRepository.findBySubjectNameAndTid(name, tid).get();
+    public Subject getByNameAndTeacherId(String name, Long teacherId) {
+        return subjectRepository.findBySubjectNameAndTid(name, teacherId).get();
     }
 
     public Subject save(@NotNull Subject subject) {
@@ -40,9 +40,9 @@ public class SubjectCrudService {
         return getBySubjectId(subject.getId());
     }
 
-    public List<Subject> save(Integer id, String name, Long tid) {
+    public List<Subject> save(Integer id, String name, Long tecaherId) {
         ArrayList<Subject> saved = new ArrayList<>();
-        saved.add(save(new Subject(id, name, tid)));
+        saved.add(save(new Subject(id, name, tecaherId)));
         return saved;
     }
 
@@ -56,8 +56,8 @@ public class SubjectCrudService {
         return save(subject);
     }
 
-    public Subject setTeacherId(@NotNull Subject subject, Long tid) {
-        subject.setTid(tid);
+    public Subject setTeacherId(@NotNull Subject subject, Long teacherId) {
+        subject.setTid(teacherId);
         return save(subject);
     }
 
