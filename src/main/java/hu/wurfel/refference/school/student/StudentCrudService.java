@@ -19,7 +19,7 @@ public class StudentCrudService {
         return studentRepository.findAll();
     }
 
-    public Student getByStudentId(long id) {
+    public Student getById(long id) {
         return studentRepository.findById(id).get();
     }
 
@@ -37,7 +37,7 @@ public class StudentCrudService {
 
     public Student save(@NotNull Student student) {
         studentRepository.save(student);
-        return getByStudentId(student.getId());
+        return getById(student.getId());
     }
 
     public List<Student> save(long id, String name, String birth) {

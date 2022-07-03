@@ -26,7 +26,7 @@ public class StudentController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
-        studentService.delete(studentService.getByStudentId(Long.parseLong(id)));
+        studentService.delete(studentService.getById(Long.parseLong(id)));
     }
 
     @PutMapping

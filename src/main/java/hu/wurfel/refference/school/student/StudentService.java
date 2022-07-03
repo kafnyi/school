@@ -68,7 +68,7 @@ public class StudentService extends StudentCrudService {
 
 	List<Student> findByStudent(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
-			case StudentId -> rContent.add(getByStudentId(Long.parseLong(value)));
+			case StudentId -> rContent.add(getById(Long.parseLong(value)));
 			case Name -> rContent = getAllByName(value);
 			case Date -> rContent = getAllByBirth(value);
 			default -> rContent = new ArrayList<>();
@@ -79,7 +79,7 @@ public class StudentService extends StudentCrudService {
 	List<Student> findByDiary(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
 			case DiaryId -> rContent.add(getByDiary(diaryCrudService.getById(Integer.parseInt(value))));
-			case StudentId -> rContent.add(getByStudentId(Long.parseLong(value)));
+			case StudentId -> rContent.add(getById(Long.parseLong(value)));
 			case ClassId -> rContent = getByDiaries(diaryCrudService.getAllByClassId(Integer.parseInt(value)));
 			default -> rContent = new ArrayList<>();
 		}
@@ -131,7 +131,7 @@ public class StudentService extends StudentCrudService {
 	}
 
 	protected List<StudentDto> modify(StudentDto studentDto) {
-		Student student = getByStudentId(studentDto.getId());
+		Student student = getById(studentDto.getId());
 		student.setName(studentDto.getName());
 		student.setBirthDate(studentDto.getBirthDate());
 		List<StudentDto> answer = new ArrayList<>();
@@ -152,7 +152,7 @@ public class StudentService extends StudentCrudService {
 	}
 
 	protected Student getByDiary(@NotNull Diary diary) {
-		return getByStudentId(diary.getStudentId());
+		return getById(diary.getStudentId());
 	}
 
 	protected List<Student> getByDiaries(@NotNull List<Diary> diaries) {
@@ -164,7 +164,7 @@ public class StudentService extends StudentCrudService {
 	}
 
 	protected Student getByMark(@NotNull Mark mark) {
-		return getByStudentId(diaryCrudService.getById(mark.getDiaryId()).getId());
+		return getById(diaryCrudService.getById(mark.getDiaryId()).getId());
 	}
 
 	protected List<Student> getByMarks(@NotNull List<Mark> marks) {
