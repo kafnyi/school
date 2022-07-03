@@ -100,7 +100,7 @@ public class SubjectService extends SubjectCrudService {
 
     List<Subject> findBySubject(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case SubjectId -> rContent.add(getBySubjectId(Integer.parseInt(value)));
+            case SubjectId -> rContent.add(getById(Integer.parseInt(value)));
             case Name -> rContent = getAllByName(value);
             case TeacherId -> rContent = getAllByTeacherId(Long.parseLong(value));
             default -> rContent = new ArrayList<>();
@@ -113,7 +113,7 @@ public class SubjectService extends SubjectCrudService {
             case MarkId -> rContent.add(getByMark(markCrudService.getById(Long.parseLong(value))));
             case DiaryId -> rContent = getByMarks(markCrudService.getAllByDiaryId(Integer.parseInt(value)));
             case Date -> rContent = getByMarks(markCrudService.getAllByDate(value));
-            case SubjectId -> rContent.add(getBySubjectId(Integer.parseInt(value)));
+            case SubjectId -> rContent.add(getById(Integer.parseInt(value)));
             case Mark -> rContent = getByMarks(markCrudService.getAllByMark(Byte.parseByte(value)));
             default -> rContent = new ArrayList<>();
         }
@@ -131,7 +131,7 @@ public class SubjectService extends SubjectCrudService {
     }
 
     protected List<SubjectDto> modify(SubjectDto subjectDto) {
-        Subject subject = getBySubjectId(subjectDto.getId());
+        Subject subject = getById(subjectDto.getId());
         subject.setSubjectName(subjectDto.getName());
         subject.setTeacherId(subjectDto.getTeacherId());
         List<SubjectDto> answer = new ArrayList<>();
@@ -152,7 +152,7 @@ public class SubjectService extends SubjectCrudService {
     }
 
     protected Subject getByMark(@NotNull Mark mark) {
-        return getBySubjectId(mark.getSubjectId());
+        return getById(mark.getSubjectId());
     }
 
     protected List<Subject> getByMarks(@NotNull List<Mark> marks) {

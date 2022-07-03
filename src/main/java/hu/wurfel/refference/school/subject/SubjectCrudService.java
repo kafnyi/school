@@ -19,7 +19,7 @@ public class SubjectCrudService {
         return subjectRepository.findAll();
     }
 
-    public Subject getBySubjectId(Integer id) {
+    public Subject getById(Integer id) {
         return subjectRepository.findById(id).get();
     }
 
@@ -37,7 +37,7 @@ public class SubjectCrudService {
 
     public Subject save(@NotNull Subject subject) {
         subjectRepository.save(subject);
-        return getBySubjectId(subject.getId());
+        return getById(subject.getId());
     }
 
     public List<Subject> save(Integer id, String name, Long tecaherId) {

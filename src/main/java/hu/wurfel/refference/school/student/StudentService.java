@@ -100,7 +100,7 @@ public class StudentService extends StudentCrudService {
 
 	List<Student> findBySubject(EntityFieldNames searchBy, String value) {
 		switch (searchBy) {
-			case SubjectId -> rContent = getBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value)));
+			case SubjectId -> rContent = getBySubject(subjectCrudService.getById(Integer.parseInt(value)));
 			case Name -> rContent = getBySubjects(subjectCrudService.getAllByName(value));
 			case TeacherId -> rContent = getBySubjects(subjectCrudService.getAllByTeacherId(Long.parseLong(value)));
 			default -> rContent = new ArrayList<>();
@@ -113,7 +113,7 @@ public class StudentService extends StudentCrudService {
 			case MarkId -> rContent.add(getByMark(markCrudService.getById(Long.parseLong(value))));
 			case DiaryId -> rContent.add(getByDiary(diaryCrudService.getById(Integer.parseInt(value))));
 			case Date -> rContent = getByMarks(markCrudService.getAllByDate(value));
-			case SubjectId -> rContent = getBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value)));
+			case SubjectId -> rContent = getBySubject(subjectCrudService.getById(Integer.parseInt(value)));
 			case Mark -> rContent = getByMarks(markCrudService.getAllByMark(Byte.parseByte(value)));
 			default -> rContent = new ArrayList<>();
 		}

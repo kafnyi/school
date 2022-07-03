@@ -99,7 +99,7 @@ public class MarkService extends MarkCrudService {
 
     List<Mark> findBySubject(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case SubjectId -> rContent = getBySubject(subjectCrudService.getBySubjectId(Integer.parseInt(value)));
+            case SubjectId -> rContent = getBySubject(subjectCrudService.getById(Integer.parseInt(value)));
             case Name -> rContent = getBySubjects(subjectCrudService.getAllByName(value));
             case TeacherId -> rContent = getBySubjects(subjectCrudService.getAllByTeacherId(Long.parseLong(value)));
             default -> rContent = new ArrayList<>();
