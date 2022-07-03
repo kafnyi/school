@@ -5,7 +5,6 @@ import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,13 +15,13 @@ public class MarkController {
     MarkService markService;
 
     @GetMapping("/{searchWith}/{searchBy}/{value}")
-    public ResponseEntity<List<Mark>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
+    public ResponseEntity<List<MarkDto>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         return ResponseEntity.ok(markService.getSearchResponseList(searchWith, searchBy, value));
     }
 
     @PostMapping
-    public ResponseEntity<List<Mark>> create(@RequestBody MarkDto markDto) {
-        return ResponseEntity.ok(markService.save(markDto.getId(), markDto.getDiaryId(), markDto.getDate(), markDto.getSubjectId(), markDto.getMark()));
+    public ResponseEntity<List<MarkDto>> create(@RequestBody MarkDto markDto) {
+        return ResponseEntity.ok(markService.getDtoList(markService.save(markDto.getId(), markDto.getDiaryId(), markDto.getDate(), markDto.getSubjectId(), markDto.getMark())));
     }
 
     @DeleteMapping("/{id}")
@@ -31,16 +30,8 @@ public class MarkController {
     }
 
     @PutMapping
-    public ResponseEntity<List<Mark>> modify(@RequestBody MarkDto markDto) {
-        Mark mark = markService.getByMarkId(markDto.getId());
-        mark.setDiaryID(mark.getDiaryID());
-        mark.setSubjectID(mark.getSubjectID());
-        mark.setDate(markDto.getDate());
-        mark.setMark(markDto.getMark());
-        markService.save(mark);
-        List<Mark> answer = new ArrayList<>();
-        answer.add(markService.getByMarkId(mark.getId()));
-        return ResponseEntity.ok(answer);
+    public ResponseEntity<List<MarkDto>> modify(@RequestBody MarkDto markDto) {
+        return ResponseEntity.ok(markService.modify(markDto));
     }
 
 
