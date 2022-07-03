@@ -5,7 +5,6 @@ import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,13 +15,13 @@ public class DiaryController {
 	DiaryService diaryService;
 
 	@GetMapping("/{searchWith}/{searchBy}/{value}")
-	public ResponseEntity<List<Diary>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
+	public ResponseEntity<List<DiaryDto>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
 		return ResponseEntity.ok(diaryService.getSearchResponseList(searchWith, searchBy, value));
 	}
 
 	@PostMapping
-	public ResponseEntity<List<Diary>> create(@RequestBody DiaryDto diaryDto) {
-		return ResponseEntity.ok(diaryService.save(diaryDto.getId(), diaryDto.getStudentId(), diaryDto.getClassId()));
+	public ResponseEntity<List<DiaryDto>> create(@RequestBody DiaryDto diaryDto) {
+		return ResponseEntity.ok(diaryService.getDtoList(diaryService.save(diaryDto.getId(), diaryDto.getStudentId(), diaryDto.getClassId())));
 	}
 
 	@DeleteMapping("/{id}")
@@ -31,14 +30,8 @@ public class DiaryController {
     }
 
 	@PutMapping
-	public ResponseEntity<List<Diary>> modify(@RequestBody DiaryDto diaryDto) {
-		Diary diary = diaryService.getByDiaryId(diaryDto.getId());
-		diary.setStudentId(diaryDto.getStudentId());
-		diary.setClassId(diary.getClassId());
-		diaryService.save(diary);
-		List<Diary> answer = new ArrayList<>();
-		answer.add(diaryService.getByDiaryId(diary.getId()));
-		return ResponseEntity.ok(answer);
+	public ResponseEntity<List<DiaryDto>> modify(@RequestBody DiaryDto diaryDto) {
+		return ResponseEntity.ok(diaryService.modify(diaryDto));
 	}
 
 
