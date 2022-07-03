@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -25,6 +23,6 @@ public class Diary {
     private Long studentId;
 
     @Column(name = "ClassID", nullable = false)
-    private Integer classID;
+    private Integer classId;
 
 }

@@ -2,11 +2,10 @@ package hu.wurfel.refference.school.division;
 
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.Year;
 
 @Data
-public class ClassDto implements Serializable {
+public class ClassDto {
     private final Integer id;
     private final short grade;
     private final char sign;

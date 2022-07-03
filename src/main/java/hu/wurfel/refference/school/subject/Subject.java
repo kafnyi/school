@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -24,6 +23,6 @@ public class Subject {
     private String subjectName;
 
     @Column(name = "TID", nullable = false)
-    private Long tid;
+    private Long teacherId;
 
 }

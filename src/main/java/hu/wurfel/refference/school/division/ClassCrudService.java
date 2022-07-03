@@ -18,38 +18,38 @@ public class ClassCrudService {
 
 
     public List<Class> getAll() {
-        return new ArrayList<Class>(classRepository.findAll());
+        return (classRepository.findAll());
     }
 
-    public Class getByClassId(Integer cid) {
-        return classRepository.findById(cid).get();
+    public Class getById(Integer classId) {
+        return classRepository.findById(classId).get();
     }
 
-    public List<Class> getByGrade(short grade) {
+    public List<Class> getAllByGrade(short grade) {
         return classRepository.findAllByGrade(grade);
     }
 
-    public List<Class> getBySign(char sign) {
+    public List<Class> getAllBySign(char sign) {
         return classRepository.findAllBySign(sign);
     }
 
-    public List<Class> getByYear(Year year) {
+    public List<Class> getAllByYear(Year year) {
         return classRepository.findAllByYear(year);
     }
 
-    public List<Class> getByTeacherId(Long tid) {
-        return classRepository.findAllByTeacherId(tid);
+    public List<Class> getAllByTeacherId(Long teacherId) {
+        return classRepository.findAllByTeacherId(teacherId);
     }
 
-    public List<Class> getByGradeAndSign(short grade, char sign) {
+    public List<Class> getAllByGradeAndSign(short grade, char sign) {
         return classRepository.findAllByGradeAndSign(grade, sign);
     }
 
-    public List<Class> getByGradeAndYear(short grade, Year year) {
+    public List<Class> getAllByGradeAndYear(short grade, Year year) {
         return classRepository.findAllByGradeAndYear(grade, year);
     }
 
-    public List<Class> getBySignAndYear(char sign, Year year) {
+    public List<Class> getAllBySignAndYear(char sign, Year year) {
         return classRepository.findAllBySignAndYear(sign, year);
     }
 
@@ -58,19 +58,13 @@ public class ClassCrudService {
     }
 
     public Class save(@NotNull Class division) {
-        classRepository.save(division);
-        return getByClassId(division.getId());
+        return classRepository.save(division);
     }
 
-    public List<Class> save(Integer classid, short grade, char sign, Year year, Long tid) {
+    public List<Class> save(Integer classId, short grade, char sign, Year year, Long tid) {
         ArrayList<Class> saved = new ArrayList<>();
-        saved.add(save(new Class(classid, grade, sign, year, tid)));
+        saved.add(save(new Class(classId, grade, sign, year, tid)));
         return saved;
-    }
-
-    public Class setId(@NotNull Class division, Integer classid) {
-        division.setId(classid);
-        return save(division);
     }
 
     public Class setGrade(@NotNull Class division, short grade) {
@@ -88,8 +82,8 @@ public class ClassCrudService {
         return save(division);
     }
 
-    public Class setTeacherId(@NotNull Class division, Long tid) {
-        division.setTeacherId(tid);
+    public Class setTeacherId(@NotNull Class division, Long teacherId) {
+        division.setTeacherId(teacherId);
         return save(division);
     }
 
