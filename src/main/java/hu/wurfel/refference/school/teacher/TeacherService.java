@@ -167,7 +167,7 @@ public class TeacherService extends TeacherCrudService {
 	}
 
 	protected Teacher getBySubject(@NotNull Subject subject) {
-		return getByTeacherId(subject.getTid());
+		return getByTeacherId(subject.getTeacherId());
 	}
 
 	protected List<Teacher> getBySubjects(@NotNull List<Subject> subjects) {

@@ -133,14 +133,14 @@ public class SubjectService extends SubjectCrudService {
     protected List<SubjectDto> modify(SubjectDto subjectDto) {
         Subject subject = getBySubjectId(subjectDto.getId());
         subject.setSubjectName(subjectDto.getName());
-        subject.setTid(subjectDto.getTeacherId());
+        subject.setTeacherId(subjectDto.getTeacherId());
         List<SubjectDto> answer = new ArrayList<>();
         answer.add(getDto(save(subject)));
         return answer;
     }
 
     protected SubjectDto getDto(@NotNull Subject subject) {
-        return new SubjectDto(subject.getId(), subject.getSubjectName(), subject.getTid());
+        return new SubjectDto(subject.getId(), subject.getSubjectName(), subject.getTeacherId());
     }
 
     protected List<SubjectDto> getDtoList(List<Subject> subjectList) {

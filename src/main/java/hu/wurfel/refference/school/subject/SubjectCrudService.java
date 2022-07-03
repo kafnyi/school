@@ -52,7 +52,7 @@ public class SubjectCrudService {
     }
 
     public Subject setTeacherId(@NotNull Subject subject, Long teacherId) {
-        subject.setTid(teacherId);
+        subject.setTeacherId(teacherId);
         return save(subject);
     }
 
