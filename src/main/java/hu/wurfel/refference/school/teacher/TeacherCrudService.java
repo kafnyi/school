@@ -32,8 +32,7 @@ public class TeacherCrudService {
     }
 
     public Teacher save(@NotNull Teacher teacher) {
-        teacherRepository.save(teacher);
-        return getByTeacherId(teacher.getId());
+        return teacherRepository.save(teacher);
     }
 
     public List<Teacher> save(Long id, String name, String birth) {
