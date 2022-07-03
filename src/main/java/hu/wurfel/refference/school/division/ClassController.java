@@ -5,7 +5,6 @@ import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,13 +14,13 @@ public class ClassController {
     ClassService classService;
 
     @GetMapping("/{searchWith}/{searchBy}/{value}")
-    public ResponseEntity<List<Class>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
+    public ResponseEntity<List<ClassDto>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         return ResponseEntity.ok(classService.getSearchResponseList(searchWith, searchBy, value));
     }
 
     @PostMapping
-    public ResponseEntity<List<Class>> create(@RequestBody ClassDto classDto) {
-        return ResponseEntity.ok(classService.save(classDto.getId(), classDto.getGrade(), classDto.getSign(), classDto.getYear(), classDto.getTeacherId()));
+    public ResponseEntity<List<ClassDto>> create(@RequestBody ClassDto classDto) {
+        return ResponseEntity.ok(classService.getDtoList(classService.save(classDto.getId(), classDto.getGrade(), classDto.getSign(), classDto.getYear(), classDto.getTeacherId())));
     }
 
     @DeleteMapping("/{id}")
@@ -30,15 +29,8 @@ public class ClassController {
     }
 
     @PutMapping
-    public ResponseEntity<List<Class>> modify(@RequestBody ClassDto classDto) {
-        Class division = classService.getByClassId(classDto.getId());
-        division.setGrade(classDto.getGrade());
-        division.setSign(classDto.getSign());
-        division.setYear(classDto.getYear());
-        classService.save(division);
-        List<Class> answer = new ArrayList<>();
-        answer.add(classService.getByClassId(division.getId()));
-        return ResponseEntity.ok(answer);
+    public ResponseEntity<List<ClassDto>> modify(@RequestBody ClassDto classDto) {
+        return ResponseEntity.ok(classService.modify(classDto));
     }
 
 
