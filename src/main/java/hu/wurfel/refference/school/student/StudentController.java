@@ -5,7 +5,6 @@ import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,13 +15,13 @@ public class StudentController {
     StudentService studentService;
 
     @GetMapping("/{searchWith}/{searchBy}/{value}")
-    public ResponseEntity<List<Student>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
+    public ResponseEntity<List<StudentDto>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         return ResponseEntity.ok(studentService.getSearchResponseList(searchWith, searchBy, value));
     }
 
     @PostMapping
-    public ResponseEntity<List<Student>> create(@RequestBody StudentDto studentDto) {
-        return ResponseEntity.ok(studentService.save(studentDto.getId(), studentDto.getName(), studentDto.getBirthDate()));
+    public ResponseEntity<List<StudentDto>> create(@RequestBody StudentDto studentDto) {
+        return ResponseEntity.ok(studentService.getDtoList(studentService.save(studentDto.getId(), studentDto.getName(), studentDto.getBirthDate())));
     }
 
     @DeleteMapping("/{id}")
@@ -31,14 +30,8 @@ public class StudentController {
     }
 
     @PutMapping
-    public ResponseEntity<List<Student>> modify(@RequestBody StudentDto studentDto) {
-        Student student = studentService.getByStudentId(studentDto.getId());
-        student.setName(studentDto.getName());
-        student.setBirthDate(studentDto.getBirthDate());
-        studentService.save(student);
-        List<Student> answer = new ArrayList<>();
-        answer.add(studentService.getByStudentId(student.getId()));
-        return ResponseEntity.ok(answer);
+    public ResponseEntity<List<StudentDto>> modify(@RequestBody StudentDto studentDto) {
+        return ResponseEntity.ok(studentService.modify(studentDto));
     }
 
 
