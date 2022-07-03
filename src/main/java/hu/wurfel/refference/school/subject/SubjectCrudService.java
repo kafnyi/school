@@ -28,11 +28,11 @@ public class SubjectCrudService {
     }
 
     public List<Subject> getAllByTeacherId(Long teacherId) {
-        return subjectRepository.findAllByTid(teacherId);
+        return subjectRepository.findAllByTeacherId(teacherId);
     }
 
     public Subject getByNameAndTeacherId(String name, Long teacherId) {
-        return subjectRepository.findBySubjectNameAndTid(name, teacherId).get();
+        return subjectRepository.findBySubjectNameAndTeacherId(name, teacherId).get();
     }
 
     public Subject save(@NotNull Subject subject) {
