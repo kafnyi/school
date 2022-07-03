@@ -38,26 +38,26 @@ public class MarkService extends MarkCrudService {
         this.teacherCrudService = teacherCrudService;
     }
 
-    List<Mark> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
+    List<MarkDto> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
 
         switch (searchWith) {
             case Student -> {
-                return findByStudent(searchBy, value);
+                return getDtoList(findByStudent(searchBy, value));
             }
             case Diary -> {
-                return findByDiary(searchBy, value);
+                return getDtoList(findByDiary(searchBy, value));
             }
             case Class -> {
-                return findByClass(searchBy, value);
+                return getDtoList(findByClass(searchBy, value));
             }
             case Subject -> {
-                return findBySubject(searchBy, value);
+                return getDtoList(findBySubject(searchBy, value));
             }
             case Mark -> {
-                return findByMark(searchBy, value);
+                return getDtoList(findByMark(searchBy, value));
             }
             case Teacher -> {
-                return findByTeacher(searchBy, value);
+                return getDtoList(findByTeacher(searchBy, value));
             }
             default -> {
                 return new ArrayList<>();
@@ -127,6 +127,29 @@ public class MarkService extends MarkCrudService {
             default -> rContent = new ArrayList<>();
         }
         return rContent;
+    }
+
+    protected List<MarkDto> modify(MarkDto markDto) {
+        Mark mark = getByMarkId(markDto.getId());
+        mark.setDiaryID(markDto.getDiaryId());
+        mark.setSubjectID(markDto.getSubjectId());
+        mark.setDate(markDto.getDate());
+        mark.setMark(markDto.getMark());
+        List<MarkDto> answer = new ArrayList<>();
+        answer.add(getDto(save(mark)));
+        return answer;
+    }
+
+    protected MarkDto getDto(@NotNull Mark mark) {
+        return new MarkDto(mark.getId(), mark.getDiaryID(), mark.getDate(), mark.getSubjectID(), mark.getMark());
+    }
+
+    protected List<MarkDto> getDtoList(List<Mark> markList) {
+        ArrayList<MarkDto> dtoList = new ArrayList<>();
+        for (Mark mark : markList) {
+            dtoList.add(getDto(mark));
+        }
+        return dtoList;
     }
 
     protected List<Mark> getByDiary(@NotNull Diary diary) {
