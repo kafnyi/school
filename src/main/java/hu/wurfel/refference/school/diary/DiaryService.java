@@ -38,25 +38,25 @@ public class DiaryService extends DiaryCrudService {
         this.subjectCrudService = subjectCrudService;
     }
 
-    List<Diary> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
+    List<DiaryDto> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
         switch (searchWith) {
             case Student -> {
-                return findByStudent(searchBy, value);
+                return getDtoList(findByStudent(searchBy, value));
             }
             case Diary -> {
-                return findByDiary(searchBy, value);
+                return getDtoList(findByDiary(searchBy, value));
             }
             case Class -> {
-                return findByClass(searchBy, value);
+                return getDtoList(findByClass(searchBy, value));
             }
             case Subject -> {
-                return findBySubject(searchBy, value);
+                return getDtoList(findBySubject(searchBy, value));
             }
             case Mark -> {
-                return findByMark(searchBy, value);
+                return getDtoList(findByMark(searchBy, value));
             }
             case Teacher -> {
-                return findByTeacher(searchBy, value);
+                return getDtoList(findByTeacher(searchBy, value));
             }
             default -> {
                 return new ArrayList<>();
@@ -126,6 +126,27 @@ public class DiaryService extends DiaryCrudService {
             default -> rContent = new ArrayList<>();
         }
         return rContent;
+    }
+
+    List<DiaryDto> modify(DiaryDto diaryDto) {
+        Diary diary = getByDiaryId(diaryDto.getId());
+        diary.setStudentId(diaryDto.getStudentId());
+        diary.setClassId(diary.getClassId());
+        List<DiaryDto> answer = new ArrayList<>();
+        answer.add(getDto(save(diary)));
+        return answer;
+    }
+
+    protected DiaryDto getDto(@NotNull Diary diary) {
+        return new DiaryDto(diary.getId(), diary.getStudentId(), diary.getClassId());
+    }
+
+    protected List<DiaryDto> getDtoList(List<Diary> diaryList) {
+        ArrayList<DiaryDto> dtoList = new ArrayList<>();
+        for (Diary diary : diaryList) {
+            dtoList.add(getDto(diary));
+        }
+        return dtoList;
     }
 
     protected List<Diary> getByStudent(@NotNull Student student) {
