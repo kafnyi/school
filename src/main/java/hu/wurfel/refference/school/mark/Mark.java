@@ -18,13 +18,13 @@ public class Mark {
     private Long id;
 
     @Column(name = "DiaryID", nullable = false)
-    private Integer diaryID;
+    private Integer diaryId;
 
     @Column(name = "Date", nullable = false)
     private String date;
 
     @Column(name = "SubjectID", nullable = false)
-    private Integer subjectID;
+    private Integer subjectId;
 
     @Column(name = "Mark", nullable = false)
     private byte mark;

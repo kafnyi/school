@@ -165,7 +165,7 @@ public class ClassService extends ClassCrudService {
     }
 
     protected Class getByMark(@NotNull Mark mark) {
-        return getByClassId((diaryCrudService.getByDiaryId(mark.getDiaryID())).getClassId());
+        return getByClassId((diaryCrudService.getByDiaryId(mark.getDiaryId())).getClassId());
     }
 
     protected List<Class> getClassesByMarks(@NotNull List<Mark> marks) {

@@ -164,7 +164,7 @@ public class StudentService extends StudentCrudService {
 	}
 
 	protected Student getByMark(@NotNull Mark mark) {
-		return getByStudentId(diaryCrudService.getByDiaryId(mark.getDiaryID()).getId());
+		return getByStudentId(diaryCrudService.getByDiaryId(mark.getDiaryId()).getId());
 	}
 
 	protected List<Student> getByMarks(@NotNull List<Mark> marks) {

@@ -152,7 +152,7 @@ public class SubjectService extends SubjectCrudService {
     }
 
     protected Subject getByMark(@NotNull Mark mark) {
-        return getBySubjectId(mark.getSubjectID());
+        return getBySubjectId(mark.getSubjectId());
     }
 
     protected List<Subject> getByMarks(@NotNull List<Mark> marks) {

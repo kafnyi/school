@@ -174,7 +174,7 @@ public class DiaryService extends DiaryCrudService {
     }
 
     protected Diary getByMark(@NotNull Mark mark) {
-        return getByDiaryId(mark.getDiaryID());
+        return getByDiaryId(mark.getDiaryId());
     }
 
     protected List<Diary> getDiariesByMarks(@NotNull List<Mark> marks) {

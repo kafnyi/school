@@ -63,7 +63,7 @@ public class MarkCrudService {
     }
 
     public Mark setDiaryId(@NotNull Mark mark, Integer did) {
-        mark.setDiaryID(did);
+        mark.setDiaryId(did);
         return save(mark);
     }
 
@@ -73,7 +73,7 @@ public class MarkCrudService {
     }
 
     public Mark setSubjectId(@NotNull Mark mark, Integer subjectId) {
-        mark.setSubjectID(subjectId);
+        mark.setSubjectId(subjectId);
         return save(mark);
     }
 

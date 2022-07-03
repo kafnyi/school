@@ -179,7 +179,7 @@ public class TeacherService extends TeacherCrudService {
 	}
 
 	protected Teacher getByMark(@NotNull Mark mark) {
-		return getBySubject(subjectCrudService.getBySubjectId(mark.getSubjectID()));
+		return getBySubject(subjectCrudService.getBySubjectId(mark.getSubjectId()));
 	}
 
 	protected List<Teacher> getByMarks(@NotNull List<Mark> marks) {

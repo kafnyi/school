@@ -131,8 +131,8 @@ public class MarkService extends MarkCrudService {
 
     protected List<MarkDto> modify(MarkDto markDto) {
         Mark mark = getByMarkId(markDto.getId());
-        mark.setDiaryID(markDto.getDiaryId());
-        mark.setSubjectID(markDto.getSubjectId());
+        mark.setDiaryId(markDto.getDiaryId());
+        mark.setSubjectId(markDto.getSubjectId());
         mark.setDate(markDto.getDate());
         mark.setMark(markDto.getMark());
         List<MarkDto> answer = new ArrayList<>();
@@ -141,7 +141,7 @@ public class MarkService extends MarkCrudService {
     }
 
     protected MarkDto getDto(@NotNull Mark mark) {
-        return new MarkDto(mark.getId(), mark.getDiaryID(), mark.getDate(), mark.getSubjectID(), mark.getMark());
+        return new MarkDto(mark.getId(), mark.getDiaryId(), mark.getDate(), mark.getSubjectId(), mark.getMark());
     }
 
     protected List<MarkDto> getDtoList(List<Mark> markList) {
