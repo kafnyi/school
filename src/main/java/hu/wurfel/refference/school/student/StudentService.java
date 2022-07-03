@@ -39,26 +39,26 @@ public class StudentService extends StudentCrudService {
 	}
 
 
-	List<Student> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
+	List<StudentDto> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
 
 		switch (searchWith) {
 			case Student -> {
-				return findByStudent(searchBy, value);
+				return getDtoList(findByStudent(searchBy, value));
 			}
 			case Diary -> {
-				return findByDiary(searchBy, value);
+				return getDtoList(findByDiary(searchBy, value));
 			}
 			case Class -> {
-				return findByClass(searchBy, value);
+				return getDtoList(findByClass(searchBy, value));
 			}
 			case Subject -> {
-				return findBySubject(searchBy, value);
+				return getDtoList(findBySubject(searchBy, value));
 			}
 			case Mark -> {
-				return findByMark(searchBy, value);
+				return getDtoList(findByMark(searchBy, value));
 			}
 			case Teacher -> {
-				return findByTeacher(searchBy, value);
+				return getDtoList(findByTeacher(searchBy, value));
 			}
 			default -> {
 				return new ArrayList<>();
@@ -128,6 +128,27 @@ public class StudentService extends StudentCrudService {
 			default -> rContent = new ArrayList<>();
 		}
 		return rContent;
+	}
+
+	protected List<StudentDto> modify(StudentDto studentDto) {
+		Student student = getByStudentId(studentDto.getId());
+		student.setName(studentDto.getName());
+		student.setBirthDate(studentDto.getBirthDate());
+		List<StudentDto> answer = new ArrayList<>();
+		answer.add(getDto(save(student)));
+		return answer;
+	}
+
+	protected StudentDto getDto(@NotNull Student student) {
+		return new StudentDto(student.getId(), student.getName(), student.getBirthDate());
+	}
+
+	protected List<StudentDto> getDtoList(List<Student> studentList) {
+		ArrayList<StudentDto> dtoList = new ArrayList<>();
+		for (Student student : studentList) {
+			dtoList.add(getDto(student));
+		}
+		return dtoList;
 	}
 
 	protected Student getByDiary(@NotNull Diary diary) {
