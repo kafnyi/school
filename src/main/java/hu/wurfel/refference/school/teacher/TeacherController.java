@@ -5,7 +5,6 @@ import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,13 +14,13 @@ public class TeacherController {
     TeacherService teacherService;
 
     @GetMapping("/{searchWith}/{searchBy}/{value}")
-    public ResponseEntity<List<Teacher>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
+    public ResponseEntity<List<TeacherDto>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         return ResponseEntity.ok(teacherService.getSearchResponseList(searchWith, searchBy, value));
     }
 
     @PostMapping
-    public ResponseEntity<List<Teacher>> create(@RequestBody TeacherDto teacherDto) {
-        return ResponseEntity.ok(teacherService.save(teacherDto.getId(), teacherDto.getName(), teacherDto.getBirthDate()));
+    public ResponseEntity<List<TeacherDto>> create(@RequestBody TeacherDto teacherDto) {
+        return ResponseEntity.ok(teacherService.getDtoList(teacherService.save(teacherDto.getId(), teacherDto.getName(), teacherDto.getBirthDate())));
     }
 
     @DeleteMapping("/{id}")
@@ -30,14 +29,8 @@ public class TeacherController {
     }
 
     @PutMapping
-    public ResponseEntity<List<Teacher>> modifyStudent(@RequestBody TeacherDto teacherDto) {
-        Teacher teacher = teacherService.getByTeacherId(teacherDto.getId());
-        teacher.setName(teacherDto.getName());
-        teacher.setBirthDate(teacherDto.getBirthDate());
-        teacherService.save(teacher);
-        List<Teacher> answer = new ArrayList<>();
-        answer.add(teacherService.getByTeacherId(teacher.getId()));
-        return ResponseEntity.ok(answer);
+    public ResponseEntity<List<TeacherDto>> modify(@RequestBody TeacherDto teacherDto) {
+        return ResponseEntity.ok(teacherService.modify(teacherDto));
     }
 
 

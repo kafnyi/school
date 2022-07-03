@@ -46,7 +46,7 @@ public class TeacherService extends TeacherCrudService {
 
 		switch (searchWith) {
 			case Student -> {
-				return getDtoList(findByStudent(searchBy, value);)
+				return getDtoList(findByStudent(searchBy, value));
 			}
 			case Diary -> {
 				return getDtoList(findByDiary(searchBy, value));
