@@ -39,26 +39,26 @@ public class SubjectService extends SubjectCrudService {
     }
 
 
-    List<Subject> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
+    List<SubjectDto> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
 
         switch (searchWith) {
             case Student -> {
-                return findByStudent(searchBy, value);
+                return getDtoList(findByStudent(searchBy, value));
             }
             case Diary -> {
-                return findByDiary(searchBy, value);
+                return getDtoList(findByDiary(searchBy, value));
             }
             case Class -> {
-                return findByClass(searchBy, value);
+                return getDtoList(findByClass(searchBy, value));
             }
             case Subject -> {
-                return findBySubject(searchBy, value);
+                return getDtoList(findBySubject(searchBy, value));
             }
             case Mark -> {
-                return findByMark(searchBy, value);
+                return getDtoList(findByMark(searchBy, value));
             }
             case Teacher -> {
-                return findByTeacher(searchBy, value);
+                return getDtoList(findByTeacher(searchBy, value));
             }
             default -> {
                 return new ArrayList<>();
@@ -128,6 +128,27 @@ public class SubjectService extends SubjectCrudService {
             default -> rContent = new ArrayList<>();
         }
         return rContent;
+    }
+
+    protected List<SubjectDto> modify(SubjectDto subjectDto) {
+        Subject subject = getBySubjectId(subjectDto.getId());
+        subject.setSubjectName(subjectDto.getName());
+        subject.setTid(subjectDto.getTeacherId());
+        List<SubjectDto> answer = new ArrayList<>();
+        answer.add(getDto(save(subject)));
+        return answer;
+    }
+
+    protected SubjectDto getDto(@NotNull Subject subject) {
+        return new SubjectDto(subject.getId(), subject.getSubjectName(), subject.getTid());
+    }
+
+    protected List<SubjectDto> getDtoList(List<Subject> subjectList) {
+        ArrayList<SubjectDto> dtoList = new ArrayList<>();
+        for (Subject subject : subjectList) {
+            dtoList.add(getDto(subject));
+        }
+        return dtoList;
     }
 
     protected Subject getByMark(@NotNull Mark mark) {
