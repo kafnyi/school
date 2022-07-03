@@ -36,8 +36,7 @@ public class DiaryCrudService {
     }
 
     public Diary save(@NotNull Diary diary) {
-        diaryRepository.save(diary);
-        return getById(diary.getId());
+        return diaryRepository.save(diary);
     }
 
     public List<Diary> save(Integer diaryId, Long studentId, Integer classId) {
