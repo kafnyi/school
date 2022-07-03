@@ -109,7 +109,7 @@ public class MarkService extends MarkCrudService {
 
     List<Mark> findByMark(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case MarkId -> rContent.add(getByMarkId(Long.parseLong(value)));
+            case MarkId -> rContent.add(getById(Long.parseLong(value)));
             case DiaryId -> rContent = getAllByDiaryId(Integer.parseInt(value));
             case Date -> rContent = getAllByDate(value);
             case SubjectId -> rContent = getAllBySubjectId(Integer.parseInt(value));
@@ -130,7 +130,7 @@ public class MarkService extends MarkCrudService {
     }
 
     protected List<MarkDto> modify(MarkDto markDto) {
-        Mark mark = getByMarkId(markDto.getId());
+        Mark mark = getById(markDto.getId());
         mark.setDiaryId(markDto.getDiaryId());
         mark.setSubjectId(markDto.getSubjectId());
         mark.setDate(markDto.getDate());

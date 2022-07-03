@@ -19,7 +19,7 @@ public class MarkCrudService {
         return markRepository.findAll();
     }
 
-    public Mark getByMarkId(Long markId) {
+    public Mark getById(Long markId) {
         return markRepository.findById(markId).get();
     }
 
@@ -53,7 +53,7 @@ public class MarkCrudService {
 
     public Mark save(@NotNull Mark mark) {
         markRepository.save(mark);
-        return getByMarkId(mark.getId());
+        return getById(mark.getId());
     }
 
     public List<Mark> save(Long markId, Integer diaryId, String date, Integer subjectId, byte mark) {

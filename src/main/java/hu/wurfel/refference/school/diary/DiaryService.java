@@ -108,7 +108,7 @@ public class DiaryService extends DiaryCrudService {
 
     List<Diary> findByMark(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case MarkId -> rContent.add(getByMark(markCrudService.getByMarkId(Long.parseLong(value))));
+            case MarkId -> rContent.add(getByMark(markCrudService.getById(Long.parseLong(value))));
             case DiaryId -> rContent.add(getById(Integer.parseInt(value)));
             case Date -> rContent = getDiariesByMarks(markCrudService.getAllByDate(value));
             case SubjectId -> rContent = getDiariesByMarks(markCrudService.getAllBySubjectId(Integer.parseInt(value)));

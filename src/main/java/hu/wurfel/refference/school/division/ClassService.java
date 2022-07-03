@@ -109,7 +109,7 @@ public class ClassService extends ClassCrudService {
 
     List<Class> findByMark(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case MarkId -> rContent.add(getByMark(markCrudService.getByMarkId(Long.parseLong(value))));
+            case MarkId -> rContent.add(getByMark(markCrudService.getById(Long.parseLong(value))));
             case DiaryId -> rContent.add(getByDiary(diaryCrudService.getById(Integer.parseInt(value))));
             case Date -> rContent = getClassesByMarks(markCrudService.getAllByDate(value));
             case SubjectId -> rContent = getClassesByMarks(markCrudService.getAllBySubjectId(Integer.parseInt(value)));

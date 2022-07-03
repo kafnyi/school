@@ -26,7 +26,7 @@ public class MarkController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
-        markService.delete(markService.getByMarkId(Long.parseLong(id)));
+        markService.delete(markService.getById(Long.parseLong(id)));
     }
 
     @PutMapping
