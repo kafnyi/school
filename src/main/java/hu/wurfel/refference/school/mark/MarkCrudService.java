@@ -24,7 +24,7 @@ public class MarkCrudService {
     }
 
     public List<Mark> getAllByDiaryId(Integer diaryId) {
-        return markRepository.findAllByDiaryID(diaryId);
+        return markRepository.findAllByDiaryId(diaryId);
     }
 
     public List<Mark> getAllByDate(String date) {
@@ -32,7 +32,7 @@ public class MarkCrudService {
     }
 
     public List<Mark> getAllBySubjectId(Integer subjectId) {
-        return markRepository.findAllBySubjectID(subjectId);
+        return markRepository.findAllBySubjectId(subjectId);
     }
 
     public List<Mark> getAllByMark(byte mark) {
@@ -40,15 +40,15 @@ public class MarkCrudService {
     }
 
     public List<Mark> getAllByDiaryIdAndDate(Integer diaryId, String date) {
-        return markRepository.findAllByDiaryIDAndDate(diaryId, date);
+        return markRepository.findAllByDiaryIdAndDate(diaryId, date);
     }
 
     public List<Mark> getAllByDiaryIdAndSubjectId(Integer diaryId, Integer subjectId) {
-        return markRepository.findAllByDiaryIDAndSubjectID(diaryId, subjectId);
+        return markRepository.findAllByDiaryIdAndSubjectId(diaryId, subjectId);
     }
 
     public Mark getByDiaryIdAndDateAndSubjectId(Integer diaryId, String date, Integer subjectId) {
-        return markRepository.findByDiaryIDAndDateAndSubjectID(diaryId, date, subjectId).get();
+        return markRepository.findByDiaryIdAndDateAndSubjectId(diaryId, date, subjectId).get();
     }
 
     public Mark save(@NotNull Mark mark) {
