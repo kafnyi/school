@@ -88,7 +88,7 @@ public class SubjectService extends SubjectCrudService {
 
     List<Subject> findByClass(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case ClassId -> rContent = getByClass(classCrudService.getByClassId(Integer.parseInt(value)));
+            case ClassId -> rContent = getByClass(classCrudService.getById(Integer.parseInt(value)));
             case Grade -> rContent = getByClasses(classCrudService.getAllByGrade(Short.parseShort(value)));
             case Sign -> rContent = getByClasses(classCrudService.getAllBySign(value.strip().charAt(0)));
             case Year -> rContent = getByClasses(classCrudService.getAllByYear(Year.parse(value)));

@@ -21,7 +21,7 @@ public class ClassCrudService {
         return (classRepository.findAll());
     }
 
-    public Class getByClassId(Integer classId) {
+    public Class getById(Integer classId) {
         return classRepository.findById(classId).get();
     }
 
@@ -59,7 +59,7 @@ public class ClassCrudService {
 
     public Class save(@NotNull Class division) {
         classRepository.save(division);
-        return getByClassId(division.getId());
+        return getById(division.getId());
     }
 
     public List<Class> save(Integer classId, short grade, char sign, Year year, Long tid) {

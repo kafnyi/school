@@ -79,7 +79,7 @@ public class ClassService extends ClassCrudService {
         switch (searchBy) {
             case DiaryId -> rContent.add(getByDiary(diaryCrudService.getById(Integer.parseInt(value))));
             case StudentId -> rContent = getClassesByDiaries(diaryCrudService.getAllByStudentId(Long.parseLong(value)));
-            case ClassId -> rContent.add(getByClassId(Integer.parseInt(value)));
+            case ClassId -> rContent.add(getById(Integer.parseInt(value)));
             default -> rContent = new ArrayList<>();
         }
         return rContent;
@@ -87,7 +87,7 @@ public class ClassService extends ClassCrudService {
 
     List<Class> findByClass(EntityFieldNames searchBy, String value) {
         switch (searchBy) {
-            case ClassId -> rContent.add(getByClassId(Integer.parseInt(value)));
+            case ClassId -> rContent.add(getById(Integer.parseInt(value)));
             case Grade -> rContent = getAllByGrade(Short.parseShort(value));
             case Sign -> rContent = getAllBySign(value.strip().charAt(0));
             case Year -> rContent = getAllByYear(Year.parse(value));
@@ -130,7 +130,7 @@ public class ClassService extends ClassCrudService {
     }
 
     protected List<ClassDto> modify(ClassDto classDto) {
-        Class division = getByClassId(classDto.getId());
+        Class division = getById(classDto.getId());
         division.setGrade(classDto.getGrade());
         division.setSign(classDto.getSign());
         division.setYear(division.getYear());
@@ -153,7 +153,7 @@ public class ClassService extends ClassCrudService {
     }
 
     protected Class getByDiary(@NotNull Diary diary) {
-        return getByClassId(diary.getClassId());
+        return getById(diary.getClassId());
     }
 
     protected List<Class> getClassesByDiaries(@NotNull List<Diary> diaries) {
@@ -165,7 +165,7 @@ public class ClassService extends ClassCrudService {
     }
 
     protected Class getByMark(@NotNull Mark mark) {
-        return getByClassId((diaryCrudService.getById(mark.getDiaryId())).getClassId());
+        return getById((diaryCrudService.getById(mark.getDiaryId())).getClassId());
     }
 
     protected List<Class> getClassesByMarks(@NotNull List<Mark> marks) {
