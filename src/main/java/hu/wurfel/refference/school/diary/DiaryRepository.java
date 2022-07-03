@@ -11,7 +11,7 @@ public interface DiaryRepository extends JpaRepository<Diary, Integer> {
 
 	List<Diary> findAllByStudentId(Long studentId);
 
-	List<Diary> findAllByClassID(Integer classId);
+	List<Diary> findAllByClassId(Integer classId);
 
-    Optional<Diary> findByStudentIdAndClassID(Long studentId, Integer classId);
+	Optional<Diary> findByStudentIdAndClassId(Long studentId, Integer classId);
 }

@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.text.ParseException;
 
 @EnableJpaRepositories("hu.wurfel.refference.school")
-@EntityScan("hu.wurfel.refference.school")
+@EntityScan(basePackages = {"hu.wurfel.refference.school"})
 @SpringBootApplication
 public class SchoolApplication {
     @Autowired

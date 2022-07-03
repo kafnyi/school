@@ -1,6 +1,7 @@
 package hu.wurfel.refference.school.diary;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class DiaryCrudService {
 
     private final DiaryRepository diaryRepository;
 
+    @Autowired
     public DiaryCrudService(DiaryRepository diaryRepository) {
         this.diaryRepository = diaryRepository;
     }
@@ -28,11 +30,11 @@ public class DiaryCrudService {
     }
 
     public List<Diary> getAllByClassId(Integer classId) {
-        return diaryRepository.findAllByClassID(classId);
+        return diaryRepository.findAllByClassId(classId);
     }
 
     public Diary getByStudentIdAndClassId(Long studentId, Integer classId) {
-        return diaryRepository.findByStudentIdAndClassID(studentId, classId).get();
+        return diaryRepository.findByStudentIdAndClassId(studentId, classId).get();
     }
 
     public Diary save(@NotNull Diary diary) {

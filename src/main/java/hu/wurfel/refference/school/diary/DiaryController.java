@@ -11,7 +11,6 @@ import java.util.List;
 @RequestMapping("/api/v1/Diary")
 public class DiaryController {
 
-
 	DiaryService diaryService;
 
 	@GetMapping("/{searchWith}/{searchBy}/{value}")
