@@ -42,26 +42,26 @@ public class TeacherService extends TeacherCrudService {
 		this.studentCrudService = studentCrudService;
 	}
 
-	List<Teacher> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
+	List<TeacherDto> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
 
 		switch (searchWith) {
 			case Student -> {
-				return findByStudent(searchBy, value);
+				return getDtoList(findByStudent(searchBy, value);)
 			}
 			case Diary -> {
-				return findByDiary(searchBy, value);
+				return getDtoList(findByDiary(searchBy, value));
 			}
 			case Class -> {
-				return findByClass(searchBy, value);
+				return getDtoList(findByClass(searchBy, value));
 			}
 			case Subject -> {
-				return findBySubject(searchBy, value);
+				return getDtoList(findBySubject(searchBy, value));
 			}
 			case Mark -> {
-				return findByMark(searchBy, value);
+				return getDtoList(findByMark(searchBy, value));
 			}
 			case Teacher -> {
-				return findByTeacher(searchBy, value);
+				return getDtoList(findByTeacher(searchBy, value));
 			}
 			default -> {
 				return new ArrayList<>();
@@ -131,6 +131,27 @@ public class TeacherService extends TeacherCrudService {
 			default -> rContent = new ArrayList<>();
 		}
 		return rContent;
+	}
+
+	protected List<TeacherDto> modify(TeacherDto teacherDto) {
+		Teacher teacher = getByTeacherId(teacherDto.getId());
+		teacher.setName(teacherDto.getName());
+		teacher.setBirthDate(teacherDto.getBirthDate());
+		List<TeacherDto> answer = new ArrayList<>();
+		answer.add(getDto(save(teacher)));
+		return answer;
+	}
+
+	protected TeacherDto getDto(@NotNull Teacher teacher) {
+		return new TeacherDto(teacher.getId(), teacher.getName(), teacher.getBirthDate());
+	}
+
+	protected List<TeacherDto> getDtoList(List<Teacher> teacherList) {
+		ArrayList<TeacherDto> dtoList = new ArrayList<>();
+		for (Teacher teacher : teacherList) {
+			dtoList.add(getDto(teacher));
+		}
+		return dtoList;
 	}
 
 	protected Teacher getByClass(@NotNull Class division) {
