@@ -128,7 +128,7 @@ public class DiaryService extends DiaryCrudService {
         return rContent;
     }
 
-    List<DiaryDto> modify(DiaryDto diaryDto) {
+    protected List<DiaryDto> modify(DiaryDto diaryDto) {
         Diary diary = getByDiaryId(diaryDto.getId());
         diary.setStudentId(diaryDto.getStudentId());
         diary.setClassId(diary.getClassId());
