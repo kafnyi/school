@@ -38,26 +38,26 @@ public class ClassService extends ClassCrudService {
         this.teacherCrudService = teacherCrudService;
     }
 
-    List<Class> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
+    List<ClassDto> getSearchResponseList(EntityNames searchWith, EntityFieldNames searchBy, String value) {
 
         switch (searchWith) {
             case Student -> {
-                return findByStudent(searchBy, value);
+                return getDtoList(findByStudent(searchBy, value));
             }
             case Diary -> {
-                return findByDiary(searchBy, value);
+                return getDtoList(findByDiary(searchBy, value));
             }
             case Class -> {
-                return findByClass(searchBy, value);
+                return getDtoList(findByClass(searchBy, value));
             }
             case Subject -> {
-                return findBySubject(searchBy, value);
+                return getDtoList(findBySubject(searchBy, value));
             }
             case Mark -> {
-                return findByMark(searchBy, value);
+                return getDtoList(findByMark(searchBy, value));
             }
             case Teacher -> {
-                return findByTeacher(searchBy, value);
+                return getDtoList(findByTeacher(searchBy, value));
             }
             default -> {
                 return new ArrayList<>();
