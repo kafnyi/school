@@ -36,8 +36,7 @@ public class StudentCrudService {
     }
 
     public Student save(@NotNull Student student) {
-        studentRepository.save(student);
-        return getById(student.getId());
+        return studentRepository.save(student);
     }
 
     public List<Student> save(long id, String name, String birth) {
