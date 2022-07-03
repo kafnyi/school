@@ -20,7 +20,7 @@ public class SubjectController {
 
     @PostMapping
     public ResponseEntity<List<SubjectDto>> create(@RequestBody SubjectDto subjectDto) {
-        return ResponseEntity.ok(subjectService.getDtoList(subjectService.save(subjectDto.getId(), subjectDto.getName(), subjectDto.getTeacherId())));
+        return ResponseEntity.ok(subjectService.getDtoList(subjectService.save(subjectDto.getId(), subjectDto.getSubjectName(), subjectDto.getTeacherId())));
     }
 
     @DeleteMapping("/{id}")
