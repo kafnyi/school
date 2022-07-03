@@ -1,6 +1,7 @@
 package hu.wurfel.refference.school.division;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
@@ -12,6 +13,7 @@ public class ClassCrudService {
 
     private final ClassRepository classRepository;
 
+    @Autowired
     public ClassCrudService(ClassRepository classRepository) {
         this.classRepository = classRepository;
     }
