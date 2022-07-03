@@ -36,8 +36,7 @@ public class SubjectCrudService {
     }
 
     public Subject save(@NotNull Subject subject) {
-        subjectRepository.save(subject);
-        return getById(subject.getId());
+        return subjectRepository.save(subject);
     }
 
     public List<Subject> save(Integer id, String name, Long tecaherId) {
