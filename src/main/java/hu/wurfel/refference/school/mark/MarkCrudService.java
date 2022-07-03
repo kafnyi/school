@@ -52,8 +52,7 @@ public class MarkCrudService {
     }
 
     public Mark save(@NotNull Mark mark) {
-        markRepository.save(mark);
-        return getById(mark.getId());
+        return markRepository.save(mark);
     }
 
     public List<Mark> save(Long markId, Integer diaryId, String date, Integer subjectId, byte mark) {
