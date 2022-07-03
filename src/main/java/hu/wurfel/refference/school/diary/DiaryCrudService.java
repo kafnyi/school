@@ -19,7 +19,7 @@ public class DiaryCrudService {
         return diaryRepository.findAll();
     }
 
-    public Diary getByDiaryId(Integer Id) {
+    public Diary getById(Integer Id) {
         return diaryRepository.findById(Id).get();
     }
 
@@ -37,7 +37,7 @@ public class DiaryCrudService {
 
     public Diary save(@NotNull Diary diary) {
         diaryRepository.save(diary);
-        return getByDiaryId(diary.getId());
+        return getById(diary.getId());
     }
 
     public List<Diary> save(Integer diaryId, Long studentId, Integer classId) {

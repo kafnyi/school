@@ -26,7 +26,7 @@ public class DiaryController {
 
 	@DeleteMapping("/{id}")
 	public void deleteById(@PathVariable String id) {
-		diaryService.delete(diaryService.getByDiaryId(Integer.parseInt(id)));
+		diaryService.delete(diaryService.getById(Integer.parseInt(id)));
     }
 
 	@PutMapping
