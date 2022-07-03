@@ -180,13 +180,13 @@ function getSpecificInputField(spec) {
 }
 
 function createAndSendSearchRequest() {
-    let sFor = document.getElementById("SFS").value
-    let sWith = document.getElementById("SWS").value
-    let sBy = document.getElementById("SBS").value
-    let sVal = document.getElementById("SVF").value
+    let searchFor = document.getElementById("SFS").value
+    let searchWith = document.getElementById("SWS").value
+    let searchBy = document.getElementById("SBS").value
+    let searchValue = document.getElementById("SVF").value
 
     let xhr = new XMLHttpRequest();
-    let url = "/api/v1/search/" + sFor;
+    let url = "/api/v1/search/" + searchFor + "/" + searchWith + "/" + searchBy + "/" + searchValue;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -195,9 +195,7 @@ function createAndSendSearchRequest() {
             createSearchResultTable(document.getElementById("SFS").value, result)
         }
     }
-    const search = {searchFor: sFor, searchWith: sWith, searchBy: sBy, searchValue: sVal};
-    const data = JSON.stringify(search);
-    xhr.send(data);
+    xhr.send();
 }
 
 function createSearchResultTable(responseType, json) {
@@ -271,7 +269,7 @@ function generateSubjectResultTable(result) {
             "</td><td>" +
             subject.name +
             "</td><td>" +
-            subject.teacherID +
+            subject.teacherId +
             "</td></tr>";
     }
     return table;
@@ -290,7 +288,7 @@ function generateClassResultTable(result) {
             "</td><td>" +
             division.sign +
             "</td><td>" +
-            division.teacherID +
+            division.teacherId +
             "</td></tr>";
     }
     return table;
@@ -303,9 +301,9 @@ function generateDiaryResultTable(result) {
         table += "<tr><td> " +
             diary.id +
             "</td><td onclick=\"\">" +
-            diary.studentID +
+            diary.studentId +
             "</td><td>" +
-            diary.classID +
+            diary.classId +
             "</td></tr>";
     }
     return table;
@@ -318,11 +316,11 @@ function generateMarkResultTable(result) {
         table += "<tr><td> " +
             mark.id +
             "</td><td onclick=\"\">" +
-            mark.diaryID +
+            mark.diaryId +
             "</td><td>" +
             mark.date +
             "</td><td>" +
-            mark.subjectID +
+            mark.subjectId +
             "</td><td>" +
             mark.mark +
             "</td></tr>";
@@ -517,7 +515,7 @@ function createAndSendAddingRequest() {
     let addValue = createAddingValue(addType)
 
     let xhr = new XMLHttpRequest();
-    let url = "/api/v1/" + addType + "/adding";
+    let url = "/api/v1/" + addType;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -558,63 +556,57 @@ function createAddingValue(type) {
 
 function getStudentDetailsForAdding() {
     let student = {
-        type: document.getElementById("AFS").value,
         id: document.getElementById("ASSId").value,
         name: document.getElementById("ASN").value,
-        date: document.getElementById("ASD").value
+        birthDate: document.getElementById("ASD").value
     }
     return student;
 }
 
 function getDiaryDetailsForAdding() {
     let diary = {
-        type: document.getElementById("AFS").value,
         id: document.getElementById("ADDId").value,
-        studentID: document.getElementById("ADSId").value,
-        classID: document.getElementById("ADCId").value
+        studentId: document.getElementById("ADSId").value,
+        classId: document.getElementById("ADCId").value
     }
     return diary;
 }
 
 function getClassDetailsForAdding() {
     let division = {
-        type: document.getElementById("AFS").value,
         id: document.getElementById("ACCId").value,
         grade: document.getElementById("ACG").value,
         sign: document.getElementById("ACS").value,
         year: document.getElementById("ACY").value,
-        teacherID: document.getElementById("ACTId").value,
+        teacherId: document.getElementById("ACTId").value,
     }
     return division;
 }
 
 function getSubjectDetailsForAdding() {
     let subject = {
-        type: document.getElementById("AFS").value,
         id: document.getElementById("ASjSjId").value,
         subjectName: document.getElementById("ASjN").value,
-        teacherID: document.getElementById("ASjTId").value
+        teacherId: document.getElementById("ASjTId").value
     }
     return subject;
 }
 
 function getTeacherDetailsForAdding() {
     let teacher = {
-        type: document.getElementById("AFS").value,
         id: document.getElementById("ATId").value,
         name: document.getElementById("ATN").value,
-        date: document.getElementById("ATD").value
+        birthDate: document.getElementById("ATD").value
     }
     return teacher;
 }
 
 function getMarkDetailsForAdding() {
     let mark = {
-        type: document.getElementById("AFS").value,
         id: document.getElementById("AMMId").value,
-        diaryID: document.getElementById("AMDId").value,
+        diaryId: document.getElementById("AMDId").value,
         date: document.getElementById("AMD").value,
-        subjectID: document.getElementById("AMSjId").value,
+        subjectId: document.getElementById("AMSjId").value,
         mark: document.getElementById("AMM").value
     }
     return mark;
@@ -626,7 +618,7 @@ function getMarkDetailsForAdding() {
 function createAndSendModifyRequest(type, inID) {
 
     let xhr = new XMLHttpRequest();
-    let url = "/api/v1/" + type + "/modify";
+    let url = "/api/v1/" + type;
     xhr.open("PUT", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -665,7 +657,7 @@ function getDataForModify(type, id) {
 function createAndSendSearchForModifyRequest(type, id) {
     let xhr = new XMLHttpRequest();
     let url = "/api/v1/search/" + type;
-    xhr.open("POST", url, true);
+    xhr.open("PUT", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -718,7 +710,7 @@ function getModifyDataForStudent(id) {
     let data = {
         id: id,
         name: document.getElementById("MSN").value,
-        date: document.getElementById("MSD").value
+        birthDate: document.getElementById("MSD").value
     }
     return data
 }
@@ -727,7 +719,7 @@ function getModifyDataForTeacher(id) {
     let data = {
         id: id,
         name: document.getElementById("MTN").value,
-        date: document.getElementById("MTD").value
+        birthDate: document.getElementById("MTD").value
     }
     return data
 }
@@ -735,8 +727,8 @@ function getModifyDataForTeacher(id) {
 function getModifyDataForDiary(id) {
     let data = {
         id: id,
-        name: document.getElementById("MDS").value,
-        date: document.getElementById("MDC").value
+        studentId: document.getElementById("MDS").value,
+        classId: document.getElementById("MDC").value
     }
     return data
 }
@@ -744,7 +736,7 @@ function getModifyDataForDiary(id) {
 function getModifyDataForSubject(id) {
     let data = {
         id: id,
-        name: document.getElementById("MSjN").value,
+        subjectName: document.getElementById("MSjN").value,
         teacherId: document.getElementById("MSjT").value
     }
     return data
@@ -777,7 +769,7 @@ function getModifyDataForClass(id) {
 
 function createAndSendDeleteRequest(type, toDelete) {
     let xhr = new XMLHttpRequest();
-    let url = "/api/v1/" + type + "/delete/" + toDelete;
+    let url = "/api/v1/" + type + "/" + toDelete;
     xhr.open("DELETE", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
