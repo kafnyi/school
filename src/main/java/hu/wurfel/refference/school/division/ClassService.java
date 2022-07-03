@@ -129,6 +129,29 @@ public class ClassService extends ClassCrudService {
         return rContent;
     }
 
+    protected List<ClassDto> modify(ClassDto classDto) {
+        Class division = getByClassId(classDto.getId());
+        division.setGrade(classDto.getGrade());
+        division.setSign(classDto.getSign());
+        division.setYear(division.getYear());
+        division.setTeacherId(classDto.getTeacherId());
+        List<ClassDto> answer = new ArrayList<>();
+        answer.add(getDto(save(division)));
+        return answer;
+    }
+
+    protected ClassDto getDto(@NotNull Class division) {
+        return new ClassDto(division.getId(), division.getGrade(), division.getSign(), division.getYear(), division.getTeacherId());
+    }
+
+    protected List<ClassDto> getDtoList(List<Class> classList) {
+        ArrayList<ClassDto> dtoList = new ArrayList<>();
+        for (Class division : classList) {
+            dtoList.add(getDto(division));
+        }
+        return dtoList;
+    }
+
     protected Class getByDiary(@NotNull Diary diary) {
         return getByClassId(diary.getClassId());
     }
