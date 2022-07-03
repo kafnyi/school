@@ -5,7 +5,6 @@ import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,13 +14,13 @@ public class SubjectController {
     SubjectService subjectService;
 
     @GetMapping("/{searchWith}/{searchBy}/{value}")
-    public ResponseEntity<List<Subject>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
+    public ResponseEntity<List<SubjectDto>> searchForStudent(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         return ResponseEntity.ok(subjectService.getSearchResponseList(searchWith, searchBy, value));
     }
 
     @PostMapping
-    public ResponseEntity<List<Subject>> create(@RequestBody SubjectDto subjectDto) {
-        return ResponseEntity.ok(subjectService.save(subjectDto.getId(), subjectDto.getName(), subjectDto.getTeacherId()));
+    public ResponseEntity<List<SubjectDto>> create(@RequestBody SubjectDto subjectDto) {
+        return ResponseEntity.ok(subjectService.getDtoList(subjectService.save(subjectDto.getId(), subjectDto.getName(), subjectDto.getTeacherId())));
     }
 
     @DeleteMapping("/{id}")
@@ -30,14 +29,8 @@ public class SubjectController {
     }
 
     @PutMapping
-    public ResponseEntity<List<Subject>> modifyStudent(@RequestBody SubjectDto subjectDto) {
-        Subject subject = subjectService.getBySubjectId(subjectDto.getId());
-        subject.setSubjectName(subjectDto.getName());
-        subject.setTid(subjectDto.getTeacherId());
-        subjectService.save(subject);
-        List<Subject> answer = new ArrayList<>();
-        answer.add(subjectService.getBySubjectId(subject.getId()));
-        return ResponseEntity.ok(answer);
+    public ResponseEntity<List<SubjectDto>> modifyStudent(@RequestBody SubjectDto subjectDto) {
+        return ResponseEntity.ok(subjectService.modify(subjectDto));
     }
 
 
