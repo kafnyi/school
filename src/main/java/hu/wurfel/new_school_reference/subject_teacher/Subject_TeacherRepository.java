@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface Subject_TeacherRepository extends JpaRepository<Subject_teacher, Long> {
-    List<Subject_teacher> findAllBySubject(Subject subject);
+public interface Subject_TeacherRepository extends JpaRepository<Subject_Teacher, Long> {
+    List<Subject_Teacher> findAllBySubject(Subject subject);
 
-    List<Subject_teacher> findAllByTeacher(Teacher teacher);
+    List<Subject_Teacher> findAllByTeacher(Teacher teacher);
 }

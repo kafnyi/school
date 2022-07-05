@@ -3,14 +3,13 @@ package hu.wurfel.new_school_reference.mark;
 
 import hu.wurfel.new_school_reference.base.Auditable;
 import hu.wurfel.new_school_reference.base.MarkModifier;
-import hu.wurfel.new_school_reference.diary_subject_teacher_student.Diary_subject_teacher_student;
+import hu.wurfel.new_school_reference.diary_subject_teacher_student.Diary_Subject_Teacher_Student;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.util.Date;
@@ -26,7 +25,7 @@ public class Mark extends Auditable {
 
     @ManyToOne
     @JoinColumn(name = "diary_subject_teacher_student_id")
-    private Diary_subject_teacher_student diarySubjectTeacherStudent;
+    private Diary_Subject_Teacher_Student diarySubjectTeacherStudent;
 
     private short value;
 
