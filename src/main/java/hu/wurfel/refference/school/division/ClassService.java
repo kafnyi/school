@@ -13,6 +13,7 @@ import hu.wurfel.refference.school.subject.SubjectCrudService;
 import hu.wurfel.refference.school.teacher.Teacher;
 import hu.wurfel.refference.school.teacher.TeacherCrudService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
@@ -29,6 +30,7 @@ public class ClassService extends ClassCrudService {
     private final TeacherCrudService teacherCrudService;
     private List<Class> rContent;
 
+    @Autowired
     public ClassService(ClassRepository classRepository, MarkCrudService markCrudService, DiaryCrudService diaryCrudService, StudentCrudService studentCrudService, SubjectCrudService subjectCrudService, TeacherCrudService teacherCrudService) {
         super(classRepository);
         this.markCrudService = markCrudService;

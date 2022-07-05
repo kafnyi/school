@@ -1,6 +1,7 @@
 package hu.wurfel.refference.school.subject;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class SubjectCrudService {
 
     private final SubjectRepository subjectRepository;
 
+    @Autowired
     public SubjectCrudService(SubjectRepository subjectRepository) {
         this.subjectRepository = subjectRepository;
     }
