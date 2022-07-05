@@ -1,6 +1,7 @@
 package hu.wurfel.refference.school.diary;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,33 +12,33 @@ public class DiaryCrudService {
 
     private final DiaryRepository diaryRepository;
 
+    @Autowired
     public DiaryCrudService(DiaryRepository diaryRepository) {
         this.diaryRepository = diaryRepository;
     }
 
     public List<Diary> getAll() {
-        return new ArrayList<>(diaryRepository.findAll());
+        return diaryRepository.findAll();
     }
 
-    public Diary getByDiaryId(Integer Id) {
+    public Diary getById(Integer Id) {
         return diaryRepository.findById(Id).get();
     }
 
-    public List<Diary> getByStudentId(Long scid) {
-        return diaryRepository.findAllByStudentId(scid);
+    public List<Diary> getAllByStudentId(Long studentId) {
+        return diaryRepository.findAllByStudentId(studentId);
     }
 
-    public List<Diary> getByClassId(Integer cid) {
-        return diaryRepository.findAllByClassID(cid);
+    public List<Diary> getAllByClassId(Integer classId) {
+        return diaryRepository.findAllByClassId(classId);
     }
 
-    public Diary getByStudentIdAndClassId(Long scid, Integer cid) {
-        return diaryRepository.findByStudentIdAndClassID(scid, cid).get();
+    public Diary getByStudentIdAndClassId(Long studentId, Integer classId) {
+        return diaryRepository.findByStudentIdAndClassId(studentId, classId).get();
     }
 
     public Diary save(@NotNull Diary diary) {
-        diaryRepository.save(diary);
-        return getByDiaryId(diary.getId());
+        return diaryRepository.save(diary);
     }
 
     public List<Diary> save(Integer diaryId, Long studentId, Integer classId) {
@@ -46,18 +47,13 @@ public class DiaryCrudService {
         return saved;
     }
 
-    public Diary setId(@NotNull Diary diary, Integer did) {
-        diary.setId(did);
+    public Diary setStudentId(@NotNull Diary diary, Long studentId) {
+        diary.setStudentId(studentId);
         return save(diary);
     }
 
-    public Diary setStudentId(@NotNull Diary diary, Long scid) {
-        diary.setStudentId(scid);
-        return save(diary);
-    }
-
-    public Diary setClassId(@NotNull Diary diary, Integer cid) {
-        diary.setClassID(cid);
+    public Diary setClassId(@NotNull Diary diary, Integer classId) {
+        diary.setClassId(classId);
         return save(diary);
     }
 

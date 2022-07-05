@@ -2,11 +2,9 @@ package hu.wurfel.refference.school.subject;
 
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
-public class SubjectDto implements Serializable {
+public class SubjectDto {
 	private final Integer id;
-	private final String name;
+	private final String subjectName;
 	private final Long teacherId;
 }

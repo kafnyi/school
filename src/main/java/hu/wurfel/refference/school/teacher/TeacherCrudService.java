@@ -1,6 +1,7 @@
 package hu.wurfel.refference.school.teacher;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,40 +12,35 @@ public class TeacherCrudService {
 
     private final TeacherRepository teacherRepository;
 
+    @Autowired
     public TeacherCrudService(TeacherRepository teacherRepository) {
         this.teacherRepository = teacherRepository;
     }
 
     public Iterable<Teacher> getAll() {
-        return new ArrayList<>(teacherRepository.findAll());
+        return teacherRepository.findAll();
     }
 
     public Teacher getByTeacherId(Long Id) {
         return teacherRepository.findById(Id).get();
     }
 
-    public List<Teacher> getByName(String name) {
+    public List<Teacher> getAllByName(String name) {
         return teacherRepository.findAllByName(name);
     }
 
-    public List<Teacher> getByBirth(String date) {
+    public List<Teacher> getAllByBirth(String date) {
         return teacherRepository.findAllByBirthDate(date);
     }
 
     public Teacher save(@NotNull Teacher teacher) {
-        teacherRepository.save(teacher);
-        return getByTeacherId(teacher.getId());
+        return teacherRepository.save(teacher);
     }
 
     public List<Teacher> save(Long id, String name, String birth) {
         ArrayList<Teacher> saved = new ArrayList<>();
         saved.add(save(new Teacher(id, name, birth)));
         return saved;
-    }
-
-    public Teacher setID(@NotNull Teacher teacher, long id) {
-        teacher.setId(id);
-        return save(teacher);
     }
 
     public Teacher setName(@NotNull Teacher teacher, String name) {

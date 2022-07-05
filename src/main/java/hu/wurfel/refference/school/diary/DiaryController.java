@@ -5,39 +5,32 @@ import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/Diary")
 public class DiaryController {
-
 
 	DiaryService diaryService;
 
-	@GetMapping("/api/v1/Diary/search/{searchWith}/{searchBy}/{value}")
-	public ResponseEntity<List<Diary>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
+	@GetMapping("/{searchWith}/{searchBy}/{value}")
+	public ResponseEntity<List<DiaryDto>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
 		return ResponseEntity.ok(diaryService.getSearchResponseList(searchWith, searchBy, value));
 	}
 
-	@PostMapping("/api/v1/Diary/adding")
-	public ResponseEntity<List<Diary>> create(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
-		return ResponseEntity.ok(diaryService.save(Integer.parseInt(diaryRequestForSearch.getId()), Long.parseLong(diaryRequestForSearch.getStudentId()), Integer.parseInt(diaryRequestForSearch.getClassId())));
+	@PostMapping
+	public ResponseEntity<List<DiaryDto>> create(@RequestBody DiaryDto diaryDto) {
+		return ResponseEntity.ok(diaryService.getDtoList(diaryService.save(diaryDto.getId(), diaryDto.getStudentId(), diaryDto.getClassId())));
 	}
 
-	@DeleteMapping("/api/v1/Diary/delete/{id}")
+	@DeleteMapping("/{id}")
 	public void deleteById(@PathVariable String id) {
-		diaryService.delete(diaryService.getByDiaryId(Integer.parseInt(id)));
+		diaryService.delete(diaryService.getById(Integer.parseInt(id)));
     }
 
-	@PutMapping("/api/v1/Diary/modify")
-	public ResponseEntity<List<Diary>> modify(@RequestBody DiaryRequestForSearch diaryRequestForSearch) {
-		Diary diary = diaryService.getByDiaryId(Integer.parseInt(diaryRequestForSearch.getId()));
-		diary.setStudentId(Long.parseLong(diaryRequestForSearch.getStudentId()));
-		diary.setClassID(Integer.parseInt(diaryRequestForSearch.getClassId()));
-		diaryService.save(diary);
-		List<Diary> answer = new ArrayList<>();
-		answer.add(diaryService.getByDiaryId(diary.getId()));
-		return ResponseEntity.ok(answer);
+	@PutMapping
+	public ResponseEntity<List<DiaryDto>> modify(@RequestBody DiaryDto diaryDto) {
+		return ResponseEntity.ok(diaryService.modify(diaryDto));
 	}
 
 

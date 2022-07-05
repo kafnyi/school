@@ -5,41 +5,32 @@ import hu.wurfel.refference.school.base.enums.EntityNames;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Year;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1/Class")
 public class ClassController {
 
     ClassService classService;
 
-    @GetMapping("/api/vi/Class/search/{searchWith}/{searchBy}/{value}")
-    public ResponseEntity<List<Class>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
+    @GetMapping("/{searchWith}/{searchBy}/{value}")
+    public ResponseEntity<List<ClassDto>> search(@PathVariable EntityNames searchWith, @PathVariable EntityFieldNames searchBy, @PathVariable String value) {
         return ResponseEntity.ok(classService.getSearchResponseList(searchWith, searchBy, value));
     }
 
-    @PostMapping("/api/vi/Class/adding")
-    public ResponseEntity<List<Class>> create(@RequestBody ClassRequestForSearch classRequestForSearch) {
-        return ResponseEntity.ok(classService.save(Integer.parseInt(classRequestForSearch.getId()), Short.parseShort(classRequestForSearch.getGrade()), classRequestForSearch.getSign().strip().charAt(0), Year.parse(classRequestForSearch.getYear()), Long.parseLong(classRequestForSearch.getTeacherId())));
+    @PostMapping
+    public ResponseEntity<List<ClassDto>> create(@RequestBody ClassDto classDto) {
+        return ResponseEntity.ok(classService.getDtoList(classService.save(classDto.getId(), classDto.getGrade(), classDto.getSign(), classDto.getYear(), classDto.getTeacherId())));
     }
 
-    @DeleteMapping("/api/vi/Class/delete/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
-        classService.delete(classService.getByClassId(Integer.parseInt(id)));
+        classService.delete(classService.getById(Integer.parseInt(id)));
     }
 
-    @PutMapping("/api/vi/Class/api/vi/modify/Class")
-    public ResponseEntity<List<Class>> modify(@RequestBody ClassRequestForSearch classRequestForSearch) {
-        Class division = classService.getByClassId(Integer.parseInt(classRequestForSearch.getId()));
-        division.setId(Integer.parseInt(classRequestForSearch.getId()));
-        division.setGrade(Short.parseShort(classRequestForSearch.getGrade()));
-        division.setSign(classRequestForSearch.getSign().strip().charAt(0));
-        division.setYear(Year.parse(classRequestForSearch.getYear()));
-        classService.save(division);
-        List<Class> answer = new ArrayList<>();
-        answer.add(classService.getByClassId(division.getId()));
-        return ResponseEntity.ok(answer);
+    @PutMapping
+    public ResponseEntity<List<ClassDto>> modify(@RequestBody ClassDto classDto) {
+        return ResponseEntity.ok(classService.modify(classDto));
     }
 
 
