@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
@@ -21,5 +20,5 @@ public class Teacher extends Auditable {
 
     private Date birthDate;
 
-    private Long teacherCardNumber;
+    private Long cardNumber;
 }

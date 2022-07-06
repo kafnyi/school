@@ -12,5 +12,5 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     List<Student> findAllByBirthDate(Date date);
 
-    List<Student> findAllByStudentCardNumber(Long cardNumber);
+    Student findByCardNumber(long cardNumber);
 }

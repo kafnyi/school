@@ -12,4 +12,6 @@ public interface Subject_TeacherRepository extends JpaRepository<Subject_Teacher
     List<Subject_Teacher> findAllBySubject(Subject subject);
 
     List<Subject_Teacher> findAllByTeacher(Teacher teacher);
+
+    Subject_Teacher findBySubjectAndTeacher(Subject subject, Teacher teacher);
 }
