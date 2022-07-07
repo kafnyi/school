@@ -3,7 +3,7 @@ package hu.wurfel.new_school_reference.mark;
 
 import hu.wurfel.new_school_reference.base.Auditable;
 import hu.wurfel.new_school_reference.base.MarkModifier;
-import hu.wurfel.new_school_reference.diary_subject_teacher_student.Diary_Subject_Teacher_Student;
+import hu.wurfel.new_school_reference.diary_subject_teacher_student.DiarySubjectTeacherStudent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class Mark extends Auditable {
 
     @ManyToOne
     @JoinColumn(name = "diary_subject_teacher_student_id")
-    private Diary_Subject_Teacher_Student diarySubjectTeacherStudent;
+    private DiarySubjectTeacherStudent diarySubjectTeacherStudent;
 
     private short value;
 

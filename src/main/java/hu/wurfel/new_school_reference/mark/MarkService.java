@@ -2,10 +2,9 @@ package hu.wurfel.new_school_reference.mark;
 
 import hu.wurfel.new_school_reference.base.CrudService;
 import hu.wurfel.new_school_reference.base.MarkModifier;
-import hu.wurfel.new_school_reference.diary_subject_teacher_student.Diary_Subject_Teacher_Student;
+import hu.wurfel.new_school_reference.diary_subject_teacher_student.DiarySubjectTeacherStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class MarkService extends CrudService<Mark,MarkRepository> {
 		return repository.findAllByTestDate(date);
 	}
 
-	public List<Mark> findAllByDiarySubjectStudent(Diary_Subject_Teacher_Student diarySubjectTeacherStudent){
+	public List<Mark> findAllByDiarySubjectStudent(DiarySubjectTeacherStudent diarySubjectTeacherStudent){
 		return repository.findAllByDiarySubjectTeacherStudent(diarySubjectTeacherStudent);
 	}
 

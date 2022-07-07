@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Subject_Teacher extends Auditable {
+public class SubjectTeacher extends Auditable {
 
     @ManyToOne
     @JoinColumn(name = "subject_id")

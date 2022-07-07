@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DiarySubjectTeacherStudentService extends CrudService<Diary_Subject_Teacher_Student,DiarySubjectTeacherStudentRepository> {
+public class DiarySubjectTeacherStudentService extends CrudService<DiarySubjectTeacherStudent,DiarySubjectTeacherStudentRepository> {
 
 	@Autowired
 	public DiarySubjectTeacherStudentService(DiarySubjectTeacherStudentRepository repository) {
