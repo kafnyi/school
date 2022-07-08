@@ -1,4 +1,4 @@
-package hu.wurfel.new_school_reference.diary_subject_teacher_student;
+package hu.wurfel.new_school_reference.diarySubjectTeacherStudent;
 
 
 import hu.wurfel.new_school_reference.base.Auditable;
@@ -27,7 +27,7 @@ public class DiarySubjectTeacherStudent extends Auditable {
 
     @ManyToOne
     @JoinColumn(name = "subject_teacher_id")
-    private SubjectTeacher subject_teacher;
+    private SubjectTeacher subjectTeacher;
 
     @ManyToOne
     @JoinColumn(name = "student_id")

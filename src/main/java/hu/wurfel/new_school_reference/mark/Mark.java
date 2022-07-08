@@ -3,7 +3,7 @@ package hu.wurfel.new_school_reference.mark;
 
 import hu.wurfel.new_school_reference.base.Auditable;
 import hu.wurfel.new_school_reference.base.MarkModifier;
-import hu.wurfel.new_school_reference.diary_subject_teacher_student.DiarySubjectTeacherStudent;
+import hu.wurfel.new_school_reference.diarySubjectTeacherStudent.DiarySubjectTeacherStudent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

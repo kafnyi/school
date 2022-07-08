@@ -13,14 +13,14 @@ public class SubjectTeacherService extends CrudService<SubjectTeacher, SubjectTe
 	}
 
 	public List<SubjectTeacher> findAllBySubject(Subject subject){
-		return repository.findAllBySubject(subject);
+		return repo.findAllBySubject(subject);
 	}
 
 	public List<SubjectTeacher> findAllByTeacher(Teacher teacher){
-		return repository.findAllByTeacher(teacher);
+		return repo.findAllByTeacher(teacher);
 	}
 
 	public SubjectTeacher findBySubjectAndTeacher(Subject subject, Teacher teacher){
-		return repository.findBySubjectAndTeacher(subject,teacher);
+		return repo.findBySubjectAndTeacher(subject,teacher);
 	}
 }

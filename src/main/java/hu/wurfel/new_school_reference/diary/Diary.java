@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,6 +20,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE diary SET deleted = true WHERE id = ?")
 public class Diary extends Auditable {
 
     private Date start;

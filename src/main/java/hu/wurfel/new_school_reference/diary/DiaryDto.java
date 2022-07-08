@@ -1,12 +1,9 @@
 package hu.wurfel.new_school_reference.diary;
 
-import hu.wurfel.new_school_reference.division.Class;
-import hu.wurfel.new_school_reference.teacher.Teacher;
+import hu.wurfel.new_school_reference.division.ClassDto;
+import hu.wurfel.new_school_reference.teacher.TeacherDto;
 import lombok.Data;
-import net.bytebuddy.implementation.bytecode.Division;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Data
@@ -18,7 +15,7 @@ public class DiaryDto {
 
 	private Date end;
 
-	private Division division;
+	private ClassDto classDto;
 
-	private Teacher headTeacher;
+	private TeacherDto headTeacher;
 }

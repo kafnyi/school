@@ -1,4 +1,4 @@
-package hu.wurfel.new_school_reference.diary_subject_teacher_student;
+package hu.wurfel.new_school_reference.diarySubjectTeacherStudent;
 
 import hu.wurfel.new_school_reference.base.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
