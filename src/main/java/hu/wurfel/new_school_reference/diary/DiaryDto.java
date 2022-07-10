@@ -1,7 +1,5 @@
 package hu.wurfel.new_school_reference.diary;
 
-import hu.wurfel.new_school_reference.division.ClassDto;
-import hu.wurfel.new_school_reference.teacher.TeacherDto;
 import lombok.Data;
 
 import java.util.Date;
@@ -10,12 +8,36 @@ import java.util.Date;
 public class DiaryDto {
 
 	private Long id;
-
 	private Date start;
-
 	private Date end;
+	private long divisionId;
+	private long headTeacherId;
 
-	private ClassDto classDto;
+	public boolean hasId() {
+		return id != null;
+	}
 
-	private TeacherDto headTeacher;
+	public boolean hasStart() {
+		return start != null;
+	}
+
+	public boolean hasEnd() {
+		return end != null;
+	}
+
+	public boolean hasDivision() {
+		return divisionId != 0;
+	}
+
+	public boolean hasHeadTeacher() {
+		return headTeacherId != 0;
+	}
+
+	//public boolean isEmpty(){
+	//return id == null
+	//			&& start == null
+	//			&& end == null
+	//			&& divisionId == 0
+	//			&& headTeacherId == 0;
+	//}
 }
