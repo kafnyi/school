@@ -2,9 +2,11 @@ package hu.wurfel.new_school_reference.subject;
 
 import hu.wurfel.new_school_reference.base.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class SubjectService extends CrudService<Subject,SubjectRepository> {
 
 	@Autowired
@@ -13,6 +15,6 @@ public class SubjectService extends CrudService<Subject,SubjectRepository> {
 	}
 
 	public List<Subject> findAllByName(String name){
-		return repository.findAllByName(name);
+		return repo.findAllByName(name);
 	}
 }

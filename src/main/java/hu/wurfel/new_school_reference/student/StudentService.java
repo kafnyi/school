@@ -2,11 +2,12 @@ package hu.wurfel.new_school_reference.student;
 
 import hu.wurfel.new_school_reference.base.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class StudentService extends CrudService<Student,StudentRepository> {
 
 	@Autowired
@@ -15,14 +16,14 @@ public class StudentService extends CrudService<Student,StudentRepository> {
 	}
 
 	public List<Student> findAllByName (String name){
-		return repository.findAllByName(name);
+		return repo.findAllByName(name);
 	}
 
 	public List<Student> findAllByBirthDate(Date date){
-		return repository.findAllByBirthDate(date);
+		return repo.findAllByBirthDate(date);
 	}
 
 	public Student findByCardNumber(long number){
-		return repository.findByCardNumber(number);
+		return repo.findByCardNumber(number);
 	}
 }

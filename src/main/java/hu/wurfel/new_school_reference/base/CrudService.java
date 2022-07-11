@@ -4,35 +4,35 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public class CrudService <EntityType, RepositoryType extends JpaRepository<EntityType, Long>>{
+public class CrudService<
+        ENTITY_TYPE extends Auditable,
+        REPO extends JpaRepository<ENTITY_TYPE, Long>
+        > {
 
-    public RepositoryType repository;
+    protected REPO repo;
 
-    public CrudService(RepositoryType repository) {
-        this.repository = repository;
+    public CrudService(REPO repo) {
+        this.repo = repo;
     }
 
-    public List<EntityType> findAll(){
-        return repository.findAll();
+    public List<ENTITY_TYPE> findAll() {
+        return repo.findAll();
     }
 
-    private EntityType findById(Long id){
-        return repository.findById(id).get();
+    public ENTITY_TYPE findById(Long id) {
+        return repo.findById(id).orElseThrow();
     }
 
-    public EntityType save(EntityType entity){
-        return repository.save(entity);
+    public ENTITY_TYPE save(ENTITY_TYPE entity) {
+        return repo.save(entity);
     }
 
-    public EntityType delete(EntityType entity){
-        repository.delete(entity);
-        return entity;
+    public void delete(ENTITY_TYPE entity) {
+        this.deleteById(entity.getId());
     }
 
-    public EntityType deleteById(Long id){
-        EntityType entity = repository.findById(id).get();
-        repository.deleteById(id);
-        return entity;
+    public void deleteById(Long id) {
+        repo.deleteById(id);
     }
 
 
