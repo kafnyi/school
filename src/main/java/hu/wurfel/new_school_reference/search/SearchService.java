@@ -9,6 +9,7 @@ import hu.wurfel.new_school_reference.division.ClassService;
 import hu.wurfel.new_school_reference.mark.MarkService;
 import hu.wurfel.new_school_reference.student.StudentService;
 import hu.wurfel.new_school_reference.subject.SubjectService;
+import hu.wurfel.new_school_reference.teacher.TeacherDto;
 import hu.wurfel.new_school_reference.teacher.TeacherService;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +32,13 @@ public class SearchService {
 		return diaryService.findAllDiaryByDiaryIfNotEmpty(diaryDto);
 	}
 
-	//region withDiary
+	public List<Diary> findDiaryByClass(ClassDto classDto) throws Exception{
+		return diaryService.findAllDiaryByClassIfNotEmpty(classDto);
+	}
 
-
-	//endregion withDiary
+	public List<Diary> findDiaryByHeadTeacher(TeacherDto teacherDto) throws Exception{
+		return diaryService.findAllDiaryByTeacherIfNotEmpty(teacherDto);
+	}
 
 	//region withClass
 
@@ -44,9 +48,6 @@ public class SearchService {
 
 	//region Class
 
-	public List<Diary> findDiaryByClass(ClassDto classDto) {
-		return diaryService.findAllClassByClassIdOrGradeOrSign(classDto);
-	}
 
 	//endregion Class
 }
