@@ -3,12 +3,9 @@ package hu.wurfel.new_school_reference.diary;
 import hu.wurfel.new_school_reference.base.CrudService;
 import hu.wurfel.new_school_reference.division.ClassDto;
 import hu.wurfel.new_school_reference.division.ClassService;
-import hu.wurfel.new_school_reference.teacher.Teacher;
 import hu.wurfel.new_school_reference.teacher.TeacherDto;
 import hu.wurfel.new_school_reference.teacher.TeacherService;
-import org.hibernate.annotations.NotFoundAction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
@@ -19,9 +16,6 @@ import java.util.List;
 
 @Service
 public class DiaryService extends CrudService<Diary, DiaryRepository> {
-
-	private ClassService classService;
-	private TeacherService teacherService;
 
 	@Autowired
 	public DiaryService(DiaryRepository repository) {
@@ -39,17 +33,17 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 		if (diaryDto.getId() != 0) {
 			return this.getList(this.findById(diaryDto.getId()));
 		}
-		return findDiaryByDiaryStartIfPossible(diaryDto);
+		return findAllDiaryByDiaryStartOrHeadTeacher(diaryDto);
 	}
 
-	private List<Diary> findDiaryByDiaryStartIfPossible(DiaryDto diaryDto) {
+	private List<Diary> findAllDiaryByDiaryStartOrHeadTeacher(DiaryDto diaryDto) {
 		if (diaryDto.getStart() != null) {
 			return this.findAllByStart(diaryDto.getStart());
 		}
-		return findDiaryByDiaryHeadTeacherIfPossible(diaryDto);
+		return findAllDiaryByDiaryHeadTeacher(diaryDto);
 	}
 
-	private List<Diary> findDiaryByDiaryHeadTeacherIfPossible(DiaryDto diaryDto) {
+	private List<Diary> findAllDiaryByDiaryHeadTeacher(DiaryDto diaryDto) {
 		if (diaryDto.getHeadTeacherId() != 0) {
 			return this.findAllByHeadTeacherId(diaryDto.getHeadTeacherId());
 		}
@@ -64,11 +58,6 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 		return repo.findAllByEnd(date);
 	}
 
-
-	public List<Diary> findAllByHeadTeacher(Teacher teacher) {
-		return repo.findAllByHeadTeacher(teacher);
-	}
-
 	public List<Diary> findAllByHeadTeacherId(long teacherId) {
 		return repo.findAllByHeadTeacher(teacherId);
 	}
@@ -77,25 +66,30 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 
 	//region withTeacher
 
-	public List<Diary> findAllByTeacherIdOrNameOrCardNumberIfPossible(TeacherDto teacherDto) {
+	public List<Diary> findAllDiaryByTeacherIfNotEmpty(TeacherDto teacherDto) throws Exception {
+		if (!teacherDto.isEmpty()){return findAllByTeacherIdOrCardNumberOrName(teacherDto);}
+		throw new Exception("empty search content");
+	}
+
+	public List<Diary> findAllByTeacherIdOrCardNumberOrName(TeacherDto teacherDto) {
 		if (teacherDto.getId() != 0) {
 			return this.findAllByTeacherId(teacherDto.getId());
 		}
-		return findAllDiaryByTeacherCardNumberIfPossible(teacherDto);
+		return findAllDiaryByTeacherCardNumberOrName(teacherDto);
 	}
 
-	private List<Diary> findAllDiaryByTeacherCardNumberIfPossible(TeacherDto teacherDto) {
+	private List<Diary> findAllDiaryByTeacherCardNumberOrName(TeacherDto teacherDto) {
 		if (teacherDto.getCardNumber() != 0) {
 			return this.findAllByTeacherCardNumber(teacherDto.getCardNumber());
 		}
-		return findDiaryByTeacherNameIfPossible(teacherDto);
+		return findAllDiaryByTeacherName(teacherDto);
 	}
 
-	private List<Diary> findDiaryByTeacherNameIfPossible(TeacherDto teacherDto) {
+	private List<Diary> findAllDiaryByTeacherName(TeacherDto teacherDto) {
 		if (teacherDto.getName() != null) {
 			return this.findAllByTeacherName(teacherDto.getName());
 		}
-		return new ArrayList<>();
+		throw new InvalidParameterException();
 	}
 
 	public List<Diary> findAllByTeacherId(long id) {
@@ -114,32 +108,37 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 
 	//region withClass
 
-	public List<Diary> findAllClassByClassIdOrGradeOrSign(ClassDto classDto) {
+	public List<Diary> findAllDiaryByClassIfNotEmpty(ClassDto classDto) throws Exception {
+		if (!classDto.isEmpty()){return findAllDiaryByClassIdOrGradeOrSign(classDto);}
+		throw new Exception("empty search content");
+	}
+
+		public List<Diary> findAllDiaryByClassIdOrGradeOrSign(ClassDto classDto) {
 		if (classDto.hasId()) {
 			return this.findAllByClassId(classDto);
 		}
-		return findAllByClassGradeAndSignIfPossible(classDto);
+		return findAllDiaryByClassGradeAndSign(classDto);
 	}
 
-	private List<Diary> findAllByClassGradeAndSignIfPossible(ClassDto classDto) {
+	private List<Diary> findAllDiaryByClassGradeAndSign(ClassDto classDto) {
 		if (classDto.hasGrade() && classDto.hasSign()) {
 			return this.findAllByClassGradeAndSign(classDto.getGrade(), classDto.getSign());
 		}
-		return findAllByClassGradeIfPossible(classDto);
+		return findAllDiaryByClassGrade(classDto);
 	}
 
-	private List<Diary> findAllByClassGradeIfPossible(ClassDto classDto) {
+	private List<Diary> findAllDiaryByClassGrade(ClassDto classDto) {
 		if (classDto.hasGrade()) {
 			return this.findAllByClassGrade(classDto.getGrade());
 		}
-		return findAllByClassSignIfPossible(classDto);
+		return findAllDiaryByClassSign(classDto);
 	}
 
-	private List<Diary> findAllByClassSignIfPossible(ClassDto classDto) {
+	private List<Diary> findAllDiaryByClassSign(ClassDto classDto) {
 		if (classDto.hasSign()) {
 			return this.findAllByClassSign(classDto.getSign());
 		}
-		return new ArrayList<>();
+		throw new InvalidParameterException();
 	}
 
 	public List<Diary> findAllByClassId(ClassDto classDto) {

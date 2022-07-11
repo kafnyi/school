@@ -25,10 +25,7 @@ public class DiaryController {
 //        return null;
 //    }
 
-    @PostMapping("/class")
-    public ResponseEntity<List<?>> search(@RequestBody ClassDto classDto){
-        return ResponseEntity.ok(this.diaryService.findAllByClass(classDto));
-    }
+
 
 
     @PutMapping

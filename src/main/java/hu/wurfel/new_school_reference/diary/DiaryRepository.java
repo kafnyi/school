@@ -14,8 +14,6 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
 
     List<Diary> findAllByEnd(Date date);
 
-    List<Diary> findAllByHeadTeacher(Teacher teacher);
-
     List<Diary> findAllByHeadTeacher(long id);
 
     List<Diary> findAllByHeadTeacher_Id(long id);
