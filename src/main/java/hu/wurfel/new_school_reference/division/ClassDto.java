@@ -22,9 +22,9 @@ public class ClassDto {
 	}
 
 	public boolean isEmpty() {
-		return id == null
-				&& grade == 0
-				&& sign == 0;
+		return !hasId()
+				&& !hasGrade()
+				&& !hasSign();
 	}
 
 }
