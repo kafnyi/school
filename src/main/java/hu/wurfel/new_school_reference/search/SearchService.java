@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class SearchService {
 
-	protected List<Class> findClassByClass
+	protected List<Class> findClassByClass;
 	private DiaryService diaryService;
 	private ClassService classService;
 	private StudentService studentService;
@@ -27,8 +27,8 @@ public class SearchService {
 	//region Diary
 	private TeacherService teacherService;
 
-	public List<Diary> findDiaryByDiary(DiaryDto diaryDto) {
-		return diaryService.findAllDiaryByDiaryIfPossible(diaryDto);
+	public List<Diary> findDiaryByDiary(DiaryDto diaryDto) throws Exception{
+		return diaryService.findAllDiaryByDiaryIfNotEmpty(diaryDto);
 	}
 
 	//region withDiary

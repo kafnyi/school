@@ -6,9 +6,12 @@ import hu.wurfel.new_school_reference.division.ClassService;
 import hu.wurfel.new_school_reference.teacher.Teacher;
 import hu.wurfel.new_school_reference.teacher.TeacherDto;
 import hu.wurfel.new_school_reference.teacher.TeacherService;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +30,12 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 
 	//region withDiary
 
-	public List<Diary> findAllDiaryByDiaryIfPossible(DiaryDto diaryDto) {
+	public List<Diary> findAllDiaryByDiaryIfNotEmpty(DiaryDto diaryDto) throws Exception {
+		if (!diaryDto.isEmpty()){return findAllDiaryByDiaryIdOrStartOrHeadTeacher(diaryDto);}
+		throw new Exception("empty search content");
+	}
+
+	public List<Diary> findAllDiaryByDiaryIdOrStartOrHeadTeacher(DiaryDto diaryDto) {
 		if (diaryDto.getId() != 0) {
 			return this.getList(this.findById(diaryDto.getId()));
 		}
@@ -45,7 +53,7 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 		if (diaryDto.getHeadTeacherId() != 0) {
 			return this.findAllByHeadTeacherId(diaryDto.getHeadTeacherId());
 		}
-		return new ArrayList<Diary>();
+		throw new InvalidParameterException();
 	}
 
 	public List<Diary> findAllByStart(Date date) {
