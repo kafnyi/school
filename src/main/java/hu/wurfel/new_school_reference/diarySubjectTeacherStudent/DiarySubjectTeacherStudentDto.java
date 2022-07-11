@@ -30,10 +30,10 @@ public class DiarySubjectTeacherStudentDto {
 	}
 
 	public boolean isEmpty() {
-		return id == null
-				&& diary == null
-				&& student == null
-				&& subjectTeacher == null;
+		return !hasId()
+				&& !hasDiary()
+				&& !hasStudent()
+				&& !hasSubjectTeacher();
 	}
 
 }
