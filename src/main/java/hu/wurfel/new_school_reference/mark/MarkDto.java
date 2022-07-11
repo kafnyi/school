@@ -1,19 +1,22 @@
 package hu.wurfel.new_school_reference.mark;
 
+import hu.wurfel.new_school_reference.base.BaseDto;
 import hu.wurfel.new_school_reference.base.MarkModifier;
 import lombok.Data;
 
+import java.util.Base64;
 import java.util.Date;
 
 @Data
-public class MarkDto {
+public class MarkDto  extends BaseDto {
 
 	private Long id;
 	private Date testDate;
-	private long diarySubjectTeacherStudentId;
+	private Long diarySubjectTeacherStudentId;
 	private short value;
 	private MarkModifier markModifier;
 
+	@Override
 	public boolean hasId() {
 		return id != null;
 	}
@@ -34,11 +37,12 @@ public class MarkDto {
 		return markModifier != null;
 	}
 
+	@Override
 	public boolean isEmpty() {
-		return id == null
-				&& testDate == null
-				&& diarySubjectTeacherStudentId == 0
-				&& value == 0
-				&& markModifier == null;
+		return !hasId()
+				&& !hasTestDate()
+				&& !hasDiarySubjectTeacherStudent()
+				&& !hasValue()
+				&& !hasMarkModifier();
 	}
 }
