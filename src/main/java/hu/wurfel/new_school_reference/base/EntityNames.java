@@ -9,5 +9,4 @@ public enum EntityNames {
 	SUBJECT,
 	SUBJECT_TEACHER,
 	TEACHER,
-
 }
