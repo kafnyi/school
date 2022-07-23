@@ -17,20 +17,42 @@ public class MarkService extends CrudService<Mark,MarkRepository> {
 		super(repository);
 	}
 
+	//region Mark
+
 	public List<Mark> findAllByTestDate(Date date){
-		return repo.findAllByTestDate(date);
+		return repo.findAllByTestDateAndDeletedIsFalse(date);
 	}
 
-	public List<Mark> findAllByDiarySubjectStudent(DiarySubjectTeacherStudent diarySubjectTeacherStudent){
-		return repo.findAllByDiarySubjectTeacherStudent(diarySubjectTeacherStudent);
-	}
-
-	public List<Mark> findAllByValue(short value){
-		return repo.findAllByValue(value);
+	public List<Mark> findAllByDiarySubjectStudent (DiarySubjectTeacherStudent diarySubjectTeacherStudent){
+		return repo.findAllByDiarySubjectTeacherStudentAndDeletedIsFalse(diarySubjectTeacherStudent);
 	}
 
 	public List<Mark> findAllByMarkModifier(MarkModifier markModifier){
-		return repo.findAllByMarkModifier(markModifier);
+		return repo.findAllByMarkModifierAndDeletedIsFalse(markModifier);
 	}
+
+	//endregion Mark
+
+	//region DiarySubjectTeacherStudent
+
+	//region Diary
+	public List<Mark> findAllByDiary(Long Id){
+		return repo.findAllByDiarySubjectTeacherStudent_Diary_IdAndDeletedIsFalse(Id);
+	}
+
+	//endregion Diary
+
+	//region SubjectTeacher
+
+	public List<Mark> findAllBySubjectTeacher(Long id){return repo.findAllByDiarySubjectTeacherStudent_SubjectTeacher_IdAndDeletedIsFalse(id);}
+
+	//endregion SubjectTeacher
+	//region Student
+
+	public List<Mark> findByStudent(Long id){return repo.findAllByDiarySubjectTeacherStudent_Student_IdAndDeletedIsFalse(id);}
+
+	//endregion Student
+
+	//endregion DiarySubjectTeacherStudent
 
 }

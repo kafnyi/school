@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,6 +21,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE diary SET deleted = true WHERE id = ?")
 public class Mark extends Auditable {
 
     private Date testDate;
@@ -27,6 +30,7 @@ public class Mark extends Auditable {
     @JoinColumn(name = "diary_subject_teacher_student_id")
     private DiarySubjectTeacherStudent diarySubjectTeacherStudent;
 
+    @Column(length = 1)
     private short value;
 
     private MarkModifier markModifier;
