@@ -16,16 +16,16 @@ public class CrudService<
         this.repo = repo;
     }
 
-    public List<AUDITABLE> findAll() {
+    public List<AUDITABLE> findAllAndDeletedIsFalse() {
         return repo.findAll();
     }
 
-    public AUDITABLE findById(Long id) {
-        return repo.findById(id).orElseThrow();
+    public List<AUDITABLE> findById(Long id) {
+        return toList(repo.findById(id).orElseThrow());
     }
 
-    public AUDITABLE save(AUDITABLE entity) {
-        return repo.save(entity);
+    public List<AUDITABLE> save(AUDITABLE entity) {
+        return toList(repo.save(entity));
     }
 
     public void delete(AUDITABLE entity) {
