@@ -1,8 +1,6 @@
 package hu.wurfel.new_school_reference.subject_teacher;
 
 import hu.wurfel.new_school_reference.base.CrudService;
-import hu.wurfel.new_school_reference.subject.Subject;
-import hu.wurfel.new_school_reference.teacher.Teacher;
 
 import java.util.List;
 
@@ -12,15 +10,31 @@ public class SubjectTeacherService extends CrudService<SubjectTeacher, SubjectTe
 		super(repository);
 	}
 
-	public List<SubjectTeacher> findAllBySubject(Subject subject){
-		return repo.findAllBySubject(subject);
+	//region Subject
+
+	public List<SubjectTeacher> findAllBySubject(Long id) {
+		return repo.findAllBySubject_IdAndDeletedIsFalse(id);
 	}
 
-	public List<SubjectTeacher> findAllByTeacher(Teacher teacher){
-		return repo.findAllByTeacher(teacher);
+	public List<SubjectTeacher> findAllBySubjectName(String name) {
+		return repo.findAllBySubject_NameAndDeletedIsFalse(name);
 	}
 
-	public SubjectTeacher findBySubjectAndTeacher(Subject subject, Teacher teacher){
-		return repo.findBySubjectAndTeacher(subject,teacher);
+	//endregion Subject
+
+	//region Teacher
+
+	public List<SubjectTeacher> findAllByTeacher(Long id) {
+		return repo.findAllByTeacher_IdAndDeletedIsFalse(id);
+	}
+
+	public List<SubjectTeacher> findAllByTeacherCardNumber(Long number) {
+		return repo.findAllByTeacher_CardNumberAndDeletedIsFalse(number);
+	}
+
+	//endregion Teacher
+
+	public SubjectTeacher findBySubjectAndTeacher(Long subject, Long teacher) {
+		return repo.findBySubject_IdAndTeacher_IdAndDeletedIsFalse(subject, teacher);
 	}
 }
