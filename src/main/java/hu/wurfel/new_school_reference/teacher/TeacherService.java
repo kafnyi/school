@@ -14,14 +14,14 @@ public class TeacherService extends CrudService<Teacher,TeacherRepository> {
 	}
 
 	public List<Teacher> findAllByName(String name){
-		return repo.findAllByName(name);
+		return repo.findAllByNameAndDeletedIsFalse(name);
 	}
 
 	public List<Teacher> findAllByBirthDate(Date date){
-		return repo.findAllByBirthDate(date);
+		return repo.findAllByBirthDateAndDeletedIsFalse(date);
 	}
 
-	public Teacher findByTeacherCardNumber(long number){
-		return repo.findAllByCardNumber(number);
+	public List<Teacher> findByTeacherCardNumber(long number){
+		return this.toList(repo.findAllByCardNumberAndDeletedIsFalse(number));
 	}
 }
