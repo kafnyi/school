@@ -5,18 +5,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
+@SQLDelete(sql = "UPDATE diary SET deleted = true WHERE id = ?")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"grade", "sign"}))
 public class Class extends Auditable {
 
+    @Column(length = 2)
     private short grade;
 
+    @Column(length = 1)
     private char sign;
 }

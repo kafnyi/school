@@ -15,11 +15,13 @@ public class ClassService extends CrudService<Class, ClassRepository> {
 	}
 
 	public List<Class> findAllByGrade(short grade){
-		return repo.findAllByGrade(grade);
+		return repo.findAllByGradeAndDeletedIsFalse(grade);
 	}
 
 	public List<Class> findAllBySign(char sign){
-		return repo.findAllBySign(sign);
+		return repo.findAllBySignAndDeletedIsFalse(sign);
 	}
+
+	public List<Class> findByGradeAndSign(short grade, char sign){return this.toList(repo.findByGradeAndSignAndDeletedIsFalse(grade, sign));}
 
 }
