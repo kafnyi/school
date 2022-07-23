@@ -9,8 +9,21 @@ import java.util.List;
 
 @Repository
 public interface DiarySubjectTeacherStudentRepository extends JpaRepository<DiarySubjectTeacherStudent, Long> {
-    List<DiarySubjectTeacherStudent> findAllByDiary(Diary diary);
+    List<DiarySubjectTeacherStudent> findAllByDiary_IdAndDeletedIsFalse(Long id);
 
-//    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher();
-    List<DiarySubjectTeacherStudent> findAllByStudent(Student student);
+    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_IdAndDeletedIsFalse(Long id);
+
+    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_Teacher_IdAndDeletedIsFalse(Long id);
+
+    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_Teacher_CardNumberAndDeletedIsFalse(Long number);
+
+    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_Subject_IdAndDeletedIsFalse(Long id);
+
+    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_Subject_NameAndDeletedIsFalse(String name);
+
+
+
+    List<DiarySubjectTeacherStudent> findAllByStudent_IdAndDeletedIsFalse(Long id);
+
+    List<DiarySubjectTeacherStudent> findAllByStudent_CardNumberAndDeletedIsFalse(Long number);
 }
