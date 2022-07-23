@@ -15,6 +15,6 @@ public class SubjectService extends CrudService<Subject,SubjectRepository> {
 	}
 
 	public List<Subject> findAllByName(String name){
-		return repo.findAllByName(name);
+		return repo.findAllByNameAndDeletedIsFalse(name);
 	}
 }

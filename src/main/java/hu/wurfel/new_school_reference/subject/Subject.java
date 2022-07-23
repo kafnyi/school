@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -15,7 +17,9 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE diary SET deleted = true WHERE id = ?")
 public class Subject extends Auditable {
 
+    @Column(nullable = false, unique = true)
     private String name;
 }
