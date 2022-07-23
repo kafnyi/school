@@ -2,6 +2,7 @@ package hu.wurfel.new_school_reference.base;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CrudService<
@@ -33,6 +34,12 @@ public class CrudService<
 
     public void deleteById(Long id) {
         repo.deleteById(id);
+    }
+
+    public List<AUDITABLE> toList(AUDITABLE auditable){
+        ArrayList<AUDITABLE> list = new ArrayList<>();
+        list.add(auditable);
+        return list;
     }
 
 
