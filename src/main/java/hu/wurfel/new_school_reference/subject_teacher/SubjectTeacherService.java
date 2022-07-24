@@ -1,11 +1,15 @@
 package hu.wurfel.new_school_reference.subject_teacher;
 
 import hu.wurfel.new_school_reference.base.CrudService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class SubjectTeacherService extends CrudService<SubjectTeacher, SubjectTeacherRepository> {
 
+	@Autowired
 	public SubjectTeacherService(SubjectTeacherRepository repository) {
 		super(repository);
 	}
