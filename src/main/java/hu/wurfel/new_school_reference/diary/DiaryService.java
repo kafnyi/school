@@ -2,6 +2,7 @@ package hu.wurfel.new_school_reference.diary;
 
 import hu.wurfel.new_school_reference.base.CrudService;
 import hu.wurfel.new_school_reference.division.ClassDto;
+import hu.wurfel.new_school_reference.student.StudentDto;
 import hu.wurfel.new_school_reference.teacher.TeacherDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,8 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 		throw new InvalidParameterException();
 	}
 
+		//region baseMethods
+
 	public List<Diary> findAllByStart(Date date) {
 		return repo.findAllByStartAndDeletedIsFalse(date);
 	}
@@ -59,9 +62,11 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 		return repo.findAllByHeadTeacher_IdAndDeletedIsFalse(id);
 	}
 
+	//endregion baseMethods
+
 	//endregion withDiary
 
-	//region withTeacher
+	//region withHeadTeacher
 
 	public List<Diary> findAllDiaryByTeacherIfNotEmpty(TeacherDto teacherDto) throws Exception {
 		if (!teacherDto.isEmpty()){return findAllByTeacherIdOrCardNumberOrName(teacherDto);}
@@ -89,6 +94,8 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 		throw new InvalidParameterException();
 	}
 
+		//region baseMethods
+
 	public List<Diary> findAllByTeacherId(long id) {
 		return repo.findAllByHeadTeacher_IdAndDeletedIsFalse(id);
 	}
@@ -101,7 +108,9 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 		return repo.findAllByHeadTeacher_CardNumberAndDeletedIsFalse(number);
 	}
 
-	//endregion withTeacher
+	//endregion baseMethods
+
+	//endregion withHeadTeacher
 
 	//region withClass
 
@@ -110,9 +119,9 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 		throw new Exception("empty search content");
 	}
 
-		public List<Diary> findAllDiaryByClassIdOrGradeOrSign(ClassDto classDto) {
+	public List<Diary> findAllDiaryByClassIdOrGradeOrSign(ClassDto classDto) {
 		if (classDto.hasId()) {
-			return this.findAllByClassId(classDto);
+			return this.findAllByClassId(classDto.getId());
 		}
 		return findAllDiaryByClassGradeAndSign(classDto);
 	}
@@ -138,8 +147,10 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 		throw new InvalidParameterException();
 	}
 
-	public List<Diary> findAllByClassId(ClassDto classDto) {
-		return repo.findAllByDivision_IdAndDeletedIsFalse(classDto.getId());
+	//region baseMethods
+
+	public List<Diary> findAllByClassId(Long id) {
+		return repo.findAllByDivision_IdAndDeletedIsFalse(id);
 	}
 
 	public List<Diary> findAllByClassGradeAndSign(short grade, char sign) {
@@ -154,15 +165,8 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 		return repo.findAllByDivision_SignAndDeletedIsFalse(sign);
 	}
 
+	//endregion baseMethods
+
 	//endregion withClass
-
-	//region Student
-
-	//public List<Diary> findDiaryByStudent(StudentDto studentDto){return repo.findByStudent}
-
-
-	//endregion Student
-
-
 
 }
