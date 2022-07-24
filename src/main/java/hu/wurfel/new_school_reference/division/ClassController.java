@@ -1,5 +1,6 @@
 package hu.wurfel.new_school_reference.division;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,10 +10,12 @@ import org.springframework.web.bind.annotation.*;
 public class ClassController {
 
 	private final ClassService classService;
+	private final ModelMapper modelMapper;
 
 	@Autowired
-	public ClassController(ClassService classService) {
+	public ClassController(ClassService classService, ModelMapper modelMapper) {
 		this.classService = classService;
+		this.modelMapper = modelMapper;
 	}
 
 	@PostMapping

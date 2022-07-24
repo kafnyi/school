@@ -2,48 +2,89 @@ package hu.wurfel.new_school_reference.diary;
 
 import hu.wurfel.new_school_reference.base.CrudService;
 import hu.wurfel.new_school_reference.division.ClassDto;
-import hu.wurfel.new_school_reference.student.StudentDto;
 import hu.wurfel.new_school_reference.teacher.TeacherDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
 @Service
-public class DiaryService extends CrudService<Diary, DiaryRepository> {
+public class DiaryService extends CrudService<Diary, DiaryRepository, DiaryDto> {
 
 	@Autowired
-	public DiaryService(DiaryRepository repository) {
-		super(repository);
+	public DiaryService(DiaryRepository repository, ModelMapper mapper) {
+		super(repository, mapper);
+	}
+
+	@Override
+	public List<DiaryDto> save(DiaryDto dto) {
+		return this.toDtoList(this.repo.save(this.toEntity(dto)));
+	}
+
+	@Override
+	public DiaryDto toDto(Diary auditable) {
+		return mapper.map(auditable, DiaryDto.class);
+	}
+
+	@Override
+	public Diary toEntity(DiaryDto dto) {
+		return mapper.map(dto, Diary.class);
+	}
+
+	@Override
+	public List<DiaryDto> toDtoList(Diary auditable) {
+		ArrayList<DiaryDto> diaryDtos = new ArrayList<>();
+		diaryDtos.add(this.toDto(auditable));
+		return diaryDtos;
+	}
+
+	@Override
+	public List<DiaryDto> toDtoList(List<Diary> auditables) {
+		ArrayList<DiaryDto> diaryDtos = new ArrayList<>();
+		for (Diary diary : auditables) {
+			diaryDtos.add(this.toDto(diary));
+		}
+		return diaryDtos;
+	}
+
+	@Override
+	public List<Diary> toEntityList(DiaryDto dto) {
+		ArrayList<Diary> diaries = new ArrayList<>();
+		diaries.add(this.toEntity(dto));
+		return diaries;
 	}
 
 	//region withDiary
 
-	public List<Diary> findAllDiaryByDiaryIfNotEmpty(DiaryDto diaryDto) throws Exception {
-		if (!diaryDto.isEmpty()){return findAllDiaryByDiaryIdOrStartOrHeadTeacher(diaryDto);}
+	public List<DiaryDto> findAllDiaryByDiaryIfNotEmpty(DiaryDto diaryDto) throws Exception {
+		if (!diaryDto.isEmpty()) {
+			return (findAllDiaryByDiaryIdOrStartOrHeadTeacher(diaryDto));
+		}
 		throw new Exception("empty search content");
 	}
 
-	public List<Diary> findAllDiaryByDiaryIdOrStartOrHeadTeacher(DiaryDto diaryDto) {
+	public List<DiaryDto> findAllDiaryByDiaryIdOrStartOrHeadTeacher(DiaryDto diaryDto) {
 		if (diaryDto.getId() != 0) {
 			return this.findById(diaryDto.getId());
 		}
 		return findAllDiaryByDiaryStartOrHeadTeacher(diaryDto);
 	}
 
-	private List<Diary> findAllDiaryByDiaryStartOrHeadTeacher(DiaryDto diaryDto) {
+	private List<DiaryDto> findAllDiaryByDiaryStartOrHeadTeacher(DiaryDto diaryDto) {
 		if (diaryDto.getStart() != null) {
-			return this.findAllByStart(diaryDto.getStart());
+			return this.toDtoList(this.findAllByStart(diaryDto.getStart()));
 		}
 		return findAllDiaryByDiaryHeadTeacher(diaryDto);
 	}
 
-	private List<Diary> findAllDiaryByDiaryHeadTeacher(DiaryDto diaryDto) {
+	private List<DiaryDto> findAllDiaryByDiaryHeadTeacher(DiaryDto diaryDto) {
 		if (diaryDto.getHeadTeacherId() != 0) {
-			return this.findAllByHeadTeacherId(diaryDto.getHeadTeacherId());
+			return this.toDtoList(this.findAllByHeadTeacherId(diaryDto.getHeadTeacherId()));
 		}
 		throw new InvalidParameterException();
 	}
@@ -164,6 +205,7 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 	public List<Diary> findAllByClassSign(char sign) {
 		return repo.findAllByDivision_SignAndDeletedIsFalse(sign);
 	}
+
 
 	//endregion baseMethods
 

@@ -16,17 +16,17 @@ public class SubjectTeacherController {
 	}
 
 	@PostMapping
-	public ResponseEntity create(@RequestMapping SubjectTeacherDto subjectTeacherDto) {
+	public ResponseEntity create(@RequestBody SubjectTeacherDto subjectTeacherDto) {
 		return this.subjectTeacherService.save(subjectTeacherDto);
 	}
 
 	@PutMapping
-	public ResponseEntity update(@RequestMapping SubjectTeacherDto subjectTeacherDto) {
+	public ResponseEntity update(@RequestBody SubjectTeacherDto subjectTeacherDto) {
 		return this.subjectTeacherService.save(subjectTeacherDto);
 	}
 
 	@DeleteMapping
-	public void delete(@RequestMapping SubjectTeacherDto subjectTeacherDto) {
+	public void delete(@RequestBody SubjectTeacherDto subjectTeacherDto) {
 		this.subjectTeacherService.deleteById(subjectTeacherDto.getId());
 	}
 }

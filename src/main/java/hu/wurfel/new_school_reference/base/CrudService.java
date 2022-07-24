@@ -1,32 +1,38 @@
 package hu.wurfel.new_school_reference.base;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CrudService<
+public abstract class CrudService<
         AUDITABLE extends Auditable,
-        REPO extends JpaRepository<AUDITABLE, Long>
+        REPO extends JpaRepository<AUDITABLE, Long>,
+        DTO extends BaseDto
         > {
 
+    protected ModelMapper mapper;
     protected REPO repo;
 
-    public CrudService(REPO repo) {
+    public CrudService(REPO repo, ModelMapper mapper) {
         this.repo = repo;
+        this.mapper = mapper;
     }
 
     public List<AUDITABLE> findAllAndDeletedIsFalse() {
         return repo.findAll();
     }
 
-    public List<AUDITABLE> findById(Long id) {
-        return toList(repo.findById(id).orElseThrow());
+    public List<DTO> findById(Long id) {
+        return toDtoList((repo.findById(id).orElseThrow()));
     }
 
-    public List<AUDITABLE> save(AUDITABLE entity) {
-        return toList(repo.save(entity));
+    public List<DTO> save(AUDITABLE entity) {
+        return toDtoList(repo.save(entity));
     }
+
+    public abstract List<DTO> save(DTO dto);
 
     public void delete(AUDITABLE entity) {
         this.deleteById(entity.getId());
@@ -36,11 +42,20 @@ public class CrudService<
         repo.deleteById(id);
     }
 
-    public List<AUDITABLE> toList(AUDITABLE auditable){
+    public abstract DTO toDto(AUDITABLE auditable);
+
+    public abstract AUDITABLE toEntity(DTO dto);
+
+    public List<AUDITABLE> toList(AUDITABLE auditable) {
         ArrayList<AUDITABLE> list = new ArrayList<>();
         list.add(auditable);
         return list;
     }
 
+    public abstract List<DTO> toDtoList(AUDITABLE auditable);
+
+    public abstract List<DTO> toDtoList(List<AUDITABLE> list);
+
+    public abstract List<AUDITABLE> toEntityList(DTO dto);
 
 }
