@@ -1,17 +1,28 @@
 package hu.wurfel.new_school_reference.subject_teacher;
 
 import hu.wurfel.new_school_reference.base.CrudService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class SubjectTeacherService extends CrudService<SubjectTeacher, SubjectTeacherRepository> {
+public class SubjectTeacherService extends CrudService<SubjectTeacher, SubjectTeacherRepository, SubjectTeacherDto> {
 
 	@Autowired
-	public SubjectTeacherService(SubjectTeacherRepository repository) {
-		super(repository);
+	public SubjectTeacherService(SubjectTeacherRepository repository, ModelMapper modelMapper) {
+		super(repository, modelMapper);
+	}
+
+	@Override
+	public SubjectTeacherDto toDto(SubjectTeacher auditable) {
+		return this.mapper.map(auditable,SubjectTeacherDto.class);
+	}
+
+	@Override
+	public SubjectTeacher toEntity(SubjectTeacherDto dto) {
+		return this.mapper.map(dto,SubjectTeacher.class);
 	}
 
 	//region Subject

@@ -29,10 +29,12 @@ public abstract class CrudService<
     }
 
     public List<DTO> save(AUDITABLE entity) {
-        return toDtoList(repo.save(entity));
+        return this.toDtoList(this.repo.save(entity));
     }
 
-    public abstract List<DTO> save(DTO dto);
+    public List<DTO> save(DTO dto){
+        return this.save(this.toEntity(dto));
+    }
 
     public void delete(AUDITABLE entity) {
         this.deleteById(entity.getId());
@@ -46,16 +48,44 @@ public abstract class CrudService<
 
     public abstract AUDITABLE toEntity(DTO dto);
 
-    public List<AUDITABLE> toList(AUDITABLE auditable) {
+    public List<DTO> toDtoList(AUDITABLE auditable){
+        ArrayList<DTO> list = new ArrayList<>();
+        list.add(this.toDto(auditable));
+        return list;
+    }
+
+    public List<DTO> toDtoList(List<AUDITABLE> list){
+        ArrayList<DTO> dtos = new ArrayList<>();
+        for (AUDITABLE auditable:list) {
+            dtos.add(this.toDto(auditable));
+        }
+        return dtos;
+    }
+
+    public List<DTO> toDtoList(DTO dto){
+        ArrayList<DTO> list = new ArrayList<>();
+        list.add(dto);
+        return list;
+    }
+
+    public List<AUDITABLE> toEntityList(DTO dto){
+        ArrayList<AUDITABLE> list= new ArrayList<>();
+        list.add(this.toEntity(dto));
+        return list;
+    }
+
+    public List<AUDITABLE> toEntityList(List<DTO> list){
+        ArrayList<AUDITABLE> auditables = new ArrayList<>();
+        for (DTO dto:list) {
+            auditables.add(this.toEntity(dto));
+        }
+        return auditables;
+    }
+
+    public List<AUDITABLE> toEntityList(AUDITABLE auditable) {
         ArrayList<AUDITABLE> list = new ArrayList<>();
         list.add(auditable);
         return list;
     }
-
-    public abstract List<DTO> toDtoList(AUDITABLE auditable);
-
-    public abstract List<DTO> toDtoList(List<AUDITABLE> list);
-
-    public abstract List<AUDITABLE> toEntityList(DTO dto);
 
 }

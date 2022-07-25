@@ -22,42 +22,15 @@ public class DiaryService extends CrudService<Diary, DiaryRepository, DiaryDto> 
 	}
 
 	@Override
-	public List<DiaryDto> save(DiaryDto dto) {
-		return this.toDtoList(this.repo.save(this.toEntity(dto)));
-	}
-
-	@Override
 	public DiaryDto toDto(Diary auditable) {
-		return mapper.map(auditable, DiaryDto.class);
+		return mapper.map(auditable,DiaryDto.class);
 	}
 
 	@Override
 	public Diary toEntity(DiaryDto dto) {
-		return mapper.map(dto, Diary.class);
+		return mapper.map(dto,Diary.class);
 	}
 
-	@Override
-	public List<DiaryDto> toDtoList(Diary auditable) {
-		ArrayList<DiaryDto> diaryDtos = new ArrayList<>();
-		diaryDtos.add(this.toDto(auditable));
-		return diaryDtos;
-	}
-
-	@Override
-	public List<DiaryDto> toDtoList(List<Diary> auditables) {
-		ArrayList<DiaryDto> diaryDtos = new ArrayList<>();
-		for (Diary diary : auditables) {
-			diaryDtos.add(this.toDto(diary));
-		}
-		return diaryDtos;
-	}
-
-	@Override
-	public List<Diary> toEntityList(DiaryDto dto) {
-		ArrayList<Diary> diaries = new ArrayList<>();
-		diaries.add(this.toEntity(dto));
-		return diaries;
-	}
 
 	//region withDiary
 

@@ -60,45 +60,17 @@ public class DiarySubjectTeacherStudentService extends CrudService<DiarySubjectT
 		return repo.findAllBySubjectTeacher_Teacher_CardNumberAndDeletedIsFalse(number);
 	}
 
-	@Override
-	public List<DiarySubjectTeacherStudentDto> save(DiarySubjectTeacherStudentDto dto) {
-		return this.toDtoList(this.repo.save(mapper.map(dto,DiarySubjectTeacherStudent.class)));
-	}
+	//endregion SubjectTeacher
 
 	@Override
 	public DiarySubjectTeacherStudentDto toDto(DiarySubjectTeacherStudent auditable) {
-		return mapper.map(auditable,DiarySubjectTeacherStudentDto.class);
+		return this.mapper.map(auditable,DiarySubjectTeacherStudentDto.class);
 	}
 
 	@Override
 	public DiarySubjectTeacherStudent toEntity(DiarySubjectTeacherStudentDto dto) {
-		return mapper.map(dto,DiarySubjectTeacherStudent.class);
+		return this.mapper.map(dto,DiarySubjectTeacherStudent.class);
 	}
-
-	@Override
-	public List<DiarySubjectTeacherStudentDto> toDtoList(DiarySubjectTeacherStudent auditable) {
-		ArrayList<DiarySubjectTeacherStudentDto> list = new ArrayList<>();
-		list.add(this.toDto(auditable));
-		return list;
-	}
-
-	@Override
-	public List<DiarySubjectTeacherStudentDto> toDtoList(List<DiarySubjectTeacherStudent> entities) {
-		ArrayList<DiarySubjectTeacherStudentDto> list = new ArrayList<>();
-		for (DiarySubjectTeacherStudent entity:entities) {
-			list.add(this.toDto(entity));
-		}
-		return list;
-	}
-
-	@Override
-	public List<DiarySubjectTeacherStudent> toEntityList(DiarySubjectTeacherStudentDto dto) {
-		ArrayList<DiarySubjectTeacherStudent> list = new ArrayList<>();
-		list.add(this.toEntity(dto));
-		return list;
-	}
-
-	//endregion SubjectTeacher
 
 
 }
