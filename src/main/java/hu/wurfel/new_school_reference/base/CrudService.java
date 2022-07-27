@@ -20,12 +20,12 @@ public abstract class CrudService<
         this.mapper = mapper;
     }
 
-    public List<AUDITABLE> findAllAndDeletedIsFalse() {
+    public List<AUDITABLE> findAll() {
         return repo.findAll();
     }
 
     public List<DTO> findById(Long id) {
-        return toDtoList((repo.findById(id).orElseThrow()));
+        return toDtoList(repo.findById(id).orElseThrow());
     }
 
     public List<DTO> save(AUDITABLE entity) {
