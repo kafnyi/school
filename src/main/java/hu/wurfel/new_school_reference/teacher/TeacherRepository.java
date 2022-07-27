@@ -8,9 +8,9 @@ import java.util.List;
 
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
-    List<Teacher> findAllByNameAndDeletedIsFalse(String name);
+    List<Teacher> findAllByNameAndDeleted(String name, boolean deleted);
 
-    List<Teacher> findAllByBirthDateAndDeletedIsFalse(Date date);
+    List<Teacher> findAllByBirthDateAndDeleted(Date date, boolean deleted);
 
-    Teacher findAllByCardNumberAndDeletedIsFalse(Long cardNumber);
+    Teacher findAllByCardNumberAndDeleted(Long cardNumber, boolean deleted);
 }

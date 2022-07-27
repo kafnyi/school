@@ -27,7 +27,8 @@ public class TeacherController {
 	}
 
 	@DeleteMapping
-	private void delete (@RequestBody TeacherDto teacherDto){
+	private ResponseEntity delete (@RequestBody TeacherDto teacherDto){
 		this.teacherService.deleteById(teacherDto.getId());
+		return ResponseEntity.noContent().build();
 	}
 }

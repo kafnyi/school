@@ -24,15 +24,15 @@ public class TeacherService extends CrudService<Teacher,TeacherRepository, Teach
 		return this.mapper.map(dto,Teacher.class);
 	}
 
-	public List<Teacher> findAllByName(String name){
-		return repo.findAllByNameAndDeletedIsFalse(name);
+	public List<Teacher> findAllByName(String name, boolean deleted){
+		return repo.findAllByNameAndDeleted(name, deleted);
 	}
 
-	public List<Teacher> findAllByBirthDate(Date date){
-		return repo.findAllByBirthDateAndDeletedIsFalse(date);
+	public List<Teacher> findAllByBirthDate(Date date, boolean deleted){
+		return repo.findAllByBirthDateAndDeleted(date, deleted);
 	}
 
-	public List<Teacher> findByTeacherCardNumber(long number){
-		return this.toEntityList(repo.findAllByCardNumberAndDeletedIsFalse(number));
+	public List<Teacher> findByTeacherCardNumber(long number, boolean deleted){
+		return this.toEntityList(repo.findAllByCardNumberAndDeleted(number, deleted));
 	}
 }
