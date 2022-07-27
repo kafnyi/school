@@ -11,17 +11,17 @@ import java.util.List;
 @Repository
 public interface MarkRepository extends JpaRepository<Mark, Long> {
 
-    List<Mark> findAllByTestDateAndDeletedIsFalse(Date date);
+    List<Mark> findAllByTestDateAndDeleted(Date date, boolean deleted);
 
-    List<Mark> findAllByDiarySubjectTeacherStudentAndDeletedIsFalse(DiarySubjectTeacherStudent diarySubjectTeacherStudent);
+    List<Mark> findAllByDiarySubjectTeacherStudent_IdAndDeleted(Long id, boolean deleted);
 
-    List<Mark> findAllByValueAndDeletedIsFalse(short value);
+    List<Mark> findAllByValueAndDeleted(short value, boolean deleted);
 
-    List<Mark> findAllByMarkModifierAndDeletedIsFalse(MarkModifier markModifier);
+    List<Mark> findAllByMarkModifierAndDeleted(MarkModifier markModifier, boolean deleted);
 
-    List<Mark> findAllByDiarySubjectTeacherStudent_Student_IdAndDeletedIsFalse(Long Id);
+    List<Mark> findAllByDiarySubjectTeacherStudent_Student_IdAndDeleted(Long Id, boolean deleted);
 
-    List<Mark> findAllByDiarySubjectTeacherStudent_Diary_IdAndDeletedIsFalse(Long Id);
+    List<Mark> findAllByDiarySubjectTeacherStudent_Diary_IdAndDeleted(Long Id, boolean deleted);
 
-    List<Mark> findAllByDiarySubjectTeacherStudent_SubjectTeacher_IdAndDeletedIsFalse(Long Id);
+    List<Mark> findAllByDiarySubjectTeacherStudent_SubjectTeacher_IdAndDeleted(Long Id, boolean deleted);
 }
