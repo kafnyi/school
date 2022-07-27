@@ -25,7 +25,7 @@ public class SubjectService extends CrudService<Subject,SubjectRepository, Subje
 		return this.mapper.map(dto,Subject.class);
 	}
 
-	public List<Subject> findAllByName(String name){
-		return repo.findAllByNameAndDeletedIsFalse(name);
+	public List<Subject> findAllByName(String name, boolean deleted){
+		return repo.findAllByNameAndDeleted(name, deleted);
 	}
 }

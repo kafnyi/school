@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
-    List<Subject> findAllByNameAndDeletedIsFalse(String name);
+    List<Subject> findAllByNameAndDeleted(String name, boolean deleted);
 }

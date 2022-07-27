@@ -26,8 +26,9 @@ public class SubjectController {
 	}
 
 	@DeleteMapping
-	public void delete(@RequestBody SubjectDto subjectDto) {
+	public ResponseEntity delete(@RequestBody SubjectDto subjectDto) {
 		this.subjectService.deleteById(subjectDto.getId());
+		return ResponseEntity.noContent().build();
 	}
 
 }
