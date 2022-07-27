@@ -20,44 +20,44 @@ public class DiarySubjectTeacherStudentService extends CrudService<DiarySubjectT
 
 	//region Student
 
-	List<DiarySubjectTeacherStudent> findAllByStudentId(Long id) {
-		return repo.findAllByStudent_IdAndDeletedIsFalse(id);
+	List<DiarySubjectTeacherStudent> findAllByStudentId(Long id, boolean deleted) {
+		return repo.findAllByStudent_IdAndDeleted(id, deleted);
 	}
 
-	List<DiarySubjectTeacherStudent> findAllByStudentCardNumber(Long number) {
-		return repo.findAllByStudent_CardNumberAndDeletedIsFalse(number);
+	List<DiarySubjectTeacherStudent> findAllByStudentCardNumber(Long number, boolean deleted) {
+		return repo.findAllByStudent_CardNumberAndDeleted(number,deleted);
 	}
 
 	//endregion Student
 
 	//region Diary
 
-	public List<DiarySubjectTeacherStudent> findAllByDiaryId(Long id){
-		return repo.findAllByDiary_IdAndDeletedIsFalse(id);
+	public List<DiarySubjectTeacherStudent> findAllByDiaryId(Long id, boolean deleted){
+		return repo.findAllByDiary_IdAndDeleted(id,deleted);
 	}
 
 	//endregion Diary
 
 	//region SubjectTeacher
 
-	public List<DiarySubjectTeacherStudent> findAllBySubjectTeacherId(Long id){
-		return repo.findAllBySubjectTeacher_IdAndDeletedIsFalse(id);
+	public List<DiarySubjectTeacherStudent> findAllBySubjectTeacherId(Long id, boolean deleted){
+		return repo.findAllBySubjectTeacher_IdAndDeleted(id,deleted);
 	}
 
-	public List<DiarySubjectTeacherStudent> findAllBySubjectId(Long id){
-		return repo.findAllBySubjectTeacher_Subject_IdAndDeletedIsFalse(id);
+	public List<DiarySubjectTeacherStudent> findAllBySubjectId(Long id, boolean deleted){
+		return repo.findAllBySubjectTeacher_Subject_IdAndDeleted(id,deleted);
 	}
 
-	public List<DiarySubjectTeacherStudent> findAllBySubjectName(String name){
-		return repo.findAllBySubjectTeacher_Subject_NameAndDeletedIsFalse(name);
+	public List<DiarySubjectTeacherStudent> findAllBySubjectName(String name, boolean deleted){
+		return repo.findAllBySubjectTeacher_Subject_NameAndDeleted(name, deleted);
 	}
 
-	public List<DiarySubjectTeacherStudent> findAllByTeacherId(Long id){
-		return repo.findAllBySubjectTeacher_Teacher_IdAndDeletedIsFalse(id);
+	public List<DiarySubjectTeacherStudent> findAllByTeacherId(Long id, boolean deleted){
+		return repo.findAllBySubjectTeacher_Teacher_IdAndDeleted(id, deleted);
 	}
 
-	public List<DiarySubjectTeacherStudent> findAllByTeacherCardNumber(Long number){
-		return repo.findAllBySubjectTeacher_Teacher_CardNumberAndDeletedIsFalse(number);
+	public List<DiarySubjectTeacherStudent> findAllByTeacherCardNumber(Long number, boolean deleted){
+		return repo.findAllBySubjectTeacher_Teacher_CardNumberAndDeleted(number, deleted);
 	}
 
 	//endregion SubjectTeacher

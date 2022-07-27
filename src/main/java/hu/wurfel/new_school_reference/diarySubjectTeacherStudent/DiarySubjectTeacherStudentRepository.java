@@ -9,21 +9,19 @@ import java.util.List;
 
 @Repository
 public interface DiarySubjectTeacherStudentRepository extends JpaRepository<DiarySubjectTeacherStudent, Long> {
-    List<DiarySubjectTeacherStudent> findAllByDiary_IdAndDeletedIsFalse(Long id);
+    List<DiarySubjectTeacherStudent> findAllByDiary_IdAndDeleted(Long id, boolean deleted);
 
-    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_IdAndDeletedIsFalse(Long id);
+    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_IdAndDeleted(Long id, boolean deleted);
 
-    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_Teacher_IdAndDeletedIsFalse(Long id);
+    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_Teacher_IdAndDeleted(Long id, boolean deleted);
 
-    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_Teacher_CardNumberAndDeletedIsFalse(Long number);
+    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_Teacher_CardNumberAndDeleted(Long number, boolean deleted);
 
-    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_Subject_IdAndDeletedIsFalse(Long id);
+    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_Subject_IdAndDeleted(Long id, boolean deleted);
 
-    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_Subject_NameAndDeletedIsFalse(String name);
+    List<DiarySubjectTeacherStudent> findAllBySubjectTeacher_Subject_NameAndDeleted(String name, boolean deleted);
 
+    List<DiarySubjectTeacherStudent> findAllByStudent_IdAndDeleted(Long id, boolean deleted);
 
-
-    List<DiarySubjectTeacherStudent> findAllByStudent_IdAndDeletedIsFalse(Long id);
-
-    List<DiarySubjectTeacherStudent> findAllByStudent_CardNumberAndDeletedIsFalse(Long number);
+    List<DiarySubjectTeacherStudent> findAllByStudent_CardNumberAndDeleted(Long number, boolean deleted);
 }
