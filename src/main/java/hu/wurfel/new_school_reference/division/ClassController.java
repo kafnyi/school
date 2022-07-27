@@ -31,5 +31,6 @@ public class ClassController {
 	@DeleteMapping
 	public ResponseEntity delete(@RequestBody ClassDto classDto) {
 		this.classService.deleteById(classDto.getId());
+		return ResponseEntity.noContent().build();
 	}
 }

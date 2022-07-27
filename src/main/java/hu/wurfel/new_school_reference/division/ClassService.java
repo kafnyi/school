@@ -26,14 +26,14 @@ public class ClassService extends CrudService<Class, ClassRepository, ClassDto> 
 		return this.mapper.map(dto,Class.class);
 	}
 
-	public List<Class> findAllByGrade(short grade){
-		return repo.findAllByGradeAndDeletedIsFalse(grade);
+	public List<Class> findAllByGrade(short grade, boolean deleted){
+		return repo.findAllByGradeAndDeleted(grade, deleted);
 	}
 
-	public List<Class> findAllBySign(char sign){
-		return repo.findAllBySignAndDeletedIsFalse(sign);
+	public List<Class> findAllBySign(char sign, boolean deleted){
+		return repo.findAllBySignAndDeleted(sign, deleted);
 	}
 
-	public List<Class> findByGradeAndSign(short grade, char sign){return this.toEntityList(repo.findByGradeAndSignAndDeletedIsFalse(grade, sign));}
+	public List<Class> findByGradeAndSign(short grade, char sign, boolean deleted){return this.toEntityList(repo.findByGradeAndSignAndDeleted(grade, sign, deleted));}
 
 }

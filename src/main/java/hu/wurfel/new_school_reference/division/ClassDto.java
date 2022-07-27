@@ -2,6 +2,11 @@ package hu.wurfel.new_school_reference.division;
 
 import hu.wurfel.new_school_reference.base.BaseDto;
 import lombok.Data;
+import org.hibernate.annotations.Target;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 @Data
 public class ClassDto extends BaseDto {
