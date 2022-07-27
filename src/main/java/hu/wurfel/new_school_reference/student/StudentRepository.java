@@ -8,10 +8,10 @@ import java.util.List;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
-    List<Student> findAllByNameAndDeletedIsFalse(String name);
+    List<Student> findAllByNameAndDeleted(String name, boolean deleted);
 
-    List<Student> findAllByBirthDateAndDeletedIsFalse(Date date);
+    List<Student> findAllByBirthDateAndDeleted(Date date, boolean deleted);
 
-    Student findByCardNumberAndDeletedIsFalse(long cardNumber);
+    Student findByCardNumberAndDeleted(long cardNumber, boolean deleted);
 
 }

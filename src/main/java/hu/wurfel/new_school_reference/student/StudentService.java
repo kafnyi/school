@@ -28,16 +28,16 @@ public class StudentService extends CrudService<Student,StudentRepository, Stude
 	}
 
 
-	public List<Student> findAllByName (String name){
-		return repo.findAllByNameAndDeletedIsFalse(name);
+	public List<Student> findAllByName (String name, boolean deleted){
+		return repo.findAllByNameAndDeleted(name, deleted);
 	}
 
-	public List<Student> findAllByBirthDate(Date date){
-		return repo.findAllByBirthDateAndDeletedIsFalse(date);
+	public List<Student> findAllByBirthDate(Date date, boolean deleted){
+		return repo.findAllByBirthDateAndDeleted(date, deleted);
 	}
 
-	public List<Student> findByCardNumber(long number){
-		return this.toEntityList(repo.findByCardNumberAndDeletedIsFalse(number));
+	public List<Student> findByCardNumber(long number, boolean deleted){
+		return this.toEntityList(repo.findByCardNumberAndDeleted(number, deleted));
 	}
 
 }

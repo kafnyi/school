@@ -27,7 +27,8 @@ public class StudentController {
 	}
 
 	@DeleteMapping
-	public void delete(@RequestBody StudentDto studentDto) {
+	public ResponseEntity delete(@RequestBody StudentDto studentDto) {
 		this.studentService.deleteById(studentDto.getId());
+		return ResponseEntity.noContent().build();
 	}
 }
