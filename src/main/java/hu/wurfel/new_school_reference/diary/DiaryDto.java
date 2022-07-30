@@ -15,8 +15,8 @@ public class DiaryDto extends BaseDto {
 	private Long headTeacherId;
 
 	@Override
-	public boolean hasId() {
-		return id != null;
+	public boolean hasValidId() {
+		return id != null && id >= 1;
 	}
 
 	public boolean hasStart() {
@@ -37,10 +37,10 @@ public class DiaryDto extends BaseDto {
 
 	@Override
 	public boolean isEmpty(){
-	return !hasId()
-			&& !hasStart()
-			&& !hasEnd()
-			&& !hasDivision()
-			&& !hasHeadTeacher();
+		return !hasValidId()
+				&& !hasStart()
+				&& !hasEnd()
+				&& !hasDivision()
+				&& !hasHeadTeacher();
 	}
 }

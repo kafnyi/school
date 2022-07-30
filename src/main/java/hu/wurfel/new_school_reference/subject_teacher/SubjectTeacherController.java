@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/subject_teacher")
+@RequestMapping("/api/v1/subject-teacher")
 public class SubjectTeacherController {
 
 	private final SubjectTeacherService subjectTeacherService;
@@ -26,7 +26,8 @@ public class SubjectTeacherController {
 	}
 
 	@DeleteMapping
-	public void delete(@RequestBody SubjectTeacherDto subjectTeacherDto) {
+	public ResponseEntity delete(@RequestBody SubjectTeacherDto subjectTeacherDto) {
 		this.subjectTeacherService.deleteById(subjectTeacherDto.getId());
+		return ResponseEntity.noContent().build();
 	}
 }

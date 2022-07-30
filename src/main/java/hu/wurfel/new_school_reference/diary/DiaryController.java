@@ -31,7 +31,8 @@ public class DiaryController {
     }
 
     @DeleteMapping
-    public void delete(@RequestBody DiaryDto diaryDto) {
+    public ResponseEntity delete(@RequestBody DiaryDto diaryDto) {
         this.diaryService.deleteById(diaryDto.getId());
+        return ResponseEntity.noContent().build();
     }
 }

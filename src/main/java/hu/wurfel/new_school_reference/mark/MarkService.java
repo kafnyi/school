@@ -2,12 +2,10 @@ package hu.wurfel.new_school_reference.mark;
 
 import hu.wurfel.new_school_reference.base.CrudService;
 import hu.wurfel.new_school_reference.base.MarkModifier;
-import hu.wurfel.new_school_reference.diarySubjectTeacherStudent.DiarySubjectTeacherStudent;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,16 +29,16 @@ public class MarkService extends CrudService<Mark,MarkRepository, MarkDto> {
 
 	//region Mark
 
-	public List<Mark> findAllByTestDate(Date date){
-		return repo.findAllByTestDateAndDeletedIsFalse(date);
+	public List<Mark> findAllByTestDateAndDeleted(Date date, boolean deleted){
+		return repo.findAllByTestDateAndDeleted(date, deleted);
 	}
 
-	public List<Mark> findAllByDiarySubjectStudent (DiarySubjectTeacherStudent diarySubjectTeacherStudent){
-		return repo.findAllByDiarySubjectTeacherStudentAndDeletedIsFalse(diarySubjectTeacherStudent);
+	public List<Mark> findAllByDiarySubjectStudentAndDeleted(Long id, boolean deleted){
+		return repo.findAllByDiarySubjectTeacherStudent_IdAndDeleted(id,deleted);
 	}
 
-	public List<Mark> findAllByMarkModifier(MarkModifier markModifier){
-		return repo.findAllByMarkModifierAndDeletedIsFalse(markModifier);
+	public List<Mark> findAllByMarkModifierAndDeleted(MarkModifier markModifier, boolean deleted){
+		return repo.findAllByMarkModifierAndDeleted(markModifier, deleted);
 	}
 
 	//endregion Mark
@@ -48,20 +46,20 @@ public class MarkService extends CrudService<Mark,MarkRepository, MarkDto> {
 	//region DiarySubjectTeacherStudent
 
 	//region Diary
-	public List<Mark> findAllByDiary(Long Id){
-		return repo.findAllByDiarySubjectTeacherStudent_Diary_IdAndDeletedIsFalse(Id);
+	public List<Mark> findAllByDiaryAndDeleted(Long Id, boolean deleted){
+		return repo.findAllByDiarySubjectTeacherStudent_Diary_IdAndDeleted(Id, deleted);
 	}
 
 	//endregion Diary
 
 	//region SubjectTeacher
 
-	public List<Mark> findAllBySubjectTeacher(Long id){return repo.findAllByDiarySubjectTeacherStudent_SubjectTeacher_IdAndDeletedIsFalse(id);}
+	public List<Mark> findAllBySubjectTeacherAndDeleted(Long id, boolean deleted){return repo.findAllByDiarySubjectTeacherStudent_SubjectTeacher_IdAndDeleted(id, deleted);}
 
 	//endregion SubjectTeacher
 	//region Student
 
-	public List<Mark> findByStudent(Long id){return repo.findAllByDiarySubjectTeacherStudent_Student_IdAndDeletedIsFalse(id);}
+	public List<Mark> findByStudentAndDeleted(Long id, boolean deleted){return repo.findAllByDiarySubjectTeacherStudent_Student_IdAndDeleted(id,deleted);}
 
 
 	//endregion Student

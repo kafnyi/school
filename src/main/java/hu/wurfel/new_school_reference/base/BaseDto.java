@@ -1,8 +1,25 @@
 package hu.wurfel.new_school_reference.base;
 
-public abstract class BaseDto {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-	public abstract boolean hasId();
+import java.time.LocalDateTime;
 
-	public abstract boolean isEmpty();
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public abstract class BaseDto implements Dto {
+
+	private Long id;
+	private boolean deleted;
+	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
+
+	public boolean hasValidId() {
+		return id != null && id >= 1;
+	}
+
 }

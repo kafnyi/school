@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/diary_subject_teacher_student")
+@RequestMapping("/api/v1/diary-subject-teacher-student")
 public class DiarySubjectTeacherStudentController {
 
 	private final DiarySubjectTeacherStudentService service;
@@ -28,7 +28,8 @@ public class DiarySubjectTeacherStudentController {
 	}
 
 	@DeleteMapping
-	public void delete(@RequestBody DiarySubjectTeacherStudentDto dto) {
+	public ResponseEntity delete(@RequestBody DiarySubjectTeacherStudentDto dto) {
 		this.service.deleteById(dto.getId());
+		return ResponseEntity.noContent().build();
 	}
 }

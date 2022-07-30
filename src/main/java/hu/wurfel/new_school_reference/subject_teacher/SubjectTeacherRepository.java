@@ -7,13 +7,13 @@ import java.util.List;
 
 @Repository
 public interface SubjectTeacherRepository extends JpaRepository<SubjectTeacher, Long> {
-    List<SubjectTeacher> findAllBySubject_IdAndDeletedIsFalse(Long id);
+    List<SubjectTeacher> findAllBySubject_IdAndDeleted(Long id, boolean deleted);
 
-    List<SubjectTeacher> findAllBySubject_NameAndDeletedIsFalse(String name);
+    List<SubjectTeacher> findAllBySubject_NameAndDeleted(String name, boolean deleted);
 
-    List<SubjectTeacher> findAllByTeacher_IdAndDeletedIsFalse(Long id);
+    List<SubjectTeacher> findAllByTeacher_IdAndDeleted(Long id, boolean deleted);
 
-    List<SubjectTeacher> findAllByTeacher_CardNumberAndDeletedIsFalse(Long id);
+    List<SubjectTeacher> findAllByTeacher_CardNumberAndDeleted(Long id, boolean deleted);
 
-    SubjectTeacher findBySubject_IdAndTeacher_IdAndDeletedIsFalse(Long subjectId, Long teacherId);
+    SubjectTeacher findBySubject_IdAndTeacher_IdAndDeleted(Long subjectId, Long teacherId, boolean deleted);
 }
