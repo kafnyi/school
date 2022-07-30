@@ -9,7 +9,7 @@ public abstract class BaseDto {
 
 	private boolean deleted;
 
-	public abstract boolean hasId();
+	public abstract boolean hasValidId();
 
 	public abstract boolean isEmpty();
 }

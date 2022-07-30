@@ -10,7 +10,6 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
 @AllArgsConstructor
@@ -21,5 +20,5 @@ import javax.persistence.Id;
 public class Subject extends Auditable {
 
     @Column(nullable = false, unique = true)
-    private String name;
+    private String title;
 }

@@ -14,8 +14,8 @@ public class TeacherDto extends BaseDto {
 	private long cardNumber;
 
 	@Override
-	public boolean hasId() {
-		return id != null;
+	public boolean hasValidId() {
+		return id != null && id >= 1;
 	}
 
 	public boolean hasName() {
@@ -32,7 +32,7 @@ public class TeacherDto extends BaseDto {
 
 	@Override
 	public boolean isEmpty() {
-		return !hasId()
+		return !hasValidId()
 				&& !hasName()
 				&& !hasBirthDate()
 				&& !hasCardNumber();

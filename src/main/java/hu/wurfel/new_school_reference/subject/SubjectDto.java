@@ -7,19 +7,19 @@ import lombok.Data;
 public class SubjectDto extends BaseDto {
 
 	private Long id;
-	private String name;
+	private String title;
 
 	@Override
-	public boolean hasId() {
-		return id != null;
+	public boolean hasValidId() {
+		return id != null && id>=1;
 	}
 
 	public boolean hasName() {
-		return name != null;
+		return title != null;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return !hasId() && !hasName();
+		return !hasValidId() && !hasName();
 	}
 }

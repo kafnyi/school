@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SubjectService extends CrudService<Subject,SubjectRepository, SubjectDto> {
+public class SubjectService extends CrudService<Subject,SubjectRepository> {
 
 	@Autowired
 	public SubjectService(SubjectRepository repository, ModelMapper modelMapper) {
@@ -25,7 +25,7 @@ public class SubjectService extends CrudService<Subject,SubjectRepository, Subje
 		return this.mapper.map(dto,Subject.class);
 	}
 
-	public List<Subject> findAllByName(String name, boolean deleted){
-		return repo.findAllByNameAndDeleted(name, deleted);
+	public List<Subject> findAllByTitleAndDeleted(String name, boolean deleted){
+		return repo.findAllByTitleAndDeleted(name, deleted);
 	}
 }

@@ -5,7 +5,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,15 +27,15 @@ public class StudentService extends CrudService<Student,StudentRepository, Stude
 	}
 
 
-	public List<Student> findAllByName (String name, boolean deleted){
+	public List<Student> findAllByNameAndDeleted(String name, boolean deleted){
 		return repo.findAllByNameAndDeleted(name, deleted);
 	}
 
-	public List<Student> findAllByBirthDate(Date date, boolean deleted){
+	public List<Student> findAllByBirthDateAndDeleted(Date date, boolean deleted){
 		return repo.findAllByBirthDateAndDeleted(date, deleted);
 	}
 
-	public List<Student> findByCardNumber(long number, boolean deleted){
+	public List<Student> findByCardNumberAndDeleted(long number, boolean deleted){
 		return this.toEntityList(repo.findByCardNumberAndDeleted(number, deleted));
 	}
 
