@@ -1,6 +1,7 @@
 package hu.wurfel.new_school_reference.base;
 
 import hu.wurfel.new_school_reference.diary.DiaryDto;
+import hu.wurfel.new_school_reference.exception.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -44,4 +45,9 @@ public abstract class CrudService<
 
     public abstract AUDITABLE toEntity(BaseDto dto);
 
+    public void validateDtoIsNotEmpty(Dto dto, String message) {
+        if (dto.isEmpty()) {
+            throw new BadRequestException(message);
+        }
+    }
 }

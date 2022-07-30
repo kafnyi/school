@@ -16,9 +16,13 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE diary SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE subject SET deleted = true WHERE id = ?")
 public class Subject extends Auditable {
 
     @Column(nullable = false, unique = true)
     private String title;
+
+    public Subject(String title) {
+        this.title = title;
+    }
 }
