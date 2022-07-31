@@ -1,5 +1,7 @@
 package hu.wurfel.new_school_reference.base;
 
+import hu.wurfel.new_school_reference.diary.DiaryDto;
+import hu.wurfel.new_school_reference.exception.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -8,8 +10,7 @@ import java.util.List;
 
 public abstract class CrudService<
         AUDITABLE extends Auditable,
-        REPO extends JpaRepository<AUDITABLE, Long>,
-        DTO extends BaseDto
+        REPO extends JpaRepository<AUDITABLE, Long>
         > {
 
     protected ModelMapper mapper;
@@ -20,20 +21,16 @@ public abstract class CrudService<
         this.mapper = mapper;
     }
 
-    public List<AUDITABLE> findAllAndDeletedIsFalse() {
+    public List<AUDITABLE> findAll() {
         return repo.findAll();
     }
 
-    public List<DTO> findById(Long id) {
-        return toDtoList((repo.findById(id).orElseThrow()));
+    public AUDITABLE findById(Long id) {
+        return repo.findById(id).orElseThrow();
     }
 
-    public List<DTO> save(AUDITABLE entity) {
-        return this.toDtoList(this.repo.save(entity));
-    }
-
-    public List<DTO> save(DTO dto){
-        return this.save(this.toEntity(dto));
+    public AUDITABLE save(AUDITABLE entity) {
+        return this.repo.save(entity);
     }
 
     public void delete(AUDITABLE entity) {
@@ -44,48 +41,13 @@ public abstract class CrudService<
         repo.deleteById(id);
     }
 
-    public abstract DTO toDto(AUDITABLE auditable);
+    public abstract <DTO extends BaseDto> DTO toDto(AUDITABLE auditable, Class<DTO> returnType);
 
-    public abstract AUDITABLE toEntity(DTO dto);
+    public abstract AUDITABLE toEntity(BaseDto dto);
 
-    public List<DTO> toDtoList(AUDITABLE auditable){
-        ArrayList<DTO> list = new ArrayList<>();
-        list.add(this.toDto(auditable));
-        return list;
-    }
-
-    public List<DTO> toDtoList(List<AUDITABLE> list){
-        ArrayList<DTO> dtos = new ArrayList<>();
-        for (AUDITABLE auditable:list) {
-            dtos.add(this.toDto(auditable));
+    public void validateDtoIsNotEmpty(Dto dto, String message) {
+        if (dto.isEmpty()) {
+            throw new BadRequestException(message);
         }
-        return dtos;
     }
-
-    public List<DTO> toDtoList(DTO dto){
-        ArrayList<DTO> list = new ArrayList<>();
-        list.add(dto);
-        return list;
-    }
-
-    public List<AUDITABLE> toEntityList(DTO dto){
-        ArrayList<AUDITABLE> list= new ArrayList<>();
-        list.add(this.toEntity(dto));
-        return list;
-    }
-
-    public List<AUDITABLE> toEntityList(List<DTO> list){
-        ArrayList<AUDITABLE> auditables = new ArrayList<>();
-        for (DTO dto:list) {
-            auditables.add(this.toEntity(dto));
-        }
-        return auditables;
-    }
-
-    public List<AUDITABLE> toEntityList(AUDITABLE auditable) {
-        ArrayList<AUDITABLE> list = new ArrayList<>();
-        list.add(auditable);
-        return list;
-    }
-
 }

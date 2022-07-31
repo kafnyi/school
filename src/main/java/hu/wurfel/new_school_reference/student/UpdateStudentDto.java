@@ -1,22 +1,16 @@
-package hu.wurfel.new_school_reference.teacher;
+package hu.wurfel.new_school_reference.student;
 
 import hu.wurfel.new_school_reference.base.BaseDto;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
-public class TeacherDto extends BaseDto {
+public class UpdateStudentDto extends BaseDto {
 
-	private Long id;
 	private String name;
-	private Date birthDate;
-	private long cardNumber;
-
-	@Override
-	public boolean hasValidId() {
-		return id != null && id >= 1;
-	}
+	private LocalDate birthDate;
+	private String cardNumber;
 
 	public boolean hasName() {
 		return name != null;
@@ -27,7 +21,7 @@ public class TeacherDto extends BaseDto {
 	}
 
 	public boolean hasCardNumber() {
-		return cardNumber != 0;
+		return cardNumber != null && !cardNumber.isBlank();
 	}
 
 	@Override
@@ -37,4 +31,5 @@ public class TeacherDto extends BaseDto {
 				&& !hasBirthDate()
 				&& !hasCardNumber();
 	}
+
 }

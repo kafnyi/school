@@ -9,23 +9,23 @@ import java.util.List;
 @Repository
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
 
-    List<Diary> findAllByStartAndDeletedIsFalse(Date date);
+    List<Diary> findAllByStartAndDeleted(Date date, boolean deleted);
 
-    List<Diary> findAllByEndAndDeletedIsFalse(Date date);
+    List<Diary> findAllByEndAndDeleted(Date date, boolean deleted);
 
-    List<Diary> findAllByHeadTeacher_IdAndDeletedIsFalse(long id);
+    List<Diary> findAllByHeadTeacher_IdAndDeleted(long id, boolean deleted);
 
-    List<Diary> findAllByHeadTeacher_NameAndDeletedIsFalse(String name);
+    List<Diary> findAllByHeadTeacher_NameAndDeleted(String name, boolean deleted);
 
-    List<Diary> findAllByHeadTeacher_CardNumberAndDeletedIsFalse(long number);
+    List<Diary> findAllByHeadTeacher_CardNumberAndDeleted(long number, boolean deleted);
 
-    List<Diary> findAllByDivision_IdAndDeletedIsFalse(long id);
+    List<Diary> findAllByDivision_IdAndDeleted(long id, boolean deleted);
 
-    List<Diary> findAllByDivision_GradeAndDivision_SignAndDeletedIsFalse(short grade, char sign);
+    List<Diary> findAllByDivision_GradeAndDivision_SignAndDeleted(short grade, char sign, boolean deleted);
 
-    List<Diary> findAllByDivision_GradeAndDeletedIsFalse(short grade);
+    List<Diary> findAllByDivision_GradeAndDeleted(short grade, boolean deleted);
 
-    List<Diary> findAllByDivision_SignAndDeletedIsFalse(char sign);
+    List<Diary> findAllByDivision_SignAndDeleted(char sign, boolean deleted);
 
 
 }

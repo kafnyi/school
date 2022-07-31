@@ -13,7 +13,7 @@ public class DiarySearchDto extends BaseDto {
 	private Long headTeacherId;
 
 	@Override
-	public boolean hasId() {
+	public boolean hasValidId() {
 		return id != null;
 	}
 
@@ -27,7 +27,7 @@ public class DiarySearchDto extends BaseDto {
 
 	@Override
 	public boolean isEmpty() {
-		return !hasId()
+		return !hasValidId()
 				&& !hasStart()
 				&& !hasHeadTeacher();
 	}
