@@ -27,29 +27,29 @@ public class SubjectTeacherService extends CrudService<SubjectTeacher, SubjectTe
 
 	//region Subject
 
-	public List<SubjectTeacher> findAllBySubject(Long id) {
-		return repo.findAllBySubject_IdAndDeletedIsFalse(id);
+	public List<SubjectTeacher> findAllBySubjectAndDeleted(Long id, boolean deleted) {
+		return repo.findAllBySubject_IdAndDeleted(id, deleted);
 	}
 
-	public List<SubjectTeacher> findAllBySubjectName(String name) {
-		return repo.findAllBySubject_NameAndDeletedIsFalse(name);
+	public List<SubjectTeacher> findAllBySubjectNameAndDeleted(String name, boolean deleted) {
+		return repo.findAllBySubject_NameAndDeleted(name, deleted);
 	}
 
 	//endregion Subject
 
 	//region Teacher
 
-	public List<SubjectTeacher> findAllByTeacher(Long id) {
-		return repo.findAllByTeacher_IdAndDeletedIsFalse(id);
+	public List<SubjectTeacher> findAllByTeacherAndDeleted(Long id, boolean deleted) {
+		return repo.findAllByTeacher_IdAndDeleted(id, deleted);
 	}
 
-	public List<SubjectTeacher> findAllByTeacherCardNumber(Long number) {
-		return repo.findAllByTeacher_CardNumberAndDeletedIsFalse(number);
+	public List<SubjectTeacher> findAllByTeacherCardNumberAndDeleted(Long number, boolean deleted) {
+		return repo.findAllByTeacher_CardNumberAndDeleted(number, deleted);
 	}
 
 	//endregion Teacher
 
-	public SubjectTeacher findBySubjectAndTeacher(Long subject, Long teacher) {
-		return repo.findBySubject_IdAndTeacher_IdAndDeletedIsFalse(subject, teacher);
+	public SubjectTeacher findBySubjectAndTeacherAndDeleted(Long subject, Long teacher, boolean deleted) {
+		return repo.findBySubject_IdAndTeacher_IdAndDeleted(subject, teacher, deleted);
 	}
 }

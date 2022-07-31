@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/mark")
+@RequestMapping("/api/v1/marks")
 public class MarkController {
 
 	private final MarkService markService;
@@ -26,8 +26,9 @@ public class MarkController {
 	}
 
 	@DeleteMapping
-	public void delete(@RequestBody MarkDto markDto) {
+	public ResponseEntity delete(@RequestBody MarkDto markDto) {
 		this.markService.deleteById(markDto.getId());
+		return ResponseEntity.noContent().build();
 	}
 
 }

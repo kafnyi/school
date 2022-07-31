@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class TeacherService extends CrudService<Teacher,TeacherRepository, TeacherDto> {
+public class TeacherService extends CrudService<Teacher,TeacherRepository> {
 
 	public TeacherService(TeacherRepository repository, ModelMapper modelMapper) {
 		super(repository, modelMapper);
@@ -24,15 +24,15 @@ public class TeacherService extends CrudService<Teacher,TeacherRepository, Teach
 		return this.mapper.map(dto,Teacher.class);
 	}
 
-	public List<Teacher> findAllByName(String name, boolean deleted){
+	public List<Teacher> findAllByNameAndDeleted(String name, boolean deleted){
 		return repo.findAllByNameAndDeleted(name, deleted);
 	}
 
-	public List<Teacher> findAllByBirthDate(Date date, boolean deleted){
+	public List<Teacher> findAllByBirthDateAndDeleted(Date date, boolean deleted){
 		return repo.findAllByBirthDateAndDeleted(date, deleted);
 	}
 
-	public List<Teacher> findByTeacherCardNumber(long number, boolean deleted){
+	public List<Teacher> findByTeacherCardNumberAndDeleted(long number, boolean deleted){
 		return this.toEntityList(repo.findAllByCardNumberAndDeleted(number, deleted));
 	}
 }
