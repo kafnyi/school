@@ -11,8 +11,8 @@ public class ClassDto extends BaseDto {
 	private char sign;
 
 	@Override
-	public boolean hasId() {
-		return id != null;
+	public boolean hasValidId() {
+		return id != null && id >= 1;
 	}
 
 	public boolean hasGrade() {
@@ -25,7 +25,7 @@ public class ClassDto extends BaseDto {
 
 	@Override
 	public boolean isEmpty() {
-		return !hasId()
+		return !hasValidId()
 				&& !hasGrade()
 				&& !hasSign();
 	}

@@ -1,13 +1,10 @@
 package hu.wurfel.new_school_reference.diarySubjectTeacherStudent;
 
-import hu.wurfel.new_school_reference.base.Auditable;
-import hu.wurfel.new_school_reference.base.BaseDto;
 import hu.wurfel.new_school_reference.base.CrudService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,11 +17,11 @@ public class DiarySubjectTeacherStudentService extends CrudService<DiarySubjectT
 
 	//region Student
 
-	List<DiarySubjectTeacherStudent> findAllByStudentId(Long id, boolean deleted) {
+	List<DiarySubjectTeacherStudent> findAllByStudentIdAndDeleted(Long id, boolean deleted) {
 		return repo.findAllByStudent_IdAndDeleted(id, deleted);
 	}
 
-	List<DiarySubjectTeacherStudent> findAllByStudentCardNumber(Long number, boolean deleted) {
+	List<DiarySubjectTeacherStudent> findAllByStudentCardNumberAndDeleted(Long number, boolean deleted) {
 		return repo.findAllByStudent_CardNumberAndDeleted(number,deleted);
 	}
 
@@ -32,7 +29,7 @@ public class DiarySubjectTeacherStudentService extends CrudService<DiarySubjectT
 
 	//region Diary
 
-	public List<DiarySubjectTeacherStudent> findAllByDiaryId(Long id, boolean deleted){
+	public List<DiarySubjectTeacherStudent> findAllByDiaryIdAndDeleted(Long id, boolean deleted){
 		return repo.findAllByDiary_IdAndDeleted(id,deleted);
 	}
 
@@ -40,23 +37,23 @@ public class DiarySubjectTeacherStudentService extends CrudService<DiarySubjectT
 
 	//region SubjectTeacher
 
-	public List<DiarySubjectTeacherStudent> findAllBySubjectTeacherId(Long id, boolean deleted){
+	public List<DiarySubjectTeacherStudent> findAllBySubjectTeacherIdAndDeleted(Long id, boolean deleted){
 		return repo.findAllBySubjectTeacher_IdAndDeleted(id,deleted);
 	}
 
-	public List<DiarySubjectTeacherStudent> findAllBySubjectId(Long id, boolean deleted){
+	public List<DiarySubjectTeacherStudent> findAllBySubjectIdAndDeleted(Long id, boolean deleted){
 		return repo.findAllBySubjectTeacher_Subject_IdAndDeleted(id,deleted);
 	}
 
-	public List<DiarySubjectTeacherStudent> findAllBySubjectName(String name, boolean deleted){
+	public List<DiarySubjectTeacherStudent> findAllBySubjectNameAndDeleted(String name, boolean deleted){
 		return repo.findAllBySubjectTeacher_Subject_NameAndDeleted(name, deleted);
 	}
 
-	public List<DiarySubjectTeacherStudent> findAllByTeacherId(Long id, boolean deleted){
+	public List<DiarySubjectTeacherStudent> findAllByTeacherIdAndDeleted(Long id, boolean deleted){
 		return repo.findAllBySubjectTeacher_Teacher_IdAndDeleted(id, deleted);
 	}
 
-	public List<DiarySubjectTeacherStudent> findAllByTeacherCardNumber(Long number, boolean deleted){
+	public List<DiarySubjectTeacherStudent> findAllByTeacherCardNumberAndDeleted(Long number, boolean deleted){
 		return repo.findAllBySubjectTeacher_Teacher_CardNumberAndDeleted(number, deleted);
 	}
 

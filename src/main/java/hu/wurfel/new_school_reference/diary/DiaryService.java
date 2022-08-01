@@ -1,5 +1,6 @@
 package hu.wurfel.new_school_reference.diary;
 
+import hu.wurfel.new_school_reference.base.BaseDto;
 import hu.wurfel.new_school_reference.base.CrudService;
 import hu.wurfel.new_school_reference.division.ClassDto;
 import hu.wurfel.new_school_reference.teacher.TeacherDto;
@@ -8,13 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
 @Service
-public class DiaryService extends CrudService<Diary, DiaryRepository, DiaryDto> {
+public class DiaryService extends CrudService<Diary, DiaryRepository> {
 
 	@Autowired
 	public DiaryService(DiaryRepository repository, ModelMapper mapper) {
@@ -22,8 +22,8 @@ public class DiaryService extends CrudService<Diary, DiaryRepository, DiaryDto> 
 	}
 
 	@Override
-	public DiaryDto toDto(Diary auditable) {
-		return mapper.map(auditable,DiaryDto.class);
+	public <DTO extends BaseDto> DTO toDto(Diary diary, Class<DTO> returnType) {
+		return mapper.map(diary, returnType);
 	}
 
 	@Override
@@ -43,36 +43,36 @@ public class DiaryService extends CrudService<Diary, DiaryRepository, DiaryDto> 
 
 	public List<DiaryDto> findAllDiaryByDiaryIdOrStartOrHeadTeacher(DiaryDto diaryDto) {
 		if (diaryDto.getId() != 0) {
-			return this.findById(diaryDto.getId());
+			return List.of(this.toDto(this.findById(diaryDto.getId()),DiaryDto.class));
 		}
 		return findAllDiaryByDiaryStartOrHeadTeacher(diaryDto);
 	}
 
 	private List<DiaryDto> findAllDiaryByDiaryStartOrHeadTeacher(DiaryDto diaryDto) {
 		if (diaryDto.getStart() != null) {
-			return this.toDtoList(this.findAllByStart(diaryDto.getStart(),diaryDto.isDeleted()));
+			return List.of(this.findAllByStartAndDeleted(diaryDto.getStart(),diaryDto.isDeleted()));
 		}
 		return findAllDiaryByDiaryHeadTeacher(diaryDto);
 	}
 
-	private List<DiaryDto> findAllDiaryByDiaryHeadTeacher(DiaryDto diaryDto) {
+	private List<DiaryDto>findAllDiaryByDiaryHeadTeacher(DiaryDto diaryDto) {
 		if (diaryDto.getHeadTeacherId() != 0) {
-			return this.toDtoList(this.findAllByHeadTeacherId(diaryDto.getHeadTeacherId(),diaryDto.isDeleted()));
+			return this.toDtoList(this.findAllByHeadTeacherIdAndDeleted(diaryDto.getHeadTeacherId(),diaryDto.isDeleted()));
 		}
 		throw new InvalidParameterException();
 	}
 
 		//region baseMethods
 
-	public List<Diary> findAllByStart(Date date, boolean deleted) {
+	public List<Diary> findAllByStartAndDeleted(Date date, boolean deleted) {
 		return repo.findAllByStartAndDeleted(date ,deleted);
 	}
 
-	public List<Diary> findAllByEnd(Date date, boolean deleted) {
+	public List<Diary> findAllByEndAndDeleted(Date date, boolean deleted) {
 		return repo.findAllByEndAndDeleted(date, deleted);
 	}
 
-	public List<Diary> findAllByHeadTeacherId(long id, boolean deleted) {
+	public List<Diary> findAllByHeadTeacherIdAndDeleted(long id, boolean deleted) {
 		return repo.findAllByHeadTeacher_IdAndDeleted(id,deleted);
 	}
 
@@ -89,36 +89,36 @@ public class DiaryService extends CrudService<Diary, DiaryRepository, DiaryDto> 
 
 	public List<Diary> findAllByTeacherIdOrCardNumberOrName(TeacherDto teacherDto) {
 		if (teacherDto.getId() != 0) {
-			return this.findAllByTeacherId(teacherDto.getId(), teacherDto.isDeleted());
+			return this.findAllByTeacherIdAndDeleted(teacherDto.getId(), teacherDto.isDeleted());
 		}
 		return findAllDiaryByTeacherCardNumberOrName(teacherDto);
 	}
 
 	private List<Diary> findAllDiaryByTeacherCardNumberOrName(TeacherDto teacherDto) {
 		if (teacherDto.getCardNumber() != 0) {
-			return this.findAllByTeacherCardNumber(teacherDto.getCardNumber(), teacherDto.isDeleted());
+			return this.findAllByTeacherCardNumberAndDeleted(teacherDto.getCardNumber(), teacherDto.isDeleted());
 		}
 		return findAllDiaryByTeacherName(teacherDto);
 	}
 
 	private List<Diary> findAllDiaryByTeacherName(TeacherDto teacherDto) {
 		if (teacherDto.getName() != null) {
-			return this.findAllByTeacherName(teacherDto.getName(), teacherDto.isDeleted());
+			return this.findAllByTeacherNameAndDeleted(teacherDto.getName(), teacherDto.isDeleted());
 		}
 		throw new InvalidParameterException();
 	}
 
 		//region baseMethods
 
-	public List<Diary> findAllByTeacherId(long id, boolean deleted) {
+	public List<Diary> findAllByTeacherIdAndDeleted(long id, boolean deleted) {
 		return repo.findAllByHeadTeacher_IdAndDeleted(id,deleted);
 	}
 
-	public List<Diary> findAllByTeacherName(String name, boolean deleted) {
+	public List<Diary> findAllByTeacherNameAndDeleted(String name, boolean deleted) {
 		return repo.findAllByHeadTeacher_NameAndDeleted(name, deleted);
 	}
 
-	public List<Diary> findAllByTeacherCardNumber(long number, boolean deleted) {
+	public List<Diary> findAllByTeacherCardNumberAndDeleted(long number, boolean deleted) {
 		return repo.findAllByHeadTeacher_CardNumberAndDeleted(number, deleted);
 	}
 
@@ -134,48 +134,48 @@ public class DiaryService extends CrudService<Diary, DiaryRepository, DiaryDto> 
 	}
 
 	public List<Diary> findAllDiaryByClassIdOrGradeOrSign(ClassDto classDto) {
-		if (classDto.hasId()) {
-			return this.findAllByClassId(classDto.getId(), classDto.isDeleted());
+		if (classDto.hasValidId()) {
+			return this.findAllByClassIdAndDeleted(classDto.getId(), classDto.isDeleted());
 		}
 		return findAllDiaryByClassGradeAndSign(classDto);
 	}
 
 	private List<Diary> findAllDiaryByClassGradeAndSign(ClassDto classDto) {
 		if (classDto.hasGrade() && classDto.hasSign()) {
-			return this.findAllByClassGradeAndSign(classDto.getGrade(), classDto.getSign(), classDto.isDeleted());
+			return this.findAllByClassGradeAndSignAndDeleted(classDto.getGrade(), classDto.getSign(), classDto.isDeleted());
 		}
 		return findAllDiaryByClassGrade(classDto);
 	}
 
 	private List<Diary> findAllDiaryByClassGrade(ClassDto classDto) {
 		if (classDto.hasGrade()) {
-			return this.findAllByClassGrade(classDto.getGrade(), classDto.isDeleted());
+			return this.findAllByClassGradeAndDeleted(classDto.getGrade(), classDto.isDeleted());
 		}
 		return findAllDiaryByClassSign(classDto);
 	}
 
 	private List<Diary> findAllDiaryByClassSign(ClassDto classDto) {
 		if (classDto.hasSign()) {
-			return this.findAllByClassSign(classDto.getSign(), classDto.isDeleted());
+			return this.findAllByClassSignAndDeleted(classDto.getSign(), classDto.isDeleted());
 		}
 		throw new InvalidParameterException();
 	}
 
 	//region baseMethods
 
-	public List<Diary> findAllByClassId(Long id, boolean deleted) {
+	public List<Diary> findAllByClassIdAndDeleted(Long id, boolean deleted) {
 		return repo.findAllByDivision_IdAndDeleted(id,deleted);
 	}
 
-	public List<Diary> findAllByClassGradeAndSign(short grade, char sign, boolean deleted) {
+	public List<Diary> findAllByClassGradeAndSignAndDeleted(short grade, char sign, boolean deleted) {
 		return repo.findAllByDivision_GradeAndDivision_SignAndDeleted(grade, sign, deleted);
 	}
 
-	public List<Diary> findAllByClassGrade(short grade, boolean deleted) {
+	public List<Diary> findAllByClassGradeAndDeleted(short grade, boolean deleted) {
 		return repo.findAllByDivision_GradeAndDeleted(grade, deleted);
 	}
 
-	public List<Diary> findAllByClassSign(char sign, boolean deleted) {
+	public List<Diary> findAllByClassSignAndDeleted(char sign, boolean deleted) {
 		return repo.findAllByDivision_SignAndDeleted(sign , deleted);
 	}
 
