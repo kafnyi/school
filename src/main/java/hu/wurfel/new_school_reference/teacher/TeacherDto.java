@@ -15,7 +15,7 @@ public class TeacherDto extends BaseDto {
 
 	@Override
 	public boolean hasValidId() {
-		return id != null && id >= 1;
+		return id != null && id > 0;
 	}
 
 	public boolean hasName() {
