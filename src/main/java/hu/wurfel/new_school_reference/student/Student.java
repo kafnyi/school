@@ -7,25 +7,28 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE diary SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE student SET deleted = true WHERE id = ?")
 public class Student extends Auditable {
 
     @Column(nullable = false , length = 54)
     private String name;
 
-    private Date birthDate;
+    private LocalDate birthDate;
 
-    @Column(unique = true , length = 11)
-    private long cardNumber;
+    @Column(unique = true, length = 11)
+    private String cardNumber;
+
+    public boolean isNotDeleted() {
+        return !this.isDeleted();
+    }
 }

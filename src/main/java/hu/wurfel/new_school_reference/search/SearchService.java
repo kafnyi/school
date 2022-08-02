@@ -28,7 +28,7 @@ public class SearchService {
 
 	//region Diary
 
-	public List<Diary> findDiaryByDiary(DiaryDto diaryDto) throws Exception{
+	public List<DiaryDto> findDiaryByDiary(DiaryDto diaryDto) throws Exception{
 		return diaryService.findAllDiaryByDiaryIfNotEmpty(diaryDto);
 	}
 

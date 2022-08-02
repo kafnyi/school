@@ -5,7 +5,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,14 +25,14 @@ public class ClassService extends CrudService<Class, ClassRepository, ClassDto> 
 		return this.mapper.map(dto,Class.class);
 	}
 
-	public List<Class> findAllByGrade(short grade){
-		return repo.findAllByGradeAndDeletedIsFalse(grade);
+	public List<Class> findAllByGradeAndDeleted(short grade, boolean deleted){
+		return repo.findAllByGradeAndDeleted(grade, deleted);
 	}
 
-	public List<Class> findAllBySign(char sign){
-		return repo.findAllBySignAndDeletedIsFalse(sign);
+	public List<Class> findAllBySignAndDeleted(char sign, boolean deleted){
+		return repo.findAllBySignAndDeleted(sign, deleted);
 	}
 
-	public List<Class> findByGradeAndSign(short grade, char sign){return this.toEntityList(repo.findByGradeAndSignAndDeletedIsFalse(grade, sign));}
+	public List<Class> findByGradeAndSignAndDeleted(short grade, char sign, boolean deleted){return this.toEntityList(repo.findByGradeAndSignAndDeleted(grade, sign, deleted));}
 
 }
