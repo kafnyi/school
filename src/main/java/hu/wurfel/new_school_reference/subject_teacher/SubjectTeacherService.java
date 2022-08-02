@@ -27,11 +27,11 @@ public class SubjectTeacherService extends CrudService<SubjectTeacher, SubjectTe
 
 	//region Subject
 
-	public List<SubjectTeacher> findAllBySubject(Long id, boolean deleted) {
+	public List<SubjectTeacher> findAllBySubjectAndDeleted(Long id, boolean deleted) {
 		return repo.findAllBySubject_IdAndDeleted(id, deleted);
 	}
 
-	public List<SubjectTeacher> findAllBySubjectName(String name, boolean deleted) {
+	public List<SubjectTeacher> findAllBySubjectNameAndDeleted(String name, boolean deleted) {
 		return repo.findAllBySubject_NameAndDeleted(name, deleted);
 	}
 
@@ -39,17 +39,17 @@ public class SubjectTeacherService extends CrudService<SubjectTeacher, SubjectTe
 
 	//region Teacher
 
-	public List<SubjectTeacher> findAllByTeacher(Long id, boolean deleted) {
+	public List<SubjectTeacher> findAllByTeacherAndDeleted(Long id, boolean deleted) {
 		return repo.findAllByTeacher_IdAndDeleted(id, deleted);
 	}
 
-	public List<SubjectTeacher> findAllByTeacherCardNumber(Long number, boolean deleted) {
+	public List<SubjectTeacher> findAllByTeacherCardNumberAndDeleted(Long number, boolean deleted) {
 		return repo.findAllByTeacher_CardNumberAndDeleted(number, deleted);
 	}
 
 	//endregion Teacher
 
-	public SubjectTeacher findBySubjectAndTeacher(Long subject, Long teacher, boolean deleted) {
+	public SubjectTeacher findBySubjectAndTeacherAndDeleted(Long subject, Long teacher, boolean deleted) {
 		return repo.findBySubject_IdAndTeacher_IdAndDeleted(subject, teacher, deleted);
 	}
 }

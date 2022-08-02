@@ -13,8 +13,8 @@ public class SubjectTeacherDto extends BaseDto {
 	private TeacherDto teacher;
 
 	@Override
-	public boolean hasId() {
-		return id != null;
+	public boolean hasValidId() {
+		return id != null && id >= 1;
 	}
 
 	public boolean hasSubject() {
@@ -27,7 +27,7 @@ public class SubjectTeacherDto extends BaseDto {
 
 	@Override
 	public boolean isEmpty() {
-		return !hasId()
+		return !hasValidId()
 				&& !hasSubject()
 				&& !hasTeacher();
 	}

@@ -8,10 +8,10 @@ import java.util.List;
 @Repository
 public interface ClassRepository extends JpaRepository<Class, Long> {
 
-    List<Class> findAllByGradeAndDeletedIsFalse(short grade);
+    List<Class> findAllByGradeAndDeleted(short grade, boolean deleted);
 
-    List<Class> findAllBySignAndDeletedIsFalse(char sign);
+    List<Class> findAllBySignAndDeleted(char sign, boolean deleted);
 
-    Class findByGradeAndSignAndDeletedIsFalse(short grade , char sign);
+    Class findByGradeAndSignAndDeleted(short grade , char sign, boolean deleted);
 
 }
