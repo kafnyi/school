@@ -14,6 +14,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -24,7 +25,7 @@ import java.util.Date;
 @SQLDelete(sql = "UPDATE diary SET deleted = true WHERE id = ?")
 public class Mark extends Auditable {
 
-    private Date testDate;
+    private LocalDate testDate;
 
     @ManyToOne
     @JoinColumn(name = "diary_subject_teacher_student_id")

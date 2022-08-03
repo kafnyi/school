@@ -1,5 +1,6 @@
 package hu.wurfel.new_school_reference.division;
 
+import hu.wurfel.new_school_reference.base.BaseDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,27 +11,36 @@ import org.springframework.web.bind.annotation.*;
 public class ClassController {
 
 	private final ClassService classService;
-	private final ModelMapper modelMapper;
 
 	@Autowired
-	public ClassController(ClassService classService, ModelMapper modelMapper) {
+	public ClassController(ClassService classService) {
 		this.classService = classService;
-		this.modelMapper = modelMapper;
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<? extends BaseDto> getById(@RequestParam Long id){
+		return ResponseEntity.ok(this.classService.getById(id));
 	}
 
 	@PostMapping
-	public ResponseEntity create(@RequestBody ClassDto classDto) {
-		return this.classService.save(classDto);
+	public ResponseEntity<? extends BaseDto> create(@RequestBody CreateClassDto dto) {
+		return ResponseEntity.ok(this.classService.save(dto));
 	}
 
 	@PutMapping
-	public ResponseEntity update(@RequestBody ClassDto classDto) {
-		return this.classService.save()
+	public ResponseEntity<? extends BaseDto> update(@RequestBody UpdateClassDto dto) {
+		return ResponseEntity.ok(this.classService.update(dto));
 	}
 
 	@DeleteMapping
 	public ResponseEntity delete(@RequestBody ClassDto classDto) {
 		this.classService.deleteById(classDto.getId());
+		return ResponseEntity.noContent().build();
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity delete(@RequestParam Long id){
+		this.classService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
 }
