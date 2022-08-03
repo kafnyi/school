@@ -1,5 +1,6 @@
 package hu.wurfel.new_school_reference.diarySubjectTeacherStudent;
 
+import hu.wurfel.new_school_reference.base.BaseDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +19,18 @@ public class DiarySubjectTeacherStudentController {
 	}
 
 	@PostMapping
-	public ResponseEntity create(@RequestBody DiarySubjectTeacherStudentDto dto) {
-		return this.service.save(dto);
+	public ResponseEntity<? extends BaseDto> create(@RequestBody CreateDiarySubjectTeacherStudentDto dto) {
+		return ResponseEntity.ok(this.service.save(dto));
 	}
 
 	@PutMapping
-	public ResponseEntity update(@RequestBody DiarySubjectTeacherStudentDto dto) {
-		return this.service.save(dto);
+	public ResponseEntity<? extends BaseDto> update(@RequestBody UpdateDiarySubjectTeacherStudentDto dto) {
+		return ResponseEntity.ok(this.service.save(dto));
 	}
 
-	@DeleteMapping
-	public ResponseEntity delete(@RequestBody DiarySubjectTeacherStudentDto dto) {
-		this.service.deleteById(dto.getId());
+	@DeleteMapping("/{id}")
+	public ResponseEntity deleteById(@RequestParam Long id) {
+		this.service.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
 }
