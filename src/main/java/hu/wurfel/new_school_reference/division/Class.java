@@ -18,9 +18,12 @@ import javax.persistence.*;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"grade", "sign"}))
 public class Class extends Auditable {
 
-    @Column(length = 2)
     private short grade;
 
-    @Column(length = 1)
     private char sign;
+
+    public boolean isNotDeleted(){
+        return  !this.isDeleted();
+    }
+
 }

@@ -9,7 +9,7 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @AllArgsConstructor
@@ -22,8 +22,12 @@ public class Teacher extends Auditable {
     @Column(nullable = false, length = 54)
     private String name;
 
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(unique = true, length = 10)
-    private Long cardNumber;
+    private String cardNumber;
+
+    public boolean isNotDeleted() {
+        return !this.isDeleted();
+    }
 }

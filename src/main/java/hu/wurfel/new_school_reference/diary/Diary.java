@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -20,9 +21,9 @@ import java.util.Date;
 @SQLDelete(sql = "UPDATE diary SET deleted = true WHERE id = ?")
 public class Diary extends Auditable {
 
-    private Date start;
+    private LocalDate start;
 
-    private Date end;
+    private LocalDate end;
 
     @ManyToOne
     @JoinColumn(name = "division_id")
