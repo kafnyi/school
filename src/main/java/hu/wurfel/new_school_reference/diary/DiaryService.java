@@ -2,7 +2,9 @@ package hu.wurfel.new_school_reference.diary;
 
 import hu.wurfel.new_school_reference.base.BaseDto;
 import hu.wurfel.new_school_reference.base.CrudService;
+import hu.wurfel.new_school_reference.division.Class;
 import hu.wurfel.new_school_reference.division.ClassService;
+import hu.wurfel.new_school_reference.exception.BadRequestException;
 import hu.wurfel.new_school_reference.teacher.TeacherService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 	}
 
 	@Override
-	public <DTO extends BaseDto> DTO toDto(Diary auditable, Class<DTO> returnType) {
+	public <DTO extends BaseDto> DTO toDto(Diary auditable, java.lang.Class<DTO> returnType) {
 		return null;
 	}
 
@@ -44,6 +46,24 @@ public class DiaryService extends CrudService<Diary, DiaryRepository> {
 				classService.findById(dto.getDivisionId()),
 				teacherService.findById(dto.getHeadTeacherId()));
 				return new DiaryDto(this.save(diary));
+	}
+
+	public DiaryDto saveWithClassSave(CreateDiaryDtoWithCreateClassDto dto){
+		this.validateDtoIsNotEmpty(dto, "Create failed due to: Diary has no valid " +
+				"start/" +
+				"end/" +
+				"HeadTeacherId!");
+		if (!dto.hasValidDivisionToCreate()){
+			throw new BadRequestException("Create failed due to: Diary has no valid Class to create");
+		}
+		Diary diary = new Diary(
+				dto.getStart(),
+				dto.getEnd(),
+				classService.save(new Class(
+								dto.getCreateClassDto().getGrade(),
+								dto.getCreateClassDto().getSign())),
+				teacherService.findById(dto.getHeadTeacherId()));
+		return new DiaryDto(this.save(diary));
 	}
 
 	@Transactional
