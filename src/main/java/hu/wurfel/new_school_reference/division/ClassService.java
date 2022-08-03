@@ -18,14 +18,14 @@ public class ClassService extends CrudService<Class, ClassRepository> {
 	}
 
 	public ClassDto save(CreateClassDto dto){
-		this.validateDtoIsNotEmpty(dto, "Create failed due to: Student has no valid name/birthdate/cardNumber!");
+		this.validateDtoIsNotEmpty(dto, "Create failed due to: Class has no valid grade/sign!");
 		Class division = new Class(dto.getGrade(), dto.getSign());
 		return new ClassDto(this.save(division));
 	}
 
 	@Transactional
 	public ClassDto update(UpdateClassDto dto) {
-		this.validateDtoIsNotEmpty(dto, "Update failed due to: Student has no valid name/birthdate/cardNumber!");
+		this.validateDtoIsNotEmpty(dto, "Update failed due to: Class has no valid grade/sign!");
 		Class division = this.findById(dto.getId());
 		division.setGrade(dto.getGrade());
 		division.setSign(dto.getSign());
