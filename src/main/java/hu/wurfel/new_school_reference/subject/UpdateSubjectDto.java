@@ -8,25 +8,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SubjectDto extends BaseDto {
+public class UpdateSubjectDto extends BaseDto {
 
 	private String title;
 
-	public SubjectDto(Subject subject) {
-		super(subject.getId(),
-				subject.isDeleted(),
-				subject.getCreatedAt(),
-				subject.getUpdatedAt()
-		);
-		this.title = subject.getTitle();
-	}
-
 	public boolean hasTitle() {
-		return title != null;
+		return title != null
+				&& !title.isBlank();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return !hasValidId() && !hasTitle();
+		return !hasTitle();
 	}
 }

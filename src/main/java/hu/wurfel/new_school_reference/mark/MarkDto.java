@@ -4,21 +4,26 @@ import hu.wurfel.new_school_reference.base.BaseDto;
 import hu.wurfel.new_school_reference.base.MarkModifier;
 import lombok.Data;
 
-import java.util.Base64;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
 public class MarkDto  extends BaseDto {
 
-	private Long id;
-	private Date testDate;
+	private LocalDate testDate;
 	private Long diarySubjectTeacherStudentId;
 	private short value;
 	private MarkModifier markModifier;
 
-	@Override
-	public boolean hasId() {
-		return id != null;
+	public MarkDto(Mark mark){
+		super(mark.getId(),
+				mark.isDeleted(),
+				mark.getCreatedAt(),
+				mark.getUpdatedAt());
+		this.testDate = mark.getTestDate();
+		this.diarySubjectTeacherStudentId = mark.getDiarySubjectTeacherStudent().getId();
+		this.value = mark.getValue();
+		this.markModifier = mark.getMarkModifier();
 	}
 
 	public boolean hasTestDate() {
@@ -39,7 +44,7 @@ public class MarkDto  extends BaseDto {
 
 	@Override
 	public boolean isEmpty() {
-		return !hasId()
+		return !hasValidId()
 				&& !hasTestDate()
 				&& !hasDiarySubjectTeacherStudent()
 				&& !hasValue()

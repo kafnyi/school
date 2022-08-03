@@ -9,34 +9,38 @@ import lombok.Data;
 @Data
 public class DiarySubjectTeacherStudentDto extends BaseDto {
 
-	private Long id;
-	private DiaryDto diary;
-	private StudentDto student;
-	private SubjectTeacherDto subjectTeacher;
+	private Long diaryId;
+	private Long studentId;
+	private Long subjectTeacherId;
 
-	@Override
-	public boolean hasId() {
-		return id != null;
+	public DiarySubjectTeacherStudentDto(DiarySubjectTeacherStudent entity){
+		super(entity.getId(),
+				entity.isDeleted(),
+				entity.getCreatedAt(),
+				entity.getUpdatedAt());
+		this.diaryId = entity.getDiary().getId();
+		this.subjectTeacherId = entity.getSubjectTeacher().getId();
+		this.studentId = entity.getStudent().getId();
 	}
 
-	public boolean hasDiary() {
-		return diary != null;
+	public boolean hasDiaryId() {
+		return diaryId != null;
 	}
 
-	public boolean hasStudent() {
-		return student != null;
+	public boolean hasStudentId() {
+		return studentId != null;
 	}
 
-	public boolean hasSubjectTeacher() {
-		return subjectTeacher != null;
+	public boolean hasSubjectTeacherId() {
+		return subjectTeacherId != null;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return !hasId()
-				&& !hasDiary()
-				&& !hasStudent()
-				&& !hasSubjectTeacher();
+		return !hasValidId()
+				&& !hasDiaryId()
+				&& !hasStudentId()
+				&& !hasSubjectTeacherId();
 	}
 
 }

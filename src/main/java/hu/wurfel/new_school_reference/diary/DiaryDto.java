@@ -3,20 +3,26 @@ package hu.wurfel.new_school_reference.diary;
 import hu.wurfel.new_school_reference.base.BaseDto;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
 public class DiaryDto extends BaseDto {
 
-	private Long id;
-	private Date start;
-	private Date end;
+	private LocalDate start;
+	private LocalDate end;
 	private Long divisionId;
 	private Long headTeacherId;
 
-	@Override
-	public boolean hasId() {
-		return id != null;
+	public DiaryDto(Diary diary){
+		super(diary.getId(),
+				diary.isDeleted(),
+				diary.getCreatedAt(),
+				diary.getUpdatedAt());
+		this.start = diary.getStart();
+		this.end = diary.getEnd();
+		this.divisionId = diary.getDivision().getId();
+		this.headTeacherId = diary.getHeadTeacher().getId();
 	}
 
 	public boolean hasStart() {
@@ -37,10 +43,10 @@ public class DiaryDto extends BaseDto {
 
 	@Override
 	public boolean isEmpty(){
-	return !hasId()
-			&& !hasStart()
-			&& !hasEnd()
-			&& !hasDivision()
-			&& !hasHeadTeacher();
+		return !hasValidId()
+				&& !hasStart()
+				&& !hasEnd()
+				&& !hasDivision()
+				&& !hasHeadTeacher();
 	}
 }

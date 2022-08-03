@@ -10,16 +10,19 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE diary SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE subject SET deleted = true WHERE id = ?")
 public class Subject extends Auditable {
 
     @Column(nullable = false, unique = true)
-    private String name;
+    private String title;
+
+    public Subject(String title) {
+        this.title = title;
+    }
 }

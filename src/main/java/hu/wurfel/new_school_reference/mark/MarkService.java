@@ -1,45 +1,82 @@
 package hu.wurfel.new_school_reference.mark;
 
+import hu.wurfel.new_school_reference.base.BaseDto;
 import hu.wurfel.new_school_reference.base.CrudService;
 import hu.wurfel.new_school_reference.base.MarkModifier;
-import hu.wurfel.new_school_reference.diarySubjectTeacherStudent.DiarySubjectTeacherStudent;
+import hu.wurfel.new_school_reference.diarySubjectTeacherStudent.DiarySubjectTeacherStudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
-public class MarkService extends CrudService<Mark,MarkRepository, MarkDto> {
+public class MarkService extends CrudService<Mark,MarkRepository> {
+
+	private final DiarySubjectTeacherStudentService DSTSService;
 
 	@Autowired
-	public MarkService(MarkRepository repository, ModelMapper modelMapper) {
+	public MarkService(MarkRepository repository, ModelMapper modelMapper, DiarySubjectTeacherStudentService dstsService) {
 		super(repository,modelMapper);
+		DSTSService = dstsService;
 	}
 
 	@Override
-	public MarkDto toDto(Mark auditable) {
-		return this.mapper.map(auditable,MarkDto.class);
+	public <DTO extends BaseDto> DTO toDto(Mark auditable, Class<DTO> returnType) {
+		return null;
 	}
 
 	@Override
-	public Mark toEntity(MarkDto dto) {
-		return this.mapper.map(dto,Mark.class);
+	public Mark toEntity(BaseDto dto) {
+		return null;
 	}
+
+	public MarkDto save(CreateMarkDtoWithConnetctId dto){
+		this.validateDtoIsNotEmpty(dto,
+				"Create failed due to: Mark has no valid testDate" +
+						"/diarySubjectTeacherStudentId" +
+						"/value" +
+						"/markModifier !");
+		Mark mark = new Mark(
+				dto.getTestDate(),
+				DSTSService.findById(dto.getDiarySubjectTeacherStudentId()),
+				dto.getValue(),
+				dto.getMarkModifier()
+		);
+		return new MarkDto(this.save(mark));
+	}
+
+	@Transactional
+	public MarkDto update(UpdateMarkDtoWithConnectId dto){
+		this.validateDtoIsNotEmpty(dto,
+				"Create failed due to: Mark has no valid testDate" +
+						"/diarySubjectTeacherStudentId" +
+						"/value" +
+						"/markModifier !");
+		Mark mark = this.findById(dto.getId());
+		mark.setTestDate(dto.getTestDate());
+		mark.setDiarySubjectTeacherStudent(DSTSService
+				.findById(dto.getDiarySubjectTeacherStudentId()));
+		mark.setValue(dto.getValue());
+		mark.setMarkModifier(dto.getMarkModifier());
+		return new MarkDto(this.save(mark));
+	}
+
+
 
 	//region Mark
 
-	public List<Mark> findAllByTestDate(Date date, boolean deleted){
+	public List<Mark> findAllByTestDateAndDeleted(Date date, boolean deleted){
 		return repo.findAllByTestDateAndDeleted(date, deleted);
 	}
 
-	public List<Mark> findAllByDiarySubjectStudent (Long id, boolean deleted){
+	public List<Mark> findAllByDiarySubjectStudentAndDeleted(Long id, boolean deleted){
 		return repo.findAllByDiarySubjectTeacherStudent_IdAndDeleted(id,deleted);
 	}
 
-	public List<Mark> findAllByMarkModifier(MarkModifier markModifier, boolean deleted){
+	public List<Mark> findAllByMarkModifierAndDeleted(MarkModifier markModifier, boolean deleted){
 		return repo.findAllByMarkModifierAndDeleted(markModifier, deleted);
 	}
 
@@ -48,7 +85,7 @@ public class MarkService extends CrudService<Mark,MarkRepository, MarkDto> {
 	//region DiarySubjectTeacherStudent
 
 	//region Diary
-	public List<Mark> findAllByDiary(Long Id, boolean deleted){
+	public List<Mark> findAllByDiaryAndDeleted(Long Id, boolean deleted){
 		return repo.findAllByDiarySubjectTeacherStudent_Diary_IdAndDeleted(Id, deleted);
 	}
 
@@ -56,16 +93,20 @@ public class MarkService extends CrudService<Mark,MarkRepository, MarkDto> {
 
 	//region SubjectTeacher
 
-	public List<Mark> findAllBySubjectTeacher(Long id, boolean deleted){return repo.findAllByDiarySubjectTeacherStudent_SubjectTeacher_IdAndDeleted(id, deleted);}
+	public List<Mark> findAllBySubjectTeacherAndDeleted(Long id, boolean deleted){return repo.findAllByDiarySubjectTeacherStudent_SubjectTeacher_IdAndDeleted(id, deleted);}
 
 	//endregion SubjectTeacher
 	//region Student
 
-	public List<Mark> findByStudent(Long id, boolean deleted){return repo.findAllByDiarySubjectTeacherStudent_Student_IdAndDeleted(id,deleted);}
+	public List<Mark> findByStudentAndDeleted(Long id, boolean deleted){return repo.findAllByDiarySubjectTeacherStudent_Student_IdAndDeleted(id,deleted);}
 
 
 	//endregion Student
 
 	//endregion DiarySubjectTeacherStudent
+
+	public MarkDto getById(Long id){
+		return new MarkDto(this.findById(id));
+	}
 
 }

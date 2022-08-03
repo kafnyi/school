@@ -1,6 +1,7 @@
 package hu.wurfel.new_school_reference.teacher;
 
 
+import hu.wurfel.new_school_reference.base.BaseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,19 +17,24 @@ public class TeacherController {
 		this.teacherService = teacherService;
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<? extends BaseDto> getById(@RequestParam Long id){
+		return ResponseEntity.ok(this.teacherService.getById(id));
+	}
+
 	@PostMapping
-	public ResponseEntity create (@RequestBody TeacherDto teacherDto){
-		return this.teacherService.save(teacherDto);
+	public ResponseEntity<? extends BaseDto> create (@RequestBody CreateTeacherDto dto){
+		return ResponseEntity.ok(this.teacherService.save(dto));
 	}
 
 	@PutMapping
-	public ResponseEntity update (@RequestBody TeacherDto teacherDto){
-		return this.teacherService.save(teacherDto);
+	public ResponseEntity<? extends BaseDto> update (@RequestBody UpdateTeacherDto dto){
+		return ResponseEntity.ok(this.teacherService.update(dto));
 	}
 
-	@DeleteMapping
-	private ResponseEntity delete (@RequestBody TeacherDto teacherDto){
-		this.teacherService.deleteById(teacherDto.getId());
+	@DeleteMapping("/{id}")
+	private ResponseEntity delete (@RequestParam Long id){
+		this.teacherService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
 }

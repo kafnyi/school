@@ -1,22 +1,36 @@
 package hu.wurfel.new_school_reference.teacher;
 
 import hu.wurfel.new_school_reference.base.BaseDto;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TeacherDto extends BaseDto {
 
 	private Long id;
 	private String name;
-	private Date birthDate;
-	private long cardNumber;
 
-	@Override
-	public boolean hasId() {
-		return id != null;
+	private LocalDate birthDate;
+	private String cardNumber;
+
+	public TeacherDto(Teacher teacher) {
+		super(teacher.getId(),
+				teacher.isDeleted(),
+				teacher.getCreatedAt(),
+				teacher.getUpdatedAt());
+		this.name = teacher.getName();
+		this.birthDate = teacher.getBirthDate();
+		this.cardNumber = teacher.getCardNumber();
+
 	}
+
 
 	public boolean hasName() {
 		return name != null;
@@ -27,14 +41,16 @@ public class TeacherDto extends BaseDto {
 	}
 
 	public boolean hasCardNumber() {
-		return cardNumber != 0;
+		return cardNumber != null
+				&& !cardNumber.isBlank();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return !hasId()
+		return !hasValidId()
 				&& !hasName()
 				&& !hasBirthDate()
 				&& !hasCardNumber();
 	}
+
 }
