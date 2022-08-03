@@ -1,35 +1,38 @@
 package hu.wurfel.new_school_reference.subject_teacher;
 
 import hu.wurfel.new_school_reference.base.BaseDto;
-import hu.wurfel.new_school_reference.subject.SubjectDto;
-import hu.wurfel.new_school_reference.teacher.TeacherDto;
 import lombok.Data;
 
 @Data
 public class SubjectTeacherDto extends BaseDto {
 
-	private Long id;
-	private SubjectDto subject;
-	private TeacherDto teacher;
+	private Long subjectId;
+	private Long teacherId;
 
-	@Override
-	public boolean hasValidId() {
-		return id != null && id >= 1;
+	public SubjectTeacherDto(SubjectTeacher subjectTeacher){
+		super(subjectTeacher.getId(),
+				subjectTeacher.isDeleted(),
+				subjectTeacher.getCreatedAt(),
+				subjectTeacher.getUpdatedAt());
+		this.subjectId = subjectTeacher.getSubject().getId();
+		this.teacherId = subjectTeacher.getTeacher().getId();
 	}
 
-	public boolean hasSubject() {
-		return subject != null;
+	public boolean hasValidSubjectId() {
+		return subjectId != null
+				&& subjectId > 0;
 	}
 
-	public boolean hasTeacher() {
-		return teacher != null;
+	public boolean hasValidTeacherId() {
+		return teacherId != null
+				&& teacherId > 0;
 	}
 
 	@Override
 	public boolean isEmpty() {
 		return !hasValidId()
-				&& !hasSubject()
-				&& !hasTeacher();
+				&& !hasValidSubjectId()
+				&& !hasValidTeacherId();
 	}
 
 }

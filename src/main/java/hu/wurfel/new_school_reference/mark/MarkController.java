@@ -1,5 +1,6 @@
 package hu.wurfel.new_school_reference.mark;
 
+import hu.wurfel.new_school_reference.base.BaseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,18 +17,18 @@ public class MarkController {
 	}
 
 	@PostMapping
-	public ResponseEntity create(@RequestBody MarkDto markDto) {
-		return this.markService.save(markDto);
+	public ResponseEntity<? extends BaseDto> create(@RequestBody CreateMarkDtoWithConnetctId dto) {
+		return ResponseEntity.ok(this.markService.save(dto));
 	}
 
 	@PutMapping
-	public ResponseEntity update(@RequestBody MarkDto markDto) {
-		return this.markService.save(markDto);
+	public ResponseEntity<? extends BaseDto> update(@RequestBody UpdateMarkDtoWithConnectId dto) {
+		return ResponseEntity.ok(this.markService.update(dto));
 	}
 
-	@DeleteMapping
-	public ResponseEntity delete(@RequestBody MarkDto markDto) {
-		this.markService.deleteById(markDto.getId());
+	@DeleteMapping("/{id}")
+	public ResponseEntity delete(@RequestParam Long id) {
+		this.markService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
 
