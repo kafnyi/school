@@ -1,5 +1,6 @@
 package hu.wurfel.new_school_reference.diary;
 
+import hu.wurfel.new_school_reference.base.BaseDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,26 +13,25 @@ import java.util.List;
 public class DiaryController {
 
     private final DiaryService diaryService;
-    private final ModelMapper modelMapper;
 
     @Autowired
-    public DiaryController(DiaryService diaryService, ModelMapper modelMapper) {
+    public DiaryController(DiaryService diaryService) {
         this.diaryService = diaryService;
-        this.modelMapper = modelMapper;
     }
 
     @PostMapping
-    public ResponseEntity<List<DiaryDto>> create(@RequestBody DiaryDto diaryDto) {
-        return ResponseEntity.ok(this.diaryService.save(diaryDto));
+    public ResponseEntity<? extends BaseDto> create(@RequestBody CreateDiaryDtoWithConnectIds dto) {
+        return ResponseEntity.ok(this.diaryService.save(dto));
     }
 
     @PutMapping
-    public ResponseEntity<List<DiaryDto>> update(@RequestBody DiaryDto diaryDto) {
-        return ResponseEntity.ok(this.diaryService.save(diaryDto));
+    public ResponseEntity<? extends BaseDto> update(@RequestBody UpdateDiaryDtoWithConnectIds dto) {
+        return ResponseEntity.ok(this.diaryService.update(dto));
     }
 
-    @DeleteMapping
-    public void delete(@RequestBody DiaryDto diaryDto) {
-        this.diaryService.deleteById(diaryDto.getId());
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@RequestParam Long id) {
+        this.diaryService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
