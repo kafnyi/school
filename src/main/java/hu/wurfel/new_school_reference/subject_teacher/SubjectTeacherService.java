@@ -1,28 +1,59 @@
 package hu.wurfel.new_school_reference.subject_teacher;
 
+import hu.wurfel.new_school_reference.base.BaseDto;
 import hu.wurfel.new_school_reference.base.CrudService;
+import hu.wurfel.new_school_reference.subject.SubjectService;
+import hu.wurfel.new_school_reference.teacher.TeacherService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class SubjectTeacherService extends CrudService<SubjectTeacher, SubjectTeacherRepository, SubjectTeacherDto> {
+public class SubjectTeacherService extends CrudService<SubjectTeacher, SubjectTeacherRepository> {
+
+	private final SubjectService subjectService;
+	private final TeacherService teacherService;
 
 	@Autowired
-	public SubjectTeacherService(SubjectTeacherRepository repository, ModelMapper modelMapper) {
+	public SubjectTeacherService(SubjectTeacherRepository repository, ModelMapper modelMapper, SubjectService subjectService, TeacherService teacherService) {
 		super(repository, modelMapper);
+		this.subjectService = subjectService;
+		this.teacherService = teacherService;
+	}
+
+	public SubjectTeacherDto save(CreateSubjectTeacherDto dto){
+		this.validateDtoIsNotEmpty(dto, "Create failed due to: Student has no valid " +
+				"subjectId/" +
+				"teacherId!");
+		SubjectTeacher subjectTeacher = new SubjectTeacher(
+				subjectService.findById(dto.getSubjectId()),
+				teacherService.findById(dto.getTeacherId())
+		);
+		return new SubjectTeacherDto(this.save(subjectTeacher));
+	}
+
+	@Transactional
+	public SubjectTeacherDto update(UpdateSubjectTeacherDto dto){
+		this.validateDtoIsNotEmpty(dto, "Create failed due to: Student has no valid " +
+				"subjectId/" +
+				"teacherId!");
+		SubjectTeacher subjectTeacher = this.findById(dto.getId());
+		subjectTeacher.setSubject(this.subjectService.findById(dto.getSubjectId()));
+		subjectTeacher.setTeacher(this.teacherService.findById(dto.getTeacherId()));
+		return new SubjectTeacherDto(this.save(subjectTeacher));
 	}
 
 	@Override
-	public SubjectTeacherDto toDto(SubjectTeacher auditable) {
-		return this.mapper.map(auditable,SubjectTeacherDto.class);
+	public <DTO extends BaseDto> DTO toDto(SubjectTeacher auditable, Class<DTO> returnType) {
+		return null;
 	}
 
 	@Override
-	public SubjectTeacher toEntity(SubjectTeacherDto dto) {
-		return this.mapper.map(dto,SubjectTeacher.class);
+	public SubjectTeacher toEntity(BaseDto dto) {
+		return null;
 	}
 
 	//region Subject
@@ -52,4 +83,9 @@ public class SubjectTeacherService extends CrudService<SubjectTeacher, SubjectTe
 	public SubjectTeacher findBySubjectAndTeacherAndDeleted(Long subject, Long teacher, boolean deleted) {
 		return repo.findBySubject_IdAndTeacher_IdAndDeleted(subject, teacher, deleted);
 	}
+
+	public SubjectTeacherDto getById(Long id){
+		return new SubjectTeacherDto(this.findById(id));
+	}
+
 }
