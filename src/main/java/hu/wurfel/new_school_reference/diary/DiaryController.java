@@ -24,6 +24,11 @@ public class DiaryController {
         return ResponseEntity.ok(this.diaryService.save(dto));
     }
 
+    @PostMapping("/withClassCreation")
+    public ResponseEntity<? extends BaseDto> createWithClassCreation(@RequestBody CreateDiaryDtoWithConnectIds dto) {
+        return ResponseEntity.ok(this.diaryService.save(dto));
+    }
+
     @PutMapping
     public ResponseEntity<? extends BaseDto> update(@RequestBody UpdateDiaryDtoWithConnectIds dto) {
         return ResponseEntity.ok(this.diaryService.update(dto));
