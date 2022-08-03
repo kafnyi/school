@@ -1,7 +1,6 @@
 package hu.wurfel.new_school_reference.division;
 
 import hu.wurfel.new_school_reference.base.BaseDto;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
