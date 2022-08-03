@@ -16,6 +16,7 @@ public class TeacherDto extends BaseDto {
 
 	private Long id;
 	private String name;
+
 	private LocalDate birthDate;
 	private String cardNumber;
 
@@ -27,6 +28,7 @@ public class TeacherDto extends BaseDto {
 		this.name = teacher.getName();
 		this.birthDate = teacher.getBirthDate();
 		this.cardNumber = teacher.getCardNumber();
+
 	}
 
 
