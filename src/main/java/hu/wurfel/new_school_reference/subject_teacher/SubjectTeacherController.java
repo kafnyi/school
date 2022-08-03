@@ -1,5 +1,6 @@
 package hu.wurfel.new_school_reference.subject_teacher;
 
+import hu.wurfel.new_school_reference.base.BaseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,18 +17,19 @@ public class SubjectTeacherController {
 	}
 
 	@PostMapping
-	public ResponseEntity create(@RequestBody SubjectTeacherDto subjectTeacherDto) {
-		return this.subjectTeacherService.save(subjectTeacherDto);
+	public ResponseEntity<? extends BaseDto> create(@RequestBody CreateSubjectTeacherDto dto) {
+		return ResponseEntity.ok(this.subjectTeacherService.save(dto));
 	}
 
 	@PutMapping
-	public ResponseEntity update(@RequestBody SubjectTeacherDto subjectTeacherDto) {
-		return this.subjectTeacherService.save(subjectTeacherDto);
+	public ResponseEntity<? extends BaseDto> update(@RequestBody UpdateSubjectTeacherDto dto) {
+		return ResponseEntity.ok(this.subjectTeacherService.update(dto));
 	}
 
-	@DeleteMapping
-	public ResponseEntity delete(@RequestBody SubjectTeacherDto subjectTeacherDto) {
-		this.subjectTeacherService.deleteById(subjectTeacherDto.getId());
+	@DeleteMapping("/{id}")
+	public ResponseEntity delete(@RequestParam Long id) {
+		this.subjectTeacherService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
+
 }
