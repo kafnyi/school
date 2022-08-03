@@ -21,4 +21,9 @@ public class Class extends Auditable {
     private short grade;
 
     private char sign;
+
+    public boolean isNotDeleted(){
+        return  !this.isDeleted();
+    }
+
 }
