@@ -17,8 +17,13 @@ public class MarkController {
 	}
 
 	@PostMapping
-	public ResponseEntity<? extends BaseDto> create(@RequestBody CreateMarkDtoWithConnetctId dto) {
+	public ResponseEntity<? extends BaseDto> create(@RequestBody CreateMarkDtoWithConnectId dto) {
 		return ResponseEntity.ok(this.markService.save(dto));
+	}
+
+	public ResponseEntity<? extends BaseDto> createWithDiarySubjectTeacherStudentCreationWithIDs(
+			@RequestBody CreateMarkDtoWithDiarySubjectTeacherStudentDtoWithId dto){
+		return ResponseEntity.ok(this.markService.saveWithDiarySubjectTeacherStudentSave(dto));
 	}
 
 	@PutMapping

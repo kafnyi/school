@@ -3,7 +3,12 @@ package hu.wurfel.new_school_reference.mark;
 import hu.wurfel.new_school_reference.base.BaseDto;
 import hu.wurfel.new_school_reference.base.CrudService;
 import hu.wurfel.new_school_reference.base.MarkModifier;
+import hu.wurfel.new_school_reference.diary.DiaryService;
+import hu.wurfel.new_school_reference.diarySubjectTeacherStudent.DiarySubjectTeacherStudent;
 import hu.wurfel.new_school_reference.diarySubjectTeacherStudent.DiarySubjectTeacherStudentService;
+import hu.wurfel.new_school_reference.exception.BadRequestException;
+import hu.wurfel.new_school_reference.student.StudentService;
+import hu.wurfel.new_school_reference.subject_teacher.SubjectTeacherService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +20,18 @@ import java.util.List;
 @Service
 public class MarkService extends CrudService<Mark,MarkRepository> {
 
-	private final DiarySubjectTeacherStudentService DSTSService;
+	private final DiarySubjectTeacherStudentService diarySubjectTeacherStudentService;
+	private final DiaryService diaryService;
+	private final SubjectTeacherService subjectTeacherService;
+	private final StudentService studentService;
 
 	@Autowired
-	public MarkService(MarkRepository repository, ModelMapper modelMapper, DiarySubjectTeacherStudentService dstsService) {
+	public MarkService(MarkRepository repository, ModelMapper modelMapper, DiarySubjectTeacherStudentService dstsService, DiaryService diaryService, SubjectTeacherService subjectTeacherService, StudentService studentService) {
 		super(repository,modelMapper);
-		DSTSService = dstsService;
+		diarySubjectTeacherStudentService = dstsService;
+		this.diaryService = diaryService;
+		this.subjectTeacherService = subjectTeacherService;
+		this.studentService = studentService;
 	}
 
 	@Override
@@ -33,7 +44,7 @@ public class MarkService extends CrudService<Mark,MarkRepository> {
 		return null;
 	}
 
-	public MarkDto save(CreateMarkDtoWithConnetctId dto){
+	public MarkDto save(CreateMarkDtoWithConnectId dto){
 		this.validateDtoIsNotEmpty(dto,
 				"Create failed due to: Mark has no valid testDate" +
 						"/diarySubjectTeacherStudentId" +
@@ -41,10 +52,30 @@ public class MarkService extends CrudService<Mark,MarkRepository> {
 						"/markModifier !");
 		Mark mark = new Mark(
 				dto.getTestDate(),
-				DSTSService.findById(dto.getDiarySubjectTeacherStudentId()),
+				diarySubjectTeacherStudentService.findById(dto.getDiarySubjectTeacherStudentId()),
 				dto.getValue(),
 				dto.getMarkModifier()
 		);
+		return new MarkDto(this.save(mark));
+	}
+
+	public MarkDto saveWithDiarySubjectTeacherStudentSave(CreateMarkDtoWithDiarySubjectTeacherStudentDtoWithId dto){
+		this.validateDtoIsNotEmpty(dto,
+				"Create failed due to: Mark has no valid testDate" +
+						"/diarySubjectTeacherStudentId" +
+						"/value" +
+						"/markModifier !");
+		if (!dto.hasValidDiarySubjectTeacherStudent()){
+			throw new BadRequestException("Create failed due to: Mark has no valid DiarySubjectTeacherStudent to create");
+		}
+		Mark mark = new Mark(
+				dto.getTestDate(),
+				diarySubjectTeacherStudentService.save(new DiarySubjectTeacherStudent(
+						diaryService.findById(dto.getDiarySubjectTeacherStudentDto().getDiaryId()),
+						subjectTeacherService.findById(dto.getDiarySubjectTeacherStudentDto().getSubjectTeacherId()),
+						studentService.findById(dto.getDiarySubjectTeacherStudentDto().getStudentId()))),
+				dto.getValue(),
+				dto.getMarkModifier());
 		return new MarkDto(this.save(mark));
 	}
 
@@ -57,7 +88,7 @@ public class MarkService extends CrudService<Mark,MarkRepository> {
 						"/markModifier !");
 		Mark mark = this.findById(dto.getId());
 		mark.setTestDate(dto.getTestDate());
-		mark.setDiarySubjectTeacherStudent(DSTSService
+		mark.setDiarySubjectTeacherStudent(diarySubjectTeacherStudentService
 				.findById(dto.getDiarySubjectTeacherStudentId()));
 		mark.setValue(dto.getValue());
 		mark.setMarkModifier(dto.getMarkModifier());
