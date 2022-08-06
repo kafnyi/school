@@ -7,7 +7,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class CreateMarkDtoWithConnetctId implements Dto {
+public class CreateMarkDtoWithConnectId implements Dto {
 
 	private LocalDate testDate;
 	private Long diarySubjectTeacherStudentId;
@@ -20,7 +20,7 @@ public class CreateMarkDtoWithConnetctId implements Dto {
 
 	public boolean hasValidDiarySubjectTeacherStudentId(){
 		return diarySubjectTeacherStudentId != null
-				&& diarySubjectTeacherStudentId >= 1;
+				&& diarySubjectTeacherStudentId > 0;
 	}
 
 	public boolean hasValidValue(){
