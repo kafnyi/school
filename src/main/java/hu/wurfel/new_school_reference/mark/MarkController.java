@@ -21,6 +21,7 @@ public class MarkController {
 		return ResponseEntity.ok(this.markService.save(dto));
 	}
 
+	@PostMapping("/withDiarySubjectTeacherStudentCreation")
 	public ResponseEntity<? extends BaseDto> createWithDiarySubjectTeacherStudentCreationWithIDs(
 			@RequestBody CreateMarkDtoWithDiarySubjectTeacherStudentDtoWithId dto){
 		return ResponseEntity.ok(this.markService.saveWithDiarySubjectTeacherStudentSave(dto));
