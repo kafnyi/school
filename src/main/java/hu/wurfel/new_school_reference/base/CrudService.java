@@ -1,39 +1,53 @@
 package hu.wurfel.new_school_reference.base;
 
+import hu.wurfel.new_school_reference.diary.DiaryDto;
+import hu.wurfel.new_school_reference.exception.BadRequestException;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CrudService <EntityType, RepositoryType extends JpaRepository<EntityType, Long>>{
+public abstract class CrudService<
+        AUDITABLE extends Auditable,
+        REPO extends JpaRepository<AUDITABLE, Long>
+        > {
 
-    public RepositoryType repository;
+    protected ModelMapper mapper;
+    protected REPO repo;
 
-    public CrudService(RepositoryType repository) {
-        this.repository = repository;
+    public CrudService(REPO repo, ModelMapper mapper) {
+        this.repo = repo;
+        this.mapper = mapper;
     }
 
-    public List<EntityType> findAll(){
-        return repository.findAll();
+    public List<AUDITABLE> findAll() {
+        return repo.findAll();
     }
 
-    private EntityType findById(Long id){
-        return repository.findById(id).get();
+    public AUDITABLE findById(Long id) {
+        return repo.findById(id).orElseThrow();
     }
 
-    public EntityType save(EntityType entity){
-        return repository.save(entity);
+    public AUDITABLE save(AUDITABLE entity) {
+        return this.repo.save(entity);
     }
 
-    public EntityType delete(EntityType entity){
-        repository.delete(entity);
-        return entity;
+    public void delete(AUDITABLE entity) {
+        this.deleteById(entity.getId());
     }
 
-    public EntityType deleteById(Long id){
-        EntityType entity = repository.findById(id).get();
-        repository.deleteById(id);
-        return entity;
+    public void deleteById(Long id) {
+        repo.deleteById(id);
     }
 
+    public abstract <DTO extends BaseDto> DTO toDto(AUDITABLE auditable, Class<DTO> returnType);
 
+    public abstract AUDITABLE toEntity(BaseDto dto);
+
+    public void validateDtoIsNotEmpty(Dto dto, String message) {
+        if (dto.isEmpty()) {
+            throw new BadRequestException(message);
+        }
+    }
 }

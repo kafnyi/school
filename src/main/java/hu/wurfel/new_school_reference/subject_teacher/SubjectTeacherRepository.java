@@ -1,26 +1,19 @@
 package hu.wurfel.new_school_reference.subject_teacher;
 
-import hu.wurfel.new_school_reference.base.CrudService;
-import hu.wurfel.new_school_reference.subject.Subject;
-import hu.wurfel.new_school_reference.teacher.Teacher;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public class SubjectTeacherRepository extends CrudService<Subject_Teacher,Subject_TeacherRepository> {
+@Repository
+public interface SubjectTeacherRepository extends JpaRepository<SubjectTeacher, Long> {
+    List<SubjectTeacher> findAllBySubject_IdAndDeleted(Long id, boolean deleted);
 
-	public SubjectTeacherRepository(Subject_TeacherRepository repository) {
-		super(repository);
-	}
+    List<SubjectTeacher> findAllBySubject_NameAndDeleted(String name, boolean deleted);
 
-	public List<Subject_Teacher> findAllBySubject(Subject subject){
-		return repository.findAllBySubject(subject);
-	}
+    List<SubjectTeacher> findAllByTeacher_IdAndDeleted(Long id, boolean deleted);
 
-	public List<Subject_Teacher> findAllByTeacher(Teacher teacher){
-		return repository.findAllByTeacher(teacher);
-	}
+    List<SubjectTeacher> findAllByTeacher_CardNumberAndDeleted(Long id, boolean deleted);
 
-	public Subject_Teacher findBySubjectAndTeacher(Subject subject, Teacher teacher){
-		return repository.findBySubjectAndTeacher(subject,teacher);
-	}
+    SubjectTeacher findBySubject_IdAndTeacher_IdAndDeleted(Long subjectId, Long teacherId, boolean deleted);
 }

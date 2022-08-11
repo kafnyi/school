@@ -7,11 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -19,11 +18,12 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE diary SET deleted = true WHERE id = ?")
 public class Diary extends Auditable {
 
-    private Date start;
+    private LocalDate start;
 
-    private Date end;
+    private LocalDate end;
 
     @ManyToOne
     @JoinColumn(name = "division_id")
